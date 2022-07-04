@@ -1,0 +1,245 @@
+﻿<UserControl x:Class="ideaForge.Pages.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ideaForge" 
+             
+             xmlns:behavior="clr-namespace:ideaForge.Behaviors"
+             xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+      xmlns:vm="clr-namespace:ideaForge.ViewModels"
+             mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.DataContext>
+        <vm:ProfilePageViewModels/>
+    </UserControl.DataContext>
+    <Grid Background="#EEEEEF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1"  Background="#FFFFFF" Orientation="Horizontal" Margin="10">
+                <Label Content="Profile"   VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="Black" />
+                <Image Source="/Images/LocationIcon.png" Width="10.1" Height="23.24" HorizontalAlignment="Right" />
+                <Label Content="{Binding LocationName}"  HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" FontSize="18" Foreground="Black" />
+            </StackPanel>
+            <!--<StackPanel Grid.Row="3" Background="#FFFFFF" Margin="10" Orientation="Horizontal">-->
+            <Grid Grid.Row="3" Background="#FFFFFF" Margin="10" >
+                
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                
+                    <Ellipse Height="100" Width="100" Grid.Row="0" Grid.Column="0" RenderTransformOrigin="-0.116,0.533" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Grid.RowSpan="2">
+                        <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding ProfileModel.image}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+
+                <Button  Height="18" Width="20" Margin="0,90,10,0" BorderBrush="Transparent" Command="{Binding Photo_Upload}" IsEnabled="{Binding ShowSaveBTn}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Images/CameraUpload.png"/>
+                    </Button.Background>
+                </Button>
+                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding ShowSaveBTn}">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="USER NAME"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.name}" Height="35" Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel  Orientation="Vertical" Margin="0,30,10,0"  Grid.Row="0" Grid.Column="2" IsEnabled="{Binding ShowSaveBTn}">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="EMAIL"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.email}" Height="35" MinWidth="120" Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel  Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" IsEnabled="{Binding ShowSaveBTn}">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="CONTACT NUMBER"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.contactNo}" Height="35" Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel  Orientation="Vertical" Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding ShowSaveBTn}">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="ORGANIZATION NAME"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.organizationName}" Height="35" Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="DEPARTMENT NAME"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.departmentName}"  Height="35"  Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="CITY"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.city}" Height="35" Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,15,10,0" IsEnabled="False">
+                        <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                            <Label.Template>
+                                <ControlTemplate>
+                                    <TextBlock>
+                            <Run Text="ACCOUNT CREATED DATE"/>
+                            <Run Text="*" Foreground="red"/>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Label.Template>
+                        </Label>
+                    <TextBox  Text="{Binding ProfileModel.addedondat}" Height="35"  Foreground="Black">
+                        </TextBox>
+                        <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10" Grid.ColumnSpan="2"  Visibility="{Binding ShowSaveBTnbtn}">
+                    <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Comand}" Foreground="White" Background="#A9ABB1" >
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Black" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10" Grid.ColumnSpan="2"  Visibility="{Binding ShowEditBTn}">
+                    <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="EDIT" Command="{Binding Editable_Comand}" Foreground="White" Background="#A9ABB1" >
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <!--<StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">-->
+                <!--</StackPanel>-->
+            <!--</StackPanel>-->
+        </Grid>
+    </Grid>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Setters>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="#A9ABB1"/>
+                <Setter Property="Margin" Value="15,0,15,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type dotNetKitControls:AutoCompleteComboBox}">
+            <Style.Setters>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+
+        </Style>
+    </UserControl.Resources>
+</UserControl>

@@ -1,0 +1,31 @@
+﻿<mah:MetroWindow x:Class="ideaForge.Login"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ideaForge"
+        xmlns:vm="clr-namespace:ideaForge.ViewModels"
+        mc:Ignorable="d"
+      x:Name="loginWindow"
+        Title="Login" Height="600" Width="1000">
+    <Window.DataContext>
+        <vm:LoginPageViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Margin="-15,0,0,0" Grid.Column="0" Source="{Binding ImageUrl}"/>
+
+        <ContentControl Grid.Column="1" 
+                        HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center"
+                        DataContext="{Binding}"
+                        Focusable="True"
+              Content="{Binding AuthenticationPage}" Margin="5,10,5,34"/>
+
+        <Grid/>
+    </Grid>
+</mah:MetroWindow>

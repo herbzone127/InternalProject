@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32519.111
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ideaForge", "ideaForge\ideaForge.csproj", "{12AD19DE-C0C8-41DD-AC23-D9DCF6515C06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaForge.Core", "IdeaForge.Core\IdeaForge.Core.csproj", "{416C7F1D-5B45-4BE3-84D8-A1D17DC5CAF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaForge.Data", "IdeaForge.Data\IdeaForge.Data.csproj", "{247DEA67-CAF3-4CF5-B725-0474F50B39AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaForge.Domain", "IdeaForge.Domain\IdeaForge.Domain.csproj", "{A29C7A05-83F5-4B66-AD24-C882A6768477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaForge.Service", "IdeaForge.Service\IdeaForge.Service.csproj", "{4FDCB8CB-0B06-48BF-AB90-F4ECE73446A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapUiTools.WPF", "MapUiTools\MapUiTools.WPF.csproj", "{D71D6398-A9AA-4786-B62A-C62958C74692}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12AD19DE-C0C8-41DD-AC23-D9DCF6515C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12AD19DE-C0C8-41DD-AC23-D9DCF6515C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12AD19DE-C0C8-41DD-AC23-D9DCF6515C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12AD19DE-C0C8-41DD-AC23-D9DCF6515C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{416C7F1D-5B45-4BE3-84D8-A1D17DC5CAF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{416C7F1D-5B45-4BE3-84D8-A1D17DC5CAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{416C7F1D-5B45-4BE3-84D8-A1D17DC5CAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{416C7F1D-5B45-4BE3-84D8-A1D17DC5CAF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{247DEA67-CAF3-4CF5-B725-0474F50B39AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{247DEA67-CAF3-4CF5-B725-0474F50B39AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{247DEA67-CAF3-4CF5-B725-0474F50B39AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{247DEA67-CAF3-4CF5-B725-0474F50B39AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29C7A05-83F5-4B66-AD24-C882A6768477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29C7A05-83F5-4B66-AD24-C882A6768477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29C7A05-83F5-4B66-AD24-C882A6768477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29C7A05-83F5-4B66-AD24-C882A6768477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FDCB8CB-0B06-48BF-AB90-F4ECE73446A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDCB8CB-0B06-48BF-AB90-F4ECE73446A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDCB8CB-0B06-48BF-AB90-F4ECE73446A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDCB8CB-0B06-48BF-AB90-F4ECE73446A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D71D6398-A9AA-4786-B62A-C62958C74692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71D6398-A9AA-4786-B62A-C62958C74692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71D6398-A9AA-4786-B62A-C62958C74692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71D6398-A9AA-4786-B62A-C62958C74692}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F24C948-3FC0-4172-AFF4-2AB2FC6860F2}
+	EndGlobalSection
+EndGlobal
