@@ -73,10 +73,10 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox  Text="{Binding RegisterModel.name}"  >
+                <TextBox  Text="{Binding RegisterModel.name}" x:Name="txtName" TextChanged="TxtName_TextChanged" >
 
                 </TextBox>
-                <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                <Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
@@ -154,11 +154,11 @@
                     </Label.Template>
                 </Label>
                 
-                <TextBox  Text="{Binding RegisterModel.organizationName}"   />
-                <Label Margin="15,0,0,0" Padding="0"   Content="Please Enter a Valid Organization Name" Foreground="Red" Visibility="Hidden"/>
+                <TextBox  Text="{Binding RegisterModel.organizationName}" x:Name="TxtOrganization" TextChanged="TxtOrganization_TextChanged" />
+                <Label Margin="15,0,0,0" Padding="0" x:Name="lblOrganization"  Content="Please Enter a Valid Organization Name" Foreground="Red" Visibility="Hidden"/>
             </StackPanel>
             <StackPanel Grid.Row="6" Orientation="Vertical">
-                <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
+                <Label HorizontalAlignment="Left" Margin="15,0,0,0"  FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
                     <Label.Template>
                         <ControlTemplate>
                             <TextBlock>
@@ -188,10 +188,12 @@
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
     ItemsSource="{Binding CityList}"
-     SelectedValue="{Binding RegisterModel.city}"                   
+     SelectedValue="{Binding RegisterModel.city}"     
+                     SelectionChanged="AutoCompleteComboBox_SelectionChanged"
+                        x:Name="ItemComboBox"
    />
                 </Border>
-                <Label Margin="15,0,0,0" Padding="0"   Content="Please Select a Valid City" Foreground="Red"  Visibility="Hidden"/>
+                <Label Margin="15,0,0,0" Padding="0" x:Name="lblCity"  Content="Please Select a Valid City" Foreground="Red"  Visibility="Hidden"/>
 
             </StackPanel>
             <Button 
