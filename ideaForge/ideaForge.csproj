@@ -267,6 +267,9 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="OutlinedText.cs" />
+    <Compile Include="Pages\DashboardPages\OnGoingRidePage.xaml.cs">
+      <DependentUpon>OnGoingRidePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DashboardPages\PendingRidePage.xaml.cs">
       <DependentUpon>PendingRidePage.xaml</DependentUpon>
     </Compile>
@@ -291,6 +294,7 @@
     <Compile Include="Popups\DockAreaPropup.xaml.cs">
       <DependentUpon>DockAreaPropup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\OnGoingRideViewModel.cs" />
     <Compile Include="ViewModels\PendingRideViewModel.cs" />
     <Compile Include="ViewModels\CompleteRideViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
@@ -307,6 +311,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HamburgerViews\HamburgerMenuSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DashboardPages\OnGoingRidePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
