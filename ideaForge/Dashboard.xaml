@@ -12,7 +12,7 @@
         mc:Ignorable="d"
                       xmlns:converters="clr-namespace:ideaForge.Converters"
       x:Name="loginWindow"
-        Title="Login" Height="450" Width="800">
+        Title="Login" Height="620" Width="1000">
     <Controls:MetroWindow.DataContext>
         <vm:DashboardViewModel/>
     </Controls:MetroWindow.DataContext>

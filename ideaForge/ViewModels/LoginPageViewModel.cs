@@ -285,7 +285,7 @@ namespace ideaForge.ViewModels
                     var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
                     if (result.status)
                     {
-                        Global.loginUserId = result.userData.id;
+                        Application.Current.Properties["ID"] = result.userData.id;
                         Global.Token = result.userData.token;
                         new DockAreaPopup().Show();
 

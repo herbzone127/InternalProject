@@ -101,11 +101,13 @@ namespace ideaForge.ViewModels
         #region OtherMethods
         public async void GetProfileData()
         {
+            
             ProfilemodelID profil = new ProfilemodelID();
-            profil.id = Global.loginUserId;
+            profil.id = Convert.ToInt32(Application.Current.Properties["ID"]);
             string token = Global.Token;
             try
             {
+                
                 var data = await _profileService.GetProfile(new IdeaForge.Domain.ProfilemodelID { id = profil.id,token = token });
                 data.userData.addedondat = data.userData.addedon.ToString("dd/MM/yyyy");
                 string imgpath = UrlHelper.baseURL + data.userData.image;
@@ -114,7 +116,7 @@ namespace ideaForge.ViewModels
             }
             catch (Exception ex)
             {
-
+                
                 MessageBox.Show(ex.Message);
             }
 

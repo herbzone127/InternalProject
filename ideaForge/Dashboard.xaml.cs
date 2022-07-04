@@ -27,8 +27,18 @@ namespace ideaForge
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
         {
-            
-            this.HamburgerMenuControl.Content = new Pages.ProfilePage();
+            string menuItem = ((MahApps.Metro.Controls.HamburgerMenuItem)args.InvokedItem).Label;
+
+            if(menuItem == "Profile")
+            {
+                this.HamburgerMenuControl.Content = new Pages.ProfilePage();
+            }
+            else
+            {
+                this.HamburgerMenuControl.Content = new Pages.DashboardPages.CompletedRidePage();
+            }
+
+           
         }
     }
 }
