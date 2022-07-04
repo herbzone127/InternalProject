@@ -24,7 +24,7 @@ namespace ideaForge.Behaviors
                 {
                     if (string.IsNullOrEmpty(item.Text))
                     {
-                        item.BorderBrush = Brushes.Red;
+                        //item.BorderBrush = Brushes.Red;
                         foreach (var label in panel.Children.OfType<Label>())
                         {
                          
