@@ -26,6 +26,38 @@ namespace ideaForge
             InitializeComponent();
         }
 
+        private void TxtName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                lblName.Visibility = Visibility.Visible;
+                txtName.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                lblName.Visibility = Visibility.Hidden;
+                txtName.BorderBrush = Brushes.LightGray;
+            }
+        }
+
+        private void TxtOrganization_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtOrganization.Text))
+            {
+                lblOrganization.Visibility = Visibility.Visible;
+                TxtOrganization.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                lblOrganization.Visibility = Visibility.Hidden;
+                TxtOrganization.BorderBrush = Brushes.LightGray;
+            }
+        }
+
+        private void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
 
     }
 }
