@@ -23,14 +23,12 @@ namespace ideaForge.Behaviors
                 var stackpanel = (StackPanel)textBox.Parent;
                 var label = (Label)stackpanel.Children[stackpanel.Children.Count - 1];
                 label.Visibility = System.Windows.Visibility.Hidden;
-                textBox.BorderBrush = Brushes.LightGray;
             }
             else
             {
                 var stackpanel = (StackPanel)textBox.Parent;
                 var label = (Label)stackpanel.Children[stackpanel.Children.Count - 1];
                 label.Visibility = System.Windows.Visibility.Visible;
-                textBox.BorderBrush = Brushes.Red;
             }
         }
         protected override void OnAttached()

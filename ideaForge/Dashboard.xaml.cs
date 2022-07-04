@@ -35,7 +35,7 @@ namespace ideaForge
             }
             else
             {
-                this.HamburgerMenuControl.Content = new Pages.DashboardPages.CompletedRidePage();
+                //this.HamburgerMenuControl.Content = new Pages.DashboardPages.CompletedRidePage();
             }
 
            
