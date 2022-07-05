@@ -17,81 +17,81 @@
         <vm:DashboardViewModel/>
     </Controls:MetroWindow.DataContext>
     <Controls:MetroWindow.Resources>
-   
-            <ResourceDictionary>
 
-                <!--  This is the template for all menu items. In this sample we use the glyph items.  -->
-                <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
-                    <DockPanel Height="48" LastChildFill="True">
-                        <Grid x:Name="IconPart"
+        <ResourceDictionary>
+
+            <!--  This is the template for all menu items. In this sample we use the glyph items.  -->
+            <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
+                <DockPanel Height="48" LastChildFill="True">
+                    <Grid x:Name="IconPart"
                           Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=CompactPaneLength}"
                           DockPanel.Dock="Left">
-                            <Image Margin="12"
+                        <Image Margin="12"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Source="{Binding Glyph}" />
-                        </Grid>
-                        <TextBlock x:Name="TextPart"
+                    </Grid>
+                    <TextBlock x:Name="TextPart"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Text="{Binding Label}" />
-                    </DockPanel>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
-                            <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
-                            <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
+                </DockPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                        <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
 
-                <!--  This is the template for the option menu item  -->
-                <DataTemplate x:Key="HamburgerOptionsMenuItem" DataType="{x:Type mah:HamburgerMenuIconItem}">
-                    <DockPanel Height="48" LastChildFill="True">
-                        <ContentControl x:Name="IconPart"
+            <!--  This is the template for the option menu item  -->
+            <DataTemplate x:Key="HamburgerOptionsMenuItem" DataType="{x:Type mah:HamburgerMenuIconItem}">
+                <DockPanel Height="48" LastChildFill="True">
+                    <ContentControl x:Name="IconPart"
                                     Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=CompactPaneLength}"
                                     Content="{Binding Icon}"
                                     DockPanel.Dock="Left"
                                     Focusable="False"
                                     IsTabStop="False" />
-                        <TextBlock x:Name="TextPart"
+                    <TextBlock x:Name="TextPart"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Text="{Binding Label}" />
-                    </DockPanel>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
-                            <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
-                            <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
+                </DockPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                        <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
 
-                <ObjectDataProvider x:Key="PanePlacementEnumValues"
+            <ObjectDataProvider x:Key="PanePlacementEnumValues"
                                 MethodName="GetValues"
                                 ObjectType="{x:Type mah:SplitViewPanePlacement}">
-                    <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="mah:SplitViewPanePlacement" />
-                    </ObjectDataProvider.MethodParameters>
-                </ObjectDataProvider>
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="mah:SplitViewPanePlacement" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
 
-                <ObjectDataProvider x:Key="DisplayModeEnumValues"
+            <ObjectDataProvider x:Key="DisplayModeEnumValues"
                                 MethodName="GetValues"
                                 ObjectType="{x:Type mah:SplitViewDisplayMode}">
-                    <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="mah:SplitViewDisplayMode" />
-                    </ObjectDataProvider.MethodParameters>
-                </ObjectDataProvider>
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="mah:SplitViewDisplayMode" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
 
-                <ObjectDataProvider x:Key="VisibilityEnumValues"
+            <ObjectDataProvider x:Key="VisibilityEnumValues"
                                 MethodName="GetValues"
                                 ObjectType="{x:Type Visibility}">
-                    <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="Visibility" />
-                    </ObjectDataProvider.MethodParameters>
-                </ObjectDataProvider>
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Visibility" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
 
-            </ResourceDictionary>
-       
+        </ResourceDictionary>
+
     </Controls:MetroWindow.Resources>
     <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
                           DisplayMode="CompactInline"
@@ -103,7 +103,7 @@
                           ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                           ItemTemplate="{StaticResource HamburgerMenuItem}"
                           OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}">
-       
+
         <!--  Header  -->
         <Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
             <DataTemplate>
@@ -118,7 +118,7 @@
 
         <!--  Items  -->
         <Controls:HamburgerMenu.ItemsSource>
-            
+
             <Controls:HamburgerMenuItemCollection>
                 <Controls:HamburgerMenuGlyphItem Glyph="/Images/anchor.png" Label="IF Dock" Command="{Binding IFDockMenuCommand}" />
                 <Controls:HamburgerMenuGlyphItem Glyph="/Images/request.png" Label="Requests" Command="{Binding RequestMenuCommand}"/>
@@ -126,7 +126,8 @@
                 <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounProfile.png" Label="Profile" Command="{Binding ProfileMenuCommand}"/>
             </Controls:HamburgerMenuItemCollection>
         </Controls:HamburgerMenu.ItemsSource>
-        <!--  Options  --><!--
+        <!--  Options  -->
+        <!--
         <Controls:HamburgerMenu.OptionsItemsSource>
             <Controls:HamburgerMenuItemCollection>
 
@@ -190,13 +191,17 @@
                         </Controls:TransitioningContentControl.Resources>
 
                     </Controls:TransitioningContentControl>
-                    
+
                 </Grid>
-               
+
             </DataTemplate>
         </Controls:HamburgerMenu.ContentTemplate>
         <Controls:HamburgerMenu.Content>
             <Grid Background="#EEEEEF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="23*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="*"/>
@@ -206,7 +211,7 @@
                       
                    
                     Margin="15,15,15,15"
-                  Background="#FFFFFF">
+                  Background="#FFFFFF" Grid.ColumnSpan="2">
                     <TextBlock x:Name="Header"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -225,7 +230,7 @@
                         VerticalContentAlignment="Center"
                         DataContext="{Binding}"
                         Focusable="True"
-              Content="{Binding CurrentPage,Mode=TwoWay}" />
+              Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2" />
                 
             </Grid>
         </Controls:HamburgerMenu.Content>
