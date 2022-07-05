@@ -12,7 +12,7 @@
         <mah:MetroTabControl>
             <TabItem Header="Today's Requests" Background="#A9ABB1" Foreground="White">
                 <Grid Background="#FFF">
-                    <DataGrid ItemsSource="{Binding Path=Albums}"
+                    <DataGrid ItemsSource="{Binding Path=Albums}" 
           AutoGenerateColumns="False">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">

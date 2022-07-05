@@ -86,6 +86,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-             
+
+        <Image Source="/Images/PopupLocationIcon.png" HorizontalAlignment="left" VerticalAlignment="Top"
+               Width="50"/>
+
     </Grid>
 </Window>

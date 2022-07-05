@@ -491,5 +491,34 @@
   <ItemGroup>
     <Resource Include="Images\10_535_330.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CompleteRideIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CopyTextIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FeedBackYellowStar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PopupLocationIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\StarFealedBackplain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\01072022_1124.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\01072022_1125.png" />
+    <Resource Include="Images\30062022_0742.png" />
+    <Resource Include="Images\30062022_0743.png" />
+    <Resource Include="Images\30062022_0747.png" />
+    <Resource Include="Images\30062022_0756.png" />
+    <Resource Include="Images\30062022_0758.png" />
+    <Resource Include="Images\30062022_0800.png" />
+    <Resource Include="Images\30062022_0801.png" />
+    <Resource Include="Images\30062022_0806.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
