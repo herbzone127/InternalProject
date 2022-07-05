@@ -18,7 +18,7 @@ namespace ideaForge.ViewModels
         }
         private void CanExecuteRequestPage(object obj)
         {
-            CurrentPage.Content = new RequestsPage();
+            CurrentPage.Content = new Requests();
         }
         private void CanExecuteIFProfilePage(object obj)
         {

@@ -465,9 +465,6 @@
     <Resource Include="Images\anchor.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\request.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\nounReport.png" />
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +516,9 @@
     <Resource Include="Images\30062022_0800.png" />
     <Resource Include="Images\30062022_0801.png" />
     <Resource Include="Images\30062022_0806.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\request.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
