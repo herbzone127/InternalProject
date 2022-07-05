@@ -789,7 +789,7 @@
                 </Grid>
                 <Grid Height="140" Width="629" >
 
-                    <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,0,10" HorizontalAlignment="Left" Width="339">
+                    <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,0,10" HorizontalAlignment="Left" Width="358">
                         <Grid Margin="0,0,-34,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" MinHeight="99"/>

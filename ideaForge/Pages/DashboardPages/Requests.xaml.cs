@@ -24,5 +24,10 @@ namespace ideaForge.Pages.DashboardPages
         {
             InitializeComponent();
         }
+
+        private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+
+        }
     }
 }

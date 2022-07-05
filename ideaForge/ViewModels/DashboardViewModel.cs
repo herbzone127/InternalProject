@@ -1,4 +1,5 @@
-﻿using ideaForge.Pages.DashboardPages;
+﻿using ideaForge.Pages;
+using ideaForge.Pages.DashboardPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,21 @@ using System.Windows.Input;
 
 namespace ideaForge.ViewModels
 {
-    internal class DashboardViewModel:ViewModelBase
+    public class DashboardViewModel : ViewModelBase
     {
+        private void CanExecuteIFDockMenu(object obj)
+        {
+            CurrentPage.Content = new IFDockPage();
+        }
+        private void CanExecuteRequestPage(object obj)
+        {
+            CurrentPage.Content = new RequestsPage();
+        }
+        private void CanExecuteIFProfilePage(object obj)
+        {
+            CurrentPage.Content = new ProfilePage();
+        }
+
         private string _title;
 
         public string Title
@@ -32,8 +46,29 @@ namespace ideaForge.ViewModels
 
         public DashboardViewModel()
         {
-            CurrentPage = new IFDockPage();
+            CurrentPage = new UserControl();
+            CurrentPage.Content = new IFDockPage();
+            _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
+
+            //CurrentPage = new RequestsPage();
+            _RequestMenuCommand = new DelegateCommand(CanExecuteRequestPage);
+
+            //CurrentPage = new ProfilePage();
+            _ProfileMenuCommand = new DelegateCommand(CanExecuteIFProfilePage);
+            //_ProfileMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
+            
         }
 
+        private readonly DelegateCommand _IFDockMenuCommand;
+        public ICommand IFDockMenuCommand => _IFDockMenuCommand;
+
+        private readonly DelegateCommand _RequestMenuCommand;
+        public ICommand RequestMenuCommand => _RequestMenuCommand;
+
+        private readonly DelegateCommand _ReportMenuCommand;
+        public ICommand ReportMenuCommand => _ReportMenuCommand;
+
+        private readonly DelegateCommand _ProfileMenuCommand;
+        public ICommand ProfileMenuCommand => _ProfileMenuCommand;
     }
 }
