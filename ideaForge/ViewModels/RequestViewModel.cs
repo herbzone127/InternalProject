@@ -86,10 +86,22 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(RideById));
             }
         }
+
+        private ObservableCollection<StatusChanges> _statusChanges;
+
+        public ObservableCollection<StatusChanges> StatusChanges
+        {
+            get { return _statusChanges; }
+            set
+            {
+                _statusChanges = value;
+                OnPropertyChanged(nameof(StatusChanges));
+            }
+        }
         #endregion
 
         #region Properties
-       
+
 
         private RequestData _todayRequest;
 
@@ -249,6 +261,8 @@ namespace ideaForge.ViewModels
             var result= await _pilotRequestServices.GetRideById(status);
             return result.userData;
         }
+
+
 
         #endregion
         private Brush ConvertColor(string color)
