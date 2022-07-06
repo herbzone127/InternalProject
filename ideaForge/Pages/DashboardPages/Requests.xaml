@@ -20,7 +20,7 @@
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid ItemsSource="{Binding Path=TodaysRequest}" AutoGenerateColumns="False" CanUserSortColumns="True" Grid.ColumnSpan="2">
+                    <DataGrid SelectedItem="{Binding Path=TodayRequest}" ItemsSource="{Binding Path=TodaysRequests}" AutoGenerateColumns="False" CanUserSortColumns="True" Grid.ColumnSpan="2">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">

@@ -35,16 +35,23 @@ namespace ideaForge.ViewModels
 
         }
         #region ObservableCollections
-        private ObservableCollection<RequestData> _todaysRequest;
+        private ObservableCollection<RequestData> _todaysRequests;
 
-        public ObservableCollection<RequestData> TodaysRequest
+        public ObservableCollection<RequestData> TodaysRequests
         {
-            get { return _todaysRequest; }
+            get { return _todaysRequests; }
             set
             {
-                _todaysRequest = value;
-                OnPropertyChanged(nameof(TodaysRequest));
+                _todaysRequests = value;
+                OnPropertyChanged(nameof(TodaysRequests));
+                OnTodayRequestSelect(TodayRequest);
             }
+        }
+
+        private void OnTodayRequestSelect(RequestData todayRequest)
+        {
+            Application.Current.Properties["todayRequest"] = todayRequest;
+
         }
 
         private ObservableCollection<RequestData> _allRequest;
@@ -60,6 +67,18 @@ namespace ideaForge.ViewModels
         }
         #endregion
 
+        #region Properties
+        private RequestData _todayRequest;
+
+        public RequestData TodayRequest
+        {
+            get { return _todayRequest; }
+            set { _todayRequest = value;
+                OnPropertyChanged(nameof(TodayRequest));
+            }
+        }
+
+        #endregion
 
         #region Methods
         public async void GetTodaysRequest(string status)
@@ -107,7 +126,7 @@ namespace ideaForge.ViewModels
                         u.color = u.color = ConvertColor("#000000");
                     }
                 });
-                TodaysRequest = new ObservableCollection<RequestData>(requests.userData);
+                TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
             }
             catch (Exception ex)
             {

@@ -17,6 +17,16 @@ namespace ideaForge.ViewModels
         ///  All Properties are here
         /// </summary>
         #region Properties
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
         private string _pageName;
 
         public string PageName
@@ -86,18 +96,24 @@ namespace ideaForge.ViewModels
         #region CommandMethods
         private void CanExecuteIFDockMenu(object obj)
         {
+            IsBusy = true; 
             PageName = "IF Dock";
             CurrentPage.Content = new IFDockPage();
+            IsBusy = false; 
         }
         private void CanExecuteRequestPage(object obj)
         {
+            IsBusy = true;
             PageName = "Request";
             CurrentPage.Content = new Requests();
+            IsBusy = false;
         }
         private void CanExecuteIFProfilePage(object obj)
         {
+            IsBusy = true;
             PageName = "Profile";
             CurrentPage.Content = new ProfilePage();
+            IsBusy = false;
         }
         #endregion
     }
