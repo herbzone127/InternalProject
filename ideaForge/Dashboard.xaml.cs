@@ -31,7 +31,7 @@ namespace ideaForge
 
             if(menuItem == "Profile")
             {
-                this.HamburgerMenuControl.Content = new Pages.ProfilePage();
+                //this.HamburgerMenuControl.Content = new Pages.ProfilePage();
             }
             else
             {

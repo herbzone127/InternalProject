@@ -12,8 +12,7 @@
         <mah:MetroTabControl>
             <TabItem Header="Today's Requests" Background="#A9ABB1" Foreground="White">
                 <Grid Background="#FFF">
-                    <DataGrid ItemsSource="{Binding Path=Albums}" 
-          AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Path=Albums}" AutoGenerateColumns="False" CanUserSortColumns="True">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">
@@ -27,12 +26,12 @@
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                           
-                            <DataGridTextColumn Header="Booking Id"/>
-                            <DataGridTextColumn Header="UserName &amp; Contact"/>
-                            <DataGridTextColumn Header="IF Dock"/>
-                            <DataGridTextColumn Header="Date &amp; Time Slot"/>
-                            <DataGridTextColumn Header="Status"/>
-                            <DataGridTextColumn Header="Action"/>
+                            <DataGridTextColumn  Header="Booking Id"/>
+                            <DataGridTextColumn  Header="UserName &amp; Contact"/>
+                            <DataGridTextColumn CanUserSort="True" Header="IF Dock"/>
+                            <DataGridTextColumn CanUserSort="True" Header="Date &amp; Time Slot"/>
+                            <DataGridTextColumn CanUserSort="True" Header="Status"/>
+                            <DataGridTextColumn CanUserSort="True" Header="Action"/>
                           
                         </DataGrid.Columns>
                     </DataGrid>

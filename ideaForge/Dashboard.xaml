@@ -120,10 +120,10 @@
         <Controls:HamburgerMenu.ItemsSource>
 
             <Controls:HamburgerMenuItemCollection>
-                <Controls:HamburgerMenuGlyphItem Glyph="/Images/anchor.png" Label="IF Dock" />
-                <Controls:HamburgerMenuGlyphItem Glyph="/Images/request.png" Label="Requests" />
-                <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounReport.png" Label="Report" />
-                <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounProfile.png" Label="Profile" />
+                <Controls:HamburgerMenuGlyphItem Glyph="/Images/anchor.png" Label="IF Dock" Command="{Binding IFDockMenuCommand}" />
+                <Controls:HamburgerMenuGlyphItem Glyph="/Images/request.png" Label="Requests" Command="{Binding RequestMenuCommand}"/>
+                <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounReport.png" Label="Report" Command="{Binding ReportMenuCommand }"/>
+                <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounProfile.png" Label="Profile" Command="{Binding ProfileMenuCommand}"/>
             </Controls:HamburgerMenuItemCollection>
         </Controls:HamburgerMenu.ItemsSource>
         <!--  Options  -->
@@ -230,8 +230,8 @@
                         VerticalContentAlignment="Center"
                         DataContext="{Binding}"
                         Focusable="True"
-              Content="{Binding CurrentPage}" Grid.ColumnSpan="2" />
-
+              Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2" />
+                
             </Grid>
         </Controls:HamburgerMenu.Content>
     </Controls:HamburgerMenu>
