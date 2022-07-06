@@ -1,4 +1,5 @@
-﻿using IdeaForge.Service.GenericServices;
+﻿using ControlzEx.Theming;
+using IdeaForge.Service.GenericServices;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
@@ -20,6 +21,7 @@ namespace ideaForge
         public static IServiceProvider serviceProvider { get; private set; }
         public App()
         {
+//ThemeManager.Current.ChangeTheme(this, "Gr");
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
