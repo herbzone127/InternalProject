@@ -13,6 +13,11 @@
     </UserControl.DataContext>
     <Grid>
 
+        <mah:ProgressRing
+                    IsActive="{Binding IsBusy}" 
+                    Foreground="#91C84F" 
+                    />
+
         <mah:MetroTabControl>
             <TabItem  Header="Today's Requests" Background="#A9ABB1" >
                 <Grid Background="#FFF">
@@ -47,8 +52,18 @@
                                 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="6" Background="{Binding color}">
-                                            <Label Content="{Binding status}" Foreground="{Binding TextColor}"/>
+                                        <Border CornerRadius="12" Background="{Binding color}" Padding="5">
+                                            <Grid >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="3*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Image Source="{Binding StatusImage}" Grid.Column="0" Height="10" Margin="5"/>
+                                                <Label Content="{Binding status}" Foreground="{Binding TextColor}" Grid.Column="1"/>
+
+                                            </Grid>
+
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -98,7 +113,17 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border CornerRadius="12" Background="{Binding color}">
-                                            <Label Content="{Binding status}"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="3*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Image Source="{Binding StatusImage}" Grid.Column="0"/>
+                                                <!--<Label Content="{Binding status}" Grid.Column="1"/>-->
+
+                                            </Grid>
+                                            
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

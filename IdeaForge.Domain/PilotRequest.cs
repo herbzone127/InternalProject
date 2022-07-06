@@ -37,5 +37,6 @@ namespace IdeaForge.Domain
         public string contactNo { get; set; }
         public Brush color { get; set; }
         public Brush TextColor { get; set; }
+        public string StatusImage { get; set; }
     }
 }

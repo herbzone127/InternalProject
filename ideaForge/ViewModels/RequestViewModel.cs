@@ -93,6 +93,7 @@ namespace ideaForge.ViewModels
         #region Methods
         public async void GetTodaysRequest(string status)
         {
+
             try
             {
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
@@ -102,11 +103,14 @@ namespace ideaForge.ViewModels
                         //Pending
                         u.color = ConvertColor("#FFF4DB");
                         u.TextColor = ConvertColor("#FFC540");
+                        u.StatusImage = "/Images/pendingIcon.png";
                     }
                     if (u.statusID == 2)
                     {
                         //OnGoing
                         u.color = ConvertColor("#F98926");
+                        u.TextColor = ConvertColor("#F98926");
+                        u.StatusImage = "/Images/ongoingIcon.png";
 
                     }
                     if (u.statusID == 3)
@@ -123,6 +127,8 @@ namespace ideaForge.ViewModels
                     {
                         //Completed
                         u.color = ConvertColor("#3398D8");
+                        u.TextColor = ConvertColor("#3398D8");
+                        u.StatusImage = "/Images/CompleteRideIcon.png";
                     }
                     if (u.statusID == 6)
                     {
@@ -142,11 +148,12 @@ namespace ideaForge.ViewModels
 
                 MessageBox.Show(ex.Message);
             }
+            IsBusy = false;
 
         }
         public async void GetAllRequest(string status)
         {
-
+            IsBusy = true;
             try
             {
                 var requests = await _pilotRequestServices.GetAllRequest(status);
@@ -194,7 +201,7 @@ namespace ideaForge.ViewModels
 
                 MessageBox.Show(ex.Message);
             }
-
+            IsBusy = false;
         }
         public async Task<RideById>  GetRideById(int status)
         {
