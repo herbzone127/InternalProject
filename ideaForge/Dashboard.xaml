@@ -266,7 +266,7 @@
 
                 <mah:ProgressRing
                     IsActive="{Binding IsBusy}" 
-                    Foreground="Red" 
+                    Foreground="#91C84F" 
                     Grid.Column="1"
                     Grid.Row="1"
                     />
