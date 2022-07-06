@@ -6,15 +6,21 @@
              xmlns:local="clr-namespace:ideaForge.Pages.DashboardPages"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="ideaForge.Pages.DashboardPages.Requests"
              mc:Ignorable="d" 
+    xmlns:vm="clr-namespace:ideaForge.ViewModels"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:RequestViewModel/>
+    </UserControl.DataContext>
     <Grid>
 
-        <mah:MetroTabControl Foreground="White" >
-
-            <TabItem Header="Today's Requests">
-
+        <mah:MetroTabControl>
+            <TabItem  Header="Today's Requests" Background="#A9ABB1" >
                 <Grid Background="#FFF">
-                    <DataGrid ItemsSource="{Binding Path=Albums}" AutoGenerateColumns="False" CanUserSortColumns="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="67*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid ItemsSource="{Binding Path=TodaysRequest}" AutoGenerateColumns="False" CanUserSortColumns="True" Grid.ColumnSpan="2">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">
@@ -27,20 +33,85 @@
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                          
-                            <DataGridTextColumn  Header="Booking Id"/>
-                            <DataGridTextColumn  Header="UserName &amp; Contact"/>
-                            <DataGridTextColumn CanUserSort="True" Header="IF Dock"/>
-                            <DataGridTextColumn CanUserSort="True" Header="Date &amp; Time Slot"/>
-                            <DataGridTextColumn CanUserSort="True" Header="Status"/>
-                            <DataGridTextColumn CanUserSort="True" Header="Action"/>
-                          
+
+                            <DataGridTextColumn  Header="Booking Id" Binding="{Binding id}"/>
+                            <DataGridTextColumn  Header="UserName &amp; Contact" Binding="{Binding contactNo}"/>
+                            <DataGridTextColumn CanUserSort="True" Header="IF Dock" Binding="{Binding }"/>
+                            <DataGridTextColumn CanUserSort="True" Header="Date &amp; Time Slot" Binding="{Binding startDate}" />
+                            <DataGridTemplateColumn CanUserSort="True" Header="Status">
+                                
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="6" Background="{Binding color}">
+                                            <Label Content="{Binding status}" Foreground="{Binding TextColor}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn CanUserSort="True" Header="Action">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Accepted" Margin="0,0,5,0"/>
+                                            <Button Content="Rejected"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="All Requests"  Background="#A9ABB1">
-                <Grid Background="#FFF"/>
+            <TabItem Header="All Requests"  Background="#A9ABB1" >
+                <Grid Background="#FFF">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="67*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid ItemsSource="{Binding Path=AllRequests}" AutoGenerateColumns="False" CanUserSortColumns="True" Grid.ColumnSpan="2">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn  Header="Booking Id" Binding="{Binding id}"/>
+                            <DataGridTextColumn  Header="UserName &amp; Contact" Binding="{Binding contactNo}"/>
+                            <DataGridTextColumn CanUserSort="True" Header="IF Dock" Binding="{Binding }"/>
+                            <DataGridTextColumn CanUserSort="True" Header="Date &amp; Time Slot" Binding="{Binding startDate}" />
+                            <DataGridTemplateColumn CanUserSort="True" Header="Status">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="12" Background="{Binding color}">
+                                            <Label Content="{Binding status}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn CanUserSort="True" Header="Action">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="12" Background="{Binding color}">
+                                            <Label Content="{Binding status}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                        
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </mah:MetroTabControl>
 

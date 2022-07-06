@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericServices\PilotRequest.cs" />
     <Compile Include="GenericServices\ProfileService.cs" />
     <Compile Include="GenericServices\RegisterService.cs" />
     <Compile Include="GenericServices\LoginService.cs" />
+    <Compile Include="IGenericServices\IPilotRequestServices.cs" />
     <Compile Include="IGenericServices\IProfileSerevice.cs" />
     <Compile Include="IGenericServices\IRegisterService.cs" />
     <Compile Include="IGenericServices\ILoginService.cs" />
@@ -55,7 +57,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\IdeaForge.Core\IdeaForge.Core.csproj">
       <Project>{416c7f1d-5b45-4be3-84d8-a1d17dc5caf4}</Project>

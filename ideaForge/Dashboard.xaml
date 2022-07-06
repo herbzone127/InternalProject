@@ -206,22 +206,54 @@
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+
+               
                 <Border 
                     Grid.Row="0"
                       
                    
                     Margin="15,15,15,15"
                   Background="#FFFFFF" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="Header"
-                       HorizontalAlignment="Center"
+
+                    <Grid 
+                        Margin="20,0" 
+                        
+                        >
+                        <Label x:Name="Header"
+                       HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        FontSize="24"
                        Foreground="Black"
-                       Text="{Binding Label}" />
+                       FontWeight="SemiBold"
+                                   
+                       Content="{Binding PageName,Mode=TwoWay}" />
+                        <StackPanel
+                              VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            >
+                            <Image 
+                          Margin="0,10"
+                            Source="/Images/markerIcon.png"/>
+                            <Label 
+                                Margin="0,0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontSize="24"
+                       Foreground="Black"
+                       FontWeight="SemiBold"
+                             HorizontalContentAlignment="Right"      
+                       Content="Mumbai Navi Mahashtra" />
+                        </StackPanel>
+                        </Grid>
+                  
                     <Border.Effect>
                         <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
                     </Border.Effect>
+                   
                 </Border>
+              
+
                 <ContentControl
                     Margin="15,0,15,15"
                     Grid.Row="1" 
