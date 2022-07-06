@@ -26,6 +26,9 @@
                         Focusable="True"
               Content="{Binding AuthenticationPage}" Margin="5,10,5,34"/>
 
+        <mah:ProgressRing Foreground="#91C84F"
+                  IsActive="{Binding IsBusy}" 
+                          Grid.Column="1"/>
         <Grid/>
     </Grid>
 </mah:MetroWindow>
