@@ -28,8 +28,15 @@ namespace ideaForge.ViewModels
 
         public RequestViewModel()
         {
-            GetTodaysRequest("");
-            GetAllRequest("");
+
+            //GetTodaysRequest("");
+            Task.Factory.StartNew(async() => {
+
+              await  GetAllRequest("");
+              await  GetTodaysRequest("");
+            } ).ConfigureAwait(false);
+           
+           
 
         }
         #region ObservableCollections
@@ -60,7 +67,7 @@ namespace ideaForge.ViewModels
             set
             {
                 _allRequest = value;
-                OnPropertyChanged(nameof(RequestData));
+                OnPropertyChanged(nameof(AllRequests));
             }
         }
 
@@ -105,7 +112,7 @@ namespace ideaForge.ViewModels
         #endregion
 
         #region Methods
-        public async void GetTodaysRequest(string status)
+        public async Task GetTodaysRequest(string status)
         {
             IsBusy = true;
             try
@@ -169,7 +176,7 @@ namespace ideaForge.ViewModels
             IsBusy = false;
 
         }
-        public async void GetAllRequest(string status)
+        public async Task GetAllRequest(string status)
         {
             IsBusy = true;
             try
@@ -211,7 +218,7 @@ namespace ideaForge.ViewModels
                         u.color = u.color = ConvertColor("#000000");
                     }
                 });
-                AllRequests = new ObservableCollection<RequestData>(requests.userData);
+                AllRequests = new ObservableCollection<RequestData>(requests.userData.Take(2));
               
             }
             catch (Exception ex)

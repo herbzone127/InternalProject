@@ -91,8 +91,13 @@
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid ItemsSource="{Binding Path=AllRequests}" AutoGenerateColumns="False" CanUserSortColumns="True" Grid.ColumnSpan="2">
-                        <DataGrid.Resources>
+                    <DataGrid 
+                   MouseDoubleClick="DataGrid_MouseDoubleClick"
+                        ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
+                        AutoGenerateColumns="False"
+                        CanUserSortColumns="True" 
+                        Grid.ColumnSpan="2">
+                        <!--<DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">
                                     <Setter.Value>
@@ -102,45 +107,47 @@
                                     </Setter.Value>
                                 </Setter>
                             </Style>
-                        </DataGrid.Resources>
+                        </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
                             <DataGridTextColumn  Header="Booking Id" Binding="{Binding id}"/>
                             <DataGridTextColumn  Header="UserName &amp; Contact" Binding="{Binding contactNo}"/>
-                            <DataGridTextColumn CanUserSort="True" Header="IF Dock" Binding="{Binding }"/>
+                            <DataGridTextColumn CanUserSort="True" Header="IF Dock"/>
                             <DataGridTextColumn CanUserSort="True" Header="Date &amp; Time Slot" Binding="{Binding startDate}" />
                             <DataGridTemplateColumn CanUserSort="True" Header="Status">
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="12" Background="{Binding color}">
-                                            <Grid>
+                                        <Border CornerRadius="12" Background="{Binding color}" Padding="5">
+                                            <Grid >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="1*"/>
                                                     <ColumnDefinition Width="3*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Source="{Binding StatusImage}" Grid.Column="0"/>
-                                                <!--<Label Content="{Binding status}" Grid.Column="1"/>-->
+                                                <Image Source="{Binding StatusImage}" Grid.Column="0" Height="10" Margin="5"/>
+                                                <Label Content="{Binding status}" Foreground="{Binding TextColor}" Grid.Column="1"/>
 
                                             </Grid>
-                                            
+
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
+
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn CanUserSort="True" Header="Action">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button Content="Accepted" Margin="0,0,5,0"/>
-                                                <Button Content="Rejected"/>
-                                            </StackPanel>
-                                        </DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Accepted" Margin="0,0,5,0"/>
+                                            <Button Content="Rejected"/>
+                                        </StackPanel>
+                                    </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
+
                         </DataGrid.Columns>
-                        
                     </DataGrid>
                 </Grid>
             </TabItem>
