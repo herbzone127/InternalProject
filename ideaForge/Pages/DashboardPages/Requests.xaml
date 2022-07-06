@@ -95,8 +95,18 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Content="Accepted" Margin="0,0,5,0"/>
-                                            <Button Content="Rejected"/>
+                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="/Images/acceptIcon.png" />
+                                                    <TextBlock Margin="5,0">Accept</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="/Images/rejectIcon.png" />
+                                                    <TextBlock Margin="5,0">Reject</TextBlock>
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -189,8 +199,18 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Content="Accepted" Margin="0,0,5,0"/>
-                                            <Button Content="Rejected"/>
+                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="/Images/acceptIcon.png" />
+                                                    <TextBlock Margin="5,0">Accept</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="/Images/rejectIcon.png" />
+                                                    <TextBlock Margin="5,0">Reject</TextBlock>
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
