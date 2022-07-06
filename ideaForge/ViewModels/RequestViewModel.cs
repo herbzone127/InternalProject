@@ -44,7 +44,7 @@ namespace ideaForge.ViewModels
             {
                 _todaysRequests = value;
                 OnPropertyChanged(nameof(TodaysRequests));
-                OnTodayRequestSelect(TodayRequest);
+               
             }
         }
 
@@ -75,6 +75,7 @@ namespace ideaForge.ViewModels
             get { return _todayRequest; }
             set { _todayRequest = value;
                 OnPropertyChanged(nameof(TodayRequest));
+                OnTodayRequestSelect(TodayRequest);
             }
         }
 
@@ -204,6 +205,12 @@ namespace ideaForge.ViewModels
                 MessageBox.Show(ex.Message);
             }
             IsBusy = false;
+        }
+        public async Task<string>  GetRideById(string status)
+        {
+
+
+            return "";
         }
 
         #endregion

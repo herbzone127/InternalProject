@@ -260,7 +260,7 @@
                                 Background="White"
                         HorizontalContentAlignment="Center" 
                         VerticalContentAlignment="Center"
-                        DataContext="{Binding}"
+                        DataContext="{Binding Path=.}"
                         Focusable="True"
               Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2" />
 
