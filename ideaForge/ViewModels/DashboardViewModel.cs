@@ -12,17 +12,19 @@ namespace ideaForge.ViewModels
 {
     public class DashboardViewModel : ViewModelBase
     {
-        private void CanExecuteIFDockMenu(object obj)
+
+        /// <summary>
+        ///  All Properties are here
+        /// </summary>
+        #region Properties
+        private string _pageName;
+
+        public string PageName
         {
-            CurrentPage.Content = new IFDockPage();
-        }
-        private void CanExecuteRequestPage(object obj)
-        {
-            CurrentPage.Content = new Requests();
-        }
-        private void CanExecuteIFProfilePage(object obj)
-        {
-            CurrentPage.Content = new ProfilePage();
+            get { return _pageName; }
+            set { _pageName = value;
+                OnPropertyChanged(nameof(PageName));
+            }
         }
 
         private string _title;
@@ -43,9 +45,11 @@ namespace ideaForge.ViewModels
             OnPropertyChanged(nameof(CurrentPage));
             }
         }
-
+        #endregion
+        #region Construtor
         public DashboardViewModel()
         {
+            PageName = "IF Dock";
             CurrentPage = new UserControl();
             CurrentPage.Content = new IFDockPage();
             _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
@@ -58,7 +62,11 @@ namespace ideaForge.ViewModels
             //_ProfileMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
             
         }
-
+        #endregion
+        /// <summary>
+        /// Commands
+        /// </summary>
+        #region Commands
         private readonly DelegateCommand _IFDockMenuCommand;
         public ICommand IFDockMenuCommand => _IFDockMenuCommand;
 
@@ -70,5 +78,27 @@ namespace ideaForge.ViewModels
 
         private readonly DelegateCommand _ProfileMenuCommand;
         public ICommand ProfileMenuCommand => _ProfileMenuCommand;
+        #endregion
+        /// <summary>
+        /// Command Methods 
+        /// </summary>
+      
+        #region CommandMethods
+        private void CanExecuteIFDockMenu(object obj)
+        {
+            PageName = "IF Dock";
+            CurrentPage.Content = new IFDockPage();
+        }
+        private void CanExecuteRequestPage(object obj)
+        {
+            PageName = "Request";
+            CurrentPage.Content = new Requests();
+        }
+        private void CanExecuteIFProfilePage(object obj)
+        {
+            PageName = "Profile";
+            CurrentPage.Content = new ProfilePage();
+        }
+        #endregion
     }
 }

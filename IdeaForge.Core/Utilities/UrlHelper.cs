@@ -15,6 +15,10 @@ namespace IdeaForge.Core.Utilities
         public const string pilotOTPURl = baseURL + "/api/login/validatepilotOTP";
         public const string pilotProfileURl = baseURL + "/api/Pilot/getprofile";
         public const string pilotSaveProfileURl = baseURL + "/api/Pilot/saveprofile";
+        public const string pilotRequestURL = baseURL + "/api/pilotRequests/getallridesByCurrentDate";
+        public const string pilotAllRequestURL = baseURL + "/api/pilotRequests/getallrides";
+
+
 
 
     }

@@ -46,6 +46,7 @@ namespace ideaForge
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<IProfileSerevice, ProfileService>();
+            services.AddScoped<IPilotRequestServices, PilotRequest>();
 
 
         }

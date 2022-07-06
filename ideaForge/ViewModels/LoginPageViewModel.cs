@@ -31,6 +31,8 @@ namespace ideaForge.ViewModels
          => App.serviceProvider.GetRequiredService<IRegisterService>();
         #endregion
 
+
+        
         /// <summary>
         /// Otp Properties
         /// </summary>

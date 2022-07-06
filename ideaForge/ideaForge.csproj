@@ -301,6 +301,7 @@
     <Compile Include="ViewModels\IFDockViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\ProfilePageViewModels.cs" />
+    <Compile Include="ViewModels\RequestViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Dashboard.xaml">
       <SubType>Designer</SubType>
