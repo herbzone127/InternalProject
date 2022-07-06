@@ -78,15 +78,7 @@ namespace ideaForge.ViewModels
         #endregion
 
         #region Properties
-        private bool _isBusy;
-
-        public bool IsBusy
-        {
-            get { return _isBusy; }
-            set { _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
-        }
+       
 
         private RequestData _todayRequest;
 
