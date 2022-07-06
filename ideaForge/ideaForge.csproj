@@ -521,5 +521,9 @@
   <ItemGroup>
     <Resource Include="Images\request.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ongoingIcon.png" />
+    <Resource Include="Images\pendingIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
