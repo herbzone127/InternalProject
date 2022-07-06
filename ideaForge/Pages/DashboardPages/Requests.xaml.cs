@@ -22,6 +22,7 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class Requests : UserControl
     {
+      
         public Requests()
         {
             InitializeComponent();
@@ -34,15 +35,30 @@ namespace ideaForge.Pages.DashboardPages
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var grid =(DataGrid) sender;
-            var selectedRecord =(RequestData) grid.CurrentItem;
-            var vModel =(RequestViewModel) this.DataContext;
+            var grid = (DataGrid)sender;
+            var selectedRecord = (RequestData)grid.CurrentItem;
+           
+            Window parentWindow = Window.GetWindow(this);
+            var dashboard = (Dashboard)parentWindow;
+            var context = (DashboardViewModel)dashboard.DataContext;
+            if (selectedRecord.statusID.Equals(1))
+            {
+              
+                context.CurrentPage.Content = new PendingRidePage();
+            }
+            if (selectedRecord.statusID.Equals(2))
+            {
 
-            //Task.Run(async () => { 
-            //var data = vModel.GetRideById(selectedRecord.id);
+                context.CurrentPage.Content = new OnGoingRidePage();
+            }
 
-            //});   
-            
+            if (selectedRecord.statusID.Equals(5))
+            {
+
+                context.CurrentPage.Content = new CompletedRidePage();
+            }
+
+
         }
     }
 }

@@ -253,6 +253,8 @@
               
 
                 <ContentControl
+                    x:Name="currentPg"
+                    x:FieldModifier="public"
                     Margin="15,0,15,15"
                     Grid.Row="1" 
                                 Background="White"
@@ -260,7 +262,7 @@
                         VerticalContentAlignment="Center"
                         DataContext="{Binding Path=.}"
                         Focusable="True"
-              Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2" />
+              Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2"  />
 
                 <mah:ProgressRing
                     IsActive="{Binding IsBusy}" 
