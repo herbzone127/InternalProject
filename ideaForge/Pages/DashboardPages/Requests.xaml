@@ -13,11 +13,6 @@
     </UserControl.DataContext>
     <Grid>
 
-        <mah:ProgressRing
-                    IsActive="{Binding IsBusy}" 
-                    Foreground="#91C84F" 
-                    />
-
         <mah:MetroTabControl>
             <TabItem  Header="Today's Requests" Background="#A9ABB1" >
                 <Grid Background="#FFF">
@@ -31,6 +26,7 @@
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
+                        
                         <!--<DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">
@@ -82,7 +78,9 @@
 
 
                         </DataGrid.Columns>
+                        
                     </DataGrid>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="All Requests"  Background="#A9ABB1" >
@@ -152,6 +150,9 @@
                 </Grid>
             </TabItem>
         </mah:MetroTabControl>
-
+        <mah:ProgressRing
+                    IsActive="{Binding IsBusy}" 
+                    Foreground="#91C84F" 
+                    />
     </Grid>
 </UserControl>
