@@ -12,7 +12,7 @@
         mc:Ignorable="d"
                       xmlns:converters="clr-namespace:ideaForge.Converters"
       x:Name="loginWindow"
-        Title="Login" Height="620" Width="1000">
+        Title="Dashboard" Height="620" Width="1000">
     <Controls:MetroWindow.DataContext>
         <vm:DashboardViewModel/>
     </Controls:MetroWindow.DataContext>
@@ -231,8 +231,16 @@
                         DataContext="{Binding}"
                         Focusable="True"
               Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2" />
-                
+
+                <mah:ProgressRing
+                    IsActive="{Binding IsBusy}" 
+                    Foreground="Red" 
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    />
+
             </Grid>
+            
         </Controls:HamburgerMenu.Content>
     </Controls:HamburgerMenu>
 </Controls:MetroWindow>

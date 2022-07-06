@@ -9,8 +9,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <mah:MetroTabControl>
-            <TabItem Header="Today's Requests" Background="#A9ABB1" Foreground="White">
+        <mah:MetroTabControl Foreground="White" >
+
+            <TabItem Header="Today's Requests">
+
                 <Grid Background="#FFF">
                     <DataGrid ItemsSource="{Binding Path=Albums}" AutoGenerateColumns="False" CanUserSortColumns="True">
                         <DataGrid.Resources>
@@ -37,7 +39,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="All Requests"  Background="#A9ABB1" Foreground="White">
+            <TabItem Header="All Requests"  Background="#A9ABB1">
                 <Grid Background="#FFF"/>
             </TabItem>
         </mah:MetroTabControl>

@@ -12,17 +12,36 @@ namespace ideaForge.ViewModels
 {
     public class DashboardViewModel : ViewModelBase
     {
+
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
         private void CanExecuteIFDockMenu(object obj)
         {
+            IsBusy = true;
             CurrentPage.Content = new IFDockPage();
+            IsBusy = false;
         }
         private void CanExecuteRequestPage(object obj)
         {
+            IsBusy = true;
             CurrentPage.Content = new Requests();
+            IsBusy = false;
         }
         private void CanExecuteIFProfilePage(object obj)
         {
+            IsBusy = true;
             CurrentPage.Content = new ProfilePage();
+            IsBusy = false;
         }
 
         private string _title;

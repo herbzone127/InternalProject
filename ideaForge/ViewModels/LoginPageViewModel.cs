@@ -31,6 +31,16 @@ namespace ideaForge.ViewModels
          => App.serviceProvider.GetRequiredService<IRegisterService>();
         #endregion
 
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
         /// <summary>
         /// Otp Properties
         /// </summary>
@@ -208,7 +218,7 @@ namespace ideaForge.ViewModels
         {
             
             ImageUrl = "/Images/LoginImage.png";
-            //Barrel.Current.EmptyAll();
+           // Barrel.Current.EmptyAll();
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
                 new DockAreaPopup().Show();
@@ -236,31 +246,39 @@ namespace ideaForge.ViewModels
         #region CommandMethods
         public async void RegisterNewUserCanExecute(object obj)
         {
+            IsBusy = true;
             var result =await _registerService.Register(RegisterModel);
             MessageBox.Show(result.message);
             SignupBackButtonCanExecute(null);
+            IsBusy = false;
         }
 
         private void SignupBackButtonCanExecute(object obj)
         {
+            IsBusy = true;
             ImageUrl = "/Images/LoginImage.png";
             AuthenticationPage = new MainWindow();
+            IsBusy = false;
         }
 
         private void SignupCanExecute(object obj)
         {
+            IsBusy = true;
             ImageUrl = "/Images/signupFrame.png";
             AuthenticationPage = new Signup();
+            IsBusy = false;
         }
 
         private async void LoginCanExecute(object obj)
         {
+            IsBusy = true;
             var result= await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
             if (result.status)
             {
                 ImageUrl = "/Images/optFrame.png";
                 Global.email_PhoneNo = Email_PhoneNo;
                 AuthenticationPage = new OtpVerification();
+                IsBusy = false;
             }
             else
             {
@@ -270,10 +288,12 @@ namespace ideaForge.ViewModels
 
         private async void OtpCanCanExecute(object obj)
         {
+            IsBusy = true;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
                 new DockAreaPopup().Show();
                 Global.Token = Barrel.Current.Get<string>(UrlHelper.pilotOTPURl);
+                IsBusy = false;
             }
             else
             {
@@ -288,7 +308,7 @@ namespace ideaForge.ViewModels
                         Application.Current.Properties["ID"] = result.userData.id;
                         Global.Token = result.userData.token;
                         new DockAreaPopup().Show();
-
+                        IsBusy = false;
 
                         Barrel.Current.Add(UrlHelper.pilotOTPURl, Global.Token, TimeSpan.FromHours(5));
 
