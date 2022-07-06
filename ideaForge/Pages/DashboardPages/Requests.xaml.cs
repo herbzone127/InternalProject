@@ -39,7 +39,7 @@ namespace ideaForge.Pages.DashboardPages
             var vModel =(RequestViewModel) this.DataContext;
 
             Task.Run(async () => { 
-            var data = vModel.GetRideById("");
+            var data = vModel.GetRideById(selectedRecord.id);
 
             });   
             

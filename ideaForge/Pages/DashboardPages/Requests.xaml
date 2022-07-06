@@ -106,10 +106,11 @@
                             <DataGridTemplateColumn CanUserSort="True" Header="Action">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="12" Background="{Binding color}">
-                                            <Label Content="{Binding status}"/>
-                                        </Border>
-                                    </DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="Accepted" Margin="0,0,5,0"/>
+                                                <Button Content="Rejected"/>
+                                            </StackPanel>
+                                        </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 

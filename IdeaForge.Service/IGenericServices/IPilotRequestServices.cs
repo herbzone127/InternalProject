@@ -11,6 +11,7 @@ namespace IdeaForge.Service.IGenericServices
     {
         Task<PilotRequestResponse> GetTodaysRequest(string status);
         Task<PilotRequestResponse> GetAllRequest(string status);
+        Task<RideResponse> GetRideById(int rideId);
 
     }
 }

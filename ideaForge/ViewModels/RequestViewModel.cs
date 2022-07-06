@@ -14,8 +14,6 @@ namespace ideaForge.ViewModels
 {
     public class RequestViewModel : ViewModelBase
     {
-
-
         /// <summary>
         /// Services
         /// </summary>
@@ -23,8 +21,8 @@ namespace ideaForge.ViewModels
         public IPilotRequestServices _pilotRequestServices
          => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
 
-        public IPilotRequestServices _pilotAllRequestServices
-         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+     
+
         #endregion
 
 
@@ -65,6 +63,18 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(RequestData));
             }
         }
+
+        private ObservableCollection<RideById> _rideById;
+
+        public ObservableCollection<RideById> RideById
+        {
+            get { return _rideById; }
+            set
+            {
+                _rideById = value;
+                OnPropertyChanged(nameof(RideById));
+            }
+        }
         #endregion
 
         #region Properties
@@ -78,13 +88,11 @@ namespace ideaForge.ViewModels
                 OnTodayRequestSelect(TodayRequest);
             }
         }
-
         #endregion
 
         #region Methods
         public async void GetTodaysRequest(string status)
         {
-
             try
             {
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
@@ -119,7 +127,7 @@ namespace ideaForge.ViewModels
                     if (u.statusID == 6)
                     {
                         //Cancel
-                        u.color = u.color = ConvertColor("A9ABB1");
+                        u.color = u.color = ConvertColor("#A9ABB1");
                     }
                     if (u.statusID == 7)
                     {
@@ -141,7 +149,7 @@ namespace ideaForge.ViewModels
 
             try
             {
-                var requests = await _pilotAllRequestServices.GetAllRequest(status);
+                var requests = await _pilotRequestServices.GetAllRequest(status);
                 requests.userData.ForEach(u => { 
                     if (u.statusID == 1) {
                         //Pending
@@ -188,11 +196,10 @@ namespace ideaForge.ViewModels
             }
 
         }
-        public async Task<string>  GetRideById(string status)
+        public async Task<RideById>  GetRideById(int status)
         {
-
-
-            return "";
+            var result= await _pilotRequestServices.GetRideById(status);
+            return result.userData;
         }
 
         #endregion

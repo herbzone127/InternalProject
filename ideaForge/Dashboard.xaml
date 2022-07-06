@@ -89,9 +89,7 @@
                     <x:Type TypeName="Visibility" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-
         </ResourceDictionary>
-
     </Controls:MetroWindow.Resources>
     <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
                           DisplayMode="CompactInline"

@@ -19,9 +19,9 @@ namespace IdeaForge.Service.GenericServices
             {
                 var url = UrlHelper.pilotRequestURL+"/"+status;
               
-                var resultString = await HTTPClientWrapper<PilotRequestResponse>.PostRequest(url,null);
-                var resultData = JsonConvert.DeserializeObject<PilotRequestResponse>(resultString);
-                return resultData;
+                var resultString = await HTTPClientWrapper<PilotRequestResponse>.Get(url);
+           
+                return resultString;
 
             }
             catch (Exception ex)
@@ -39,9 +39,27 @@ namespace IdeaForge.Service.GenericServices
             {
                 var url = UrlHelper.pilotAllRequestURL + "/" + status;
 
-                var resultString = await HTTPClientWrapper<PilotRequestResponse>.PostRequest(url,null);
-                var resultData = JsonConvert.DeserializeObject<PilotRequestResponse>(resultString); 
-                return resultData;
+                var resultString = await HTTPClientWrapper<PilotRequestResponse>.Get(url);
+                return resultString;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
+       
+        async Task<RideResponse> IPilotRequestServices.GetRideById(int rideId)
+        {
+            try
+            {
+                var url = UrlHelper.pilotRequestURL + "/" + rideId;
+
+                var result = await HTTPClientWrapper<RideResponse>.Get(url);
+
+                return result;
 
             }
             catch (Exception ex)
