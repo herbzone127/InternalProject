@@ -38,10 +38,10 @@ namespace ideaForge.Pages.DashboardPages
             var selectedRecord =(RequestData) grid.CurrentItem;
             var vModel =(RequestViewModel) this.DataContext;
 
-            Task.Run(async () => { 
-            var data = vModel.GetRideById(selectedRecord.id);
+            //Task.Run(async () => { 
+            //var data = vModel.GetRideById(selectedRecord.id);
 
-            });   
+            //});   
             
         }
     }
