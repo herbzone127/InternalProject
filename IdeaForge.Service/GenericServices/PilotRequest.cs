@@ -13,6 +13,27 @@ namespace IdeaForge.Service.GenericServices
 {
     public class PilotRequest : IPilotRequestServices
     {
+        public async Task<StatusChangesResponse> GetStatusChangesResponse(StatusChanges status, int rideId)
+        {
+            try
+            {
+                var url = UrlHelper.StatusChangesURL + "/" + status.isActivated + "/" + rideId;
+                var serializeJson = JsonConvert.SerializeObject(status);
+                var resultString = await HTTPClientWrapper<StatusChanges>.PostRequest(url, status);
+                var result = JsonConvert.DeserializeObject<StatusChangesResponse>(resultString);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+
+        }
+
         public async Task<PilotRequestResponse> GetTodaysRequest(string status)
         {
             try
