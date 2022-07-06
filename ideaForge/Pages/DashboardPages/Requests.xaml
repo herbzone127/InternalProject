@@ -91,7 +91,7 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid 
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
-                        ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
+                        ItemsSource="{Binding AllRequests,Mode=TwoWay}" 
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
