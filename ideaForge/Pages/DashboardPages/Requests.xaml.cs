@@ -44,7 +44,16 @@ namespace ideaForge.Pages.DashboardPages
             if (selectedRecord.statusID.Equals(1))
             {
                 dashboard.statusBorder.Visibility = Visibility.Visible;
-                dashboard.statusBorder.Background = ConvertColor("#DEECFF");
+                dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
+                //dashboard.Header.
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri("/Images/pendingIcon.png");
+                bitmap.EndInit();
+                dashboard.statusImage.Source = bitmap; 
+                dashboard.statusLabel.Content = "Pending";
+                dashboard.statusBorder.BorderBrush = ConvertColor("#FFF4DB");
+                context.PageName = $"Booking Id:{selectedRecord.id}";
                 context.CurrentPage.Content = new PendingRidePage();
             }
             if (selectedRecord.statusID.Equals(2))
@@ -61,6 +70,7 @@ namespace ideaForge.Pages.DashboardPages
 
 
         }
+
         private Brush ConvertColor(string color)
         {
             var converter = new System.Windows.Media.BrushConverter();
