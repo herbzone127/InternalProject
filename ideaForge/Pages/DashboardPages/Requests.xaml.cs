@@ -43,7 +43,8 @@ namespace ideaForge.Pages.DashboardPages
             var context = (DashboardViewModel)dashboard.DataContext;
             if (selectedRecord.statusID.Equals(1))
             {
-              
+                dashboard.statusBorder.Visibility = Visibility.Visible;
+                dashboard.statusBorder.Background = ConvertColor("#DEECFF");
                 context.CurrentPage.Content = new PendingRidePage();
             }
             if (selectedRecord.statusID.Equals(2))
@@ -59,6 +60,12 @@ namespace ideaForge.Pages.DashboardPages
             }
 
 
+        }
+        private Brush ConvertColor(string color)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString(color);
+            return brush;
         }
     }
 }
