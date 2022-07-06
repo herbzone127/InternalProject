@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ideaForge.ViewModels;
+using IdeaForge.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +30,19 @@ namespace ideaForge.Pages.DashboardPages
         private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
 
+        }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var grid =(DataGrid) sender;
+            var selectedRecord =(RequestData) grid.CurrentItem;
+            var vModel =(RequestViewModel) this.DataContext;
+
+            Task.Run(async () => { 
+            var data = vModel.GetRideById("");
+
+            });   
+            
         }
     }
 }

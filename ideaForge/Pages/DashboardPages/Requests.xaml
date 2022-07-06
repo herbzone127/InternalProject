@@ -20,8 +20,13 @@
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid SelectedItem="{Binding Path=TodayRequest}" ItemsSource="{Binding Path=TodaysRequests}" AutoGenerateColumns="False" CanUserSortColumns="True" Grid.ColumnSpan="2">
-                        <DataGrid.Resources>
+                    <DataGrid 
+                   MouseDoubleClick="DataGrid_MouseDoubleClick"
+                        ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
+                        AutoGenerateColumns="False"
+                        CanUserSortColumns="True" 
+                        Grid.ColumnSpan="2">
+                        <!--<DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">
                                     <Setter.Value>
@@ -31,12 +36,12 @@
                                     </Setter.Value>
                                 </Setter>
                             </Style>
-                        </DataGrid.Resources>
+                        </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn  Header="Booking Id" Binding="{Binding id}"/>
-                            <DataGridTextColumn  Header="UserName &amp; Contact" Binding="{Binding contactNo}"/>
-                            <DataGridTextColumn CanUserSort="True" Header="IF Dock" Binding="{Binding }"/>
+                            <DataGridTextColumn  Header="Booking Id" Binding="{Binding id,Mode=TwoWay}"/>
+                            <DataGridTextColumn  Header="UserName &amp; Contact" Binding="{Binding contactNo,Mode=TwoWay}"/>
+                            <DataGridTextColumn CanUserSort="True" Header="IF Dock"/>
                             <DataGridTextColumn CanUserSort="True" Header="Date &amp; Time Slot" Binding="{Binding startDate}" />
                             <DataGridTemplateColumn CanUserSort="True" Header="Status">
                                 
