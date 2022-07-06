@@ -48,6 +48,7 @@
     <Compile Include="GenericServices\ProfileService.cs" />
     <Compile Include="GenericServices\RegisterService.cs" />
     <Compile Include="GenericServices\LoginService.cs" />
+    <Compile Include="IGenericServices\IPilotLocation.cs" />
     <Compile Include="IGenericServices\IPilotRequestServices.cs" />
     <Compile Include="IGenericServices\IProfileSerevice.cs" />
     <Compile Include="IGenericServices\IRegisterService.cs" />
