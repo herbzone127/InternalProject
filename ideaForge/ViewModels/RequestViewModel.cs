@@ -88,12 +88,24 @@ namespace ideaForge.ViewModels
                 OnTodayRequestSelect(TodayRequest);
             }
         }
+
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
         #endregion
 
         #region Methods
         public async void GetTodaysRequest(string status)
         {
-
+            IsBusy = true;
             try
             {
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
@@ -117,11 +129,13 @@ namespace ideaForge.ViewModels
                     {
                         //UpComming
                         u.color = ConvertColor("#000000");
+                        u.TextColor = ConvertColor("#FFFFFF");
                     }
                     if (u.statusID == 4)
                     {
                         //Rejected
-                        u.color = ConvertColor("#D42424"); ;
+                        u.color = ConvertColor("#D42424");
+                        u.TextColor = ConvertColor("#FFFFFF");
                     }
                     if (u.statusID == 5)
                     {
@@ -133,12 +147,14 @@ namespace ideaForge.ViewModels
                     if (u.statusID == 6)
                     {
                         //Cancel
-                        u.color = u.color = ConvertColor("#A9ABB1");
+                        u.color = ConvertColor("#A9ABB1");
+                        u.TextColor = ConvertColor("#FFFFFF");
                     }
                     if (u.statusID == 7)
                     {
                         //EndFlight
-                        u.color = u.color = ConvertColor("#000000");
+                        u.color = ConvertColor("#000000");
+                        u.TextColor = ConvertColor("#FFFFFF");
                     }
                 });
                 TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
