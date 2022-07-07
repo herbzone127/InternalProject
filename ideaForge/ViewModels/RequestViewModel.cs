@@ -384,10 +384,10 @@ namespace ideaForge.ViewModels
             }
             IsBusy = false;
         }
-        public async Task<RideById>  GetRideById(int status)
+        public async Task<RideResponse>  GetRideById(int status)
         {
             var result= await _pilotRequestServices.GetRideById(status);
-            return result.userData;
+            return result;
         }
 
         public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId)

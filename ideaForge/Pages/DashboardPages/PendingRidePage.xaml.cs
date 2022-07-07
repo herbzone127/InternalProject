@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ideaForge.ViewModels;
+using IdeaForge.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,12 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class PendingRidePage : UserControl
     {
-        public PendingRidePage()
+        public PendingRidePage(RideById ride)
         {
             InitializeComponent();
+            this.DataContext = new PendingRideViewModel();
+            var vModel = (PendingRideViewModel)DataContext;
+            vModel.RideById = ride;
         }
     }
 }

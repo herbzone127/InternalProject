@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaForge.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,17 @@ namespace ideaForge.ViewModels
 {
     public class PendingRideViewModel : ViewModelBase
     {
+        private RideById _rideById;
+
+        public RideById RideById
+        {
+            get { return _rideById; }
+            set
+            {
+                _rideById = value;
+                OnPropertyChanged(nameof(RideById));
+            }
+        }
         #region Commands
 
         private readonly DelegateCommand _TextCopyLatitude_Comand;
@@ -54,6 +66,7 @@ namespace ideaForge.ViewModels
 
         public PendingRideViewModel()
         {
+
             _TextCopyLatitude_Comand = new DelegateCommand(TextCopyLatitude_ComandExecut);
             _TextCopyLONGITUDE_Comand = new DelegateCommand(TextCopyLONGITUDE_ComandExecut);
             _TextCopyUAV_ID_Comand = new DelegateCommand(TextCopyUAV_ID_ComandExecut);
@@ -66,6 +79,7 @@ namespace ideaForge.ViewModels
             _Image_Rating3_Comand = new DelegateCommand(Image_Rating3_ComandExecut);
             _Image_Rating4_Comand = new DelegateCommand(Image_Rating4_ComandExecut);
             _Image_Rating5_Comand = new DelegateCommand(Image_Rating5_ComandExecut);
+
             RestStarRating();
         }
 
