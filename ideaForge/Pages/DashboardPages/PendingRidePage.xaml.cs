@@ -34,7 +34,7 @@ namespace ideaForge.Pages.DashboardPages
 
             vModel.FlightTime1 = ride.startDate.ToString("hh:mm:ss tt") + "-" + ride.endDate.ToString("hh:mm:ss tt");//For Time
             vModel.Status1 = ride.status;
-            //vModel.StatusForUser1 = ride.status;
+            vModel.StatusForUser1 = ride.status;
             vModel.Latitude1 = ride.latitude;
             vModel.Longitude1 = ride.longitude;
         }
