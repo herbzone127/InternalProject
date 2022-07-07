@@ -13,22 +13,7 @@
         <vm:CompleteRideViewModel/>
     </UserControl.DataContext>
     <Grid Background="#EEEEEF">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="White" Margin="10">
-            <Label Content="Booking Id : 963224" Foreground="Black" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <Label Content="{Binding}" Foreground="Black" FontSize="16" VerticalAlignment="Center"/>
-            <Border BorderThickness="1" BorderBrush="#3398D8" Background="#DEECFF"  VerticalAlignment="Center" Margin="10,0,0,0" CornerRadius="5">
-                <StackPanel Orientation="Horizontal" >
-                    <Image Source="/Images/CompleteRideIcon.png" Height="10.7" Width="16.16" Margin="5,0,0,0"/>
-                    <Label Content="Completed" FontSize="12" Foreground="#3398D8"/>
-                </StackPanel>
-            </Border>
-
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
             <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
             <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
         </StackPanel>
