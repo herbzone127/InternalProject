@@ -218,11 +218,11 @@ namespace ideaForge.ViewModels
         {
             
             ImageUrl = "/Images/LoginImage.png";
-           // Barrel.Current.EmptyAll();
+          
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
                 new DockAreaPopup().Show();
-                Global.Token = Barrel.Current.Get<string>(UrlHelper.pilotOTPURl);
+                var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
             }
             else
             {

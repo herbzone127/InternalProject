@@ -1,5 +1,8 @@
 ﻿using ideaForge.Pages;
 using ideaForge.Pages.DashboardPages;
+using IdeaForge.Core.Utilities;
+using IdeaForge.Domain;
+using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,26 @@ namespace ideaForge.ViewModels
         ///  All Properties are here
         /// </summary>
         #region Properties
+        private string _profileImage;
+
+        public string ProfileImage
+        {
+            get { return _profileImage; }
+            set { _profileImage = value;
+                OnPropertyChanged(nameof(ProfileImage));
+            }
+        }
+        private string _userName;
+
+        public string UserName
+        {
+            get { return _userName; }
+            set { _userName = value;
+            OnPropertyChanged(nameof(UserName));
+            }
+        }
+
+
         private bool _isBusy;
 
         public bool IsBusy
@@ -60,6 +83,15 @@ namespace ideaForge.ViewModels
         public DashboardViewModel()
         {
             PageName = "IF Dock";
+            var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+            if (user != null)
+            {
+                if (string.IsNullOrEmpty(user.image))
+                    ProfileImage = "/Images/profile.png";
+                else
+                ProfileImage =UrlHelper.baseURL+ user.image;
+                UserName= user.name;
+            }
             CurrentPage = new UserControl();
             CurrentPage.Content = new IFDockPage();
             _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
