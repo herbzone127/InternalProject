@@ -45,6 +45,9 @@ namespace ideaForge
         {
             Barrel.Current.EmptyAll();
             trayProfile.Visibility = Visibility.Hidden;
+            var login = new Login();
+            login.Show();
+            this.Close();
         }
     }
 }
