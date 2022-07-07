@@ -14,8 +14,7 @@
       x:Name="loginWindow"
         Title="Dashboard" Height="620" Width="1000">
     <Controls:MetroWindow.DataContext>
-      
-        <vm:DashboardViewModel/>
+           <vm:DashboardViewModel/>
     </Controls:MetroWindow.DataContext>
     <Controls:MetroWindow.Resources>
 
@@ -159,19 +158,65 @@
                         <RowDefinition Height="48" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                  Margin="-1 0 -1 0"
-                  Background="#FFFFFF">
-                        <TextBlock x:Name="Header"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="24"
-                       Foreground="Black"
-                       Text="{Binding Label}" />
+
+                    
+                    <Border 
+                        Grid.Row="0"
+                        Margin="-1 15 -1 0"
+                        Background="#FFFFFF">
+
+                        <Grid Margin="20,-15 ,25,0" HorizontalAlignment="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                               
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                
+                            </Grid.RowDefinitions>
+                            <Image  Source="/Images/bell.png" Height="25" Margin="0,10,200,10" Grid.Column="0" ></Image>
+
+
+                         
+                            <Grid Grid.Row="0" MouseLeftButtonUp="Grid_MouseLeftButtonUp" HorizontalAlignment="Right" >
+                                
+                                <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                             <Border Grid.Column="0" 
+                                    Background="#FFFFFF" 
+                                    BorderBrush="Black" CornerRadius="20" 
+                                    Width="30" Height="30" 
+                                    BorderThickness="1">
+                                 
+                                    <Image Source="/Images/profile.png"></Image>
+                                    
+                                </Border>
+                            
+                            <Label 
+                                VerticalAlignment="Center" 
+                                Content="Jordan H" 
+                                Margin="5"
+                                FontWeight="SemiBold"
+                                FontSize="15"
+                                Grid.Column="1"></Label>
+
+                                <Image Source="/Images/down-arrow.png"
+                                   Height="20" Grid.Column="2" />
+
+                            </Grid>
+                           
+                        </Grid>
+
                         <Border.Effect>
                             <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
                         </Border.Effect>
                     </Border>
+
+                   
                     <Controls:TransitioningContentControl Grid.Row="1"
                                                 Content="{Binding}"
                                                 RestartTransitionOnContentChange="True"
@@ -198,18 +243,20 @@
         <Controls:HamburgerMenu.Content>
             <Grid Background="#EEEEEF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="361*"/>
+                    <ColumnDefinition Width="30*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+               
                 <Border 
                     Grid.Row="0"
                     Margin="15,15,15,15"
-                  Background="#FFFFFF" Grid.ColumnSpan="2">
+                  Background="#FFFFFF" Grid.ColumnSpan="3">
 
                     <Grid >
 
@@ -279,14 +326,14 @@
                              HorizontalContentAlignment="Right"      
                        Content="Mumbai Navi Mahashtra" />
                         </StackPanel>
-                        </Grid>
-                  
+                    </Grid>
+
                     <Border.Effect>
                         <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
                     </Border.Effect>
-                   
+
                 </Border>
-              
+
 
                 <ContentControl
                     x:Name="currentPg"
@@ -298,17 +345,43 @@
                         VerticalContentAlignment="Center"
                         DataContext="{Binding Path=.}"
                         Focusable="True"
-              Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="2"  />
+              Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="3"  />
 
                 <mah:ProgressRing
                     IsActive="{Binding IsBusy}" 
                     Foreground="#91C84F" 
                     Grid.Column="1"
-                    Grid.Row="1"
+                    Grid.Row="1" HorizontalAlignment="Left" Margin="361,0,0,0"
                     />
+                <Border 
+                        Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                        Background="White" 
+                       Width="180"
+                    Height="80"
+                    Margin="0,0,5,0"
+                    x:Name="trayProfile"
+                    x:FieldModifier="public"
+                    Visibility="Hidden"
+                        HorizontalAlignment="Right" >
+                    <Border.Effect>
+                        <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
+                    </Border.Effect>
+                    <TextBlock 
+                        Text="Logout" 
+                        TextDecorations="Underline" 
+                        Foreground="Blue" 
+                        FontStretch="Expanded" 
+                        FontSize="18"
+                        Margin="30,10"
+                        Cursor="Hand"
+                        MouseLeftButtonUp="logout_MouseLeftDownUp"
+                        />
 
+                </Border >
             </Grid>
-            
+
         </Controls:HamburgerMenu.Content>
     </Controls:HamburgerMenu>
 </Controls:MetroWindow>

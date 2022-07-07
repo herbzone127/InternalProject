@@ -291,8 +291,12 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
-                new DockAreaPopup().Show();
-                Global.Token = Barrel.Current.Get<string>(UrlHelper.pilotOTPURl);
+                
+                var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                if (userOTP != null)
+                {
+                    new DockAreaPopup().Show();
+                }
                 IsBusy = false;
             }
             else
@@ -305,12 +309,12 @@ namespace ideaForge.ViewModels
                     var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
                     if (result.status)
                     {
-                        Application.Current.Properties["ID"] = result.userData.id;
-                        Global.Token = result.userData.token;
+                        //Application.Current.Properties["ID"] = result.userData.id;
+                        //Global.Token = result.userData.token;
                         new DockAreaPopup().Show();
                         IsBusy = false;
 
-                        Barrel.Current.Add(UrlHelper.pilotOTPURl, Global.Token, TimeSpan.FromHours(5));
+                        Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
 
 
                     }

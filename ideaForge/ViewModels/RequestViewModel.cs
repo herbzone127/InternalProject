@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ideaForge.ViewModels
@@ -17,17 +18,24 @@ namespace ideaForge.ViewModels
         /// <summary>
         /// Services
         /// </summary>
+        public int rideId { get; set; }
         #region Services
         public IPilotRequestServices _pilotRequestServices
          => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
-
-     
-
+      
         #endregion
 
+       
+        #region Commands
+        //RegisterCommand
+        private readonly DelegateCommand _AcceptedCommand;
+        public ICommand AcceptedCommand => _AcceptedCommand;
+        #endregion
 
+        #region Constructur
         public RequestViewModel()
         {
+            _AcceptedCommand = new DelegateCommand(AcceptedCommandCanExecute);
 
             //GetTodaysRequest("");
             //Task.Factory.StartNew(async() => {
@@ -36,13 +44,21 @@ namespace ideaForge.ViewModels
             //  await  GetTodaysRequest("");
             //} ).ConfigureAwait(false);
 
-      
-          GetAllRequest("").ConfigureAwait(false);
-          GetTodaysRequest("").ConfigureAwait(false);
 
-
-
+            GetAllRequest("").ConfigureAwait(false);
+            GetTodaysRequest("").ConfigureAwait(false);
         }
+
+        private async void AcceptedCommandCanExecute(object obj)
+        {
+           
+           await GetStatusChangesResponse(true,rideId);
+        }
+        #endregion
+
+
+
+
         #region ObservableCollections
         private ObservableCollection<RequestData> _todaysRequests;
 
@@ -127,6 +143,7 @@ namespace ideaForge.ViewModels
         }
         #endregion
 
+       
         #region Methods
         public async Task GetTodaysRequest(string status)
         {
@@ -215,7 +232,7 @@ namespace ideaForge.ViewModels
                         if (u.statusID == 2)
                         {
                             //OnGoing
-                            u.color = ConvertColor("#FFF3D9");
+                            u.color = ConvertColor("#F98926");
                             u.TextColor = ConvertColor("#F98926");
                             u.StatusImage = "/Images/ongoingIcon.png";
 
@@ -235,7 +252,7 @@ namespace ideaForge.ViewModels
                         if (u.statusID == 5)
                         {
                             //Completed
-                            u.color = ConvertColor("#DEECFF");
+                            u.color = ConvertColor("#3398D8");
                             u.TextColor = ConvertColor("#3398D8");
                             u.StatusImage = "/Images/CompleteRideIcon.png";
                         }
@@ -270,15 +287,20 @@ namespace ideaForge.ViewModels
             return result.userData;
         }
 
+        public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId)
+        {
+            var result = await _pilotRequestServices.GetStatusChangesResponse(isAccepted,rideId);
+           
+            return result;
+        }
 
-
-        #endregion
+        
         private Brush ConvertColor(string color)
         {
             var converter = new System.Windows.Media.BrushConverter();
             var brush = (Brush)converter.ConvertFromString(color);
             return brush;
-        } 
-
+        }
+        #endregion
     }
 }
