@@ -227,7 +227,7 @@
                                    
                        Content="{Binding PageName,Mode=TwoWay}" />
                         <Border
-                            Visibility="Hidden"
+                            Visibility="Visible"
                             x:Name="statusBorder"
                             x:FieldModifier="public"
                             HorizontalAlignment="Center"
@@ -242,8 +242,13 @@
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Source="/Images/CompleteRideIcon.png" Grid.Column="0" Height="10" Margin="5"/>
-                                <Label Content="Completed" Foreground="#3398D8" Grid.Column="1"/>
+                                <Image
+                                    x:Name="statusImage"
+                                    x:FieldModifier="public"
+                                    Source="/Images/CompleteRideIcon.png" Grid.Column="0" Height="10" Margin="5"/>
+                                <Label 
+                                    x:FieldModifier="public"
+                                    x:Name="statusLabel" Content="Completed" Foreground="#3398D8" Grid.Column="1"/>
 
                             </Grid>
 
