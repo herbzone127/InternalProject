@@ -22,7 +22,8 @@
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid 
+                    <DataGrid
+                        
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
                         ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
                         AutoGenerateColumns="False"
