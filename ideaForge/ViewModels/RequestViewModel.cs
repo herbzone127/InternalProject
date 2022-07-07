@@ -151,55 +151,59 @@ namespace ideaForge.ViewModels
             try
             {
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
-                requests.userData.ForEach(u => {
-                    if (u.statusID == 1)
-                    {
-                        //Pending
-                        u.color = ConvertColor("#FFF4DB");
-                        u.TextColor = ConvertColor("#FFC540");
-                        u.StatusImage = "/Images/pendingIcon.png";
-                    }
-                    if (u.statusID == 2)
-                    {
-                        //OnGoing
-                        u.color = ConvertColor("#FFF3D9");
-                        u.TextColor = ConvertColor("#F98926");
-                        u.StatusImage = "/Images/ongoingIcon.png";
+                if (requests.status)
+                {
+                    requests.userData.ForEach(u => {
+                        if (u.statusID == 1)
+                        {
+                            //Pending
+                            u.color = ConvertColor("#FFF4DB");
+                            u.TextColor = ConvertColor("#FFC540");
+                            u.StatusImage = "/Images/pendingIcon.png";
+                        }
+                        if (u.statusID == 2)
+                        {
+                            //OnGoing
+                            u.color = ConvertColor("#FFF3D9");
+                            u.TextColor = ConvertColor("#F98926");
+                            u.StatusImage = "/Images/ongoingIcon.png";
 
-                    }
-                    if (u.statusID == 3)
-                    {
-                        //UpComming
-                        u.color = ConvertColor("#000000");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                    if (u.statusID == 4)
-                    {
-                        //Rejected
-                        u.color = ConvertColor("#D42424");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                    if (u.statusID == 5)
-                    {
-                        //Completed
-                        u.color = ConvertColor("#3398D8");
-                        u.TextColor = ConvertColor("#3398D8");
-                        u.StatusImage = "/Images/CompleteRideIcon.png";
-                    }
-                    if (u.statusID == 6)
-                    {
-                        //Cancel
-                        u.color = ConvertColor("#A9ABB1");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                    if (u.statusID == 7)
-                    {
-                        //EndFlight
-                        u.color = ConvertColor("#000000");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                });
-                TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
+                        }
+                        if (u.statusID == 3)
+                        {
+                            //UpComming
+                            u.color = ConvertColor("#000000");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                        if (u.statusID == 4)
+                        {
+                            //Rejected
+                            u.color = ConvertColor("#D42424");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                        if (u.statusID == 5)
+                        {
+                            //Completed
+                            u.color = ConvertColor("#DEECFF");
+                            u.TextColor = ConvertColor("#3398D8");
+                            u.StatusImage = "/Images/CompleteRideIcon.png";
+                        }
+                        if (u.statusID == 6)
+                        {
+                            //Cancel
+                            u.color = ConvertColor("#A9ABB1");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                        if (u.statusID == 7)
+                        {
+                            //EndFlight
+                            u.color = ConvertColor("#000000");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                    });
+                    TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
+                }
+              
             }
             catch (Exception ex)
             {
@@ -215,55 +219,59 @@ namespace ideaForge.ViewModels
             try
             {
                 var requests = await _pilotRequestServices.GetAllRequest(status);
-                requests.userData.ForEach(u => {
-                    if (u.statusID == 1)
-                    {
-                        //Pending
-                        u.color = ConvertColor("#FFF4DB");
-                        u.TextColor = ConvertColor("#FFC540");
-                        u.StatusImage = "/Images/pendingIcon.png";
-                    }
-                    if (u.statusID == 2)
-                    {
-                        //OnGoing
-                        u.color = ConvertColor("#FFF3D9");
-                        u.TextColor = ConvertColor("#F98926");
-                        u.StatusImage = "/Images/ongoingIcon.png";
+                if (requests.status)
+                {
+                    requests.userData.ForEach(u => {
+                        if (u.statusID == 1)
+                        {
+                            //Pending
+                            u.color = ConvertColor("#FFF4DB");
+                            u.TextColor = ConvertColor("#FFC540");
+                            u.StatusImage = "/Images/pendingIcon.png";
+                        }
+                        if (u.statusID == 2)
+                        {
+                            //OnGoing
+                            u.color = ConvertColor("#F98926");
+                            u.TextColor = ConvertColor("#F98926");
+                            u.StatusImage = "/Images/ongoingIcon.png";
 
-                    }
-                    if (u.statusID == 3)
-                    {
-                        //UpComming
-                        u.color = ConvertColor("#000000");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                    if (u.statusID == 4)
-                    {
-                        //Rejected
-                        u.color = ConvertColor("#D42424");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                    if (u.statusID == 5)
-                    {
-                        //Completed
-                        u.color = ConvertColor("#3398D8");
-                        u.TextColor = ConvertColor("#3398D8");
-                        u.StatusImage = "/Images/CompleteRideIcon.png";
-                    }
-                    if (u.statusID == 6)
-                    {
-                        //Cancel
-                        u.color = ConvertColor("#A9ABB1");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                    if (u.statusID == 7)
-                    {
-                        //EndFlight
-                        u.color = ConvertColor("#000000");
-                        u.TextColor = ConvertColor("#FFFFFF");
-                    }
-                });
-                AllRequests = new ObservableCollection<RequestData>(requests.userData);
+                        }
+                        if (u.statusID == 3)
+                        {
+                            //UpComming
+                            u.color = ConvertColor("#000000");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                        if (u.statusID == 4)
+                        {
+                            //Rejected
+                            u.color = ConvertColor("#D42424");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                        if (u.statusID == 5)
+                        {
+                            //Completed
+                            u.color = ConvertColor("#3398D8");
+                            u.TextColor = ConvertColor("#3398D8");
+                            u.StatusImage = "/Images/CompleteRideIcon.png";
+                        }
+                        if (u.statusID == 6)
+                        {
+                            //Cancel
+                            u.color = ConvertColor("#A9ABB1");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                        if (u.statusID == 7)
+                        {
+                            //EndFlight
+                            u.color = ConvertColor("#000000");
+                            u.TextColor = ConvertColor("#FFFFFF");
+                        }
+                    });
+                    AllRequests = new ObservableCollection<RequestData>(requests.userData);
+                }
+             
               
             }
             catch (Exception ex)

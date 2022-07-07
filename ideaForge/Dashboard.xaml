@@ -252,19 +252,30 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-              
+               
                 <Border 
                     Grid.Row="0"
-                      
-                   
                     Margin="15,15,15,15"
                   Background="#FFFFFF" Grid.ColumnSpan="3">
 
-                    <Grid 
-                        Margin="20,0" 
+                    <Grid >
+
+                        <Button HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Width="30" Height="30" 
+                                Background="Transparent" 
+                                BorderBrush="Transparent" 
+                                Visibility="Hidden"
+                                
+                                x:FieldModifier="public"
+                                x:Name="backButton">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Images/backArrow.png"/>
+                            </StackPanel>
+                        </Button>
                         
-                        >
                         <Label x:Name="Header"
+                               Padding="30,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        FontSize="24"
@@ -276,11 +287,9 @@
                             Visibility="Visible"
                             x:Name="statusBorder"
                             x:FieldModifier="public"
-                            HorizontalAlignment="Center"
+                            Margin="200,0"
+                            HorizontalAlignment ="Left"
                             VerticalAlignment="Center"
-                            CornerRadius="6" Background="#DEECFF" 
-                            BorderBrush="#3398D8"
-                            BorderThickness="1"
                             >
                             <Grid >
                                 <Grid.ColumnDefinitions>
@@ -290,11 +299,11 @@
 
                                 <Image
                                     x:Name="statusImage"
-                                    x:FieldModifier="public"
-                                    Source="/Images/CompleteRideIcon.png" Grid.Column="0" Height="10" Margin="5"/>
+                                    x:FieldModifier="public" 
+                                    Grid.Column="0" Height="10" Margin="5"/>
                                 <Label 
                                     x:FieldModifier="public"
-                                    x:Name="statusLabel" Content="Completed" Foreground="#3398D8" Grid.Column="1"/>
+                                    x:Name="statusLabel" Grid.Column="1"/>
 
                             </Grid>
 
