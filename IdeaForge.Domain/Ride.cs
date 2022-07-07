@@ -40,6 +40,7 @@ namespace IdeaForge.Domain
         public string latitude { get; set; }
         public string longitude { get; set; }
         public bool liveVideoStream { get; set; }
+
     }
 
 }
