@@ -14,7 +14,7 @@
       x:Name="loginWindow"
         Title="Dashboard" Height="620" Width="1000">
     <Controls:MetroWindow.DataContext>
-           <vm:DashboardViewModel/>
+        <vm:DashboardViewModel/>
     </Controls:MetroWindow.DataContext>
     <Controls:MetroWindow.Resources>
 
@@ -159,7 +159,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    
+
                     <Border 
                         Grid.Row="0"
                         Margin="-1 15 -1 0"
@@ -169,34 +169,34 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                               
+
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-                                
+
                             </Grid.RowDefinitions>
                             <Image  Source="/Images/bell.png" Height="25" Margin="0,10,200,10" Grid.Column="0" ></Image>
 
 
-                         
+
                             <Grid Grid.Row="0" MouseLeftButtonUp="Grid_MouseLeftButtonUp" HorizontalAlignment="Right" >
-                                
+
                                 <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                             <Border Grid.Column="0" 
+                                <Border Grid.Column="0" 
                                     Background="#FFFFFF" 
                                     BorderBrush="Black" CornerRadius="20" 
                                     Width="30" Height="30" 
                                     BorderThickness="1">
-                                 
+
                                     <Image Source="{Binding Path=DataContext.ProfileImage}"></Image>
-                                    
+
                                 </Border>
-                            
-                            <Label 
+
+                                <Label 
                                 VerticalAlignment="Center" 
                                 Content="{Binding Path=DataContext.UserName}" 
                                 Margin="5"
@@ -208,7 +208,7 @@
                                    Height="20" Grid.Column="2" />
 
                             </Grid>
-                           
+
                         </Grid>
 
                         <Border.Effect>
@@ -216,7 +216,7 @@
                         </Border.Effect>
                     </Border>
 
-                   
+
                     <Controls:TransitioningContentControl Grid.Row="1"
                                                 Content="{Binding}"
                                                 RestartTransitionOnContentChange="True"
@@ -252,7 +252,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-               
+
                 <Border 
                     Grid.Row="0"
                     Margin="15,15,15,15"
@@ -273,7 +273,7 @@
                                 <Image Source="/Images/backArrow.png"/>
                             </StackPanel>
                         </Button>
-                        
+
                         <Label x:Name="Header"
                                Padding="30,0,0,0"
                        HorizontalAlignment="Left"

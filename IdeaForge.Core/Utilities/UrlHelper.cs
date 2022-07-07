@@ -19,9 +19,7 @@ namespace IdeaForge.Core.Utilities
         public const string pilotAllRequestURL = baseURL + "/api/pilotRequests/getallrides";
         public const string RidesByIdURL = baseURL + "/api/pilotRequests/getridebyid";
         public const string StatusChangesURL = baseURL + "/api/pilotRequests/userupdateride";
-
-
-
         public const string pilotLocationUrl = baseURL + "/api/pilotRequests/getpilotloactionbyuserid";
+        
     }
 }
