@@ -216,7 +216,7 @@ namespace ideaForge.ViewModels
         #region Constructor
         public LoginPageViewModel()
         {
-            
+          //  Barrel.Current.EmptyAll();
             ImageUrl = "/Images/LoginImage.png";
           
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
