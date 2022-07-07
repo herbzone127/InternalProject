@@ -51,8 +51,14 @@ namespace ideaForge.ViewModels
 
         private async void AcceptedCommandCanExecute(object obj)
         {
+            IsBusy = true;
            
-           await GetStatusChangesResponse(true,rideId);
+          var result= await GetStatusChangesResponse(true,rideId);
+            if (result)
+            {
+                MessageBox.Show("Selected record accepted successfully.");
+            }
+            IsBusy = false;
         }
         #endregion
 
