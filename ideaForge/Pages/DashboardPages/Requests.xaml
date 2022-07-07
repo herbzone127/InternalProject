@@ -127,7 +127,9 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid 
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
-                        ItemsSource="{Binding AllRequests,Mode=TwoWay}" 
+                        SelectedItem="{Binding SelectedAllRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding AllRequests,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                        
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
@@ -200,7 +202,7 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Button BorderBrush="Transparent" BorderThickness="0" 
-                                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AcceptedCommand}"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AcceptedCommand,UpdateSourceTrigger=PropertyChanged}"
                                                     CommandParameter="{Binding .}"
                                                     >
                                                 <StackPanel Orientation="Horizontal">
