@@ -52,8 +52,8 @@ namespace ideaForge.ViewModels
         private async void AcceptedCommandCanExecute(object obj)
         {
             IsBusy = true;
-           
-          var result= await GetStatusChangesResponse(true,rideId);
+            var model = (RequestData)obj;
+          var result= await GetStatusChangesResponse(true,model.id);
             if (result)
             {
                 MessageBox.Show("Selected record accepted successfully.");

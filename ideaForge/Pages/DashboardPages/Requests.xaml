@@ -199,7 +199,10 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                            <Button BorderBrush="Transparent" BorderThickness="0" 
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AcceptedCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    >
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
