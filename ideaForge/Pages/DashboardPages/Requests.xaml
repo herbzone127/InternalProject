@@ -220,8 +220,6 @@
                                                        Grid.Column="1"/>
 
                                             </Grid>
-                                             
-                                            <!--edited-->
 
                                         </Border>
                                     </DataTemplate>
@@ -232,13 +230,31 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                            <Button BorderBrush="#E9E9E9" 
+                                                    BorderThickness="1"
+                                                    Background="Transparent"
+                                                    Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.AcceptedCommand,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                                    CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
                                                 </StackPanel>
                                             </Button>
-                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                            <Button 
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    BorderThickness="1"
+                                                    Background="Transparent"
+                                                Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.RejectedCommand,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                                    CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/rejectIcon.png" />
                                                     <TextBlock Margin="5,0">Reject</TextBlock>
