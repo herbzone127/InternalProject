@@ -34,7 +34,7 @@ namespace ideaForge.Pages.DashboardPages
 
         }
        
-        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var grid = (DataGrid)sender;
             var selectedRecord = (RequestData)grid.CurrentItem;
