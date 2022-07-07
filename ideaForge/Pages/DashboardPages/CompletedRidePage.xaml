@@ -45,7 +45,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -62,7 +61,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -79,7 +77,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -95,7 +92,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -118,7 +114,6 @@
                             </Label>
                             <TextBox  Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -135,7 +130,6 @@
                             </Label>
                             <TextBox  Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -152,7 +146,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -168,7 +161,6 @@
                             </Label>
                             <TextBox  Text="Drone landed" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -241,7 +233,6 @@
                                     
                                
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -275,7 +266,6 @@
                                     </Button>
                                 </Grid>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -309,7 +299,6 @@
                                     </Button>
                                 </Grid>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -342,7 +331,6 @@
                                     </Button>
                                 </Grid>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="0,30,26,0" Grid.Row="0" Grid.Column="4" >
                             <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
@@ -372,7 +360,6 @@
                                     </Button>
                                 </Grid>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -434,7 +421,6 @@
                             </Border>
 
 
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -451,7 +437,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -496,7 +481,6 @@
                                     </Button>
                                 </StackPanel>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -533,7 +517,6 @@
                                 </StackPanel>
 
 
-                                <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </Grid>
                     <TextBox SelectedText="Type Feedback" SelectionTextBrush="#A9ABB1" Height="30" Margin="0,10,0,0" Foreground="Black"/>
                         </StackPanel>
