@@ -540,7 +540,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
+                            <TextBox  Text="{Binding MissionType}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -552,7 +552,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
+                            <TextBox  Text="{Binding TotalRequestedTime}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -564,7 +564,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
+                            <TextBox  Text="{Binding FlightDate}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -576,7 +576,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
+                            <TextBox  Text="{Binding FlightTime}" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
                         </StackPanel>
 
 
@@ -780,7 +780,7 @@
                                                 <ColumnDefinition Width="*" MinWidth="120"/>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding ProfileModel.name}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                            <TextBox BorderThickness="0" Text="{Binding Latitude}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                             </TextBox>
                                             <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
@@ -812,7 +812,7 @@
                                                 <ColumnDefinition Width="*" MinWidth="120"/>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding ProfileModel.name}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                            <TextBox BorderThickness="0" Text="{Binding Longitude}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                             </TextBox>
                                             <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
