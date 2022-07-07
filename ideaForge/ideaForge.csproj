@@ -483,7 +483,6 @@
   <ItemGroup>
     <Resource Include="Images\markerIcon.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\10_535_330.jpg" />
   </ItemGroup>
@@ -526,6 +525,15 @@
   <ItemGroup>
     <Resource Include="Images\rejectIcon.png" />
     <Resource Include="Images\acceptIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\profile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

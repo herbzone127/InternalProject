@@ -40,5 +40,18 @@ namespace ideaForge
 
            
         }
+
+        private  void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if(trayProfile.Visibility == Visibility.Visible)
+            trayProfile.Visibility = Visibility.Hidden;
+           else if (trayProfile.Visibility == Visibility.Hidden)
+                trayProfile.Visibility = Visibility.Visible;
+        }
+
+        private void logout_MouseLeftDownUp(object sender, MouseButtonEventArgs e)
+        {
+            trayProfile.Visibility = Visibility.Hidden;
+        }
     }
 }
