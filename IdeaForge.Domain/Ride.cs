@@ -37,8 +37,8 @@ namespace IdeaForge.Domain
         public string updateBy { get; set; }
         public DateTime updateOn { get; set; }
         public bool pushNotification { get; set; }
-        public object latitude { get; set; }
-        public object longitude { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
         public bool liveVideoStream { get; set; }
     }
 

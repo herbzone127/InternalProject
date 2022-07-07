@@ -47,7 +47,8 @@ namespace ideaForge.Behaviors
                             }
                            
                         }
-                        if (panel.Children.OfType<Label>().Where(u => u.Visibility == System.Windows.Visibility.Visible).Count() == 0)
+                        var counter = panel.Children.OfType<Label>().Where(u => u.Visibility == System.Windows.Visibility.Visible && u.Foreground==Brushes.Red).Count();
+                        if (counter == 0)
                         {
                             var obj = (LoginPageViewModel)AssociatedObject.DataContext;
                             obj.RegisterNewUserCanExecute(null);

@@ -140,7 +140,7 @@
                     </e:Interaction.Behaviors>
 
                 </TextBox>
-                <Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Mobile Number" Foreground="Red"  Visibility="Hidden"/>
+                <Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Mobile Number with Country Code" Foreground="Red"  Visibility="Hidden"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">

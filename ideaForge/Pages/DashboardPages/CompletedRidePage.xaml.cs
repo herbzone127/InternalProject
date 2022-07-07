@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ideaForge.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class CompletedRidePage : UserControl
     {
-        public CompletedRidePage()
+        public CompletedRidePage(IdeaForge.Domain.RideById rideDetails)
         {
             InitializeComponent();
+            this.DataContext = new  CompleteRideViewModel();
+            var vModel = (CompleteRideViewModel)DataContext;
+            vModel.RideById = rideDetails;
         }
     }
 }

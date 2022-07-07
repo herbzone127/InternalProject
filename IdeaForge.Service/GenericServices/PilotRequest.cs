@@ -78,7 +78,7 @@ namespace IdeaForge.Service.GenericServices
         {
             try
             {
-                var url = UrlHelper.pilotRequestURL + "/" + rideId;
+                var url = UrlHelper.RidesByIdURL + "/" + rideId;
 
                 var result = await HTTPClientWrapper<RideResponse>.Get(url);
 
