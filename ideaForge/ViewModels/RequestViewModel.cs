@@ -232,7 +232,7 @@ namespace ideaForge.ViewModels
                         if (u.statusID == 2)
                         {
                             //OnGoing
-                            u.color = ConvertColor("#F98926");
+                            u.color = ConvertColor("#FFF3D9");
                             u.TextColor = ConvertColor("#F98926");
                             u.StatusImage = "/Images/ongoingIcon.png";
 
@@ -252,7 +252,7 @@ namespace ideaForge.ViewModels
                         if (u.statusID == 5)
                         {
                             //Completed
-                            u.color = ConvertColor("#3398D8");
+                            u.color = ConvertColor("#DEECFF");
                             u.TextColor = ConvertColor("#3398D8");
                             u.StatusImage = "/Images/CompleteRideIcon.png";
                         }

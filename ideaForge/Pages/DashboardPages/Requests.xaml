@@ -14,7 +14,9 @@
     <Grid>
 
         <mah:MetroTabControl>
-            <TabItem  Header="Today's Requests" Background="#A9ABB1" >
+            <TabItem  Header="Today's Requests" Background="#A9ABB1" 
+                      BorderBrush="#A9ABB1"
+                      BorderThickness="1">
                 <Grid Background="#FFF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="33*"/>
@@ -71,37 +73,53 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn CanUserSort="True" Header="Status">
-                                
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="12" Background="{Binding color}" Padding="5">
+                                        <Border CornerRadius="4" Opacity="1"
+                                                BorderThickness="1"
+                                                Background="{Binding color}" Padding="5,1"
+                                                Height="30"
+                                                Width="90">
                                             <Grid >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="1*"/>
                                                     <ColumnDefinition Width="3*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Source="{Binding StatusImage}" Grid.Column="0" Height="10" Margin="5"/>
-                                                <Label Content="{Binding status}" Foreground="{Binding TextColor}" Grid.Column="1"/>
+                                                <Image Source="{Binding StatusImage}" 
+                                                       Grid.Column="0" Height="10" Margin="5,0"/>
+                                                <Label Content="{Binding status}" 
+                                                       Foreground="{Binding TextColor}" 
+                                                       Margin="0,0"
+                                                       FontSize="10"
+                                                       Grid.Column="1"/>
 
                                             </Grid>
 
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                                
+
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn CanUserSort="True" Header="Action">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button BorderBrush="Transparent" BorderThickness="0" Command="{Binding AcceptedCommand}" CommandParameter="{Binding .}">
+                                            <Button BorderBrush="#E9E9E9" 
+                                                    BorderThickness="1"
+                                                    Background="Transparent">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
                                                 </StackPanel>
                                             </Button>
-                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                            <Button 
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    BorderThickness="1"
+                                                    Background="Transparent"
+                                                    >
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/rejectIcon.png" />
                                                     <TextBlock Margin="5,0">Reject</TextBlock>
@@ -119,7 +137,9 @@
                     
                 </Grid>
             </TabItem>
-            <TabItem Header="All Requests"  Background="#A9ABB1" >
+            <TabItem Header="All Requests"  Background="#A9ABB1" 
+                     BorderBrush="#A9ABB1"
+                     BorderThickness="1">
                 <Grid Background="#FFF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="33*"/>
@@ -178,15 +198,24 @@
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="12" Background="{Binding color}" Padding="5">
+                                        <Border CornerRadius="4" Opacity="1"
+                                                BorderThickness="1"
+                                                Background="{Binding color}" Padding="5,1"
+                                                Height="30"
+                                                Width="90">
                                             <Grid >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="1*"/>
                                                     <ColumnDefinition Width="3*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Source="{Binding StatusImage}" Grid.Column="0" Height="10" Margin="5"/>
-                                                <Label Content="{Binding status}" Foreground="{Binding TextColor}" Grid.Column="1"/>
+                                                <Image Source="{Binding StatusImage}" 
+                                                       Grid.Column="0" Height="10" Margin="5,0"/>
+                                                <Label Content="{Binding status}" 
+                                                       Foreground="{Binding TextColor}" 
+                                                       Margin="0,0"
+                                                       FontSize="10"
+                                                       Grid.Column="1"/>
 
                                             </Grid>
 
@@ -199,13 +228,19 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                            <Button BorderBrush="#E9E9E9" 
+                                                    BorderThickness="1"
+                                                    Background="Transparent">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
                                                 </StackPanel>
                                             </Button>
-                                            <Button BorderBrush="Transparent" BorderThickness="0">
+                                            <Button 
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    BorderThickness="1"
+                                                    Background="Transparent">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/rejectIcon.png" />
                                                     <TextBlock Margin="5,0">Reject</TextBlock>
