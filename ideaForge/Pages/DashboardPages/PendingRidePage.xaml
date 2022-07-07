@@ -45,7 +45,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -62,7 +61,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -79,7 +77,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -95,7 +92,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -127,7 +123,6 @@
                             </Label>
                             <TextBox  Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -144,7 +139,6 @@
                             </Label>
                             <TextBox  Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -201,7 +195,6 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                             <Border  BorderBrush="#A9ABB1" Margin="15,-10,15,0" BorderThickness="1" CornerRadius="5">
                                 <dotNetKitControls:AutoCompleteComboBox
     SelectedValuePath="Name"
@@ -247,7 +240,6 @@
                                     </Button>
                                 </Grid>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
                         <Grid Grid.ColumnSpan="4" Margin="1,1,161,2">
                             <Grid.RowDefinitions>
@@ -270,7 +262,6 @@
                                         </ControlTemplate>
                                     </Label.Template>
                                 </Label>
-                                <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                                 <Border  BorderBrush="#A9ABB1" Margin="15,-10,15,0" BorderThickness="1" CornerRadius="5">
                                     <dotNetKitControls:AutoCompleteComboBox
                                         SelectedValuePath="Name"
@@ -311,7 +302,6 @@
                                         </Button>
                                     </Grid>
                                 </Border>
-                                <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                             </StackPanel>
 
                         </Grid>
@@ -377,7 +367,6 @@
                             </Border>
 
 
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -394,7 +383,6 @@
                             </Label>
                             <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -439,7 +427,6 @@
                                     </Button>
                                 </StackPanel>
                             </Border>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -476,7 +463,6 @@
                                 </StackPanel>
 
 
-                                <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                             </Grid>
                             <TextBox SelectedText="Type Feedback" SelectionTextBrush="#A9ABB1" Height="30" Margin="0,10,0,0" Foreground="Black"/>
                         </StackPanel>
@@ -554,8 +540,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                            <TextBox  Text="{Binding MissionType}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -567,8 +552,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                            <TextBox  Text="{Binding TotalRequestedTime}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -580,8 +564,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                            <TextBox  Text="{Binding FlightDate}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -593,8 +576,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                            <TextBox  Text="{Binding FlightTime}" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
                         </StackPanel>
 
 
@@ -621,7 +603,6 @@
                                 </Label.Template>
                             </Label>
                             <TextBox  Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -634,7 +615,6 @@
                                 </Label.Template>
                             </Label>
                             <TextBox  Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0"/>
-                            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                         </StackPanel>
 
 
@@ -728,7 +708,6 @@
                                     </Border>
 
 
-                                    <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                                 </StackPanel>
 
 
@@ -741,7 +720,6 @@
                                         </Label.Template>
                                     </Label>
                                     <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
-                                    <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                                 </StackPanel>
 
 
@@ -802,7 +780,7 @@
                                                 <ColumnDefinition Width="*" MinWidth="120"/>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding ProfileModel.name}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                            <TextBox BorderThickness="0" Text="{Binding Latitude}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                             </TextBox>
                                             <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
@@ -814,7 +792,6 @@
                                     </Border>
 
 
-                                    <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                                 </StackPanel>
 
 
@@ -835,7 +812,7 @@
                                                 <ColumnDefinition Width="*" MinWidth="120"/>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding ProfileModel.name}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                            <TextBox BorderThickness="0" Text="{Binding Longitude}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                             </TextBox>
                                             <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
@@ -845,7 +822,6 @@
                                             </Button>
                                         </Grid>
                                     </Border>
-                                    <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                                 </StackPanel>
 
 

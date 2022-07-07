@@ -33,8 +33,8 @@ namespace ideaForge.Pages.DashboardPages
         {
 
         }
-
-        private async void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+       
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var grid = (DataGrid)sender;
             var selectedRecord = (RequestData)grid.CurrentItem;
@@ -130,5 +130,6 @@ namespace ideaForge.Pages.DashboardPages
             var result = (Thickness)converter.ConvertFromString(border);
             return result;
         }
+
     }
 }

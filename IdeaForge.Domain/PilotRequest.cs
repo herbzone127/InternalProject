@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace IdeaForge.Domain
@@ -38,5 +39,6 @@ namespace IdeaForge.Domain
         public Brush color { get; set; }
         public Brush TextColor { get; set; }
         public string StatusImage { get; set; }
+        public Visibility IsVisibleButton { get; set; }
     }
 }
