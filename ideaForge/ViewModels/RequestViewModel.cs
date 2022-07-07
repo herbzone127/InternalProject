@@ -67,7 +67,7 @@ namespace ideaForge.ViewModels
             var model = (RequestData)obj;
            
                 MessageBox.Show("Selected record rejected successfully.");
-                var result = await GetStatusChangesResponse(true, model.id);
+                var result = await GetStatusChangesResponse(false, model.id);
                 if (result)
                 {
                     SelectedAllRequest.statusID = 2;
@@ -296,6 +296,7 @@ namespace ideaForge.ViewModels
                         }
                     });
                     TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
+                    //Console.WriteLine("hello    " + DateTime.Now);
                 }
               
             }
@@ -322,6 +323,7 @@ namespace ideaForge.ViewModels
                             u.color = ConvertColor("#FFF4DB");
                             u.TextColor = ConvertColor("#FFC540");
                             u.StatusImage = "/Images/pendingIcon.png";
+                            u.IsVisibleButton = Visibility.Visible;
                         }
                         if (u.statusID == 2)
                         {
@@ -329,6 +331,7 @@ namespace ideaForge.ViewModels
                             u.color = ConvertColor("#FFF3D9");
                             u.TextColor = ConvertColor("#F98926");
                             u.StatusImage = "/Images/ongoingIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
 
                         }
                         if (u.statusID == 3)
@@ -336,12 +339,14 @@ namespace ideaForge.ViewModels
                             //UpComming
                             u.color = ConvertColor("#000000");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 4)
                         {
                             //Rejected
                             u.color = ConvertColor("#D42424");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 5)
                         {
@@ -349,21 +354,25 @@ namespace ideaForge.ViewModels
                             u.color = ConvertColor("#DEECFF");
                             u.TextColor = ConvertColor("#3398D8");
                             u.StatusImage = "/Images/CompleteRideIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 6)
                         {
                             //Cancel
                             u.color = ConvertColor("#A9ABB1");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 7)
                         {
                             //EndFlight
                             u.color = ConvertColor("#000000");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                     });
                     AllRequests = new ObservableCollection<RequestData>(requests.userData);
+                   
                 }
              
               

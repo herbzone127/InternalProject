@@ -259,14 +259,19 @@
                   Background="#FFFFFF" Grid.ColumnSpan="3">
 
                     <Grid >
-
-                        <Button HorizontalAlignment="Left" 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" HorizontalAlignment="Left" 
                                 VerticalAlignment="Center" 
                                 Width="30" Height="30" 
                                 Background="Transparent" 
                                 BorderBrush="Transparent" 
                                 Visibility="Hidden"
-                                
+                               Click="backButton_Click"
                                 x:FieldModifier="public"
                                 x:Name="backButton">
                             <StackPanel Orientation="Horizontal">
@@ -274,7 +279,9 @@
                             </StackPanel>
                         </Button>
                         
-                        <Label x:Name="Header"
+                        <Label 
+                         
+                            Grid.Column="1" x:Name="Header"
                                Padding="30,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -284,10 +291,12 @@
                                    
                        Content="{Binding PageName,Mode=TwoWay}" />
                         <Border
+                            Grid.Column="2"
+                          
                             Visibility="Visible"
                             x:Name="statusBorder"
                             x:FieldModifier="public"
-                            Margin="200,0"
+                           
                             HorizontalAlignment ="Left"
                             VerticalAlignment="Center"
                             >
@@ -308,7 +317,9 @@
                             </Grid>
 
                         </Border>
-                        <StackPanel
+                        <StackPanel 
+                           
+                            Grid.Column="3"
                               VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal"
@@ -324,7 +335,7 @@
                        Foreground="Black"
                        FontWeight="SemiBold"
                              HorizontalContentAlignment="Right"      
-                       Content="Mumbai Navi Mahashtra" />
+                       Content="Navi Mumbai, Maharashtra" />
                         </StackPanel>
                     </Grid>
 
@@ -345,6 +356,7 @@
                         VerticalContentAlignment="Center"
                         DataContext="{Binding Path=.}"
                         Focusable="True"
+                    
               Content="{Binding CurrentPage,Mode=TwoWay}" Grid.ColumnSpan="3"  />
 
                 <mah:ProgressRing

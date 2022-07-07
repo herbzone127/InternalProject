@@ -1,9 +1,13 @@
-﻿using MahApps.Metro.Controls;
+﻿using ideaForge.Pages.DashboardPages;
+using ideaForge.ViewModels;
+using MahApps.Metro.Controls;
 using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,16 +25,45 @@ namespace ideaForge
     /// </summary>
     public partial class Dashboard : MetroWindow
     {
+        BackgroundWorker worker = new BackgroundWorker();
+        static string pg=string.Empty;
         public Dashboard()
         {
             InitializeComponent();
         }
 
-        private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
+        private  void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
         {
+            statusBorder.Visibility=Visibility.Hidden;
+            backButton.Visibility=Visibility.Hidden;
+            var menu = (HamburgerMenu)sender;
+            var value =(HamburgerMenuGlyphItem) menu.SelectedItem;
+            pg = value.Label;
+            if (value.Label== "Requests")
+            {
+               
+                worker.DoWork += worker_DoWork;
+              
+                worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+                worker.ProgressChanged += Worker_ProgressChanged;
+                worker.WorkerReportsProgress=true;  
+                worker.WorkerSupportsCancellation = true;
+                worker.RunWorkerAsync();
+            }
+            else
+            {
+                
+                worker.CancelAsync();
+                
+            }
            
 
-           
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            object userObject = e.UserState;
+            int percentage = e.ProgressPercentage;
         }
 
         private  void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -48,6 +81,74 @@ namespace ideaForge
             var login = new Login();
             login.Show();
             this.Close();
+        }
+
+        private void currentPg_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+        
+         
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var bgWorker = (BackgroundWorker)sender;
+            if (e.Cancelled)
+            {
+                return;
+            }
+          
+           
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (pg!= "Requests")
+            {
+                e.Cancel = true;
+               
+            }
+            else
+            {
+                Task.Run(async () =>
+                {
+                  
+                        
+                      await Task.Delay(TimeSpan.FromSeconds(30)).ContinueWith(async(task) => {
+                          if (task.IsCompleted)
+                          {
+                              await this.Dispatcher.Invoke(async () =>
+                              {
+                                  var model = (DashboardViewModel)this.DataContext;
+                              var rPage = (Requests)model.CurrentPage.Content;
+                              var ucModel = (RequestViewModel)rPage.DataContext;
+                             await ucModel.GetTodaysRequest("");
+                              
+                                  
+                              });
+                              worker.RunWorkerAsync();
+                          }
+                      
+                     
+                      
+                         
+                    });
+
+                });
+          
+                
+            }
+           
+         
+             //vModel.GetTodaysRequest("").Wait();
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            statusBorder.Visibility = Visibility.Hidden;
+            backButton.Visibility = Visibility.Hidden;
+            var vModel = (DashboardViewModel)this.DataContext;
+            vModel.CurrentPage.Content = new Requests();
+            vModel.PageName = "Requests";
         }
     }
 }

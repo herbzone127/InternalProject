@@ -216,7 +216,7 @@ namespace ideaForge.ViewModels
         #region Constructor
         public LoginPageViewModel()
         {
-          //  Barrel.Current.EmptyAll();
+           //Barrel.Current.EmptyAll();
             ImageUrl = "/Images/LoginImage.png";
           
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
@@ -248,8 +248,12 @@ namespace ideaForge.ViewModels
         {
             IsBusy = true;
             var result =await _registerService.Register(RegisterModel);
-            MessageBox.Show(result.message);
-            SignupBackButtonCanExecute(null);
+            if (result.status)
+            {
+                MessageBox.Show(result.message);
+                SignupBackButtonCanExecute(null);
+            }
+           
             IsBusy = false;
         }
 

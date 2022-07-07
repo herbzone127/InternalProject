@@ -32,7 +32,7 @@ namespace ideaForge.Pages.DashboardPages
         {
 
         }
-
+       
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var grid = (DataGrid)sender;
@@ -122,5 +122,6 @@ namespace ideaForge.Pages.DashboardPages
             var result = (Thickness)converter.ConvertFromString(border);
             return result;
         }
+
     }
 }
