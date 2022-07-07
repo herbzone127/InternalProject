@@ -483,9 +483,7 @@
   <ItemGroup>
     <Resource Include="Images\markerIcon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\10_535_330.jpg" />
   </ItemGroup>

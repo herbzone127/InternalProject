@@ -160,14 +160,14 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0"
-                  Margin="-1 0 -1 0"
+                  Margin="-1 0 20 0"
                   Background="#FFFFFF">
                         <TextBlock x:Name="Header"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        FontSize="24"
                        Foreground="Black"
-                       Text="{Binding Label}" />
+                       Text="Profile" />
                         <Border.Effect>
                             <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
                         </Border.Effect>
