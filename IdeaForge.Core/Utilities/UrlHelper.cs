@@ -17,11 +17,11 @@ namespace IdeaForge.Core.Utilities
         public const string pilotSaveProfileURl = baseURL + "/api/Pilot/saveprofile";
         public const string pilotRequestURL = baseURL + "/api/pilotRequests/getallridesByCurrentDate";
         public const string pilotAllRequestURL = baseURL + "/api/pilotRequests/getallrides";
-        public const string RidesByIdURL = baseURL + "/api/pilotRequests/getridebyid/{rideId}";
-        public const string StatusChangesURL = baseURL + "/api/pilotRequests/userupdateride/{isAccepted}/{rideId}";
+        public const string RidesByIdURL = baseURL + "/api/pilotRequests/getridebyid";
+        public const string StatusChangesURL = baseURL + "/api/pilotRequests/userupdateride";
 
 
 
-        public const string pilotLocationUrl = baseURL + "/api/pilotRequests/getpilotloactionbyuserid/{userId}";
+        public const string pilotLocationUrl = baseURL + "/api/pilotRequests/getpilotloactionbyuserid";
     }
 }

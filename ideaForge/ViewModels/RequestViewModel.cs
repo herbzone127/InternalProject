@@ -19,6 +19,16 @@ namespace ideaForge.ViewModels
         /// Services
         /// </summary>
         public int rideId { get; set; }
+        private RequestData _selectedAllRequest;
+
+        public RequestData SelectedAllRequest
+        {
+            get { return _selectedAllRequest; }
+            set { _selectedAllRequest = value;
+                OnPropertyChanged(nameof(SelectedAllRequest));
+            }
+        }
+
         #region Services
         public IPilotRequestServices _pilotRequestServices
          => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
@@ -30,13 +40,15 @@ namespace ideaForge.ViewModels
         //RegisterCommand
         private readonly DelegateCommand _AcceptedCommand;
         public ICommand AcceptedCommand => _AcceptedCommand;
+        private readonly DelegateCommand _RejectedCommand;
+        public ICommand RejectedCommand => _RejectedCommand;
         #endregion
 
         #region Constructur
         public RequestViewModel()
         {
             _AcceptedCommand = new DelegateCommand(AcceptedCommandCanExecute);
-
+            _RejectedCommand = new DelegateCommand(RejectedCommandCanExecute);
             //GetTodaysRequest("");
             //Task.Factory.StartNew(async() => {
 
@@ -49,10 +61,92 @@ namespace ideaForge.ViewModels
             GetTodaysRequest("").ConfigureAwait(false);
         }
 
+        private async void RejectedCommandCanExecute(object obj)
+        {
+            IsBusy = true;
+            var model = (RequestData)obj;
+           
+                MessageBox.Show("Selected record rejected successfully.");
+                var result = await GetStatusChangesResponse(true, model.id);
+                if (result)
+                {
+                    SelectedAllRequest.statusID = 2;
+                    SelectedAllRequest.status = "Pending";
+                    if (SelectedAllRequest.statusID == 2)
+                    {
+                        //OnGoing
+                        SelectedAllRequest.color = ConvertColor("#F98926");
+                        SelectedAllRequest.TextColor = ConvertColor("#F98926");
+                        SelectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+
+                    }
+                    foreach (var selectedAllRequest in AllRequests.Where(u => u.id == model.id))
+                    {
+                        selectedAllRequest.statusID = 2;
+                        selectedAllRequest.status = "Pending";
+                        if (selectedAllRequest.statusID == 2)
+                        {
+                            //OnGoing
+                            selectedAllRequest.color = ConvertColor("#F98926");
+                            selectedAllRequest.TextColor = ConvertColor("#F98926");
+                            selectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+
+                        }
+                    }
+
+
+                }
+
+
+            
+           
+            IsBusy = false;
+        }
+
         private async void AcceptedCommandCanExecute(object obj)
         {
-           
-           await GetStatusChangesResponse(true,rideId);
+            IsBusy = true;
+            var model = (RequestData)obj;
+            if(model.statusID == 1)
+            {
+                MessageBox.Show("Selected record accepted successfully.");
+                var result = await GetStatusChangesResponse(true, model.id);
+                if (result)
+                {
+                    SelectedAllRequest.statusID = 2;
+                    SelectedAllRequest.status = "Pending";
+                    if (SelectedAllRequest.statusID == 2)
+                    {
+                        //OnGoing
+                        SelectedAllRequest.color = ConvertColor("#F98926");
+                        SelectedAllRequest.TextColor = ConvertColor("#F98926");
+                        SelectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+
+                    }
+                    foreach (var selectedAllRequest in AllRequests.Where(u=>u.id==model.id))
+                    {
+                        selectedAllRequest.statusID = 2;
+                        selectedAllRequest.status = "Pending";
+                        if (selectedAllRequest.statusID == 2)
+                        {
+                            //OnGoing
+                            selectedAllRequest.color = ConvertColor("#F98926");
+                            selectedAllRequest.TextColor = ConvertColor("#F98926");
+                            selectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+
+                        }
+                    }
+                  
+                 
+                }
+               
+
+            }
+            else
+            {
+                MessageBox.Show("Only pending rides can be accepted");
+            }
+            IsBusy = false;
         }
         #endregion
 

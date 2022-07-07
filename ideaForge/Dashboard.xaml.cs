@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +28,7 @@ namespace ideaForge
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
         {
-            string menuItem = ((MahApps.Metro.Controls.HamburgerMenuItem)args.InvokedItem).Label;
-
-            if(menuItem == "Profile")
-            {
-                //this.HamburgerMenuControl.Content = new Pages.ProfilePage();
-            }
-            else
-            {
-                //this.HamburgerMenuControl.Content = new Pages.DashboardPages.CompletedRidePage();
-            }
+           
 
            
         }
@@ -51,7 +43,11 @@ namespace ideaForge
 
         private void logout_MouseLeftDownUp(object sender, MouseButtonEventArgs e)
         {
+            Barrel.Current.EmptyAll();
             trayProfile.Visibility = Visibility.Hidden;
+            var login = new Login();
+            login.Show();
+            this.Close();
         }
     }
 }
