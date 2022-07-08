@@ -50,6 +50,7 @@
     <Compile Include="ProfileModel.cs" />
     <Compile Include="Ride.cs" />
     <Compile Include="RideStatus.cs" />
+    <Compile Include="RideUpdate.cs" />
     <Compile Include="StatusChanges.cs" />
     <Compile Include="UserDatumCity.cs" />
     <Compile Include="Login.cs" />

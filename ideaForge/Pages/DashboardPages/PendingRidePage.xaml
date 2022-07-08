@@ -394,7 +394,7 @@
                           Width="130"  BorderBrush="Black" 
                           Content="SAVE CHANGES" Foreground="White" 
                           Background="#91c84f" 
-                          Command="{Binding SaveChanges_Command}">
+                          Command="{Binding SaveChanges_Comand}">
                             <Button.Resources>
                                 <Style TargetType="{x:Type Button}">
                                     <Style.Resources>
