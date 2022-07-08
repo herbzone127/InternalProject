@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonkeyCache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonkeyCache.1.6.3\lib\net461\MonkeyCache.dll</HintPath>
-    </Reference>
-    <Reference Include="MonkeyCache.FileStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonkeyCache.FileStore.1.6.3\lib\net461\MonkeyCache.FileStore.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -55,16 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IdeaForge.Core\IdeaForge.Core.csproj">
-      <Project>{416C7F1D-5B45-4BE3-84D8-A1D17DC5CAF4}</Project>
-      <Name>IdeaForge.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IdeaForge.Domain\IdeaForge.Domain.csproj">
-      <Project>{A29C7A05-83F5-4B66-AD24-C882A6768477}</Project>
-      <Name>IdeaForge.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
