@@ -21,6 +21,16 @@ namespace ideaForge.ViewModels
         ///  All Properties are here
         /// </summary>
         #region Properties
+        private string _statusLogo;
+
+        public string StatusLogo
+        {
+            get { return _statusLogo; }
+            set { _statusLogo = value;
+                OnPropertyChanged(nameof(StatusLogo));
+            }
+        }
+
         private string _profileImage;
 
         public string ProfileImage

@@ -309,6 +309,7 @@
                                 <Image
                                     x:Name="statusImage"
                                     x:FieldModifier="public" 
+                                    Source="{Binding StatusLogo}"
                                     Grid.Column="0" Height="10" Margin="5"/>
                                 <Label 
                                     x:FieldModifier="public"

@@ -2,6 +2,7 @@
 using IdeaForge.Domain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,8 +51,8 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     dashboard.statusBorder.Visibility = Visibility.Visible;
                     dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
-                    dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
-
+                    //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
+                    context.StatusLogo = "/Images/pendingIcon.png";
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Pending";
                     dashboard.statusLabel.Foreground = ConvertColor("#FFC540");
@@ -121,11 +122,14 @@ namespace ideaForge.Pages.DashboardPages
             var result = (Thickness)converter.ConvertFromString(border);
             return result;
         }
-        private ImageSource ConvertImageSource(string source)
-        {
-            var converter = new ImageSourceConverter();
-            var result = (ImageSource)converter.ConvertFromString(source);
-            return result;
-        }
+        //private ImageSource ConvertImageSource(string source)
+        //{
+        //    var converter = new ImageSourceConverter();
+        //    var location = Directory.GetCurrentDirectory();
+        //    var imgAddress = location + source;
+            
+        //    var result = (ImageSource)converter.ConvertFromString(imgAddress);
+        //    return result;
+        //}
     }
 }
