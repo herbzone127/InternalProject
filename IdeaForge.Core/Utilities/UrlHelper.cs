@@ -23,5 +23,7 @@ namespace IdeaForge.Core.Utilities
         public const string pilotRide = baseURL + "api/pilotRequests/updateRideByPilot";
 
 
+
+        public const string getAllStatuses = baseURL+"/api/rides/getAllStatus";
     }
 }
