@@ -408,7 +408,7 @@
                             </Label>
                             <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" Width="152" >
 
-                                <TextBox BorderThickness="0" Text="{Binding UAV1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                <TextBox BorderThickness="0" Text="UAV123" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                 </TextBox>
                             </Border>

@@ -59,7 +59,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding TotalrequestedTime}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding TotalRequestedTime}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -435,7 +435,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding UserFeedBack}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -451,7 +451,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" >
+                            <Border  BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" >
                                 <StackPanel Orientation="Horizontal" Margin="5">
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating1_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>

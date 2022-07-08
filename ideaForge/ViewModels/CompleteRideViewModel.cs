@@ -66,6 +66,8 @@ namespace ideaForge.ViewModels
 
         public CompleteRideViewModel()
         {
+
+            var result = RideById;
             _TextCopyLatitude_Comand = new DelegateCommand(TextCopyLatitude_ComandExecut);
             _TextCopyLONGITUDE_Comand = new DelegateCommand(TextCopyLONGITUDE_ComandExecut);
             _TextCopyUAV_ID_Comand = new DelegateCommand(TextCopyUAV_ID_ComandExecut);
@@ -79,8 +81,8 @@ namespace ideaForge.ViewModels
             _Image_Rating4_Comand = new DelegateCommand(Image_Rating4_ComandExecut);
             _Image_Rating5_Comand = new DelegateCommand(Image_Rating5_ComandExecut);
             RestStarRating();
-        }
 
+        }
 
         private string _Image_Rating1;
 
@@ -164,7 +166,7 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(Rating_Num));
             }
         }
-        
+
 
         public void TextCopyLatitude_ComandExecut(object obj)
         {
@@ -248,6 +250,81 @@ namespace ideaForge.ViewModels
             Image_Rating4 = "/Images/StarFealedBackplain.png";
             Image_Rating5 = "/Images/StarFealedBackplain.png";
         }
+
+
+        private int _missionType;
+
+        public int MissionType
+        {
+            get { return _missionType; }
+            set
+            {
+                _missionType = value;
+                OnPropertyChanged(nameof(MissionType));
+            }
+        }
+        private double _totalRequestedTime;
+
+        public double TotalRequestedTime
+        {
+            get { return _totalRequestedTime; }
+            set
+            {
+                _totalRequestedTime = value;
+                OnPropertyChanged(nameof(TotalRequestedTime));
+            }
+        }
+
+        private string _flightDate;
+
+        public string FlightDate
+        {
+            get { return _flightDate; }
+            set
+            {
+                _flightDate = value;
+                OnPropertyChanged(nameof(FlightDate));
+            }
+        }
+
+        private string _flightTime;
+
+        public string FlightTime
+        {
+            get { return _flightTime; }
+            set
+            {
+                _flightTime = value;
+                OnPropertyChanged(nameof(FlightTime));
+            }
+        }
+
+        private string _statusForUser;
+
+        public string StatusForUser
+        {
+            get { return _statusForUser; }
+            set
+            {
+                _statusForUser = value;
+                OnPropertyChanged(nameof(StatusForUser));
+            }
+        }
+
+
+        private string _userFeedBack;
+
+        public string UserFeedBack
+        {
+            get { return _statusForUser; }
+            set
+            {
+                _statusForUser = value;
+                OnPropertyChanged(nameof(UserFeedBack));
+            }
+        }
+
+
 
     }
 }
