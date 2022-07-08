@@ -43,7 +43,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding MissionType}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding MissionName}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -289,7 +289,7 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="UAV123" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                    <TextBox BorderThickness="0" Text="{Binding UAVId}"  Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                     </TextBox>
                                     <Button  Height="10" BorderBrush="Transparent" Command="{Binding TextCopyUAV_ID_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">

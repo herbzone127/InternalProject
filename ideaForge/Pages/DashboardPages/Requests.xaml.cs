@@ -50,12 +50,7 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     dashboard.statusBorder.Visibility = Visibility.Visible;
                     dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
-                    //dashboard.Header.
-                    //BitmapImage bitmap = new BitmapImage();
-                    //bitmap.BeginInit();
-                    //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
-                    //bitmap.EndInit();
-                    //dashboard.statusImage.Source = bitmap;
+                    dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
 
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Pending";
@@ -90,12 +85,8 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     dashboard.statusBorder.Visibility = Visibility.Visible;
                     dashboard.statusBorder.Background = ConvertColor("#DEECFF");
-                    //dashboard.Header.
-                    //BitmapImage bitmap = new BitmapImage();
-                    //bitmap.BeginInit();
-                    //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
-                    //bitmap.EndInit();
-                    //dashboard.statusImage.Source = bitmap;
+
+                 
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Completed";
                     dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
@@ -130,6 +121,11 @@ namespace ideaForge.Pages.DashboardPages
             var result = (Thickness)converter.ConvertFromString(border);
             return result;
         }
-
+        private ImageSource ConvertImageSource(string source)
+        {
+            var converter = new ImageSourceConverter();
+            var result = (ImageSource)converter.ConvertFromString(source);
+            return result;
+        }
     }
 }

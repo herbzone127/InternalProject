@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,15 +29,22 @@ namespace ideaForge.ViewModels
             var result = RideById;
         }
 
-        private int _missionType;
+        #region Commands
+        private readonly DelegateCommand _saveChanges_Comand;
+        public ICommand SaveChanges_Comand => _saveChanges_Comand;
 
-        public int MissionType
+        private readonly DelegateCommand _cancelChanges_Comand;
+        public ICommand CancelChanges_Comand=> _cancelChanges_Comand;
+        #endregion
+        private String _missionName;
+
+        public String MissionName
         {
-            get { return _missionType; }
+            get { return _missionName; }
             set
             {
-                _missionType = value;
-                OnPropertyChanged(nameof(MissionType));
+                _missionName = value;
+                OnPropertyChanged(nameof(MissionName));
             }
         }
         private double _totalRequestedTime1;
@@ -121,6 +129,13 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(Longitude1));
             }
         }
-
+        //Control Key 8 Length ---- Secret Key  16 Length
+        public string GenerateRandomCryptographicKey(int keyLength)
+        {
+            RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            byte[] randomBytes = new byte[keyLength];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+            return Convert.ToBase64String(randomBytes);
+        }
     }
 }

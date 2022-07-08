@@ -540,7 +540,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding MissionType}" Height="35"  Foreground="Black"/>
+                            <TextBox  Text="{Binding MissionName}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -694,18 +694,12 @@
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                                        <dotNetKitControls:AutoCompleteComboBox
-    SelectedValuePath="Name"
-                        DisplayMemberPath="Name"
-    TextSearch.TextPath="Name"
-    ItemsSource="{Binding Languages}"
-     SelectedValue="{Binding StatusForUser1}" Height="32" Width="139"  
-                    
-                
-                
-    />
-                                    </Border>
+                                    <ComboBox Text="{Binding StatusForUser1}" Margin="10,2,0,13" Name="ComboBox1" FontWeight="SemiBold" Foreground="#545864" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="35">
+                                            <ComboBoxItem Content="Accepted"></ComboBoxItem>
+                                            <ComboBoxItem Content="Rejected"></ComboBoxItem>
+                                         
+                                        </ComboBox>
+                                    
 
 
                                 </StackPanel>
@@ -719,7 +713,7 @@
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <TextBox  Text="{Binding Status1}" Height="35"  Foreground="Black"/>
+                                    <TextBox Width="120" Text="{Binding Status1}" Height="35"  Foreground="Black"/>
                                 </StackPanel>
 
 
@@ -854,7 +848,12 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Comand}" Foreground="White" Background="#A9ABB1" >
+                <Button   BorderThickness="1"  
+                          Margin="0,0,10,0" 
+                          Height="35" Width="130" 
+                          BorderBrush="Black" 
+                          Content="CANCEL" Command="{Binding CancelChanges_Comand}" 
+                          Foreground="White" Background="#A9ABB1" >
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Style.Resources>
@@ -865,7 +864,12 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-                <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Black" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
+                <Button   
+                          BorderThickness="1" Height="35"
+                          Width="130"  BorderBrush="Black" 
+                          Content="SAVE CHANGES" Foreground="White" 
+                          Background="#91c84f" 
+                          Command="{Binding SaveChanges_Comand}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Style.Resources>

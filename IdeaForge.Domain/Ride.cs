@@ -25,7 +25,7 @@ namespace IdeaForge.Domain
         public int statusID { get; set; }
         public string status { get; set; }
         public string location { get; set; }
-        public int missionType { get; set; }
+        public int  missionType { get; set; }
         public object comments { get; set; }
         public DateTime requestOn { get; set; }
         public DateTime startDate { get; set; }
@@ -40,6 +40,10 @@ namespace IdeaForge.Domain
         public string latitude { get; set; }
         public string longitude { get; set; }
         public bool liveVideoStream { get; set; }
+        public string MissionName { get; set; }
+        public string ControlKey { get; set; }
+        public string SecretKey { get; set; }
+        public string UAVID { get; set; }
 
     }
 
