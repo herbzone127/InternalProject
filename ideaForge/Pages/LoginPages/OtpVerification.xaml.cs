@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ideaForge.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,10 @@ namespace ideaForge
             //NavigationService.Navigate(new Homepage());
         }
 
-        private void Label_ResendOTPBTN(object sender, MouseButtonEventArgs e)
+        private async void Label_ResendOTPBTN(object sender, MouseButtonEventArgs e)
         {
-
+            var vModel = (LoginPageViewModel)this.DataContext;
+           await vModel.ResendOTP();
         }
 
         private void OTP_Key_Up(object sender, KeyEventArgs e)

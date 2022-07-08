@@ -18,7 +18,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Pages/DashboardPages/MapLayers.xaml"/>
+                <ResourceDictionary Source="MapLayers.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type vm:PolylineItem}">
                 <map:MapPolyline Locations="{Binding Locations}" Stroke="Red" StrokeThickness="3"/>
@@ -220,22 +220,22 @@
                       HorizontalAlignment="Right"
             Margin="0,0,20,0"
                    Width="350"
-                  Height="230"
+                  Height="250"
                   Background="#FFFFFF">
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 <!-- creating rows in row 0-->
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" >
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -250,10 +250,32 @@
                     Content="Serviceable Area" 
                     Margin="10,1,0,0"
                         />
-                    <TextBox
-                         Margin="15,1,5,0"
-                        Grid.Row="1" Grid.Column="0"
-                        />
+                    <Border 
+                        Grid.Row="1" 
+                        Grid.Column="0"  
+                        Margin="15,1,5,0"
+                        BorderBrush="#A9ABB1"  
+                        BorderThickness="1"
+                        CornerRadius="5">
+                        <!--<TextBox
+                        Margin="2"
+                       BorderBrush="Transparent"
+                       BorderThickness="0"
+                        />-->
+                        <dotNetKitControls:AutoCompleteComboBox
+                           BorderThickness="0"
+                            VerticalContentAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderBrush="Transparent"
+                            Margin="2"
+    SelectedValuePath="city_Name"
+                        DisplayMemberPath="city_Name"
+    TextSearch.TextPath="city_Name"
+    ItemsSource="{Binding CityList}"
+     SelectedValue="{Binding RegisterModel.city}"    
+                            Height="30"
+   />
+                    </Border>
                     <!-- working 2 on the Row 0 and Row 1 for the Column 1-->
                     <Label 
                     FontFamily="Segoe UI"
@@ -272,7 +294,7 @@
                 <StackPanel  Grid.Row="1" Orientation="Vertical">
                     <Label
                             HorizontalAlignment="Left"
-                            Margin="15,0,0,0"
+                            Margin="15,5,0,5"
                              FontFamily="Segoe UI" 
                             FontWeight="SemiBold">
                         <Label.Template>
@@ -287,12 +309,17 @@
 
                     <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
                         <dotNetKitControls:AutoCompleteComboBox
+                           BorderThickness="0"
+                            VerticalContentAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderBrush="Transparent"
+                            Margin="2"
     SelectedValuePath="city_Name"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
     ItemsSource="{Binding CityList}"
      SelectedValue="{Binding RegisterModel.city}"    
-                            Height="30"
+                            Height="22"
    />
                     </Border>
 
@@ -302,7 +329,11 @@
                 <!-- Row 2 Started-->
                 <StackPanel  Grid.Row="2" Orientation="Vertical">
                     <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                        <RichTextBox  />
+                        <RichTextBox 
+                            Margin="2"
+                             BorderThickness="0"
+                            BorderBrush="Transparent"
+                            />
                     </Border>
                 </StackPanel>
                 <!-- Row 2 Completed-->

@@ -21,11 +21,12 @@ namespace ideaForge
         public static IServiceProvider serviceProvider { get; private set; }
         public App()
         {
-//ThemeManager.Current.ChangeTheme(this, "Gr");
+            Barrel.ApplicationId = "ideaForgeWPF";
+            //ThemeManager.Current.ChangeTheme(this, "Gr");
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
-            Barrel.ApplicationId = "ideaForgeWPF";
+            
         }
 
         private void ConfigureServices(ServiceCollection services)
@@ -35,10 +36,18 @@ namespace ideaForge
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            
-            
+            try
+            {
                 var mainWindow = serviceProvider.GetService<Login>();
                 mainWindow.Show();
+            }
+            catch (Exception)
+            {
+
+                Application.Current.Shutdown();
+            }
+            
+                
             
           
         }

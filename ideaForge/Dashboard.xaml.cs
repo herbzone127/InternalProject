@@ -1,5 +1,6 @@
 ﻿using ideaForge.Pages.DashboardPages;
 using ideaForge.ViewModels;
+using IdeaForge.Core.Utilities;
 using MahApps.Metro.Controls;
 using MonkeyCache.FileStore;
 using System;
@@ -30,6 +31,7 @@ namespace ideaForge
         public Dashboard()
         {
             InitializeComponent();
+            this.WindowState = Global.LoginState;
         }
 
         private  void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)

@@ -29,7 +29,7 @@
         <Image Grid.Row="0" Source="/Images/logo.png"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Pilot Login" VerticalAlignment="Center" HorizontalAlignment="Left" 
                FontSize="40" FontFamily="Segoe UI" Foreground="Black" FontWeight="SemiBold"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Content Number/Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Contact Number/Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
         <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding Email_PhoneNo}" Margin="10,0,10,0" BorderThickness="1"  BorderBrush="#A9ABB1"  Background="White"  VerticalContentAlignment="Center">
             <TextBox.Resources>
                 <Style TargetType="{x:Type TextBox}">
