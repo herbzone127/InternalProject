@@ -17,7 +17,7 @@
             <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
             <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Background="White" Margin="10" >
+        <StackPanel Grid.Row="1" Background="White" Margin="0" >
             <Grid>
                 <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
                     <Grid>

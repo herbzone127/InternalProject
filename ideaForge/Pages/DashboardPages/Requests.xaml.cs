@@ -2,6 +2,7 @@
 using IdeaForge.Domain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,8 +50,8 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     dashboard.statusBorder.Visibility = Visibility.Visible;
                     dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
-                    dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
-
+                    //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
+                    context.StatusLogo = "/Images/pendingIcon.png";
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Pending";
                     dashboard.statusLabel.Foreground = ConvertColor("#FFC540");
@@ -70,6 +71,7 @@ namespace ideaForge.Pages.DashboardPages
                     //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
                     //bitmap.EndInit();
                     //dashboard.statusImage.Source = bitmap;
+                    context.StatusLogo = "/Images/ongoingIcon.png";
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Ongoing";
                     dashboard.statusLabel.Foreground = ConvertColor("#F98926");
@@ -84,8 +86,7 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     dashboard.statusBorder.Visibility = Visibility.Visible;
                     dashboard.statusBorder.Background = ConvertColor("#DEECFF");
-
-                 
+                    context.StatusLogo = "/Images/CompleteRideIcon.png";
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Completed";
                     dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
@@ -120,11 +121,14 @@ namespace ideaForge.Pages.DashboardPages
             var result = (Thickness)converter.ConvertFromString(border);
             return result;
         }
-        private ImageSource ConvertImageSource(string source)
-        {
-            var converter = new ImageSourceConverter();
-            var result = (ImageSource)converter.ConvertFromString(source);
-            return result;
-        }
+        //private ImageSource ConvertImageSource(string source)
+        //{
+        //    var converter = new ImageSourceConverter();
+        //    var location = Directory.GetCurrentDirectory();
+        //    var imgAddress = location + source;
+            
+        //    var result = (ImageSource)converter.ConvertFromString(imgAddress);
+        //    return result;
+        //}
     }
 }

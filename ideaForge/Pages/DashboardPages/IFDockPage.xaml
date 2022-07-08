@@ -470,11 +470,11 @@
                 </DataGrid.Resources>
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="SR"/>
-                    <DataGridTextColumn Header="IF DOCK"/>
-                    <DataGridTextColumn Header="STATUS"/>
-                    <DataGridTextColumn Header="STATUS DESCRIPTION"/>
-                    <DataGridTextColumn Header="Action"/>
+                    <DataGridTextColumn Header="SR" Width="*"/>
+                    <DataGridTextColumn Header="IF DOCK" Width="*"/>
+                    <DataGridTextColumn Header="STATUS" Width="*"/>
+                    <DataGridTextColumn Header="STATUS DESCRIPTION" Width="*"/>
+                    <DataGridTextColumn Header="Action" Width="*"/>
 
                 </DataGrid.Columns>
             </DataGrid>
