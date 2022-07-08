@@ -38,13 +38,25 @@ namespace ideaForge.ViewModels
         {
             var result = RideById;
             _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
+            _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
+
             GetAllStatuses().ConfigureAwait(false);
         }
+
         #endregion
+
         private void CanExecuteSaveChanges(object obj)
         {
-            
+
         }
+       
+
+        private void CanExecuteCancelChanges(object obj)
+        {
+
+        }
+       
+    
 
         private readonly DelegateCommand _saveChanges_Command;
         public ICommand SaveChanges_Comand => _saveChanges_Command;
