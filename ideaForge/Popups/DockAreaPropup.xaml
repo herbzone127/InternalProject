@@ -6,26 +6,31 @@
         xmlns:local="clr-namespace:ideaForge.Popups"
         xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
         mc:Ignorable="d"
+       WindowStyle="None"
+        WindowChrome.ResizeGripDirection="None"
+        WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-     WindowState="Normal"
         ResizeMode="NoResize"
-        Title="DockAreaPropup" Height="220" Width="300"
-    
-       
+        ShowInTaskbar="False"
+       ShowActivated="True"
+      Topmost="True"
+        Title="DockAreaPropup" Height="250" Width="300"
+        Background="Transparent"
+        AllowsTransparency="True"
         
         >
-  
+
     <Grid Background="Transparent" Opacity="100">
-        
+
         <Grid Grid.Row="0"
-            Margin="0,25,0,0"
+            Margin="0,25"
             Background="White"
             >
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label 
                 Grid.Row="0" 
@@ -33,14 +38,14 @@
                 FontWeight="SemiBold" 
                 FontFamily="Segoe UI" 
                 Content="IF Docks Area" 
-                Margin="50,-15,0,0" />
+                Margin="50,20,0,0" />
             <Label 
                 Grid.Row="1" 
                 FontSize="12" 
                 FontWeight="Normal" 
                 FontFamily="Segoe UI" 
                 Content="Please select IF Docks location" 
-                Margin="10,0,10,0" />
+                Margin="10,20,0,0" />
             <dotNetKitControls:AutoCompleteComboBox
                 Grid.Row="2"
                 Margin="10,0,10,10"
@@ -57,7 +62,7 @@
                 Click="btnContinue_Click"
                 />
         </Grid>
-        <!--<Button Click="btnPopupClose_Click">
+        <Button Click="btnPopupClose_Click">
             <Button.Template>
                 <ControlTemplate>
                     <Border Background="White" 
@@ -80,7 +85,7 @@
                     </Border>
                 </ControlTemplate>
             </Button.Template>
-        </Button>-->
+        </Button>
 
         <Image Source="/Images/PopupLocationIcon.png" HorizontalAlignment="left" VerticalAlignment="Top"
                Width="50"/>
