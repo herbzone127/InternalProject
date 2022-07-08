@@ -8,6 +8,7 @@
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
         mc:Ignorable="d"
       x:Name="loginWindow"
+                 SizeChanged="loginWindow_SizeChanged"
         Title="Login" Height="600" Width="1000">
     <Window.DataContext>
         <vm:LoginPageViewModel/>

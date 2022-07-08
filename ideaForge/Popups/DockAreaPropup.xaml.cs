@@ -23,6 +23,7 @@ namespace ideaForge.Popups
         public DockAreaPopup()
         {
             InitializeComponent();
+        
         }
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
@@ -40,5 +41,7 @@ namespace ideaForge.Popups
             window.Close();
 
         }
+
+        
     }
 }

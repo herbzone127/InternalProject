@@ -221,8 +221,15 @@ namespace ideaForge.ViewModels
           
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
-                new DockAreaPopup().Show();
+
+                Application.Current.MainWindow = new DockAreaPopup();
+                Application.Current.MainWindow.ShowDialog();
+
+                var window = (Login)Application.Current.Windows[0];
+                window.Close();
+
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+
             }
             else
             {
@@ -289,7 +296,16 @@ namespace ideaForge.ViewModels
                 MessageBox.Show(result.message);
             }
         }
-
+        public async Task<UserData> ResendOTP()
+        {
+            IsBusy = true;
+            var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
+            if (result.status)
+            {
+                return result.userData;
+            }
+            return null;
+        }
         private async void OtpCanCanExecute(object obj)
         {
             IsBusy = true;

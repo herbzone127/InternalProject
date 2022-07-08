@@ -15,6 +15,7 @@ namespace ideaForge.ViewModels
 {
     public class DashboardViewModel : ViewModelBase
     {
+        public string ApplicationId { get; set; }
 
         /// <summary>
         ///  All Properties are here
@@ -82,6 +83,7 @@ namespace ideaForge.ViewModels
         #region Construtor
         public DashboardViewModel()
         {
+            ApplicationId = Barrel.ApplicationId;
             PageName = "IF Dock";
             var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
             if (user != null)

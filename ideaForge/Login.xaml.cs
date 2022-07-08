@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using IdeaForge.Core.Utilities;
+using MahApps.Metro.Controls;
 
 
 namespace ideaForge
@@ -11,6 +12,12 @@ namespace ideaForge
         public Login()
         {
             InitializeComponent();
+            Global.LoginState = this.WindowState;
+        }
+
+        private void loginWindow_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            Global.LoginState = this.WindowState;
         }
     }
 }

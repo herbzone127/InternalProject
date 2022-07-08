@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace IdeaForge.Core.Utilities
 {
@@ -11,5 +12,6 @@ namespace IdeaForge.Core.Utilities
         public static string email_PhoneNo { get; set; }
         public static int loginUserId { get; set; }
         public static string Token { get; set; }
+        public static WindowState LoginState { get; set; }
     }
 }
