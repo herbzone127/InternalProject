@@ -13,7 +13,9 @@
     <UserControl.DataContext>
         <vm:PendingRideViewModel/>
     </UserControl.DataContext>
-    <Grid Background="#EEEEEF">
+    <UserControl.Content>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Background="#EEEEEF">
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
             <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
         </StackPanel>
@@ -884,6 +886,9 @@
         </StackPanel>
 
     </Grid>
+
+        </ScrollViewer>
+    </UserControl.Content>
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Setters>
