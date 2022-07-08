@@ -13,6 +13,8 @@ namespace IdeaForge.Service.GenericServices
 {
     public class PilotRequest : IPilotRequestServices
     {
+        
+
         public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId)
         {
             try
@@ -36,8 +38,6 @@ namespace IdeaForge.Service.GenericServices
             return true;
         }
 
-    
-
         public async Task<PilotRequestResponse> GetTodaysRequest(string status)
         {
             try
@@ -58,7 +58,7 @@ namespace IdeaForge.Service.GenericServices
         }
    
 
-       public async Task<PilotRequestResponse> GetAllRequest(string status)
+        async Task<PilotRequestResponse> IPilotRequestServices.GetAllRequest(string status)
         {
             try
             {

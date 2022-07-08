@@ -72,14 +72,14 @@
                         </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn  Header="Booking Id">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
+                            <DataGridTemplateColumn  Header="UserName &amp; Contact">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -88,21 +88,21 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <!--<Label Content="{Binding id}"/>-->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding startDate}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Status" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Status">
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -132,7 +132,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
 
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Action" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Action">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal"  
@@ -201,14 +201,14 @@
                         </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn  Header="Booking Id">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
+                            <DataGridTemplateColumn  Header="UserName &amp; Contact">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -217,21 +217,21 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <!--<Label Content="{Binding id}"/>-->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding startDate}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Status" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Status">
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -261,7 +261,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
 
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Action" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Action">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}">

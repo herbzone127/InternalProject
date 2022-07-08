@@ -47,6 +47,7 @@
     <Compile Include="PilotLocation.cs" />
     <Compile Include="PilotOTP.cs" />
     <Compile Include="PilotRequest.cs" />
+    <Compile Include="PilotRideUpdate.cs" />
     <Compile Include="ProfileModel.cs" />
     <Compile Include="Ride.cs" />
     <Compile Include="RideStatus.cs" />

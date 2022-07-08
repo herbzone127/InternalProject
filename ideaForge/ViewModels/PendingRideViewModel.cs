@@ -1,11 +1,7 @@
 ﻿using IdeaForge.Domain;
-using IdeaForge.Service.IGenericServices;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,13 +11,6 @@ namespace ideaForge.ViewModels
 {
     public class PendingRideViewModel : ViewModelBase
     {
-
-        #region Services
-        public IPilotRequestServices _pilotRequestServices
-         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
-
-        #endregion
-
         private RideById _rideById;
 
         public RideById RideById
@@ -33,49 +22,21 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(RideById));
             }
         }
-        #region Constructor
+       
         public PendingRideViewModel()
         {
             var result = RideById;
-            _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
-            _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
-
-            GetAllStatuses().ConfigureAwait(false);
         }
 
-        #endregion
+        private int _missionType;
 
-        private void CanExecuteSaveChanges(object obj)
+        public int MissionType
         {
-
-        }
-       
-
-        private void CanExecuteCancelChanges(object obj)
-        {
-
-        }
-       
-    
-
-        private readonly DelegateCommand _saveChanges_Command;
-        public ICommand SaveChanges_Comand => _saveChanges_Command;
-       
-             private readonly DelegateCommand _cancelChanges_Command;
-        public ICommand CancelChanges_Command => _cancelChanges_Command;
-        #region Commands
-
-
-        #endregion
-        private String _missionName;
-
-        public String MissionName
-        {
-            get { return _missionName; }
+            get { return _missionType; }
             set
             {
-                _missionName = value;
-                OnPropertyChanged(nameof(MissionName));
+                _missionType = value;
+                OnPropertyChanged(nameof(MissionType));
             }
         }
         private double _totalRequestedTime1;

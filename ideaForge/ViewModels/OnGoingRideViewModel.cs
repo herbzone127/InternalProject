@@ -34,15 +34,15 @@ namespace ideaForge.ViewModels
            
         }
 
-        private String _missionName;
+        private int _missionType1;
 
-        public String MissionName
+        public int MissionType1
         {
-            get { return _missionName; }
+            get { return _missionType1; }
             set
             {
-                _missionName = value;
-                OnPropertyChanged(nameof(MissionName));
+                _missionType1 = value;
+                OnPropertyChanged(nameof(MissionType1));
             }
         }
         private double _totalRequestedTime1;
@@ -130,7 +130,7 @@ namespace ideaForge.ViewModels
         }
         
 
-        private String _controlKey1;
+              private String _controlKey1;
 
         public String ControlKey1
         {
@@ -142,7 +142,7 @@ namespace ideaForge.ViewModels
             }
         }
        
-        private String _secretKey1;
+            private String _secretKey1;
 
         public String SecretKey1
         {

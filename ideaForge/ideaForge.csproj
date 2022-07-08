@@ -294,9 +294,6 @@
     <Compile Include="Popups\DockAreaPropup.xaml.cs">
       <DependentUpon>DockAreaPropup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Popups\ErrorMessageBox.xaml.cs">
-      <DependentUpon>ErrorMessageBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\OnGoingRideViewModel.cs" />
     <Compile Include="ViewModels\PendingRideViewModel.cs" />
     <Compile Include="ViewModels\CompleteRideViewModel.cs" />
@@ -382,10 +379,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Popups\DockAreaPropup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Popups\ErrorMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -541,9 +534,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\profile.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\errorIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

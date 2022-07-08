@@ -221,12 +221,12 @@ namespace ideaForge.ViewModels
           
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
-                new DockAreaPopup().Show();
-                //Application.Current.MainWindow = new DockAreaPopup();
-                //Application.Current.MainWindow.ShowDialog();
 
-                //var window = (Login)Application.Current.Windows[0];
-                //window.Close();
+                Application.Current.MainWindow = new DockAreaPopup();
+                Application.Current.MainWindow.ShowDialog();
+
+                var window = (Login)Application.Current.Windows[0];
+                window.Close();
 
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
 

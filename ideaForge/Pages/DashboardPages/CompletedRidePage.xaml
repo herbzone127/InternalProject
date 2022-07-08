@@ -12,15 +12,12 @@
     <UserControl.DataContext>
         <vm:CompleteRideViewModel/>
     </UserControl.DataContext>
-
-    <UserControl.Content>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid Background="#EEEEEF">
+    <Grid Background="#EEEEEF">
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
             <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
             <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Background="White" Margin="0" >
+        <StackPanel Grid.Row="1" Background="White" Margin="10" >
             <Grid>
                 <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
                     <Grid>
@@ -46,9 +43,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox  
-                                        BorderBrush="#A9ABB1"
-                                        Text="{Binding MissionName}" Height="35"  Foreground="Black" Background="#F5F5F5">
+                            <TextBox  Text="{Binding MissionType}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -64,9 +59,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox  
-                                        BorderBrush="#A9ABB1"
-                                        Text="{Binding TotalRequestedTime}" Height="35"  Foreground="Black" Background="#F5F5F5">
+                            <TextBox  Text="{Binding TotalrequestedTime}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -82,7 +75,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="{Binding FlightDate}" Height="35"  Foreground="Black" Background="#F5F5F5">
+                            <TextBox  Text="{Binding FlightDate}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -97,7 +90,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="{Binding FlightTime}" Height="35"  Foreground="Black" Margin="15,0,0,0" Background="#F5F5F5">
+                            <TextBox  Text="{Binding FlightTime}" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
                         </StackPanel>
 
@@ -119,7 +112,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0" Background="#F5F5F5">
+                            <TextBox  Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
                         </StackPanel>
 
@@ -135,7 +128,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0" Background="#F5F5F5">
+                            <TextBox  Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0">
                             </TextBox>
                         </StackPanel>
 
@@ -151,7 +144,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="{Binding StatusForUser}" Height="35"  Foreground="Black" Background="#F5F5F5">
+                            <TextBox  Text="{Binding StatusForUser}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -166,8 +159,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="Drone landed" Height="35"  Foreground="Black" Margin="15,0,0,0"
-                                      Background="#F5F5F5">
+                            <TextBox  Text="Drone landed" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
                         </StackPanel>
                     </Grid>
@@ -220,25 +212,26 @@
                                 </Label.Template>
                             </Label>
                             <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
+                                
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" MinWidth="120"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                    <TextBox BorderThickness="0" Text="27.2046° N" Height="35" Grid.Row="0" Grid.Column="0" Foreground="Black" IsEnabled="False" >
 
-                                        <Grid 
-                                            Background="#F5F5F5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="27.2046° N" Height="35" Grid.Column="0" Foreground="Black" IsEnabled="False" Margin="0,0,5,0" />
+                                    </TextBox>
                                     <Button  Height="10"  Width="14" BorderBrush="Transparent" Margin="0,0,10,0" Command="{Binding TextCopyLatitude_Comand}" Grid.Row="1" Grid.Column="1" IsEnabled="True">
                                         <Button.Background>
                                             <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
                                         </Button.Background>
                                     </Button>
                                 </Grid>
-
-
+                                    
+                               
                             </Border>
                         </StackPanel>
 
@@ -255,7 +248,7 @@
                                 </Label.Template>
                             </Label>
                             <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                        <Grid Background="#F5F5F5">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
@@ -263,7 +256,9 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="77.4977° E" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
+                                    <TextBox BorderThickness="0" Text="77.4977° E" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+
+                                    </TextBox>
                                     <Button  Height="10"  Margin="0,0,10,0" BorderBrush="Transparent" Command="{Binding TextCopyLONGITUDE_Comand}" Grid.Row="0" Grid.Column="1">
                                         <Button.Background>
                                             <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
@@ -286,11 +281,22 @@
                                 </Label.Template>
                             </Label>
                             <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                        <Grid Background="#F5F5F5">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding UAVId}"  Height="35" IsEnabled="False" Foreground="Black" Margin="0,0,10,0"/>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" MinWidth="120"/>
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox BorderThickness="0" Text="UAV123" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+
+                                    </TextBox>
+                                    <Button  Height="10" BorderBrush="Transparent" Command="{Binding TextCopyUAV_ID_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                        </Button.Background>
+                                    </Button>
                                 </Grid>
                             </Border>
                         </StackPanel>
@@ -307,7 +313,7 @@
                                 </Label.Template>
                             </Label>
                             <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                        <Grid Background="#F5F5F5">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
@@ -315,7 +321,9 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding ControlKey}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
+                                    <TextBox BorderThickness="0" Text="{Binding ControlKey}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+
+                                    </TextBox>
                                     <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
                                         <Button.Background>
                                             <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
@@ -335,7 +343,7 @@
                                 </Label.Template>
                             </Label>
                             <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,-15,0">
-                                        <Grid Background="#F5F5F5">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
@@ -343,7 +351,8 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding SecretKey}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
+                                    <TextBox BorderThickness="0" Text="{Binding SecretKey}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                    </TextBox>
                                     <Button  Height="10" Width="15" BorderBrush="Transparent" Command="{Binding TextCopySECRET_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
                                         <Button.Background>
                                             <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
@@ -401,9 +410,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <Border BorderBrush="#A9ABB1" Height="35" 
-                                    Background="#F5F5F5"
-                                    BorderThickness="1" CornerRadius="5" IsEnabled="False" Margin="10,0,0,0">
+                            <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" IsEnabled="False" Margin="10,0,0,0">
                                 <StackPanel Orientation="Horizontal" Margin="5">
                                     <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
                                     <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
@@ -428,8 +435,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding UserFeedBack}" Height="35"  Foreground="Black"
-                                      Background="#F5F5F5">
+                            <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -445,7 +451,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <Border  BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" >
+                            <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" >
                                 <StackPanel Orientation="Horizontal" Margin="5">
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating1_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>
@@ -511,8 +517,8 @@
                                 </StackPanel>
 
 
-                            </Grid>
-                            <TextBox SelectedText="Type Feedback" SelectionTextBrush="#A9ABB1" Height="30" Margin="0,10,0,0" Foreground="Black"/>
+                    </Grid>
+                    <TextBox SelectedText="Type Feedback" SelectionTextBrush="#A9ABB1" Height="30" Margin="0,10,0,0" Foreground="Black"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -566,9 +572,6 @@
         </StackPanel>
 
     </Grid>
-
-        </ScrollViewer>
-    </UserControl.Content>
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Setters>
