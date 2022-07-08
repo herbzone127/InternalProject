@@ -37,7 +37,7 @@ namespace ideaForge.Popups
             Application.Current.MainWindow = new Dashboard();
             Application.Current.MainWindow.Show();
             this.Close();
-            var window =(Login) Application.Current.Windows[0];
+            var window = (Login)Application.Current.Windows[0];
             window.Close();
 
         }
