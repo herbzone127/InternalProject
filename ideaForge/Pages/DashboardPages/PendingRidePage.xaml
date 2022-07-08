@@ -694,12 +694,18 @@
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <ComboBox Text="{Binding StatusForUser1}" Margin="10,2,0,13" Name="ComboBox1" FontWeight="SemiBold" Foreground="#545864" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="35">
-                                            <ComboBoxItem Content="Accepted"></ComboBoxItem>
-                                            <ComboBoxItem Content="Rejected"></ComboBoxItem>
-                                         
-                                        </ComboBox>
-                                    
+                                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" Height="35" Width="130" BorderThickness="1" CornerRadius="5">
+                                        <dotNetKitControls:AutoCompleteComboBox
+    SelectedValuePath="id"
+                        DisplayMemberPath="name"
+    TextSearch.TextPath="name"
+    ItemsSource="{Binding RideStatuses}"
+     SelectedValue="{Binding RideStatusId,Mode=TwoWay}"   
+                        SelectionChanged="AutoCompleteComboBox_SelectionChanged"
+                        x:Name="ItemComboBox"
+   />
+                                    </Border>
+
 
 
                                 </StackPanel>
@@ -713,7 +719,7 @@
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <TextBox Width="120" Text="{Binding Status1}" Height="35"  Foreground="Black"/>
+                                    <TextBox Width="130"  Text="{Binding Status1}" Height="35"  Foreground="Black"/>
                                 </StackPanel>
 
 
@@ -852,7 +858,7 @@
                           Margin="0,0,10,0" 
                           Height="35" Width="130" 
                           BorderBrush="Black" 
-                          Content="CANCEL" Command="{Binding CancelChanges_Comand}" 
+                          Content="CANCEL" Command="{Binding CancelChanges_Command}" 
                           Foreground="White" Background="#A9ABB1" >
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
@@ -869,7 +875,7 @@
                           Width="130"  BorderBrush="Black" 
                           Content="SAVE CHANGES" Foreground="White" 
                           Background="#91c84f" 
-                          Command="{Binding SaveChanges_Comand}">
+                          Command="{Binding SaveChanges_Command}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Style.Resources>

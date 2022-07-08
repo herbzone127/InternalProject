@@ -38,8 +38,9 @@ namespace ideaForge.Pages.DashboardPages
             vModel.Longitude1 = ride.longitude;
         }
 
- 
+        private void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-    
+        }
     }
 }

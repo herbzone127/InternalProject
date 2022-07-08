@@ -45,6 +45,7 @@ namespace IdeaForge.Domain
         public string SecretKey { get; set; }
         public string UAVID { get; set; }
 
+
     }
 
 }

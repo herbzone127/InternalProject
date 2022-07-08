@@ -36,6 +36,8 @@ namespace IdeaForge.Service.GenericServices
             return true;
         }
 
+    
+
         public async Task<PilotRequestResponse> GetTodaysRequest(string status)
         {
             try
@@ -56,7 +58,7 @@ namespace IdeaForge.Service.GenericServices
         }
    
 
-        async Task<PilotRequestResponse> IPilotRequestServices.GetAllRequest(string status)
+       public async Task<PilotRequestResponse> GetAllRequest(string status)
         {
             try
             {
@@ -83,6 +85,23 @@ namespace IdeaForge.Service.GenericServices
                 var result = await HTTPClientWrapper<RideResponse>.Get(url);
 
                 return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
+        public async Task<RideStatusResponse> GetAllStatuses()
+        {
+            try
+            {
+                var url = UrlHelper.getAllStatuses;
+
+                var resultString = await HTTPClientWrapper<RideStatusResponse>.Get(url);
+                return resultString;
 
             }
             catch (Exception ex)
