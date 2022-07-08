@@ -72,6 +72,7 @@ namespace ideaForge.Pages.DashboardPages
                     //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
                     //bitmap.EndInit();
                     //dashboard.statusImage.Source = bitmap;
+                    context.StatusLogo = "/Images/ongoingIcon.png";
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Ongoing";
                     dashboard.statusLabel.Foreground = ConvertColor("#F98926");
@@ -86,8 +87,7 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     dashboard.statusBorder.Visibility = Visibility.Visible;
                     dashboard.statusBorder.Background = ConvertColor("#DEECFF");
-
-                 
+                    context.StatusLogo = "/Images/CompleteRideIcon.png";
                     dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                     dashboard.statusLabel.Content = "Completed";
                     dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
