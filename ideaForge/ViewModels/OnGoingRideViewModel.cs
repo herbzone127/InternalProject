@@ -130,7 +130,7 @@ namespace ideaForge.ViewModels
         }
         
 
-              private String _controlKey1;
+        private String _controlKey1;
 
         public String ControlKey1
         {
@@ -142,7 +142,7 @@ namespace ideaForge.ViewModels
             }
         }
        
-            private String _secretKey1;
+        private String _secretKey1;
 
         public String SecretKey1
         {
