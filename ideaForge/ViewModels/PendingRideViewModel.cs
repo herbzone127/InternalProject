@@ -122,5 +122,49 @@ namespace ideaForge.ViewModels
             }
         }
 
+        private ObservableCollection<RideStatus> _rideStatuses;
+
+        public ObservableCollection<RideStatus> RideStatuses
+        {
+            get { return _rideStatuses; }
+            set { _rideStatuses = value;
+                OnPropertyChanged(nameof(RideStatuses));
+            }
+        }
+        private int _rideStatusId;
+
+        public int RideStatusId
+        {
+            get { return _rideStatusId; }
+            set { _rideStatusId = value; }
+        }
+
+
+
+        //Control Key 8 Length ---- Secret Key  16 Length
+        public string GenerateRandomCryptographicKey(int keyLength)
+        {
+            RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            byte[] randomBytes = new byte[keyLength];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+            return Convert.ToBase64String(randomBytes);
+        }
+
+        public async Task GetAllStatuses()
+        {
+            try
+            {
+              var result = await  _pilotRequestServices.GetAllStatuses();
+                
+                    RideStatuses = new ObservableCollection<RideStatus>(result);
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

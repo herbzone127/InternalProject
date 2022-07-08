@@ -94,5 +94,40 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
+        public async Task<List<RideStatus>> GetAllStatuses()
+        {
+            try
+            {
+                var url = UrlHelper.getAllStatuses;
+
+                var resultString = await HTTPClientWrapper<List<RideStatus>>.Get(url);
+                return resultString;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
+        public async Task<RideUpdateResponse> UpdateRideByPilot(RideUpdateRequest rideUpdateRequest)
+        {
+            try
+            {
+                var url = UrlHelper.getAllStatuses;
+
+                var resultString = await HTTPClientWrapper<RideUpdateRequest>.PostRequest(url,rideUpdateRequest);
+                var resultData = JsonConvert.DeserializeObject<RideUpdateResponse>(resultString);
+                return resultData;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
     }
 }

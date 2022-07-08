@@ -20,6 +20,7 @@ namespace IdeaForge.Domain
 
     public class RideById
     {
+
         public int id { get; set; }
         public int requestID { get; set; }
         public int statusID { get; set; }
@@ -40,6 +41,8 @@ namespace IdeaForge.Domain
         public string latitude { get; set; }
         public string longitude { get; set; }
         public bool liveVideoStream { get; set; }
+        public string missionName { get; set; }
+
 
     }
 
