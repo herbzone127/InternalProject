@@ -27,7 +27,20 @@ namespace ideaForge.Pages.DashboardPages
      
             InitializeComponent();
             var vModel = (OnGoingRideViewModel)DataContext;
-     
+            vModel.MissionType1 = userData.missionType;
+            double totalHours = (userData.endDate - userData.startDate).TotalHours;
+            vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;
+            vModel.FlightDate1 = userData.startDate.ToShortDateString();
+
+            vModel.FlightTime1 = userData.startDate.ToString("hh:mm:ss tt")+"-"+userData.endDate.ToString("hh:mm:ss tt");//For Time
+            vModel.StatusForUser1 = userData.status;
+            vModel.Latitude1 = userData.latitude;
+            vModel.Longtitude1 = userData.longitude;
+            //vModel.UAV1 = userData.;
+            //vModel.ControlKey1 = userData.;
+            //vModel.SecretKey1 = userData.;
+
+
         }
     }
 }

@@ -43,7 +43,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding MissionType}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding MissionType1,Mode=TwoWay}"  Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -59,7 +59,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding TotalRequestedTime}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding TotalRequestedTime1}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -75,7 +75,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding FlightDate}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding FlightDate1}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -90,7 +90,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding FlightTime}" Height="35"  Foreground="Black" Margin="15,0,0,0">
+                            <TextBox  Text="{Binding FlightTime1}" Height="35"  Foreground="Black" Margin="15,0,0,0">
                             </TextBox>
                         </StackPanel>
 
@@ -144,7 +144,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding StatusForUser}" Height="35"  Foreground="Black">
+                            <TextBox  Text="{Binding StatusForUser1}" Height="35"  Foreground="Black">
                             </TextBox>
                         </StackPanel>
 
@@ -333,7 +333,7 @@
                                 <Label.Template>
                                     <ControlTemplate>
                                         <TextBlock>
-                            <Run Text="USER RATING"/>
+                            <Run Text="LATITUDE"/>
                                         </TextBlock>
                                     </ControlTemplate>
                                 </Label.Template>
@@ -347,7 +347,7 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding UserRating}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                    <TextBox BorderThickness="0" Text="{Binding Latitude1 }" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                     </TextBox>
                                     <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
@@ -368,7 +368,7 @@
                                 <Label.Template>
                                     <ControlTemplate>
                                         <TextBlock>
-                            <Run Text="USER FEEDBACK"/>
+                            <Run Text="LONTITUDE"/>
 
                                         </TextBlock>
                                     </ControlTemplate>
@@ -383,9 +383,7 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding UserFeedBack}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
-
-                                    </TextBox>
+                                    <TextBox BorderThickness="0" Text="{Binding Longtitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="4,0,26,0"/>
                                     <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
                                         <Button.Background>
                                             <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
@@ -410,7 +408,7 @@
                             </Label>
                             <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" Width="152" >
 
-                                <TextBox BorderThickness="0" Text="{Binding UAVId}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                <TextBox BorderThickness="0" Text="{Binding UAV1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                 </TextBox>
                             </Border>
@@ -437,7 +435,7 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding ControlKey}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                    <TextBox BorderThickness="0" Text="{Binding ControlKey1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                     </TextBox>
                                     <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
@@ -470,7 +468,7 @@
                                         <ColumnDefinition Width="*" MinWidth="120"/>
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding SecretKey}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                    <TextBox BorderThickness="0" Text="{Binding SecretKey1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                     </TextBox>
                                     <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">

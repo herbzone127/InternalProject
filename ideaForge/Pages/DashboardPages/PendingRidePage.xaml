@@ -11,7 +11,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1000">
     <UserControl.DataContext>
-        <vm:CompleteRideViewModel/>
+        <vm:PendingRideViewModel/>
     </UserControl.DataContext>
     <Grid Background="#EEEEEF">
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
@@ -552,7 +552,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding TotalRequestedTime}" Height="35"  Foreground="Black"/>
+                            <TextBox  Text="{Binding TotalRequestedTime1}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -564,7 +564,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding FlightDate}" Height="35"  Foreground="Black"/>
+                            <TextBox  Text="{Binding FlightDate1}" Height="35"  Foreground="Black"/>
                         </StackPanel>
 
 
@@ -576,7 +576,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                            <TextBox  Text="{Binding FlightTime}" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
+                            <TextBox  Text="{Binding FlightTime1}" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
                         </StackPanel>
 
 
@@ -700,7 +700,7 @@
                         DisplayMemberPath="Name"
     TextSearch.TextPath="Name"
     ItemsSource="{Binding Languages}"
-     SelectedValue="{Binding Language.Name}" Height="32" Width="139"  
+     SelectedValue="{Binding StatusForUser1}" Height="32" Width="139"  
                     
                 
                 
@@ -719,7 +719,7 @@
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <TextBox  Text="{Binding ProfileModel.name}" Height="35"  Foreground="Black"/>
+                                    <TextBox  Text="{Binding Status1}" Height="35"  Foreground="Black"/>
                                 </StackPanel>
 
 
@@ -780,7 +780,7 @@
                                                 <ColumnDefinition Width="*" MinWidth="120"/>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding Latitude}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                            <TextBox BorderThickness="0" Text="{Binding Latitude1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                             </TextBox>
                                             <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
@@ -812,7 +812,7 @@
                                                 <ColumnDefinition Width="*" MinWidth="120"/>
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding Longitude}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                            <TextBox BorderThickness="0" Text="{Binding Longitude1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
 
                                             </TextBox>
                                             <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">

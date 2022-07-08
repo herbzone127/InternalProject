@@ -60,6 +60,7 @@ namespace ideaForge.ViewModels
             GetAllRequest("").ConfigureAwait(false);
             GetTodaysRequest("").ConfigureAwait(false);
         }
+        #endregion
 
         private async void RejectedCommandCanExecute(object obj)
         {
@@ -148,7 +149,7 @@ namespace ideaForge.ViewModels
             }
             IsBusy = false;
         }
-        #endregion
+     
 
 
 
