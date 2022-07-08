@@ -260,12 +260,14 @@
 
                     <Grid >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="0.3*"/>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0"
+                        <Button 
+                            Padding="5"
+                            Grid.Column="0"
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Center" 
                                 Width="30" Height="30" 
