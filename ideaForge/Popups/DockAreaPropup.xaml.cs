@@ -23,7 +23,7 @@ namespace ideaForge.Popups
         public DockAreaPopup()
         {
             InitializeComponent();
-        
+           /// new ErrorMessageBox("").ShowDialog();
         }
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
