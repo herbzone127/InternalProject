@@ -34,15 +34,15 @@ namespace ideaForge.ViewModels
            
         }
 
-        private int _missionType1;
+        private String _missionName;
 
-        public int MissionType1
+        public String MissionName
         {
-            get { return _missionType1; }
+            get { return _missionName; }
             set
             {
-                _missionType1 = value;
-                OnPropertyChanged(nameof(MissionType1));
+                _missionName = value;
+                OnPropertyChanged(nameof(MissionName));
             }
         }
         private double _totalRequestedTime1;

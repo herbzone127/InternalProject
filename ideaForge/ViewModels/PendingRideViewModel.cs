@@ -28,15 +28,22 @@ namespace ideaForge.ViewModels
             var result = RideById;
         }
 
-        private int _missionType;
+        #region Commands
+        private readonly DelegateCommand _saveChanges_Comand;
+        public ICommand SaveChanges_Comand => _saveChanges_Comand;
 
-        public int MissionType
+        private readonly DelegateCommand _cancelChanges_Comand;
+        public ICommand CancelChanges_Comand=> _cancelChanges_Comand;
+        #endregion
+        private String _missionName;
+
+        public String MissionName
         {
-            get { return _missionType; }
+            get { return _missionName; }
             set
             {
-                _missionType = value;
-                OnPropertyChanged(nameof(MissionType));
+                _missionName = value;
+                OnPropertyChanged(nameof(MissionName));
             }
         }
         private double _totalRequestedTime1;

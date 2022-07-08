@@ -27,7 +27,7 @@ namespace ideaForge.Pages.DashboardPages
             InitializeComponent();
             this.DataContext = new PendingRideViewModel();
             var vModel = (PendingRideViewModel)DataContext;
-            vModel.MissionType = ride.missionType;
+            vModel.MissionName = ride.MissionName;
             double totalHours = (ride.endDate - ride.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;
             vModel.FlightDate1 = ride.startDate.ToShortDateString();
@@ -37,5 +37,9 @@ namespace ideaForge.Pages.DashboardPages
             vModel.Latitude1 = ride.latitude;
             vModel.Longitude1 = ride.longitude;
         }
+
+ 
+
+    
     }
 }

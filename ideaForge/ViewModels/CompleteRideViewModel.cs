@@ -84,6 +84,7 @@ namespace ideaForge.ViewModels
 
         }
 
+        #region properties2
         private string _Image_Rating1;
 
         public string Image_Rating1
@@ -156,6 +157,7 @@ namespace ideaForge.ViewModels
             }
         }
 
+
         private int _Rating_Num;
         public int Rating_Num
         {
@@ -166,6 +168,7 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(Rating_Num));
             }
         }
+        #endregion
 
 
         public void TextCopyLatitude_ComandExecut(object obj)
@@ -251,16 +254,16 @@ namespace ideaForge.ViewModels
             Image_Rating5 = "/Images/StarFealedBackplain.png";
         }
 
+        #region properties
+        private String _missionName;
 
-        private int _missionType;
-
-        public int MissionType
+        public String MissionName
         {
-            get { return _missionType; }
+            get { return _missionName; }
             set
             {
-                _missionType = value;
-                OnPropertyChanged(nameof(MissionType));
+                _missionName = value;
+                OnPropertyChanged(nameof(MissionName));
             }
         }
         private double _totalRequestedTime;
@@ -316,13 +319,55 @@ namespace ideaForge.ViewModels
 
         public string UserFeedBack
         {
-            get { return _statusForUser; }
+            get { return _userFeedBack; }
             set
             {
-                _statusForUser = value;
+                _userFeedBack = value;
                 OnPropertyChanged(nameof(UserFeedBack));
             }
         }
+
+
+        private string _uavId;
+
+        public string UAVId
+        {
+            get { return _uavId; }
+            set
+            {
+                _uavId = value;
+                OnPropertyChanged(nameof(UAVId));
+            }
+        }
+
+      
+
+        private string _controlKey;
+
+        public string ControlKey
+        {
+            get { return _controlKey; }
+            set
+            {
+                _controlKey = value;
+                OnPropertyChanged(nameof(ControlKey));
+            }
+        }
+
+
+
+        private string _secretKey;
+
+        public string SecretKey
+        {
+            get { return _secretKey; }
+            set
+            {
+                _secretKey = value;
+                OnPropertyChanged(nameof(SecretKey));
+            }
+        }
+        #endregion
 
 
 
