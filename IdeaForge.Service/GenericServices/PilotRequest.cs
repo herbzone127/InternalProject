@@ -13,6 +13,8 @@ namespace IdeaForge.Service.GenericServices
 {
     public class PilotRequest : IPilotRequestServices
     {
+        
+
         public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId)
         {
             try
