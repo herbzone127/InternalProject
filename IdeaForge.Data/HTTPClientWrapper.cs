@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using IdeaForge.Core.Utilities;
+using IdeaForge.Domain;
+using MonkeyCache.FileStore;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -22,6 +25,15 @@ namespace IdeaForge.Data
             T result = null;
             using (var httpClient = new HttpClient())
             {
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                {
+
+
+
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + user.token);
+
+                }
                 var response =await httpClient.GetAsync(new Uri(url));
 
                 response.EnsureSuccessStatusCode();
