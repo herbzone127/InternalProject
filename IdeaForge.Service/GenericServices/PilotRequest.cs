@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IdeaForge.Domain.RideByPilot;
 
 namespace IdeaForge.Service.GenericServices
 {
@@ -108,6 +109,25 @@ namespace IdeaForge.Service.GenericServices
             {
                 throw new Exception(ex.Message);
 
+            }
+            return null;
+        }
+        public async Task<RideByPilotResponse> UpdateRideByPilot(RideByPilot pilot)
+        {
+            try
+            {
+                var url = UrlHelper.ridebyPilot;
+
+                var resultString = await HTTPClientWrapper<RideByPilot>.PostRequest(url, pilot);
+                var result = JsonConvert.DeserializeObject<RideByPilotResponse>(resultString);
+               
+                    return result;
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
             return null;
         }
