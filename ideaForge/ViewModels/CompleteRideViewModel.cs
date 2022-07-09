@@ -1,4 +1,7 @@
-﻿using IdeaForge.Domain;
+﻿using ideaForge.Pages.DashboardPages;
+using IdeaForge.Domain;
+using IdeaForge.Service.IGenericServices;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +14,37 @@ namespace ideaForge.ViewModels
 {
     public class CompleteRideViewModel : ViewModelBase
     {
-        private RideById _rideById;
 
-        public RideById RideById
+        #region Services
+        public IPilotRequestServices _pilotRequestServices
+         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+
+        #endregion
+        #region Commands
+
+        private readonly DelegateCommand _saveChanges_Command;
+        public ICommand SaveChanges_Command => _saveChanges_Command;
+
+        private readonly DelegateCommand _cancelChanges_Command;
+        public ICommand CancelChanges_Command => _cancelChanges_Command;
+
+
+
+        #endregion
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private Ride _rideById;
+
+        public Ride RideById
         {
             get { return _rideById; }
             set
@@ -63,7 +94,7 @@ namespace ideaForge.ViewModels
 
 
         #endregion
-
+        #region Constructor
         public CompleteRideViewModel()
         {
 
@@ -82,6 +113,39 @@ namespace ideaForge.ViewModels
             _Image_Rating5_Comand = new DelegateCommand(Image_Rating5_ComandExecut);
             RestStarRating();
 
+            _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
+            _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
+
+           
+        }
+
+        #endregion
+
+        private async void CanExecuteSaveChanges(object obj)
+        {
+            IsBusy = true;
+
+
+            var result =await _pilotRequestServices.AddUpdatePilotFeedback(new FlightFeedback { });
+            if (result.status)
+            {
+                MessageBox.Show("Ride update successfully");
+            }
+            else
+            {
+                MessageBox.Show(result.message);
+            }
+            IsBusy = false;
+        }
+
+
+        private void CanExecuteCancelChanges(object obj)
+        {
+            Window parentWindow = Window.GetWindow(Application.Current.MainWindow);
+            var dashboard = (Dashboard)parentWindow;
+            var context = (DashboardViewModel)dashboard.DataContext;
+            context.CurrentPage = new Requests();
+            context.PageName = "Requests";
         }
 
         #region properties2

@@ -95,13 +95,13 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-        public async Task<RideStatusResponse> GetAllStatuses()
+        public async Task<List<RideStatus>> GetAllStatuses()
         {
             try
             {
                 var url = UrlHelper.getAllStatuses;
 
-                var resultString = await HTTPClientWrapper<RideStatusResponse>.Get(url);
+                var resultString = await HTTPClientWrapper<List<RideStatus>>.Get(url);
                 return resultString;
 
             }
@@ -112,13 +112,13 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-        public async Task<RideByPilotResponse> UpdateRideByPilot(RideByPilot pilot)
+        public async Task<RideByPilotResponse> UpdateRideByPilot(Ride pilot)
         {
             try
             {
                 var url = UrlHelper.ridebyPilot;
 
-                var resultString = await HTTPClientWrapper<RideByPilot>.PostRequest(url, pilot);
+                var resultString = await HTTPClientWrapper<Ride>.PostRequest(url, pilot);
                 var result = JsonConvert.DeserializeObject<RideByPilotResponse>(resultString);
                
                     return result;
@@ -131,13 +131,13 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-        public async Task<PilotStatus> AddUpdatePilotStatus(PilotStatus pilot)
+        public async Task<FlightStatusResponse> AddUpdatePilotStatus(FlightStatus pilot)
         {
             try
             {
                 var url = UrlHelper.addUpdatePilotStatus;
-                var resultString = await HTTPClientWrapper<PilotStatus>.PostRequest(url, pilot);
-                var result = JsonConvert.DeserializeObject<PilotStatus>(resultString);
+                var resultString = await HTTPClientWrapper<FlightStatus>.PostRequest(url, pilot);
+                var result = JsonConvert.DeserializeObject<FlightStatusResponse>(resultString);
 
                 return result;
 
@@ -150,13 +150,13 @@ namespace IdeaForge.Service.GenericServices
             return null;
         }
 
-        public async Task<PilotFeedback> AddUpdatePilotFeedback(PilotFeedback pilot)
+        public async Task<FlightFeedbackResponse> AddUpdatePilotFeedback(FlightFeedback pilot)
         {
             try
             {
                 var url = UrlHelper.addUpdatePilotStatus;
-                var resultString = await HTTPClientWrapper<PilotFeedback>.PostRequest(url, pilot);
-                var result = JsonConvert.DeserializeObject<PilotFeedback>(resultString);
+                var resultString = await HTTPClientWrapper<FlightFeedback>.PostRequest(url, pilot);
+                var result = JsonConvert.DeserializeObject<FlightFeedbackResponse>(resultString);
 
                 return result;
             }

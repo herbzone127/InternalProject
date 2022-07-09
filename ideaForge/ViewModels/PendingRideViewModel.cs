@@ -1,4 +1,5 @@
-﻿using IdeaForge.Domain;
+﻿using ideaForge.Pages.DashboardPages;
+using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,9 +23,20 @@ namespace ideaForge.ViewModels
 
         #endregion
 
-        private RideById _rideById;
+        private bool _isBusy;
 
-        public RideById RideById
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private Ride _rideById;
+
+        public Ride RideById
         {
             get { return _rideById; }
             set
@@ -45,21 +57,42 @@ namespace ideaForge.ViewModels
 
         #endregion
 
-        private void CanExecuteSaveChanges(object obj)
+        private async void CanExecuteSaveChanges(object obj)
         {
-
+            IsBusy = true;
+            if (RideStatusId == 2)
+            {
+                RideById.SecretKey = GenerateRandomCryptographicKey(16);
+                RideById.ControlKey = GenerateRandomCryptographicKey(8);
+            }
+            
+            RideById.statusID = RideStatusId;
+          var result =await  _pilotRequestServices.UpdateRideByPilot(RideById);
+            if (result.status)
+            {
+                MessageBox.Show("Ride update successfully");
+            }
+            else
+            {
+                MessageBox.Show(result.message);
+            }
+            IsBusy = false;
         }
        
 
         private void CanExecuteCancelChanges(object obj)
         {
-
+            Window parentWindow = Window.GetWindow(Application.Current.MainWindow);
+            var dashboard = (Dashboard)parentWindow;
+            var context = (DashboardViewModel)dashboard.DataContext;
+            context.CurrentPage = new Requests();
+            context.PageName = "Requests";
         }
        
     
 
         private readonly DelegateCommand _saveChanges_Command;
-        public ICommand SaveChanges_Comand => _saveChanges_Command;
+        public ICommand SaveChanges_Command => _saveChanges_Command;
        
              private readonly DelegateCommand _cancelChanges_Command;
         public ICommand CancelChanges_Command => _cancelChanges_Command;
@@ -175,7 +208,9 @@ namespace ideaForge.ViewModels
         public int RideStatusId
         {
             get { return _rideStatusId; }
-            set { _rideStatusId = value; }
+            set { _rideStatusId = value;
+            OnPropertyChanged(nameof(RideStatusId));
+            }
         }
 
 
@@ -194,10 +229,9 @@ namespace ideaForge.ViewModels
             try
             {
               var result = await  _pilotRequestServices.GetAllStatuses();
-                if (result.status)
-                {
-                    RideStatuses = new ObservableCollection<RideStatus>(result.userData);
-                }
+               
+                    RideStatuses = new ObservableCollection<RideStatus>(result);
+                
             }
             catch (Exception)
             {

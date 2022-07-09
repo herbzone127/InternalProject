@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ideaForge.Pages.DashboardPages"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
       xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
       xmlns:vm="clr-namespace:ideaForge.ViewModels"
               
@@ -233,7 +234,7 @@
                                             <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
-                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <CheckBox IsChecked="{Binding CameraError, Mode=TwoWay}"  Height="22"  Foreground="Black" Width="21"/>
                                             <Label Content="CAMERA ERROR"/>
                                         </StackPanel>
 
@@ -256,7 +257,7 @@
                                             <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
-                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <CheckBox IsChecked="{Binding TechnicalError, Mode=TwoWay}"  Height="22"  Foreground="Black" Width="21"/>
                                             <Label Content="TECHNICAL ERROR"/>
                                         </StackPanel>
 
@@ -279,7 +280,7 @@
                                             <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
-                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <CheckBox IsChecked="{Binding CommunicationLoss}"  Height="22"  Foreground="Black" Width="21"/>
                                             <Label Content="COMMUNICATION LOSS"/>
                                         </StackPanel>
 
@@ -301,7 +302,7 @@
                                             <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
-                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <CheckBox  IsChecked="{Binding BadWeather,Mode=TwoWay}" Height="22"  Foreground="Black" Width="21"/>
                                             <Label Content="BAD WEATHER"/>
                                         </StackPanel>
 
@@ -517,7 +518,11 @@
                         </Grid>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                        <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Comand}" Foreground="White" Background="#A9ABB1" >
+                        <Button 
+                            BorderThickness="1"  
+                            Margin="0,0,10,0" 
+                            Height="35"
+                            Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Command}" Foreground="White" Background="#A9ABB1" >
                             <Button.Resources>
                                 <Style TargetType="{x:Type Button}">
                                     <Style.Resources>
@@ -528,7 +533,14 @@
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Black" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
+                        <Button  
+                            BorderThickness="1" 
+                            Height="35" Width="130" 
+                            BorderBrush="Black"
+                            Content="SAVE CHANGES"
+                            Foreground="White"
+                            Background="#91c84f"
+                            Command="{Binding SaveChanges_Command}">
                             <Button.Resources>
                                 <Style TargetType="{x:Type Button}">
                                     <Style.Resources>
@@ -541,7 +553,10 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-
+                <mah:ProgressRing
+                    IsActive="{Binding IsBusy}" 
+                    Foreground="#91C84F" 
+                    />
             </Grid>
         </ScrollViewer>
     </UserControl.Content>

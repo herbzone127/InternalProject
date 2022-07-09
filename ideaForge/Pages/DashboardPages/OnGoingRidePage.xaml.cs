@@ -21,12 +21,13 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class OnGoingRidePage : UserControl
     {
-        public OnGoingRidePage(IdeaForge.Domain.RideById userData)
+        public OnGoingRidePage(IdeaForge.Domain.Ride userData)
         {
             
      
             InitializeComponent();
             var vModel = (OnGoingRideViewModel)DataContext;
+            vModel.RideById = userData;
             vModel.MissionName = userData.MissionName;
             double totalHours = (userData.endDate - userData.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;

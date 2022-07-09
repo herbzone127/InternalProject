@@ -15,7 +15,7 @@ namespace IdeaForge.Domain
     }
     public class RideStatus
     {
-        public int id { get; set; }
+        public int statusId { get; set; }
         public string name { get; set; }
     }
 }

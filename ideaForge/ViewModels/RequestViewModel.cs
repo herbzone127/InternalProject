@@ -186,9 +186,9 @@ namespace ideaForge.ViewModels
             }
         }
 
-        private ObservableCollection<RideById> _rideById;
+        private ObservableCollection<Ride> _rideById;
 
-        public ObservableCollection<RideById> RideById
+        public ObservableCollection<Ride> RideById
         {
             get { return _rideById; }
             set

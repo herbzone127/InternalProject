@@ -21,7 +21,7 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class CompletedRidePage : UserControl
     {
-        public CompletedRidePage(IdeaForge.Domain.RideById rideDetails)
+        public CompletedRidePage(IdeaForge.Domain.Ride rideDetails)
         {
             InitializeComponent();
             this.DataContext = new  CompleteRideViewModel();

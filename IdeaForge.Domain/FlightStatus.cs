@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace IdeaForge.Domain
 {
-    public class PilotStatus
+    public class FlightStatusResponse
+    {
+        public bool status { get; set; }
+        public string message { get; set; }
+        public FlightStatus FlightStatus { get; set; }
+    }
+    public class FlightStatus
     {
         public int id { get; set; }
         public bool cameraError { get; set; }

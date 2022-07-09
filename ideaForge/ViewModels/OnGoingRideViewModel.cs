@@ -1,4 +1,7 @@
-﻿using IdeaForge.Domain;
+﻿using ideaForge.Pages.DashboardPages;
+using IdeaForge.Domain;
+using IdeaForge.Service.IGenericServices;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +14,131 @@ namespace ideaForge.ViewModels
 {
     public class OnGoingRideViewModel : ViewModelBase
     {
+        #region Services
+        public IPilotRequestServices _pilotRequestServices
+         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+
+        #endregion
         #region Commands
 
-      
+        private readonly DelegateCommand _saveChanges_Command;
+        public ICommand SaveChanges_Command => _saveChanges_Command;
+
+        private readonly DelegateCommand _cancelChanges_Command;
+        public ICommand CancelChanges_Command => _cancelChanges_Command;
 
 
 
         #endregion
-        private RideById _rideById;
+        private bool _isBusy;
 
-        public RideById RideById
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private bool _CameraError;
+
+        public bool CameraError
+        {
+            get { return _CameraError; }
+            set { _CameraError = value;
+                OnPropertyChanged(nameof(CameraError));
+            }
+        }
+        private bool _TechnicalError;
+
+        public bool TechnicalError
+        {
+            get { return _TechnicalError; }
+            set { _TechnicalError = value;
+                OnPropertyChanged(nameof(TechnicalError));
+            }
+        }
+        private bool _CommunicationLoss;
+
+        public bool CommunicationLoss
+        {
+            get { return _CommunicationLoss; }
+            set { _CommunicationLoss = value;
+                OnPropertyChanged(nameof(CommunicationLoss));
+            }
+        }
+        private bool _BadWeather;
+
+        public bool BadWeather
+        {
+            get { return _BadWeather; }
+            set { _BadWeather = value;
+                OnPropertyChanged(nameof(BadWeather));
+            }
+        }
+
+
+        private Ride _rideById;
+
+        public Ride RideById
         {
             get { return _rideById; }
             set { _rideById = value;
                 OnPropertyChanged(nameof(RideById));
             }
         }
-
+        #region Constructor
         public OnGoingRideViewModel()
         {
-            var result = RideById;
-           
+            
+            _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
+            _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
+
         }
 
+#endregion
+
+        private async void CanExecuteSaveChanges(object obj)
+        {
+            IsBusy = true;
+
+            var flightStatus =await _pilotRequestServices.AddUpdatePilotStatus(new FlightStatus
+            {
+                badWeather = BadWeather,
+                cameraError = CameraError,
+                communicationLoss = CommunicationLoss,
+                technicalError = TechnicalError,
+                rideId = RideById.id,
+                userId = RideById.userID
+            }) ;
+            if (flightStatus.status)
+            {
+                RideById.statusID = 5;
+                var result = await _pilotRequestServices.UpdateRideByPilot(RideById);
+                if (result.status)
+                {
+
+                    MessageBox.Show("Ride update successfully");
+                }
+                else
+                {
+                    MessageBox.Show(result.message);
+                }
+            }
+            
+            IsBusy = false;
+        }
+
+
+        private void CanExecuteCancelChanges(object obj)
+        {
+            Window parentWindow = Window.GetWindow(Application.Current.MainWindow);
+            var dashboard = (Dashboard)parentWindow;
+            var context = (DashboardViewModel)dashboard.DataContext;
+            context.CurrentPage = new Requests();
+            context.PageName = "Requests";
+        }
         private String _missionName;
 
         public String MissionName

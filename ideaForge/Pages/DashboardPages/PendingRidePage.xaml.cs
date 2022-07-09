@@ -22,11 +22,12 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class PendingRidePage : UserControl
     {
-        public PendingRidePage(RideById ride)
+        public PendingRidePage(Ride ride)
         {
             InitializeComponent();
             this.DataContext = new PendingRideViewModel();
             var vModel = (PendingRideViewModel)DataContext;
+            vModel.RideById = ride;
             vModel.MissionName = ride.MissionName;
             double totalHours = (ride.endDate - ride.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;

@@ -6,19 +6,15 @@ using System.Threading.Tasks;
 
 namespace IdeaForge.Domain
 {
-    public class Ride
-    {
-        public string Status { get; set; }
-
-    }
+ 
     public class RideResponse
     {
         public string message { get; set; }
         public bool status { get; set; }
-        public RideById userData { get; set; }
+        public Ride userData { get; set; }
     }
 
-    public class RideById
+    public class Ride
     {
         public int id { get; set; }
         public int requestID { get; set; }
@@ -44,7 +40,7 @@ namespace IdeaForge.Domain
         public string ControlKey { get; set; }
         public string SecretKey { get; set; }
         public string UAVID { get; set; }
-
+        public int userID { get; set; }
 
     }
 
