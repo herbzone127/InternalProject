@@ -131,5 +131,40 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
+        public async Task<PilotStatus> AddUpdatePilotStatus(PilotStatus pilot)
+        {
+            try
+            {
+                var url = UrlHelper.addUpdatePilotStatus;
+                var resultString = await HTTPClientWrapper<PilotStatus>.PostRequest(url, pilot);
+                var result = JsonConvert.DeserializeObject<PilotStatus>(resultString);
+
+                return result;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<PilotFeedback> AddUpdatePilotFeedback(PilotFeedback pilot)
+        {
+            try
+            {
+                var url = UrlHelper.addUpdatePilotStatus;
+                var resultString = await HTTPClientWrapper<PilotFeedback>.PostRequest(url, pilot);
+                var result = JsonConvert.DeserializeObject<PilotFeedback>(resultString);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return null;
+        }
     }
 }

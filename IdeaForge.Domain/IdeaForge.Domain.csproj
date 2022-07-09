@@ -44,9 +44,11 @@
   <ItemGroup>
     <Compile Include="Language.cs" />
     <Compile Include="PilotAllRequest.cs" />
+    <Compile Include="PilotFeedback.cs" />
     <Compile Include="PilotLocation.cs" />
     <Compile Include="PilotOTP.cs" />
     <Compile Include="PilotRequest.cs" />
+    <Compile Include="PilotStatus.cs" />
     <Compile Include="ProfileModel.cs" />
     <Compile Include="Ride.cs" />
     <Compile Include="RideByPilot.cs" />
