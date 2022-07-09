@@ -260,12 +260,15 @@
 
                     <Grid >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="0.3*"/>
                             <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" HorizontalAlignment="Left" 
+                        <Button 
+                            Padding="5"
+                            Grid.Column="0"
+                                HorizontalAlignment="Left" 
                                 VerticalAlignment="Center" 
                                 Width="30" Height="30" 
                                 Background="Transparent" 
@@ -275,17 +278,19 @@
                                 x:FieldModifier="public"
                                 x:Name="backButton">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Images/backArrow.png"/>
+                                <Image Source="/Images/backArrow.png" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                         
                         <Label 
                          
                             Grid.Column="1" x:Name="Header"
-                               Padding="30,0,0,0"
+                               Padding="5,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       FontSize="24"
+                       FontSize="25"
                        Foreground="Black"
                        FontWeight="SemiBold"
                                    
@@ -309,6 +314,7 @@
                                 <Image
                                     x:Name="statusImage"
                                     x:FieldModifier="public" 
+                                    Source="{Binding StatusLogo}"
                                     Grid.Column="0" Height="10" Margin="5"/>
                                 <Label 
                                     x:FieldModifier="public"

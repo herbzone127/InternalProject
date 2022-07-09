@@ -66,6 +66,8 @@ namespace ideaForge.ViewModels
 
         public CompleteRideViewModel()
         {
+
+            var result = RideById;
             _TextCopyLatitude_Comand = new DelegateCommand(TextCopyLatitude_ComandExecut);
             _TextCopyLONGITUDE_Comand = new DelegateCommand(TextCopyLONGITUDE_ComandExecut);
             _TextCopyUAV_ID_Comand = new DelegateCommand(TextCopyUAV_ID_ComandExecut);
@@ -79,9 +81,10 @@ namespace ideaForge.ViewModels
             _Image_Rating4_Comand = new DelegateCommand(Image_Rating4_ComandExecut);
             _Image_Rating5_Comand = new DelegateCommand(Image_Rating5_ComandExecut);
             RestStarRating();
+
         }
 
-
+        #region properties2
         private string _Image_Rating1;
 
         public string Image_Rating1
@@ -154,6 +157,7 @@ namespace ideaForge.ViewModels
             }
         }
 
+
         private int _Rating_Num;
         public int Rating_Num
         {
@@ -164,7 +168,8 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(Rating_Num));
             }
         }
-        
+        #endregion
+
 
         public void TextCopyLatitude_ComandExecut(object obj)
         {
@@ -248,6 +253,123 @@ namespace ideaForge.ViewModels
             Image_Rating4 = "/Images/StarFealedBackplain.png";
             Image_Rating5 = "/Images/StarFealedBackplain.png";
         }
+
+        #region properties
+        private String _missionName;
+
+        public String MissionName
+        {
+            get { return _missionName; }
+            set
+            {
+                _missionName = value;
+                OnPropertyChanged(nameof(MissionName));
+            }
+        }
+        private double _totalRequestedTime;
+
+        public double TotalRequestedTime
+        {
+            get { return _totalRequestedTime; }
+            set
+            {
+                _totalRequestedTime = value;
+                OnPropertyChanged(nameof(TotalRequestedTime));
+            }
+        }
+
+        private string _flightDate;
+
+        public string FlightDate
+        {
+            get { return _flightDate; }
+            set
+            {
+                _flightDate = value;
+                OnPropertyChanged(nameof(FlightDate));
+            }
+        }
+
+        private string _flightTime;
+
+        public string FlightTime
+        {
+            get { return _flightTime; }
+            set
+            {
+                _flightTime = value;
+                OnPropertyChanged(nameof(FlightTime));
+            }
+        }
+
+        private string _statusForUser;
+
+        public string StatusForUser
+        {
+            get { return _statusForUser; }
+            set
+            {
+                _statusForUser = value;
+                OnPropertyChanged(nameof(StatusForUser));
+            }
+        }
+
+
+        private string _userFeedBack;
+
+        public string UserFeedBack
+        {
+            get { return _userFeedBack; }
+            set
+            {
+                _userFeedBack = value;
+                OnPropertyChanged(nameof(UserFeedBack));
+            }
+        }
+
+
+        private string _uavId;
+
+        public string UAVId
+        {
+            get { return _uavId; }
+            set
+            {
+                _uavId = value;
+                OnPropertyChanged(nameof(UAVId));
+            }
+        }
+
+      
+
+        private string _controlKey;
+
+        public string ControlKey
+        {
+            get { return _controlKey; }
+            set
+            {
+                _controlKey = value;
+                OnPropertyChanged(nameof(ControlKey));
+            }
+        }
+
+
+
+        private string _secretKey;
+
+        public string SecretKey
+        {
+            get { return _secretKey; }
+            set
+            {
+                _secretKey = value;
+                OnPropertyChanged(nameof(SecretKey));
+            }
+        }
+        #endregion
+
+
 
     }
 }

@@ -12,526 +12,539 @@
     <UserControl.DataContext>
         <vm:OnGoingRideViewModel/>
     </UserControl.DataContext>
-    <Grid Background="#EEEEEF">
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
-            <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
-            <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
-        </StackPanel>
-        <StackPanel Grid.Row="1" Background="White" Margin="10" >
-            <Grid>
-                <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
+    <UserControl.Content>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Background="#EEEEEF">
+
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
+                    <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
+                    <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Background="White" Margin="0" >
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" MinHeight="99"/>
-                            <RowDefinition Height="auto" MinHeight="161"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" MinWidth="182"/>
-                            <ColumnDefinition Width="*" MinWidth="198"/>
-                            <ColumnDefinition Width="*" MinWidth="182"/>
-                            <ColumnDefinition Width="*" MinWidth="182"/>
-                            <ColumnDefinition Width="*" MinWidth="221"/>
-                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" MinHeight="99"/>
+                                    <RowDefinition Height="auto" MinHeight="161"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" MinWidth="182"/>
+                                    <ColumnDefinition Width="*" MinWidth="198"/>
+                                    <ColumnDefinition Width="*" MinWidth="182"/>
+                                    <ColumnDefinition Width="*" MinWidth="182"/>
+                                    <ColumnDefinition Width="*" MinWidth="221"/>
+                                </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="MISSION TYPE"/>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="{Binding MissionType1,Mode=TwoWay}"  Height="35"  Foreground="Black">
-                            </TextBox>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox 
+                                        Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                        Text="{Binding MissionName,Mode=TwoWay}"  Height="35"  Foreground="Black">
+                                    </TextBox>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="TOTAL REQUESTED TIME"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="{Binding TotalRequestedTime1}" Height="35"  Foreground="Black">
-                            </TextBox>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                             Text="{Binding TotalRequestedTime1}" Height="35"  Foreground="Black">
+                                    </TextBox>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="FLIGHT DATE"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="{Binding FlightDate1}" Height="35"  Foreground="Black">
-                            </TextBox>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox 
+                                        Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                        Text="{Binding FlightDate1}" Height="35"  Foreground="Black">
+                                    </TextBox>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="FLIGHT TIME"/>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="{Binding FlightTime1}" Height="35"  Foreground="Black" Margin="15,0,0,0">
-                            </TextBox>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox 
+                                        Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                        Text="{Binding FlightTime1}" Height="35"  Foreground="Black" Margin="15,0,0,0">
+                                    </TextBox>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,36,10,37" VerticalAlignment="Center"  HorizontalAlignment="Right" 
+                                <StackPanel Orientation="Vertical" Margin="0,36,10,37" VerticalAlignment="Center"  HorizontalAlignment="Right" 
                                     Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" IsEnabled="False" Height="200" Width="200">
-                            <Image Source="/Images/10_535_330.jpg" Height="150" Margin="0,0,10,0"/>
+                                    <Image Source="/Images/10_535_330.jpg" Height="150" Margin="0,0,10,0"/>
 
-                        </StackPanel>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,23,63" Grid.Row="1" Grid.Column="0" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,23,63" Grid.Row="1" Grid.Column="0" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="PUSH NOTIFICATION"/>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0">
-                            </TextBox>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox 
+                                        Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                        Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0">
+                                    </TextBox>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,19,64" Grid.Row="1" Grid.Column="1" IsEnabled="False">
-                            <Label Margin="15,0,27,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,19,64" Grid.Row="1" Grid.Column="1" IsEnabled="False">
+                                    <Label Margin="15,0,27,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="LIVE VIDEO STREAM REQUEST"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0">
-                            </TextBox>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox 
+                                        Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                        Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0">
+                                    </TextBox>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,65" Grid.Row="1" Grid.Column="2" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,65" Grid.Row="1" Grid.Column="2" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="STATUS FOR USER"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <TextBox  Text="{Binding StatusForUser1}" Height="35"  Foreground="Black">
-                            </TextBox>
-                        </StackPanel>
-
-
-
-                    </Grid>
-                </Border>
-                <Grid Margin="0,0,0,204">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="VerticalAlignment" Value="Top" />
-                            <Setter Property="BorderThickness" Value="0,5,0,0" />
-                            <Setter Property="BorderBrush" Value="white" />
-                            <Setter Property="Margin" Value="0,-2,0,0" />
-                        </Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="10,-2,10,0" />
-                            <Setter Property="FontSize" Value="20" />
-                        </Style>
-                    </Grid.Resources>
-                    <Border Grid.Column="0"  />
-                    <TextBlock Grid.Column="1" Background="White" Foreground="Black" Text="FLIGHT INFORMATION" />
-                    <Border Grid.Column="2" />
-                </Grid>
-            </Grid>
-            <Grid Height="120">
-                <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" MinHeight="99"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" >
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
-                            <Run Text="STATUS"/>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
-                                    <Label Content="CAMERA ERROR"/>
-                                </StackPanel>
-
-
-
-                            </Grid>
-
-                        </StackPanel>
-
-
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1">
-
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
-                                    <Label Content="TECHNICAL ERROR"/>
-                                </StackPanel>
-
-
-
-                            </Grid>
-
-                        </StackPanel>
-
-
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2" >
-
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
-                                    <Label Content="COMMUNICATION LOSS"/>
-                                </StackPanel>
-
-
-
-                            </Grid>
-                        </StackPanel>
-
-
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" >
-
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
-                                    <Label Content="BAD WEATHER"/>
-                                </StackPanel>
-
-
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Margin="0,30,26,0" Grid.Row="0" Grid.Column="4" >
-
-
-                        </StackPanel>
-                    </Grid>
-                </Border>
-                <Grid VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="VerticalAlignment" Value="Top" />
-                            <Setter Property="BorderThickness" Value="0,5,0,0" />
-                            <Setter Property="BorderBrush" Value="white" />
-                            <Setter Property="Margin" Value="0,-2,0,0" />
-                        </Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="10,-2,10,0" />
-                            <Setter Property="FontSize" Value="20" />
-                        </Style>
-                    </Grid.Resources>
-                    <Border Grid.Column="0"  />
-                    <TextBlock Grid.Column="1" Background="White"  Foreground="Black" Text="FLIGHT STATUS" />
-                    <Border Grid.Column="2" />
-                </Grid>
-            </Grid>
-            <Grid Height="140">
-                <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" MinHeight="99"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                            <ColumnDefinition Width="*" MinWidth="192"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowSaveBTn}">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
-                            <Run Text="LATITUDE"/>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                <Grid Width="161">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding Latitude1 }" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
-
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <TextBox 
+                                        Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                        Text="{Binding StatusForUser1}" Height="35"  Foreground="Black">
                                     </TextBox>
-                                    <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                        <Button.Background>
-                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
-                                        </Button.Background>
-                                    </Button>
-                                </Grid>
-                            </Border>
+                                </StackPanel>
 
 
 
-                        </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Grid Margin="0,0,0,204">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                    <Setter Property="BorderThickness" Value="0,5,0,0" />
+                                    <Setter Property="BorderBrush" Value="white" />
+                                    <Setter Property="Margin" Value="0,-2,0,0" />
+                                </Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="10,-2,10,0" />
+                                    <Setter Property="FontSize" Value="20" />
+                                </Style>
+                            </Grid.Resources>
+                            <Border Grid.Column="0"  />
+                            <TextBlock Grid.Column="1" Background="White" Foreground="Black" Text="FLIGHT INFORMATION" />
+                            <Border Grid.Column="2" />
+                        </Grid>
+                    </Grid>
+                    <Grid Height="120">
+                        <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" MinHeight="99"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" >
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
+                            <Run Text="STATUS"/>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
+                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <Label Content="CAMERA ERROR"/>
+                                        </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="False">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+
+                                    </Grid>
+
+                                </StackPanel>
+
+
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1">
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
+                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <Label Content="TECHNICAL ERROR"/>
+                                        </StackPanel>
+
+
+
+                                    </Grid>
+
+                                </StackPanel>
+
+
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2" >
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
+                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <Label Content="COMMUNICATION LOSS"/>
+                                        </StackPanel>
+
+
+
+                                    </Grid>
+                                </StackPanel>
+
+
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" >
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,19,10,0">
+                                            <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <Label Content="BAD WEATHER"/>
+                                        </StackPanel>
+
+
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="0,30,26,0" Grid.Row="0" Grid.Column="4" >
+
+
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Grid VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                    <Setter Property="BorderThickness" Value="0,5,0,0" />
+                                    <Setter Property="BorderBrush" Value="white" />
+                                    <Setter Property="Margin" Value="0,-2,0,0" />
+                                </Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="10,-2,10,0" />
+                                    <Setter Property="FontSize" Value="20" />
+                                </Style>
+                            </Grid.Resources>
+                            <Border Grid.Column="0"  />
+                            <TextBlock Grid.Column="1" Background="White"  Foreground="Black" Text="FLIGHT STATUS" />
+                            <Border Grid.Column="2" />
+                        </Grid>
+                    </Grid>
+                    <Grid Height="140">
+                        <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" MinHeight="99"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                    <ColumnDefinition Width="*" MinWidth="192"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowSaveBTn}">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
+                            <Run Text="LATITUDE"/>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
+                                        <Grid
+                                            Background="#F5F5F5"
+                                            >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox BorderThickness="0" Text="{Binding Latitude1 }" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,25,0" Grid.ColumnSpan="2"/>
+                                            <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                                </Button.Background>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+
+
+
+                                </StackPanel>
+
+
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="False">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="LONTITUDE"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                <Grid Width="143">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding Longtitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="4,0,26,0"/>
-                                    <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                        <Button.Background>
-                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
-                                        </Button.Background>
-                                    </Button>
-                                </Grid>
-                            </Border>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
+                                        <Grid
+                                            Background="#F5F5F5"
+                                            >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox BorderThickness="0" Text="{Binding Longtitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="4,0,25,0" Grid.ColumnSpan="2"/>
+                                            <Button  Height="10" Width="15" BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                                </Button.Background>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
 
-                        </StackPanel>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="UAV ID"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" Width="152" >
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <Border BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5" Width="152" >
 
-                                <TextBox BorderThickness="0" Text="{Binding UAV1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                        <TextBox Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                            BorderThickness="0" Text="{Binding UAV1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="-1,0,-1,0">
 
-                                </TextBox>
-                            </Border>
-                        </StackPanel>
+                                        </TextBox>
+                                    </Border>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="CONTROL KEY"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                <Grid Width="143">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding ControlKey1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
-
-                                    </TextBox>
-                                    <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                        <Button.Background>
-                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
-                                        </Button.Background>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </StackPanel>
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
+                                        <Grid Background="#F5F5F5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox BorderThickness="0" Text="{Binding ControlKey1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,25,0" Grid.ColumnSpan="2"/>
+                                            <Button  Height="10" Width="15" BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                                </Button.Background>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
 
 
-                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="4">
-                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                <Label.Template>
-                                    <ControlTemplate>
-                                        <TextBlock>
+                                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="4">
+                                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                                        <Label.Template>
+                                            <ControlTemplate>
+                                                <TextBlock>
                             <Run Text="SELECT KEY"/>
 
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Label.Template>
-                            </Label>
-                            <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                <Grid Width="143">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox BorderThickness="0" Text="{Binding SecretKey1}" Height="35" Grid.Row="0" Grid.Column="0" IsEnabled="False" Foreground="Black">
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Label.Template>
+                                    </Label>
+                                    <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
+                                        <Grid Background="#F5F5F5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox BorderThickness="0" Text="{Binding SecretKey1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,25,0" Grid.ColumnSpan="2"/>
+                                            <Button  Height="10" Width="15" BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                                </Button.Background>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
 
-                                    </TextBox>
-                                    <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                        <Button.Background>
-                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
-                                        </Button.Background>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </StackPanel>
-
+                            </Grid>
+                        </Border>
+                        <Grid VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                    <Setter Property="BorderThickness" Value="0,5,0,0" />
+                                    <Setter Property="BorderBrush" Value="white" />
+                                    <Setter Property="Margin" Value="0,-2,0,0" />
+                                </Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="10,-2,10,0" />
+                                    <Setter Property="FontSize" Value="20" />
+                                </Style>
+                            </Grid.Resources>
+                            <Border Grid.Column="0"  />
+                            <TextBlock Grid.Column="1" Background="White"  Foreground="Black" Text="ADDITIONAL INFORMATION" />
+                            <Border Grid.Column="2" />
+                        </Grid>
                     </Grid>
-                </Border>
-                <Grid VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="VerticalAlignment" Value="Top" />
-                            <Setter Property="BorderThickness" Value="0,5,0,0" />
-                            <Setter Property="BorderBrush" Value="white" />
-                            <Setter Property="Margin" Value="0,-2,0,0" />
-                        </Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="10,-2,10,0" />
-                            <Setter Property="FontSize" Value="20" />
-                        </Style>
-                    </Grid.Resources>
-                    <Border Grid.Column="0"  />
-                    <TextBlock Grid.Column="1" Background="White"  Foreground="Black" Text="ADDITIONAL INFORMATION" />
-                    <Border Grid.Column="2" />
-                </Grid>
-            </Grid>
-            <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Comand}" Foreground="White" Background="#A9ABB1" >
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="5" />
+                    <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                        <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Comand}" Foreground="White" Background="#A9ABB1" >
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Button}">
+                                    <Style.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="5" />
+                                        </Style>
+                                    </Style.Resources>
                                 </Style>
-                            </Style.Resources>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-                <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Black" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="5" />
+                            </Button.Resources>
+                        </Button>
+                        <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Black" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Button}">
+                                    <Style.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="5" />
+                                        </Style>
+                                    </Style.Resources>
                                 </Style>
-                            </Style.Resources>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </StackPanel>
-        </StackPanel>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
 
-    </Grid>
+            </Grid>
+        </ScrollViewer>
+    </UserControl.Content>
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Setters>
@@ -562,4 +575,5 @@
 
         </Style>
     </UserControl.Resources>
+
 </UserControl>

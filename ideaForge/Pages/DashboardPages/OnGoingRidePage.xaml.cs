@@ -27,7 +27,7 @@ namespace ideaForge.Pages.DashboardPages
      
             InitializeComponent();
             var vModel = (OnGoingRideViewModel)DataContext;
-            vModel.MissionType1 = userData.missionType;
+            vModel.MissionName = userData.MissionName;
             double totalHours = (userData.endDate - userData.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;
             vModel.FlightDate1 = userData.startDate.ToShortDateString();
@@ -36,9 +36,9 @@ namespace ideaForge.Pages.DashboardPages
             vModel.StatusForUser1 = userData.status;
             vModel.Latitude1 = userData.latitude;
             vModel.Longtitude1 = userData.longitude;
-            //vModel.UAV1 = userData.;
-            //vModel.ControlKey1 = userData.;
-            //vModel.SecretKey1 = userData.;
+            vModel.UAV1 = userData.UAVID;
+            //vModel.ControlKey1 = userData.ControlKey;
+            //vModel.SecretKey1 = userData.SecretKey;
 
 
         }

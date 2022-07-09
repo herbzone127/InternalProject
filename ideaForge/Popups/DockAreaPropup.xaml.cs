@@ -23,7 +23,7 @@ namespace ideaForge.Popups
         public DockAreaPopup()
         {
             InitializeComponent();
-        
+           /// new ErrorMessageBox("").ShowDialog();
         }
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
@@ -37,7 +37,7 @@ namespace ideaForge.Popups
             Application.Current.MainWindow = new Dashboard();
             Application.Current.MainWindow.Show();
             this.Close();
-            var window =(Login) Application.Current.Windows[0];
+            var window = (Login)Application.Current.Windows[0];
             window.Close();
 
         }

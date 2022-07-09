@@ -1,7 +1,11 @@
 ﻿using IdeaForge.Domain;
+using IdeaForge.Service.IGenericServices;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +15,13 @@ namespace ideaForge.ViewModels
 {
     public class PendingRideViewModel : ViewModelBase
     {
+
+        #region Services
+        public IPilotRequestServices _pilotRequestServices
+         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+
+        #endregion
+
         private RideById _rideById;
 
         public RideById RideById
@@ -22,21 +33,49 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(RideById));
             }
         }
-       
+        #region Constructor
         public PendingRideViewModel()
         {
             var result = RideById;
+            _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
+            _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
+
+            GetAllStatuses().ConfigureAwait(false);
         }
 
-        private int _missionType;
+        #endregion
 
-        public int MissionType
+        private void CanExecuteSaveChanges(object obj)
         {
-            get { return _missionType; }
+
+        }
+       
+
+        private void CanExecuteCancelChanges(object obj)
+        {
+
+        }
+       
+    
+
+        private readonly DelegateCommand _saveChanges_Command;
+        public ICommand SaveChanges_Comand => _saveChanges_Command;
+       
+             private readonly DelegateCommand _cancelChanges_Command;
+        public ICommand CancelChanges_Command => _cancelChanges_Command;
+        #region Commands
+
+
+        #endregion
+        private String _missionName;
+
+        public String MissionName
+        {
+            get { return _missionName; }
             set
             {
-                _missionType = value;
-                OnPropertyChanged(nameof(MissionType));
+                _missionName = value;
+                OnPropertyChanged(nameof(MissionName));
             }
         }
         private double _totalRequestedTime1;
@@ -119,6 +158,51 @@ namespace ideaForge.ViewModels
             {
                 _longtitude1 = value;
                 OnPropertyChanged(nameof(Longitude1));
+            }
+        }
+
+        private ObservableCollection<RideStatus> _rideStatuses;
+
+        public ObservableCollection<RideStatus> RideStatuses
+        {
+            get { return _rideStatuses; }
+            set { _rideStatuses = value;
+                OnPropertyChanged(nameof(RideStatuses));
+            }
+        }
+        private int _rideStatusId;
+
+        public int RideStatusId
+        {
+            get { return _rideStatusId; }
+            set { _rideStatusId = value; }
+        }
+
+
+
+        //Control Key 8 Length ---- Secret Key  16 Length
+        public string GenerateRandomCryptographicKey(int keyLength)
+        {
+            RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            byte[] randomBytes = new byte[keyLength];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+            return Convert.ToBase64String(randomBytes);
+        }
+
+        public async Task GetAllStatuses()
+        {
+            try
+            {
+              var result = await  _pilotRequestServices.GetAllStatuses();
+                if (result.status)
+                {
+                    RideStatuses = new ObservableCollection<RideStatus>(result.userData);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
