@@ -18,6 +18,8 @@ namespace IdeaForge.Service.IGenericServices
         Task<List<RideStatus>> GetAllStatuses();
         Task<FlightStatusResponse> AddUpdatePilotStatus(FlightStatus pilot);
         Task<FlightFeedbackResponse> AddUpdatePilotFeedback(FlightFeedback pilot);
+        Task<PilotLocationResponse> GetPilotLocations(int userId);
+        Task<PilotLocationResponse> AddUpdatePilotLocations(PilotLocation location);
 
 
     }

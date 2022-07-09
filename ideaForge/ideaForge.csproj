@@ -303,6 +303,7 @@
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\IFDockViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\PilotLocationViewModel.cs" />
     <Compile Include="ViewModels\ProfilePageViewModels.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

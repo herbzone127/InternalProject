@@ -222,6 +222,7 @@ namespace ideaForge.ViewModels
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
                 new DockAreaPopup().Show();
+                
                 //Application.Current.MainWindow = new DockAreaPopup();
                 //Application.Current.MainWindow.ShowDialog();
 
@@ -229,7 +230,10 @@ namespace ideaForge.ViewModels
                 //window.Close();
 
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-
+                Global.loginUserId = user.id;
+                Global.email_PhoneNo = user.email;
+                Global.Token = user.token;
+                Global.contactNo = user.contactNo;
             }
             else
             {

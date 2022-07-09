@@ -18,6 +18,11 @@ namespace ideaForge.ViewModels
         /// <summary>
         /// Services
         /// </summary>
+       #region Services
+        public IPilotRequestServices _pilotRequestServices
+         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+
+        #endregion
         public int rideId { get; set; }
         private RequestData _selectedAllRequest;
 
@@ -29,11 +34,7 @@ namespace ideaForge.ViewModels
             }
         }
 
-        #region Services
-        public IPilotRequestServices _pilotRequestServices
-         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
-      
-        #endregion
+        
 
        
         #region Commands

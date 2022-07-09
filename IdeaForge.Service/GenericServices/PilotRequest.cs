@@ -112,6 +112,41 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
+
+        public async Task<PilotLocationResponse> GetPilotLocations(int userId)
+        {
+            try
+            {
+                var url = UrlHelper.pilotLocationUrl+"/"+userId;
+
+                var resultString = await HTTPClientWrapper<PilotLocationResponse>.Get(url);
+                return resultString;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
+        public async Task<PilotLocationResponse> AddUpdatePilotLocations(PilotLocation location)
+        {
+            try
+            {
+                var url = UrlHelper.updateloactionbyid;
+
+                var resultString = await HTTPClientWrapper<PilotLocation>.PostRequest(url,location);
+                var resultData = JsonConvert.DeserializeObject<PilotLocationResponse>(resultString);
+                return resultData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
         public async Task<RideByPilotResponse> UpdateRideByPilot(Ride pilot)
         {
             try

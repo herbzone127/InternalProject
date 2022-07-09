@@ -19,7 +19,7 @@ namespace ideaForge.ViewModels
         public LocationCollection Locations { get; set; }
     }
 
-    public class IFDockViewModel
+    public partial class IFDockViewModel : ViewModelBase
     {
         public List<PointItem> Points { get; } = new List<PointItem>();
         public List<PointItem> Pushpins { get; } = new List<PointItem>();
@@ -27,6 +27,8 @@ namespace ideaForge.ViewModels
 
         public IFDockViewModel()
         {
+            _saveChangesCommand = new DelegateCommand(CanExecuteSaveChanges);
+            GetPilotLocations().ConfigureAwait(false);
             Points.Add(new PointItem
             {
                 Name = "Steinbake Leitdamm",
