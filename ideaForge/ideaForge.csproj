@@ -297,6 +297,12 @@
     <Compile Include="Popups\ErrorMessageBox.xaml.cs">
       <DependentUpon>ErrorMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Popups\ErrorPopUp.xaml.cs">
+      <DependentUpon>ErrorPopUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\SuccessPopUp.xaml.cs">
+      <DependentUpon>SuccessPopUp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\OnGoingRideViewModel.cs" />
     <Compile Include="ViewModels\PendingRideViewModel.cs" />
     <Compile Include="ViewModels\CompleteRideViewModel.cs" />
@@ -387,6 +393,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Popups\ErrorMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\ErrorPopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\SuccessPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -545,6 +559,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\errorIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cancel.png" />
+    <Resource Include="Images\ErrorBack.png" />
+    <Resource Include="Images\SuccessBack.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
