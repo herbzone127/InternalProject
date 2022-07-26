@@ -20,14 +20,12 @@ namespace ideaForge.Popups
     /// </summary>
     public partial class ErrorMessageBox : Window
     {
-        public ErrorMessageBox()
+        public ErrorMessageBox(string label)
         {
             InitializeComponent();
-        }
-        public  void Show(string label)
-        {
             lblMessage.Content = label;
         }
+       
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

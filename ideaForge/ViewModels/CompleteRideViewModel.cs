@@ -130,11 +130,11 @@ namespace ideaForge.ViewModels
             var result =await _pilotRequestServices.AddUpdatePilotFeedback(new FlightFeedback { });
             if (result.status)
             {
-                new SuccessMessageBox().Show("Ride update","Successful.");
+                new SuccessMessageBox("Ride update", "Successful.").Show();
             }
             else
             {
-                new ErrorMessageBox().Show(result.message);
+                new ErrorMessageBox(result.message).ShowDialog();
             }
             IsBusy = false;
         }

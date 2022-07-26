@@ -261,12 +261,12 @@ namespace ideaForge.ViewModels
             var result =await _registerService.Register(RegisterModel);
             if (result.status)
             {
-                new SuccessMessageBox().Show(result.message,"");
+                new SuccessMessageBox(result.message, "").ShowDialog();
                 SignupBackButtonCanExecute(null);
             }
             else
             {
-                new ErrorMessageBox().Show(result.message);
+                new ErrorMessageBox(result.message).ShowDialog();
             }
            
             IsBusy = false;
@@ -302,7 +302,7 @@ namespace ideaForge.ViewModels
             else
             {
                 IsBusy = false;
-                new ErrorMessageBox().Show(result.message);
+                new ErrorMessageBox(result.message).ShowDialog();
             }
         }
         public async Task<UserData> ResendOTP()
@@ -353,12 +353,12 @@ namespace ideaForge.ViewModels
                         else
                         {
 
-                            new ErrorMessageBox().Show(result.message);
+                            new ErrorMessageBox(result.message).ShowDialog();
                         }
                     }
                     else
                     {
-                        new ErrorMessageBox().Show("Please enter a valid OTP Number");
+                        new ErrorMessageBox("Please enter a valid OTP Number").ShowDialog();
                     }
                 }
                 
@@ -379,7 +379,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox().Show(ex.Message);
+                new ErrorMessageBox(ex.Message).ShowDialog();
             }
 
         }
@@ -393,7 +393,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox().Show(ex.Message);
+                new ErrorMessageBox(ex.Message).ShowDialog();
             }
         
         }

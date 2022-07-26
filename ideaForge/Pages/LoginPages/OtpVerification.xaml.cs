@@ -93,12 +93,12 @@ namespace ideaForge
                             }
                             else
                             {
-                               new ErrorMessageBox().Show(result.message);
+                              var msg= new ErrorMessageBox(result.message).ShowDialog();
                             }
                         }
                         else
                         {
-                           new ErrorMessageBox().Show("Please enter a valid OTP Number");
+                           new ErrorMessageBox("Please enter a valid OTP Number").ShowDialog();
                         }
                     }
                 }

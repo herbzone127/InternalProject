@@ -19,15 +19,13 @@ namespace ideaForge.Popups
     /// </summary>
     public partial class SuccessMessageBox : Window
     {
-        public SuccessMessageBox()
+        public SuccessMessageBox(string label, string labelSuccess)
         {
             InitializeComponent();
-        }
-        public  void Show(string label,string labelSuccess)
-        {
             lblMessage.Content = label;
             lblSuccess.Content = labelSuccess;
         }
+    
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

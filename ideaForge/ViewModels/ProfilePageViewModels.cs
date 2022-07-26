@@ -132,7 +132,7 @@ namespace ideaForge.ViewModels
                 catch (Exception ex)
                 {
 
-                    new ErrorMessageBox().Show(ex.Message);
+                    new ErrorMessageBox(ex.Message).Show();
                 }
             }
             else
@@ -153,27 +153,27 @@ namespace ideaForge.ViewModels
             }
             else if (string.IsNullOrEmpty(ProfileModel.name))
             {
-                new ErrorMessageBox().Show("Enter your name.");
+                new ErrorMessageBox("Enter your name.").Show();
             }
             else if (string.IsNullOrEmpty(ProfileModel.email))
             {
-                new ErrorMessageBox().Show("Enter your email.");
+                new ErrorMessageBox("Enter your email.").Show();
             }
             else if (string.IsNullOrEmpty(ProfileModel.contactNo))
             {
-                new ErrorMessageBox().Show("Enter your contact number.");
+                new ErrorMessageBox("Enter your contact number.").Show();
             }
             else if (string.IsNullOrEmpty(ProfileModel.organizationName))
             {
-                new ErrorMessageBox().Show("Enter your organization name.");
+                new ErrorMessageBox("Enter your organization name.").Show();
             }
             else if (string.IsNullOrEmpty(ProfileModel.departmentName))
             {
-                new ErrorMessageBox().Show("Enter your department name.");
+                new ErrorMessageBox("Enter your department name.").Show();
             }
             else if (string.IsNullOrEmpty(ProfileModel.city))
             {
-                new ErrorMessageBox().Show("Enter your city.");
+                new ErrorMessageBox("Enter your city.").Show();
             }
             else 
             {
@@ -207,7 +207,7 @@ namespace ideaForge.ViewModels
                 var result = await _profileService.SaveProfile(ProfileModel);
                 if (result.status)
                 {
-                    new SuccessMessageBox().Show(result.message,"");
+                    new SuccessMessageBox(result.message, "").Show();
                     ShowEditBTn = "Visible";
                     ShowSaveBTn = false;
                     ShowSaveBTnbtn = "Hidden";
@@ -215,7 +215,7 @@ namespace ideaForge.ViewModels
                 }
                 else
                 {
-                    new ErrorMessageBox().Show("Profile not updated,Please try agin.");
+                    new ErrorMessageBox("Profile not updated,Please try agin.").Show();
                 }
             }
         }
@@ -288,7 +288,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox().Show(ex.Message);
+                new ErrorMessageBox(ex.Message).Show();
             }
 
         }

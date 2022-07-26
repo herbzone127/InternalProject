@@ -120,11 +120,11 @@ namespace ideaForge.ViewModels
                 if (result.status)
                 {
 
-                    new SuccessMessageBox().Show("Ride update ","Successful.");
+                    new SuccessMessageBox("Ride update ", "Successful.").ShowDialog();
                 }
                 else
                 {
-                    new ErrorMessageBox().Show(result.message);
+                    new ErrorMessageBox(result.message).ShowDialog();
                 }
             }
             
