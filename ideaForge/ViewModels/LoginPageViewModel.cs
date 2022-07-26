@@ -261,8 +261,12 @@ namespace ideaForge.ViewModels
             var result =await _registerService.Register(RegisterModel);
             if (result.status)
             {
-                MessageBox.Show(result.message);
+                new SuccessMessageBox().Show(result.message,"");
                 SignupBackButtonCanExecute(null);
+            }
+            else
+            {
+                new ErrorMessageBox().Show(result.message);
             }
            
             IsBusy = false;
@@ -297,7 +301,8 @@ namespace ideaForge.ViewModels
             }
             else
             {
-                MessageBox.Show(result.message);
+                IsBusy = false;
+                new ErrorMessageBox().Show(result.message);
             }
         }
         public async Task<UserData> ResendOTP()
@@ -309,6 +314,7 @@ namespace ideaForge.ViewModels
                 return result.userData;
             }
             return null;
+            IsBusy = false;
         }
         private async void OtpCanCanExecute(object obj)
         {
@@ -326,38 +332,37 @@ namespace ideaForge.ViewModels
             else
             {
                 string newOTP = string.Format("{0}{1}{2}{3}{4}{5}", OTP1, OTP2, OTP3, OTP4, OTP5, OTP6);
-                int.TryParse(newOTP, out int otpResult);
-                if (otpResult > 0)
+                if(newOTP.Length == 6)
                 {
-
-                    var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
-                    if (result.status)
+                    int.TryParse(newOTP, out int otpResult);
+                    if (otpResult > 0)
                     {
-                        //Application.Current.Properties["ID"] = result.userData.id;
-                        //Global.Token = result.userData.token;
-                        new DockAreaPopup().Show();
-                        IsBusy = false;
 
-                        Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                        var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
+                        if (result.status)
+                        {
+                            //Application.Current.Properties["ID"] = result.userData.id;
+                            //Global.Token = result.userData.token;
+                            new DockAreaPopup().Show();
+                            IsBusy = false;
+
+                            Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
 
 
+                        }
+                        else
+                        {
+
+                            new ErrorMessageBox().Show(result.message);
+                        }
                     }
                     else
                     {
-
-                        MessageBox.Show(result.message);
+                        new ErrorMessageBox().Show("Please enter a valid OTP Number");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Please enter a valid OTP Number");
-                }
+                
             }
-               
-            
-
-            
-
         }
         #endregion
         /// <summary>
@@ -374,7 +379,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                new ErrorMessageBox().Show(ex.Message);
             }
 
         }
@@ -388,7 +393,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-               MessageBox.Show(ex.Message);
+                new ErrorMessageBox().Show(ex.Message);
             }
         
         }

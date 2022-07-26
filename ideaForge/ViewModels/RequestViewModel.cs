@@ -1,4 +1,5 @@
-﻿using IdeaForge.Domain;
+﻿using ideaForge.Popups;
+using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -68,7 +69,7 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             var model = (RequestData)obj;
            
-                MessageBox.Show("Selected record rejected successfully.");
+                new SuccessMessageBox().Show("Selected record rejected ","Successful.");
                 var result = await GetStatusChangesResponse(false, model.id);
                 if (result)
                 {
@@ -111,7 +112,7 @@ namespace ideaForge.ViewModels
             var model = (RequestData)obj;
             if(model.statusID == 1)
             {
-                MessageBox.Show("Selected record accepted successfully.");
+                new SuccessMessageBox().Show("Selected record accepted ", "successfully.");
                 var result = await GetStatusChangesResponse(true, model.id);
                 if (result)
                 {
@@ -125,28 +126,17 @@ namespace ideaForge.ViewModels
                         SelectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
 
                     }
-                    foreach (var selectedAllRequest in AllRequests.Where(u=>u.id==model.id))
-                    {
-                        selectedAllRequest.statusID = 2;
-                        selectedAllRequest.status = "Pending";
-                        if (selectedAllRequest.statusID == 2)
-                        {
-                            //OnGoing
-                            selectedAllRequest.color = ConvertColor("#F98926");
-                            selectedAllRequest.TextColor = ConvertColor("#F98926");
-                            selectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+                   await GetAllRequest("");
+                   await GetTodaysRequest("");
 
-                        }
-                    }
-                  
-                 
+
                 }
                
 
             }
             else
             {
-                MessageBox.Show("Only pending rides can be accepted");
+                new ErrorMessageBox().Show("Only pending rides can be accepted");
             }
             IsBusy = false;
         }
@@ -309,7 +299,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                new ErrorMessageBox().Show(ex.Message);
             }
             IsBusy = false;
 
@@ -386,7 +376,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                new ErrorMessageBox().Show(ex.Message);
             }
             IsBusy = false;
         }

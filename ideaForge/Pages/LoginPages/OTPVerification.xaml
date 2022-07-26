@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ideaForge" 
-        
-        >
+        xmlns:local="clr-namespace:ideaForge" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -17,6 +15,9 @@
             <RowDefinition Height="auto"/>
 
         </Grid.RowDefinitions>
+        <mah:ProgressRing Foreground="#91C84F"
+                          x:Name="progreshbar"
+                          Grid.Column="1" Grid.RowSpan="5"/>
         <Image Source="/Images/logo.png" Height="80" VerticalAlignment="Bottom"/>
         <Label 
             FontSize="34" 
@@ -53,7 +54,7 @@
             <Label  Content="Didn't receive OTP?" Foreground="DimGray"/>
             <Label MouseLeftButtonDown="Label_ResendOTPBTN" Foreground="#91c84f" MouseLeftButtonUp="Label_ResendOTPBTN" FontWeight="Bold">Resend OTP</Label>
         </StackPanel>
-        <Button Grid.Row="6" 
+        <!--<Button Grid.Row="6" 
                 Height="35"
                 x:Name="Send" BorderThickness="1" 
                 Margin="15,0,15,5"
@@ -63,7 +64,7 @@
                 Foreground="White" 
                 Background="#91c84f" VerticalAlignment="Bottom" 
                 Command="{Binding PilotoptCommand}"
-                />
+                />-->
 
     </Grid>
     <UserControl.Resources>

@@ -4,6 +4,7 @@ using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System;
+using java.net;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,9 +12,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-
+using ideaForge.Popups;
 
 namespace ideaForge.ViewModels
 {
@@ -97,28 +99,47 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(ShowEditBTn));
             }
         }
-        
+        private UserControl _authenticationPage;
+
+        public UserControl AuthenticationPage
+        {
+            get { return _authenticationPage; }
+            set
+            {
+                _authenticationPage = value;
+                OnPropertyChanged(nameof(AuthenticationPage));
+            }
+        }
+
         #region OtherMethods
         public async void GetProfileData()
         {
             
             ProfilemodelID profil = new ProfilemodelID();
-            profil.id = Convert.ToInt32(Application.Current.Properties["ID"]);
-            string token = Global.Token;
-            try
+            profil.id = Global.loginUserId;
+            if(profil.id != 0)
+            {
+                string token = Global.Token;
+                try
+                {
+
+                    var data = await _profileService.GetProfile(new IdeaForge.Domain.ProfilemodelID { id = profil.id, token = token });
+                    data.userData.addedondat = data.userData.addedon.ToString("dd/MM/yyyy");
+                    string imgpath = UrlHelper.baseURL + data.userData.image;
+                    data.userData.image = imgpath;
+                    ProfileModel = data.userData;
+                }
+                catch (Exception ex)
+                {
+
+                    new ErrorMessageBox().Show(ex.Message);
+                }
+            }
+            else
             {
                 
-                var data = await _profileService.GetProfile(new IdeaForge.Domain.ProfilemodelID { id = profil.id,token = token });
-                data.userData.addedondat = data.userData.addedon.ToString("dd/MM/yyyy");
-                string imgpath = UrlHelper.baseURL + data.userData.image;
-                data.userData.image = imgpath;
-                ProfileModel = data.userData;
             }
-            catch (Exception ex)
-            {
-                
-                MessageBox.Show(ex.Message);
-            }
+            
 
         }
         #endregion
@@ -132,39 +153,61 @@ namespace ideaForge.ViewModels
             }
             else if (string.IsNullOrEmpty(ProfileModel.name))
             {
-                MessageBox.Show("Enter your name.");
+                new ErrorMessageBox().Show("Enter your name.");
             }
             else if (string.IsNullOrEmpty(ProfileModel.email))
             {
-                MessageBox.Show("Enter your email.");
+                new ErrorMessageBox().Show("Enter your email.");
             }
             else if (string.IsNullOrEmpty(ProfileModel.contactNo))
             {
-                MessageBox.Show("Enter your contact number.");
+                new ErrorMessageBox().Show("Enter your contact number.");
             }
             else if (string.IsNullOrEmpty(ProfileModel.organizationName))
             {
-                MessageBox.Show("Enter your organization name.");
+                new ErrorMessageBox().Show("Enter your organization name.");
             }
             else if (string.IsNullOrEmpty(ProfileModel.departmentName))
             {
-                MessageBox.Show("Enter your department name.");
+                new ErrorMessageBox().Show("Enter your department name.");
             }
             else if (string.IsNullOrEmpty(ProfileModel.city))
             {
-                MessageBox.Show("Enter your city.");
+                new ErrorMessageBox().Show("Enter your city.");
             }
             else 
             {
-                var imgd = ProfileModel.image;
-                var stream =  File.ReadAllBytes(imgd);
-                //byte[] byt = new byte[stream.Length];
-                var base64String = Convert.ToBase64String(stream);
-                ProfileModel.image = base64String;
+                if (ProfileModel.image != null)
+                {
+                    if (ProfileModel.image.ToLower().Contains(UrlHelper.baseURL.ToLower()))
+                    {
+                        URL url = new URL(ProfileModel.image);
+                        java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
+                        URLConnection conn = url.openConnection();
+                        conn.setRequestProperty("User-Agent", "Firefox");
+                        java.io.InputStream inputStream = conn.getInputStream();
+                        int n = 0;
+                        byte[] buffer = new byte[1024];
+                        while (-1 != (n = inputStream.read(buffer)))
+                        {
+                            output.write(buffer, 0, n);
+                        }
+                        byte[] img = output.toByteArray();
+                        var base64String = Convert.ToBase64String(img);
+                        ProfileModel.image = base64String;
+                    }
+                    else
+                    {
+                        var imgd = ProfileModel.image;
+                        var stream = File.ReadAllBytes(imgd);
+                        var base64String = Convert.ToBase64String(stream);
+                        ProfileModel.image = base64String;
+                    }
+                }
                 var result = await _profileService.SaveProfile(ProfileModel);
                 if (result.status)
                 {
-                    MessageBox.Show(result.message);
+                    new SuccessMessageBox().Show(result.message,"");
                     ShowEditBTn = "Visible";
                     ShowSaveBTn = false;
                     ShowSaveBTnbtn = "Hidden";
@@ -172,7 +215,7 @@ namespace ideaForge.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Profile not updated,Please try agin.");
+                    new ErrorMessageBox().Show("Profile not updated,Please try agin.");
                 }
             }
         }
@@ -245,7 +288,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                new ErrorMessageBox().Show(ex.Message);
             }
 
         }

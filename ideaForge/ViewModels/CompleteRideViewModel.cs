@@ -1,4 +1,5 @@
 ﻿using ideaForge.Pages.DashboardPages;
+using ideaForge.Popups;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -129,11 +130,11 @@ namespace ideaForge.ViewModels
             var result =await _pilotRequestServices.AddUpdatePilotFeedback(new FlightFeedback { });
             if (result.status)
             {
-                MessageBox.Show("Ride update successfully");
+                new SuccessMessageBox().Show("Ride update","Successful.");
             }
             else
             {
-                MessageBox.Show(result.message);
+                new ErrorMessageBox().Show(result.message);
             }
             IsBusy = false;
         }

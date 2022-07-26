@@ -55,7 +55,7 @@ namespace ideaForge
             else
             {
                 
-                worker.CancelAsync();
+                //worker.CancelAsync();
                 
             }
            

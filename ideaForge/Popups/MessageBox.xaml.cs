@@ -1,5 +1,4 @@
-﻿using com.sun.xml.@internal.ws.encoding.xml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,17 +15,18 @@ using System.Windows.Shapes;
 namespace ideaForge.Popups
 {
     /// <summary>
-    /// Interaction logic for ErrorMessageBox.xaml
+    /// Interaction logic for MessageBox.xaml
     /// </summary>
-    public partial class ErrorMessageBox : Window
+    public partial class SuccessMessageBox : Window
     {
-        public ErrorMessageBox()
+        public SuccessMessageBox()
         {
             InitializeComponent();
         }
-        public  void Show(string label)
+        public  void Show(string label,string labelSuccess)
         {
             lblMessage.Content = label;
+            lblSuccess.Content = labelSuccess;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

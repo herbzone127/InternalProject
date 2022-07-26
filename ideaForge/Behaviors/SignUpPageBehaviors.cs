@@ -52,6 +52,7 @@ namespace ideaForge.Behaviors
                         {
                             var obj = (LoginPageViewModel)AssociatedObject.DataContext;
                             obj.RegisterNewUserCanExecute(null);
+                            break;
                         }
                     }
                 }
