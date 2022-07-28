@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using MessageBox = ideaForge.Popups.MessageBox;
 
 namespace ideaForge.ViewModels
 {
@@ -69,7 +70,7 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             var model = (RequestData)obj;
            
-                new SuccessMessageBox("Selected record rejected ", "Successful.").Show();
+                MessageBox.ShowSuccess("Selected record rejected ","Successful.");
                 var result = await GetStatusChangesResponse(false, model.id);
                 if (result)
                 {
@@ -112,7 +113,7 @@ namespace ideaForge.ViewModels
             var model = (RequestData)obj;
             if(model.statusID == 1)
             {
-                new SuccessMessageBox("Selected record accepted ", "successfully.").Show();
+                MessageBox.ShowSuccess("Selected record accepted ", "successfully.");
                 var result = await GetStatusChangesResponse(true, model.id);
                 if (result)
                 {
@@ -136,7 +137,7 @@ namespace ideaForge.ViewModels
             }
             else
             {
-                new ErrorMessageBox("Only pending rides can be accepted").Show();
+               MessageBox.ShowError("Only pending rides can be accepted");
             }
             IsBusy = false;
         }
@@ -299,7 +300,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox(ex.Message).Show();
+               MessageBox.ShowError(ex.Message);
             }
             IsBusy = false;
 
@@ -376,7 +377,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox(ex.Message).Show();
+               MessageBox.ShowError(ex.Message);
             }
             IsBusy = false;
         }

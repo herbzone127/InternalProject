@@ -21,7 +21,7 @@ namespace IdeaForge.Service.GenericServices
                 var url = UrlHelper.pilotProfileURl;
 
                 var serializeJson = JsonConvert.SerializeObject(profilID);
-                var resultString = await HTTPClientWrapper<ProfilemodelID>.PostRequestToken(url, profilID, profilID.token);
+                var resultString = await HTTPClientWrapper<ProfilemodelID>.PostRequestToken(url, profilID, Global.Token);
                 var result = JsonConvert.DeserializeObject<ProfileModel>(resultString);
                 //var url = UrlHelper.loginURL;
                 //var result = await HTTPClientWrapper<Login>.Get(url);

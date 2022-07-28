@@ -6,6 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ideaForge"
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
+         WindowStartupLocation="CenterScreen" 
+                 AllowsTransparency="False"
+                 Background="White"
         mc:Ignorable="d"
       x:Name="loginWindow"
                  SizeChanged="loginWindow_SizeChanged"
@@ -19,13 +22,25 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Image Margin="-15,0,0,0" Grid.Column="0" Source="{Binding ImageUrl}"/>
-
-        <ContentControl Grid.Column="1" 
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="auto"/>
+                <RowDefinition  Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Visibility="{Binding BackButtonVisiblity,Mode=TwoWay}">
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding Path=SignupBackButtonCommand}" >
+                    <Image Source="/Images/backArrow.png"/>
+                </Button>
+                <Label Content="{Binding PageName,Mode=TwoWay}" Margin="146,0,146,0" FontSize="34" FontFamily="Segoe UI" FontWeight="SemiBold"/>
+            </StackPanel>
+            <ContentControl Grid.Row="1" 
                         HorizontalContentAlignment="Center" 
                         VerticalContentAlignment="Center"
                         DataContext="{Binding}"
                         Focusable="True"
               Content="{Binding AuthenticationPage}" Margin="5,10,5,34"/>
+        </Grid>
+       
 
         <mah:ProgressRing Foreground="#91C84F"
                   IsActive="{Binding IsBusy}" 

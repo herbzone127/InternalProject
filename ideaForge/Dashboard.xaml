@@ -105,7 +105,7 @@
         <!--  Header  -->
         <Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
             <DataTemplate>
-                <Image Source="/Images/logo.png" Height="80" Width="80"/>
+                <Image Source="/Images/flightLogo.png" Height="80" Width="80"/>
                 <!--<TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="16"

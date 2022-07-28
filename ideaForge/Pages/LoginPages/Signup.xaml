@@ -56,12 +56,12 @@
                 <RowDefinition  Height="40" />
                 <RowDefinition  Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
+            <!--<StackPanel Orientation="Horizontal">
                 <Button Background="Transparent" BorderThickness="0" Command="{Binding Path=SignupBackButtonCommand}" >
                     <Image Source="/Images/backArrow.png"/>
                 </Button>
                 <Label Content="Signup" Margin="146,0,146,0" FontSize="34" FontFamily="Segoe UI" FontWeight="SemiBold"/>
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel Grid.Row="1" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
                     <Label.Template>
@@ -73,7 +73,7 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox  Text="{Binding RegisterModel.name}" x:Name="txtName" TextChanged="TxtName_TextChanged" >
+                <TextBox MaxLength="30"  Text="{Binding RegisterModel.name}" x:Name="txtName" TextChanged="TxtName_TextChanged" >
 
                 </TextBox>
                 <Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
@@ -133,14 +133,14 @@
                     </Label.Template>
                 </Label>
 
-                <TextBox  Text="{Binding RegisterModel.contactNo}">
+                <TextBox MaxLength="10" Text="{Binding RegisterModel.contactNo}" PreviewTextInput="TextBox_PreviewTextInput">
 
                     <e:Interaction.Behaviors>
                         <behavior:PhoneNumberEntryBehaviors />
                     </e:Interaction.Behaviors>
 
                 </TextBox>
-                <Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Mobile Number with Country Code" Foreground="Red"  Visibility="Hidden"/>
+                <Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Contact Number" Foreground="Red"  Visibility="Hidden"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">

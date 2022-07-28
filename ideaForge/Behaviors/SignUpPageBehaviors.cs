@@ -1,4 +1,5 @@
 ﻿using ideaForge.ViewModels;
+using IdeaForge.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,52 +13,61 @@ namespace ideaForge.Behaviors
 {
     public class SignUpPageBehaviors: Behavior<Button>
     {
+     
         void NullFieldsChanged() 
         {
+            Global.SignupCounter = -1;
             int count = 0;
             var button = (Button)AssociatedObject;
             var grid = button.Parent as Grid;
             IEnumerable<StackPanel> collection = grid.Children.OfType<StackPanel>();
+         
             foreach (StackPanel panel in collection)
             {
-                foreach (var item in panel.Children.OfType<TextBox>())
+                if (Global.SignupCounter == -1)
                 {
-                    if (string.IsNullOrEmpty(item.Text))
+                    foreach (var item in panel.Children.OfType<TextBox>())
                     {
-                        //item.BorderBrush = Brushes.Red;
-                        foreach (var label in panel.Children.OfType<Label>())
+                        if (string.IsNullOrEmpty(item.Text))
                         {
-                         
-                                label.Visibility = System.Windows.Visibility.Visible;
-                            
-                        }
-                    }
-                    else
-                    {
-                        item.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A9ABB1"); 
-                        foreach (var label in panel.Children.OfType<Label>())
-                        {
-                            if (label.Content != null)
+                            //item.BorderBrush = Brushes.Red;
+                            foreach (var label in panel.Children.OfType<Label>())
                             {
-                                if(label.Content.ToString().Contains("valid"))
+
+                                label.Visibility = System.Windows.Visibility.Visible;
+
+                            }
+                        }
+                        else
+                        {
+                            item.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A9ABB1");
+                            foreach (var label in panel.Children.OfType<Label>())
+                            {
+                                if (label.Content != null)
                                 {
-                                    label.Visibility = System.Windows.Visibility.Hidden;
+                                    if (label.Content.ToString().Contains("valid"))
+                                    {
+                                        label.Visibility = System.Windows.Visibility.Hidden;
+                                    }
+
                                 }
 
                             }
-                           
+                            Global.SignupCounter = panel.Children.OfType<Label>().Where(u => u.Visibility == System.Windows.Visibility.Visible && u.Foreground == Brushes.Red).Count();
+                            if (Global.SignupCounter == 0)
+                            {
+                                var obj = (LoginPageViewModel)AssociatedObject.DataContext;
+                                obj.RegisterNewUserCanExecute(null);
+                                Global.SignupCounter = -2;
+                                break;
+                            }
                         }
-                        var counter = panel.Children.OfType<Label>().Where(u => u.Visibility == System.Windows.Visibility.Visible && u.Foreground==Brushes.Red).Count();
-                        if (counter == 0)
-                        {
-                            var obj = (LoginPageViewModel)AssociatedObject.DataContext;
-                            obj.RegisterNewUserCanExecute(null);
-                            break;
-                        }
+
                     }
+                
                 }
-              
-              
+            
+
             }
         }
 

@@ -27,11 +27,11 @@
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="1"  Background="#FFFFFF" Orientation="Horizontal" Margin="10">
+            <!--<StackPanel Grid.Row="1"  Background="#FFFFFF" Orientation="Horizontal" Margin="10">
                 <Label Content="Profile"   VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="Black" />
                 <Image Source="/Images/LocationIcon.png" Width="10.1" Height="23.24" HorizontalAlignment="Right" />
                 <Label Content="{Binding LocationName}"  HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" FontSize="18" Foreground="Black" />
-            </StackPanel>
+            </StackPanel>-->
             <!--<StackPanel Grid.Row="3" Background="#FFFFFF" Margin="10" Orientation="Horizontal">-->
             <Grid Grid.Row="3" Background="#FFFFFF" Margin="10" >
                 

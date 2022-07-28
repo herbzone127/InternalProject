@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ideaForge.Popups.MessageBox;
+using MessageBox = ideaForge.Popups.MessageBox;
 
 namespace ideaForge.ViewModels
 {
@@ -130,11 +132,11 @@ namespace ideaForge.ViewModels
             var result =await _pilotRequestServices.AddUpdatePilotFeedback(new FlightFeedback { });
             if (result.status)
             {
-                new SuccessMessageBox("Ride update", "Successful.").Show();
+                MessageBox.ShowSuccess("Ride update","Successful.");
             }
             else
             {
-                new ErrorMessageBox(result.message).ShowDialog();
+                MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
             }
             IsBusy = false;
         }

@@ -33,12 +33,28 @@ namespace ideaForge.Popups
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Application.Current.MainWindow = new Dashboard();
+                Application.Current.MainWindow.Show();
+                this.Close();
+                if (Application.Current.Windows[0] is Login)
+                {
+                    var window = Application.Current.Windows[0] as Login;
+                    if (window is Login)
+                    {
+                        window.Close();
+                    }
+                }
+              
+               
+            }
+            catch (Exception)
+            {
 
-            Application.Current.MainWindow = new Dashboard();
-            Application.Current.MainWindow.Show();
-            this.Close();
-            var window = (Login)Application.Current.Windows[0];
-            window.Close();
+                throw;
+            }
+          
 
         }
 

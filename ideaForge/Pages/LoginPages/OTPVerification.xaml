@@ -18,7 +18,8 @@
         <mah:ProgressRing Foreground="#91C84F"
                           x:Name="progreshbar"
                           Grid.Column="1" Grid.RowSpan="5"/>
-        <Image Source="/Images/logo.png" Height="80" VerticalAlignment="Bottom"/>
+
+        <Image Source="/Images/flightLogo.png" Height="80" VerticalAlignment="Bottom"/>
         <Label 
             FontSize="34" 
             FontFamily="Segoe UI" 

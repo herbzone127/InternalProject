@@ -18,6 +18,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static ideaForge.Popups.MessageBox;
+using MessageBox = ideaForge.Popups.MessageBox;
 
 namespace ideaForge
 {
@@ -42,12 +44,15 @@ namespace ideaForge
 
         private async void Label_ResendOTPBTN(object sender, MouseButtonEventArgs e)
         {
+            progreshbar.IsActive = true;
             var vModel = (LoginPageViewModel)this.DataContext;
            await vModel.ResendOTP();
+            progreshbar.IsActive = false;
         }
 
         private async void OTP_Key_Up(object sender, KeyEventArgs e)
         {
+           
             if (!string.IsNullOrEmpty(txtOTP1.Text))
                 txtOTP2.Focus();
             
@@ -82,7 +87,7 @@ namespace ideaForge
                         if (otpResult > 0)
                         {
                             var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
-                            if (result.status)
+                            if (result.status && result.userData.id!=0)
                             {
                                 Global.loginUserId = result.userData.id;
                                 Global.email_PhoneNo = result.userData.email;
@@ -93,12 +98,14 @@ namespace ideaForge
                             }
                             else
                             {
-                              var msg= new ErrorMessageBox(result.message).ShowDialog();
+                                
+                                var msg =  MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok,  "");
                             }
                         }
                         else
                         {
-                           new ErrorMessageBox("Please enter a valid OTP Number").ShowDialog();
+                          
+                           var msg= MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
                         }
                     }
                 }

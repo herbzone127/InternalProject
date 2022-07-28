@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ideaForge.Popups.MessageBox;
+using MessageBox = ideaForge.Popups.MessageBox;
 
 namespace ideaForge.ViewModels
 {
@@ -120,11 +122,11 @@ namespace ideaForge.ViewModels
                 if (result.status)
                 {
 
-                    new SuccessMessageBox("Ride update ", "Successful.").ShowDialog();
+                    MessageBox.ShowSuccess("Ride update ","Successful.");
                 }
                 else
                 {
-                    new ErrorMessageBox(result.message).ShowDialog();
+                    MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
                 }
             }
             

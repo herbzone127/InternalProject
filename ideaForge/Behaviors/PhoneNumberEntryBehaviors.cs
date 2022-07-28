@@ -16,7 +16,7 @@ namespace ideaForge.Behaviors
         private void NumberEntryChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            string numberRegex = @"^([\+]?([0-9]{3})?|[0])?[1-9][0-9]{8}$";
+            string numberRegex = @"^[0-9]{10}$";
             bool isMatched = Regex.IsMatch(textBox.Text, numberRegex);
             if (isMatched)
             {

@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ideaForge.Popups.MessageBox;
+using MessageBox = ideaForge.Popups.MessageBox;
 
 namespace ideaForge.ViewModels
 {
@@ -112,6 +114,16 @@ namespace ideaForge.ViewModels
         /// Properties with getter and setter
         /// </summary>
         #region properties
+        private string _pageName;
+
+        public string PageName
+        {
+            get { return _pageName; }
+            set { _pageName = value;
+                OnPropertyChanged(nameof(PageName));
+            }
+        }
+
         private Register _registerModel = new Register();
 
         public Register RegisterModel
@@ -166,6 +178,16 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(AuthenticationPage));
             }
         }
+        private Visibility _BackButtonVisiblity;
+
+        public Visibility BackButtonVisiblity
+        {
+            get { return _BackButtonVisiblity; }
+            set { _BackButtonVisiblity = value;
+            OnPropertyChanged(nameof(BackButtonVisiblity));
+            }
+        }
+
         #endregion
         /// <summary>
         /// Commands
@@ -218,7 +240,7 @@ namespace ideaForge.ViewModels
         {
            //Barrel.Current.EmptyAll();
             ImageUrl = "/Images/LoginImage.png";
-          
+            BackButtonVisiblity = Visibility.Hidden;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
                 new DockAreaPopup().Show();
@@ -258,15 +280,19 @@ namespace ideaForge.ViewModels
         public async void RegisterNewUserCanExecute(object obj)
         {
             IsBusy = true;
+        
+            BackButtonVisiblity = Visibility.Visible;
             var result =await _registerService.Register(RegisterModel);
             if (result.status)
             {
-                new SuccessMessageBox(result.message, "").ShowDialog();
+                //MessageBox.ShowSuccess(result.message,"");
+                MessageBox.Show(result.message, CMessageTitle.Confirm, CMessageButton.Ok, " Successfully.");
                 SignupBackButtonCanExecute(null);
             }
             else
             {
-                new ErrorMessageBox(result.message).ShowDialog();
+                //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
             }
            
             IsBusy = false;
@@ -277,6 +303,7 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             ImageUrl = "/Images/LoginImage.png";
             AuthenticationPage = new MainWindow();
+            BackButtonVisiblity = Visibility.Hidden;
             IsBusy = false;
         }
 
@@ -284,26 +311,38 @@ namespace ideaForge.ViewModels
         {
             IsBusy = true;
             ImageUrl = "/Images/signupFrame.png";
+            PageName = "Signup";
             AuthenticationPage = new Signup();
+            BackButtonVisiblity = Visibility.Visible;
             IsBusy = false;
         }
 
         private async void LoginCanExecute(object obj)
         {
             IsBusy = true;
-            var result= await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
-            if (result.status)
+            if (!string.IsNullOrEmpty(Email_PhoneNo))
             {
-                ImageUrl = "/Images/optFrame.png";
-                Global.email_PhoneNo = Email_PhoneNo;
-                AuthenticationPage = new OtpVerification();
-                IsBusy = false;
+                var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
+                if (result.status)
+                {
+                    BackButtonVisiblity= Visibility.Visible;
+                    ImageUrl = "/Images/optFrame.png";
+                    Global.email_PhoneNo = Email_PhoneNo;
+                    AuthenticationPage = new OtpVerification();
+                    IsBusy = false;
+                }
+                else
+                {
+                    IsBusy = false;
+                    MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                    //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                }
             }
             else
             {
-                IsBusy = false;
-                new ErrorMessageBox(result.message).ShowDialog();
+                MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
             }
+         IsBusy = false;
         }
         public async Task<UserData> ResendOTP()
         {
@@ -353,12 +392,12 @@ namespace ideaForge.ViewModels
                         else
                         {
 
-                            new ErrorMessageBox(result.message).ShowDialog();
+                            MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
                         }
                     }
                     else
                     {
-                        new ErrorMessageBox("Please enter a valid OTP Number").ShowDialog();
+                       MessageBox.ShowError("Please enter a valid OTP Number");
                     }
                 }
                 
@@ -379,7 +418,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox(ex.Message).ShowDialog();
+               MessageBox.ShowError(ex.Message);
             }
 
         }
@@ -393,7 +432,7 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-                new ErrorMessageBox(ex.Message).ShowDialog();
+               MessageBox.ShowError(ex.Message);
             }
         
         }

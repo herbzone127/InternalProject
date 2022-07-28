@@ -14,5 +14,6 @@ namespace IdeaForge.Core.Utilities
         public static string Token { get; set; }
         public static WindowState LoginState { get; set; }
         public static string contactNo { get; set; }
+        public static int SignupCounter { get; set; }
     }
 }
