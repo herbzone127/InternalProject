@@ -17,7 +17,6 @@ namespace ideaForge.Behaviors
         void NullFieldsChanged() 
         {
             Global.SignupCounter = -1;
-            int count = 0;
             var button = (Button)AssociatedObject;
             var grid = button.Parent as Grid;
             IEnumerable<StackPanel> collection = grid.Children.OfType<StackPanel>();

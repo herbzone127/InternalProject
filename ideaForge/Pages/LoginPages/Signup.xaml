@@ -73,7 +73,9 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox MaxLength="30"  Text="{Binding RegisterModel.name}" x:Name="txtName" TextChanged="TxtName_TextChanged" >
+                <TextBox MaxLength="30"  Text="{Binding RegisterModel.name}" 
+                         x:Name="txtName" TextChanged="TxtName_TextChanged"
+                         >
 
                 </TextBox>
                 <Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
@@ -114,7 +116,8 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox  Text="{Binding RegisterModel.email}">
+                <TextBox  Text="{Binding RegisterModel.email}"
+                          PreviewKeyDown="TextBox_PreviewKeyDown">
                     <e:Interaction.Behaviors>
                         <behavior:EmailEntryBehaviors />
                     </e:Interaction.Behaviors>

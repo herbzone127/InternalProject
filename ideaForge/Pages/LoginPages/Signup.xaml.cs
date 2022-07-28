@@ -30,12 +30,12 @@ namespace ideaForge
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                lblName.Visibility = Visibility.Visible;
+                //lblName.Visibility = Visibility.Visible;
                 txtName.BorderBrush = Brushes.Red;
             }
             else
             {
-                lblName.Visibility = Visibility.Hidden;
+                //lblName.Visibility = Visibility.Hidden;
                 txtName.BorderBrush = Brushes.LightGray;
             }
         }
@@ -63,6 +63,11 @@ namespace ideaForge
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
     }
 }
