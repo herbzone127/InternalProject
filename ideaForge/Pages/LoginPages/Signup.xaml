@@ -210,6 +210,7 @@
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True}"
                           Tag="Enter Email"
+                          PreviewKeyDown="TextBox_PreviewKeyDown_1"
                           >
                     <!--<e:Interaction.Behaviors>
                         <behavior:EmailEntryBehaviors />
@@ -235,7 +236,8 @@
                     UpdateSourceTrigger=PropertyChanged,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True
-                    }" PreviewTextInput="TextBox_PreviewTextInput">
+                    }" PreviewTextInput="TextBox_PreviewTextInput"
+                         PreviewKeyDown="TextBox_PreviewKeyDown_1">
 
                     <!--<e:Interaction.Behaviors>
                         <behavior:PhoneNumberEntryBehaviors />

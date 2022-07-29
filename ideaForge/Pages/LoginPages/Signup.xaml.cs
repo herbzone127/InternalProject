@@ -68,5 +68,10 @@ namespace ideaForge
         {
             e.Handled = e.Key == Key.Space;
         }
+
+        private void TextBox_PreviewKeyDown_1(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
     }
 }
