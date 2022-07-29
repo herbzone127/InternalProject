@@ -26,33 +26,7 @@ namespace ideaForge
             InitializeComponent();
         }
 
-        private void TxtName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtName.Text))
-            {
-                lblName.Visibility = Visibility.Visible;
-                txtName.BorderBrush = Brushes.Red;
-            }
-            else
-            {
-                lblName.Visibility = Visibility.Hidden;
-                txtName.BorderBrush = Brushes.LightGray;
-            }
-        }
-
-        private void TxtOrganization_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(TxtOrganization.Text))
-            {
-                lblOrganization.Visibility = Visibility.Visible;
-                TxtOrganization.BorderBrush = Brushes.Red;
-            }
-            else
-            {
-                lblOrganization.Visibility = Visibility.Hidden;
-                TxtOrganization.BorderBrush = Brushes.LightGray;
-            }
-        }
+      
 
         private void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -63,6 +37,31 @@ namespace ideaForge
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void CityComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(cityComboBox.Text))
+            {
+                cityWaterMark.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                cityWaterMark.Visibility = Visibility.Hidden;
+            }
+          
+        }
+
+        private void LanguageComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(languageCombobox.Text))
+            {
+                languageWaterMark.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                languageWaterMark.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

@@ -24,8 +24,7 @@ namespace ideaForge.Behaviors
          
             foreach (StackPanel panel in collection)
             {
-                if (Global.SignupCounter == -1)
-                {
+           
                     foreach (var item in panel.Children.OfType<TextBox>())
                     {
                         if (string.IsNullOrEmpty(item.Text))
@@ -35,7 +34,15 @@ namespace ideaForge.Behaviors
                             {
 
                                 label.Visibility = System.Windows.Visibility.Visible;
+                            if (label.Content != null)
+                            {
+                                if (label.Content.ToString().Contains("valid"))
+                                {
+                                    count++;
+                                }
 
+                            }
+                           
                             }
                         }
                         else
@@ -51,16 +58,21 @@ namespace ideaForge.Behaviors
                                     }
 
                                 }
-
+                                if(count > 0)
+                                {
+                                    count--;
+                                }
+                             
                             }
+                          
                             Global.SignupCounter = panel.Children.OfType<Label>().Where(u => u.Visibility == System.Windows.Visibility.Visible && u.Foreground == Brushes.Red).Count();
-                            if (Global.SignupCounter == 0)
-                            {
-                                var obj = (LoginPageViewModel)AssociatedObject.DataContext;
-                                obj.RegisterNewUserCanExecute(null);
-                                Global.SignupCounter = -2;
-                                break;
-                            }
+                            //if (Global.SignupCounter == 0)
+                            //{
+                            //    var obj = (LoginPageViewModel)AssociatedObject.DataContext;
+                            //    obj.RegisterNewUserCanExecute(null);
+                            //    Global.SignupCounter = -2;
+                            ////    break;
+                            //}
                         }
 
                     }
@@ -68,6 +80,11 @@ namespace ideaForge.Behaviors
                 }
             
 
+            
+            if (count == 0)
+            {
+                var obj = (LoginPageViewModel)AssociatedObject.DataContext;
+                obj.RegisterNewUserCanExecute(null);
             }
         }
 

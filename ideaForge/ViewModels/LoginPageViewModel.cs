@@ -6,8 +6,10 @@ using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +21,7 @@ using MessageBox = ideaForge.Popups.MessageBox;
 
 namespace ideaForge.ViewModels
 {
-    public class LoginPageViewModel:ViewModelBase
+    public class LoginPageViewModel:ViewModelBase, INotifyDataErrorInfo
     {
 
 
@@ -32,7 +34,9 @@ namespace ideaForge.ViewModels
         public IRegisterService _registerService
          => App.serviceProvider.GetRequiredService<IRegisterService>();
         #endregion
-
+        private readonly PropertyValidateModel _errorsViewModel;
+        public bool CanCreate => !HasErrors;
+        public bool HasErrors => _errorsViewModel.HasErrors;
         private bool _isBusy;
 
         public bool IsBusy
@@ -193,6 +197,7 @@ namespace ideaForge.ViewModels
         /// Commands
         /// </summary>
         #region Commands
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         //RegisterCommand
         private readonly DelegateCommand _RegisterCommand;
         public ICommand RegisterCommand => _RegisterCommand;
@@ -238,7 +243,9 @@ namespace ideaForge.ViewModels
         #region Constructor
         public LoginPageViewModel()
         {
-           //Barrel.Current.EmptyAll();
+            _errorsViewModel = new PropertyValidateModel();
+            _errorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
+            //Barrel.Current.EmptyAll();
             ImageUrl = "/Images/LoginImage.png";
             BackButtonVisiblity = Visibility.Hidden;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
@@ -277,24 +284,37 @@ namespace ideaForge.ViewModels
         /// Command Methods
         /// </summary>
         #region CommandMethods
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorsViewModel.GetErrors(propertyName);
+        }
+
+        private void ErrorsViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+            OnPropertyChanged(nameof(CanCreate));
+        }
         public async void RegisterNewUserCanExecute(object obj)
         {
             IsBusy = true;
-        
-            BackButtonVisiblity = Visibility.Visible;
-            var result =await _registerService.Register(RegisterModel);
-            if (result.status)
+            RegisterModel.Validate();
+            if (!RegisterModel.HasErrors)
             {
-                //MessageBox.ShowSuccess(result.message,"");
-                MessageBox.Show(result.message, CMessageTitle.Confirm, CMessageButton.Ok, " Successfully.");
-                SignupBackButtonCanExecute(null);
+                BackButtonVisiblity = Visibility.Visible;
+                var result = await _registerService.Register(RegisterModel);
+                if (result.status)
+                {
+                    //MessageBox.ShowSuccess(result.message,"");
+                    MessageBox.Show(result.message, CMessageTitle.Confirm, CMessageButton.Ok, " Successfully.");
+                    SignupBackButtonCanExecute(null);
+                }
+                else
+                {
+                    //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                    MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                }
             }
-            else
-            {
-                //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
-                MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
-            }
-           
             IsBusy = false;
         }
 
@@ -320,28 +340,32 @@ namespace ideaForge.ViewModels
         private async void LoginCanExecute(object obj)
         {
             IsBusy = true;
-            if (!string.IsNullOrEmpty(Email_PhoneNo))
-            {
-                var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
-                if (result.status)
+           
+                if (!string.IsNullOrEmpty(Email_PhoneNo))
                 {
-                    BackButtonVisiblity= Visibility.Visible;
-                    ImageUrl = "/Images/optFrame.png";
-                    Global.email_PhoneNo = Email_PhoneNo;
-                    AuthenticationPage = new OtpVerification();
-                    IsBusy = false;
+                    var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
+                    if (result.status)
+                    {
+                        BackButtonVisiblity = Visibility.Visible;
+                        ImageUrl = "/Images/optFrame.png";
+                        Global.email_PhoneNo = Email_PhoneNo;
+                        AuthenticationPage = new OtpVerification();
+                        IsBusy = false;
+                    }
+                    else
+                    {
+                        IsBusy = false;
+                        MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                        //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                    }
                 }
                 else
                 {
-                    IsBusy = false;
-                    MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
-                    //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                    MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
-            }
+            
+           
+          
          IsBusy = false;
         }
         public async Task<UserData> ResendOTP()

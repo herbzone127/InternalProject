@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>54</ApplicationRevision>
-    <ApplicationVersion>1.0.0.54</ApplicationVersion>
+    <ApplicationRevision>56</ApplicationRevision>
+    <ApplicationVersion>1.0.0.56</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -282,6 +282,7 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Converters\HeadingToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToUnsetValueConverter.cs" />
+    <Compile Include="Converters\NullToVisiblityConverter.cs" />
     <Compile Include="Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>

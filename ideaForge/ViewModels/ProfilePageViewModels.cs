@@ -183,19 +183,19 @@ namespace ideaForge.ViewModels
                     if (ProfileModel.image.ToLower().Contains(UrlHelper.baseURL.ToLower()))
                     {
                         URL url = new URL(ProfileModel.image);
-                        java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
-                        URLConnection conn = url.openConnection();
-                        conn.setRequestProperty("User-Agent", "Firefox");
-                        java.io.InputStream inputStream = conn.getInputStream();
+                        //java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
+                        //URLConnection conn = url.openConnection();
+                        //conn.setRequestProperty("User-Agent", "Firefox");
+                        //java.io.InputStream inputStream = conn.getInputStream();
                         int n = 0;
-                        byte[] buffer = new byte[1024];
-                        while (-1 != (n = inputStream.read(buffer)))
-                        {
-                            output.write(buffer, 0, n);
-                        }
-                        byte[] img = output.toByteArray();
-                        var base64String = Convert.ToBase64String(img);
-                        ProfileModel.image = base64String;
+                        //byte[] buffer = new byte[1024];
+                        //while (-1 != (n = inputStream.read(buffer)))
+                        //{
+                        //    output.write(buffer, 0, n);
+                        //}
+                        //byte[] img = output.toByteArray();
+                        //var base64String = Convert.ToBase64String(img);
+                        //ProfileModel.image = base64String;
                     }
                     else
                     {

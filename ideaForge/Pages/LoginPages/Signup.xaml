@@ -1,11 +1,13 @@
 ﻿<UserControl x:Class="ideaForge.Signup"
+          xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ideaForge"
-             xmlns:behavior="clr-namespace:ideaForge.Behaviors"
+            
              xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:converters="clr-namespace:ideaForge.Converters"
              xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
       xmlns:vm="clr-namespace:ideaForge.ViewModels"
         mc:Ignorable="d"
@@ -13,12 +15,73 @@
      
        >
     <UserControl.Resources>
+  
         <Style TargetType="{x:Type TextBox}">
+          
             <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Grid>
+                                <Border Background="White" BorderBrush="#A9ABB1" BorderThickness="1"/>
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="#A9ABB1" FontFamily="Arial"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Text" Value=""/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="#A9ABB1"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Border BorderThickness="2" BorderBrush="DarkRed">
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <!--<Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <ItemsControl
+                                            Margin="0 5 0 0"
+                                            FontSize="12"
+                                            ItemsSource="{Binding}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="Red" Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>-->
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="BorderBrush" Value="#A9ABB1"/>
-                <Setter Property="Margin" Value="15,0,15,0"/>
+                <Setter Property="Margin" Value="15,5,15,15"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="5,0,0,0"/>
@@ -28,9 +91,19 @@
                     <Setter Property="CornerRadius" Value="5" />
                 </Style>
             </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="ToolTip"    
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type dotNetKitControls:AutoCompleteComboBox}">
             <Style.Setters>
+               
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
@@ -73,10 +146,17 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox MaxLength="30"  Text="{Binding RegisterModel.name}" x:Name="txtName" TextChanged="TxtName_TextChanged" >
-
+                <TextBox MaxLength="30" 
+                        Tag="Enter Name"
+                       
+                         Text="{Binding RegisterModel.name,
+                    UpdateSourceTrigger=PropertyChanged,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True
+                    }" x:Name="txtName"  >
+                   
                 </TextBox>
-                <Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                <!--<Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>-->
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
@@ -90,16 +170,25 @@
                     </Label.Template>
                 </Label>
                 <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                    <dotNetKitControls:AutoCompleteComboBox
+                    <Grid>
+                        <dotNetKitControls:AutoCompleteComboBox
     SelectedValuePath="Name"
                         DisplayMemberPath="Name"
     TextSearch.TextPath="Name"
     ItemsSource="{Binding Languages}"
      SelectedValue="{Binding Language.Name}"  
-                    
-                
+                  TextBoxBase.TextChanged="LanguageComboBox_TextChanged" 
+                x:Name="languageCombobox"
                 
     />
+                        <TextBlock
+                            Margin="8 10"
+                            Foreground="#A9ABB1"
+      x:Name="languageWaterMark"
+       IsHitTestVisible="False"
+       Text="Select Language" />
+                    </Grid>
+           
                 </Border>
                 <!--<ComboBox   />-->
             </StackPanel>
@@ -114,10 +203,16 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox  Text="{Binding RegisterModel.email}">
-                    <e:Interaction.Behaviors>
+                <TextBox  Text="{Binding RegisterModel.email,
+                    
+                    UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}"
+                          Tag="Enter Email"
+                          >
+                    <!--<e:Interaction.Behaviors>
                         <behavior:EmailEntryBehaviors />
-                    </e:Interaction.Behaviors>
+                    </e:Interaction.Behaviors>-->
                 </TextBox>
                 <Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Email" Foreground="Red" Visibility="Hidden"/>
             </StackPanel>
@@ -133,14 +228,20 @@
                     </Label.Template>
                 </Label>
 
-                <TextBox MaxLength="10" Text="{Binding RegisterModel.contactNo}" PreviewTextInput="TextBox_PreviewTextInput">
+                <TextBox MaxLength="10" 
+                         Tag="Enter Mobile Number"
+                         Text="{Binding RegisterModel.contactNo,
+                    UpdateSourceTrigger=PropertyChanged,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True
+                    }" PreviewTextInput="TextBox_PreviewTextInput">
 
-                    <e:Interaction.Behaviors>
+                    <!--<e:Interaction.Behaviors>
                         <behavior:PhoneNumberEntryBehaviors />
-                    </e:Interaction.Behaviors>
+                    </e:Interaction.Behaviors>-->
 
                 </TextBox>
-                <Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Contact Number" Foreground="Red"  Visibility="Hidden"/>
+                <!--<Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Contact Number" Foreground="Red"  Visibility="Hidden"/>-->
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
@@ -154,8 +255,13 @@
                     </Label.Template>
                 </Label>
 
-                <TextBox  Text="{Binding RegisterModel.organizationName}" x:Name="TxtOrganization" TextChanged="TxtOrganization_TextChanged" />
-                <Label Margin="15,0,0,0" Padding="0" x:Name="lblOrganization"  Content="Please Enter a Valid Organization Name" Foreground="Red" Visibility="Hidden"/>
+                <TextBox 
+                    Tag="Enter Organization Name"
+                    Text="{Binding RegisterModel.organizationName,
+                    UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" x:Name="TxtOrganization" />
+                <!--<Label Margin="15,0,0,0" Padding="0" x:Name="lblOrganization"  Content="Please Enter a Valid Organization Name" Foreground="Red" Visibility="Hidden"/>-->
             </StackPanel>
             <StackPanel Grid.Row="6" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
@@ -168,7 +274,9 @@
                         </ControlTemplate>
                     </Label.Template>
                 </Label>
-                <TextBox  Text="{Binding RegisterModel.departmentName}"   />
+                <TextBox 
+                    Tag="Enter Department Name"
+                    Text="{Binding RegisterModel.departmentName}"   />
             </StackPanel>
             <StackPanel  Grid.Row="7" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
@@ -183,17 +291,30 @@
                 </Label>
                 
                 <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                    <dotNetKitControls:AutoCompleteComboBox
+                    <Grid>
+                        <dotNetKitControls:AutoCompleteComboBox
     SelectedValuePath="city_Name"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
     ItemsSource="{Binding CityList}"
-     SelectedValue="{Binding RegisterModel.city}"   
+     SelectedValue="{Binding RegisterModel.city,
+                    UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}"   
                         SelectionChanged="AutoCompleteComboBox_SelectionChanged"
-                        x:Name="ItemComboBox"
+                        x:Name="cityComboBox"
+                         TextBoxBase.TextChanged="CityComboBox_TextChanged"
    />
+                        <TextBlock
+                            Margin="8 10"
+                            Foreground="#A9ABB1"
+      x:Name="cityWaterMark"
+       IsHitTestVisible="False"
+       Text="Select City" />
+                    </Grid>
+                 
                 </Border>
-                <Label Margin="15,0,0,0" Padding="0" x:Name="lblCity"  Content="Please Select a Valid City" Foreground="Red"  Visibility="Hidden"/>
+             
 
             </StackPanel>
             <Button 
@@ -204,11 +325,13 @@
             BorderBrush="Black" 
                 Content="CONTINUE" 
             Foreground="White" 
+                IsEnabled="{Binding CanCreate}"
+                Command="{Binding RegisterCommand}"
             Background="#91c84f">
 
-                <e:Interaction.Behaviors>
+                <!--<e:Interaction.Behaviors>
                     <behavior:SignUpPageBehaviors></behavior:SignUpPageBehaviors>
-                </e:Interaction.Behaviors>
+                </e:Interaction.Behaviors>-->
 
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
@@ -233,15 +356,7 @@
                      Content="Sign In"  
                    
                      Command="{Binding SignupBackButtonCommand}">
-                    <!--<Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Transparent"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>-->
+                   
 
 
                 </Button>
