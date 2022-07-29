@@ -74,7 +74,17 @@ namespace ideaForge
                     var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                     if (userOTP != null)
                     {
-                        DockAreaPopup.Show();
+                       var result= DockAreaPopup.Show();
+                        if(result == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            var dashboard = App.serviceProvider.GetService<Dashboard>();
+                            if (Application.Current.Windows[0] is Login)
+                            {
+                                CloseAllWindows();
+                            }
+                         
+                            dashboard.Show();
+                        }
                     }
                 }
                 else
@@ -93,7 +103,13 @@ namespace ideaForge
                                 Global.email_PhoneNo = result.userData.email;
                                 Global.Token = result.userData.token;
                                 Global.contactNo = result.userData.contactNo;
-                                DockAreaPopup.Show();
+
+                                  var dialogYes = DockAreaPopup.Show();
+                if (dialogYes == System.Windows.Forms.DialogResult.Yes)
+                {
+
+                                    ShowDashboard();
+                }
                                 Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
                             }
                             else
@@ -113,6 +129,25 @@ namespace ideaForge
             }
             if (string.IsNullOrEmpty(txtOTP1.Text))
                 txtOTP1.Focus();
+        }
+        public void ShowDashboard()
+        {
+            var dialogYes = DockAreaPopup.Show();
+            if (dialogYes == System.Windows.Forms.DialogResult.Yes)
+            {
+                //var dashboard = App.serviceProvider.GetService<Dashboard>();
+                //if (Application.Current.Windows[0] is Login)
+                //{
+                //    CloseAllWindows();
+                //}
+
+                //dashboard.Show();
+            }
+        }
+        private void CloseAllWindows()
+        {
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+                App.Current.Windows[intCounter].Close();
         }
     }
 }

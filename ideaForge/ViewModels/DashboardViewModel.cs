@@ -93,6 +93,7 @@ namespace ideaForge.ViewModels
         #region Construtor
         public DashboardViewModel()
         {
+          //  CloseAllWindows();
             ApplicationId = Barrel.ApplicationId;
             PageName = "IF Dock";
             var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
@@ -160,5 +161,16 @@ namespace ideaForge.ViewModels
             IsBusy = false;
         }
         #endregion
+        private void CloseAllWindows()
+        {
+            //for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            //App.Current.Windows[intCounter].Hide();
+            if (App.Current.Windows[0] is Login)
+            {
+                //App.Current.Windows[0].Close();
+                //App.Current.MainWindow = App.Current.Windows[App.Current.Windows.Count-1];
+                //App.Current.MainWindow.Show();
+            }
+        }
     }
 }
