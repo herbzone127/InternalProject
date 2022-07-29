@@ -177,6 +177,7 @@
     TextSearch.TextPath="Name"
     ItemsSource="{Binding Languages}"
      SelectedValue="{Binding Language.Name}"  
+                          SelectedItem="{Binding SelectedLanguage}"
                   TextBoxBase.TextChanged="LanguageComboBox_TextChanged" 
                 x:Name="languageCombobox"
                 

@@ -9,36 +9,73 @@
         
      
        >
-    
-    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <Grid Margin="40,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
-            <RowDefinition Height="auto"/><!--Header1-->
-            <RowDefinition Height="80"/><!--Space2-->
-            <RowDefinition Height="30"/><!--Lable3-->
-            <RowDefinition Height="35"/><!--Text box4-->
-            <RowDefinition Height="30"/><!--Space5-->
-            <RowDefinition Height="40"/><!--Button6-->
-            <RowDefinition Height="30"/><!--Lable7-->
+            <RowDefinition Height="auto"/>
+            <!--Header1-->
+            <RowDefinition Height="80"/>
+            <!--Space2-->
+            <RowDefinition Height="30"/>
+            <!--Lable3-->
+            <RowDefinition Height="35"/>
+            <!--Text box4-->
+            <RowDefinition Height="30"/>
+            <!--Space5-->
+            <RowDefinition Height="40"/>
+            <!--Button6-->
+            <RowDefinition Height="30"/>
+            <!--Lable7-->
             <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20*"/>
+      
         </Grid.ColumnDefinitions>
-        <Image Grid.Row="0" Source="/Images/flightLogo.png"/>
+        <Image Grid.Row="0" Source="/Images/flightLogo.png" Margin="0,0,0,20" Grid.ColumnSpan="2"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Pilot Login" VerticalAlignment="Center" HorizontalAlignment="Left" 
-               FontSize="40" FontFamily="Segoe UI" Foreground="Black" FontWeight="SemiBold"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Contact Number/Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+               FontSize="28" FontFamily="Segoe UI" Foreground="Black" FontWeight="SemiBold" Grid.ColumnSpan="2"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Phone / Email" FontWeight="SemiBold"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
         <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding Email_PhoneNo}" Margin="10,0,10,0" 
                  BorderThickness="1"  
                  BorderBrush="#A9ABB1"  
                  Background="White"  
                  VerticalContentAlignment="Center"
-                 PreviewKeyDown="TextBox_PreviewKeyDown">
+                 Tag="Enter Phone Number / Email ID"
+                 PreviewKeyDown="TextBox_PreviewKeyDown" Grid.ColumnSpan="2">
             <TextBox.Resources>
                 <Style TargetType="{x:Type TextBox}">
+                    <Style.Setters>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Grid>
+                                        <Border Background="White" BorderBrush="#A9ABB1" BorderThickness="1"/>
+                                        <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                        <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="#A9ABB1" FontFamily="Arial"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value=""/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="#A9ABB1"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style.Setters>
                     <Style.Resources>
+                     
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5" />
                         </Style>
@@ -48,7 +85,7 @@
         </TextBox>
         <Button Grid.Row="6" Grid.Column="0" x:Name="Send" BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" 
          Command="{Binding LoginCommand}"
-                Content="CONTINUE" Grid.ColumnSpan="2" Foreground="White" Background="#91c84f">
+                Content="GET OTP" Grid.ColumnSpan="2" Foreground="White" Background="#91c84f">
             <Button.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Style.Resources>
@@ -59,8 +96,8 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <StackPanel Grid.Row="7" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-        <Label  Content="Don't have an account?" Foreground="DimGray"/>
+        <StackPanel Grid.Row="7" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+            <Label  Content="Don't have an account?" Foreground="DimGray"/>
             <Button  FontWeight="Bold" 
                      Background="Transparent"
                      BorderThickness="0"
@@ -77,8 +114,8 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>-->
-              
-                
+
+
             </Button>
         </StackPanel>
     </Grid>

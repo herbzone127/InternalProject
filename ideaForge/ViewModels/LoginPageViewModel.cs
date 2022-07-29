@@ -119,6 +119,14 @@ namespace ideaForge.ViewModels
         /// Properties with getter and setter
         /// </summary>
         #region properties
+        private Language _SelectedLanguage;
+
+        public Language SelectedLanguage
+        {
+            get { return _SelectedLanguage; }
+            set { _SelectedLanguage = value; }
+        }
+
         private string _pageName;
 
         public string PageName
@@ -472,6 +480,8 @@ namespace ideaForge.ViewModels
             {
                 Languages = new ObservableCollection<Language>();
                 Languages.Add(new Language {Id=0,Name="English" });
+                Languages.Add(new Language {Id=0,Name="Hindi" });
+                SelectedLanguage = Languages[0];
             }
             catch (Exception ex)
             {
@@ -486,6 +496,7 @@ namespace ideaForge.ViewModels
             {
                 var userDatumCities = await _registerService.GetCityList();
                 CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+            
             }
             catch (Exception ex)
             {
