@@ -254,7 +254,7 @@ namespace ideaForge.ViewModels
         {
             _errorsViewModel = new PropertyValidateModel();
             _errorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
-            //Barrel.Current.EmptyAll();
+            Barrel.Current.EmptyAll();
             ImageUrl = "/Images/LoginImage.png";
             BackButtonVisiblity = Visibility.Hidden;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
@@ -316,6 +316,7 @@ namespace ideaForge.ViewModels
                 {
                     //MessageBox.ShowSuccess(result.message,"");
                     MessageBox.Show(result.message, CMessageTitle.Confirm, CMessageButton.Ok, " Successfully.");
+                    RegisterModel = new Register();
                     SignupBackButtonCanExecute(null);
                 }
                 else
@@ -332,6 +333,7 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             ImageUrl = "/Images/LoginImage.png";
             AuthenticationPage = new MainWindow();
+            RegisterModel = new Register();
             BackButtonVisiblity = Visibility.Hidden;
             IsBusy = false;
         }
@@ -344,6 +346,7 @@ namespace ideaForge.ViewModels
             AuthenticationPage = new Signup();
             BackButtonVisiblity = Visibility.Visible;
             IsBusy = false;
+            email_PhoneNo = "";
         }
 
         private async void LoginCanExecute(object obj)
@@ -370,6 +373,7 @@ namespace ideaForge.ViewModels
                         Global.email_PhoneNo = Email_PhoneNo;
                         AuthenticationPage = new OtpVerification();
                         IsBusy = false;
+                        Email_PhoneNo = "";
                     }
                     else
                     {
@@ -389,6 +393,7 @@ namespace ideaForge.ViewModels
                         Global.email_PhoneNo = Email_PhoneNo;
                         AuthenticationPage = new OtpVerification();
                         IsBusy = false;
+                        Email_PhoneNo = "";
                     }
                     else
                     {

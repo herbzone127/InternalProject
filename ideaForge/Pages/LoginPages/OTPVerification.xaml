@@ -42,11 +42,11 @@
                   
                     Margin="7,0,0,2" Height="35" VerticalAlignment="Bottom">
             <TextBox x:Name="txtOTP1" Text="{Binding OTP1}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP2" Text="{Binding OTP2}" KeyUp="OTP_Key_Up" Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP3" Text="{Binding OTP3}" KeyUp="OTP_Key_Up" Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP4" Text="{Binding OTP4}" KeyUp="OTP_Key_Up" Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP5" Text="{Binding OTP5}" KeyUp="OTP_Key_Up" Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP6" Text="{Binding OTP6}" KeyUp="OTP_Key_Up" Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+            <TextBox x:Name="txtOTP2" Text="{Binding OTP2}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+            <TextBox x:Name="txtOTP3" Text="{Binding OTP3}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+            <TextBox x:Name="txtOTP4" Text="{Binding OTP4}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+            <TextBox x:Name="txtOTP5" Text="{Binding OTP5}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+            <TextBox x:Name="txtOTP6" Text="{Binding OTP6}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
         </StackPanel>
         <StackPanel
             Grid.Row="5" 
