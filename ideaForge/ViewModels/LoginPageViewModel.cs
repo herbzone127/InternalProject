@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -340,10 +341,20 @@ namespace ideaForge.ViewModels
         private async void LoginCanExecute(object obj)
         {
             IsBusy = true;
-           
-                if (!string.IsNullOrEmpty(Email_PhoneNo))
+            if (!string.IsNullOrEmpty(Email_PhoneNo))
+            {
+                //number regex 
+                string numberRegex = @"^[0-9]{10}$";
+                bool isMatchedNumber = Regex.IsMatch(Email_PhoneNo, numberRegex);
+
+                //email regex
+                string emailRegex = @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
+                bool isMatchedEmail = Regex.IsMatch(Email_PhoneNo, emailRegex);
+
+                //Number Validation on Login
+                if (isMatchedNumber)
                 {
-                    var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
+                    var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
                     if (result.status)
                     {
                         BackButtonVisiblity = Visibility.Visible;
@@ -359,19 +370,42 @@ namespace ideaForge.ViewModels
                         //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
                     }
                 }
+                //Email Validation on Login
+                else if (isMatchedEmail)
+                {
+                    var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
+                    if (result.status)
+                    {
+                        BackButtonVisiblity = Visibility.Visible;
+                        ImageUrl = "/Images/optFrame.png";
+                        Global.email_PhoneNo = Email_PhoneNo;
+                        AuthenticationPage = new OtpVerification();
+                        IsBusy = false;
+                    }
+                    else
+                    {
+                        IsBusy = false;
+                        MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                        //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                    }
+                }
+                //No Validation Succesfull
                 else
                 {
-                    MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
+                    IsBusy = false;
+                    MessageBox.Show("Please enter a valid Contact Number/Email", CMessageTitle.Error, CMessageButton.Ok, "");
                 }
-            
-           
-          
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
+            }
          IsBusy = false;
         }
         public async Task<UserData> ResendOTP()
         {
             IsBusy = true;
-            var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo });
+            var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
             if (result.status)
             {
                 return result.userData;

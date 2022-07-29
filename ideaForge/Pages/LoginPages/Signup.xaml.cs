@@ -63,5 +63,10 @@ namespace ideaForge
                 languageWaterMark.Visibility = Visibility.Hidden;
             }
         }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
     }
 }
