@@ -116,7 +116,7 @@
         </Style>
     </UserControl.Resources>
     <ScrollViewer>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <Grid Margin="40,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="auto"/>
                 <RowDefinition  Height="*"/>
@@ -293,7 +293,9 @@
                 
                 <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
                     <Grid>
-                        <dotNetKitControls:AutoCompleteComboBox
+                     
+
+                            <dotNetKitControls:AutoCompleteComboBox
     SelectedValuePath="city_Name"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
@@ -306,14 +308,17 @@
                         x:Name="cityComboBox"
                          TextBoxBase.TextChanged="CityComboBox_TextChanged"
    />
-                        <TextBlock
+                            <TextBlock
                             Margin="8 10"
                             Foreground="#A9ABB1"
       x:Name="cityWaterMark"
        IsHitTestVisible="False"
        Text="Select City" />
+                       
+                    
+                       
                     </Grid>
-                 
+                   
                 </Border>
              
 
