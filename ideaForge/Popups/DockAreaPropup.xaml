@@ -58,6 +58,7 @@
      SelectedValue="{Binding SelectedLocationId}"                   
    />
             <Button
+                x:Name="btnContinue"
                 Grid.Row="3"
                 Content="Continue"
                 Background="#91C84F"

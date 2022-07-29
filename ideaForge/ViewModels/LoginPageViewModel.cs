@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
@@ -24,7 +25,6 @@ namespace ideaForge.ViewModels
 {
     public class LoginPageViewModel:ViewModelBase, INotifyDataErrorInfo
     {
-
 
         /// <summary>
         /// Services
@@ -259,7 +259,7 @@ namespace ideaForge.ViewModels
             BackButtonVisiblity = Visibility.Hidden;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
-                new DockAreaPopup().Show();
+                DockAreaPopup.Show();
                 
                 //Application.Current.MainWindow = new DockAreaPopup();
                 //Application.Current.MainWindow.ShowDialog();
@@ -430,7 +430,7 @@ namespace ideaForge.ViewModels
                 var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                 if (userOTP != null)
                 {
-                    new DockAreaPopup().Show();
+                    DockAreaPopup.Show();
                 }
                 IsBusy = false;
             }
@@ -448,7 +448,7 @@ namespace ideaForge.ViewModels
                         {
                             //Application.Current.Properties["ID"] = result.userData.id;
                             //Global.Token = result.userData.token;
-                            new DockAreaPopup().Show();
+                            DockAreaPopup.Show();
                             IsBusy = false;
 
                             Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));

@@ -74,7 +74,7 @@ namespace ideaForge
                     var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                     if (userOTP != null)
                     {
-                        new DockAreaPopup().Show();
+                        DockAreaPopup.Show();
                     }
                 }
                 else
@@ -93,7 +93,7 @@ namespace ideaForge
                                 Global.email_PhoneNo = result.userData.email;
                                 Global.Token = result.userData.token;
                                 Global.contactNo = result.userData.contactNo;
-                                new DockAreaPopup().Show();
+                                DockAreaPopup.Show();
                                 Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
                             }
                             else
