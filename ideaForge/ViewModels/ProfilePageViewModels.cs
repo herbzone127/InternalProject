@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using ideaForge.Popups;
 using MessageBox = ideaForge.Popups.MessageBox;
+using System.Collections.ObjectModel;
 
 namespace ideaForge.ViewModels
 {
@@ -24,9 +25,11 @@ namespace ideaForge.ViewModels
     {
         public IProfileSerevice _profileService
         => App.serviceProvider.GetRequiredService<IProfileSerevice>();
+        public IRegisterService _registerService
+         => App.serviceProvider.GetRequiredService<IRegisterService>();
 
         #region Commands
-       
+
         private readonly DelegateCommand _SaveChanges_Comand;
         public ICommand SaveChanges_Comand => _SaveChanges_Comand;
 
@@ -44,6 +47,7 @@ namespace ideaForge.ViewModels
 
         public ProfilePageViewModels()
         {
+            GetCityList();
             _SaveChanges_Comand = new DelegateCommand(SaveChanges_ComandExecut);
             _CancelChanges_Comand = new DelegateCommand(CancelChanges_ComandExecut);
             _Editable_Comand = new DelegateCommand(Editable_ComandExecut);
@@ -51,8 +55,28 @@ namespace ideaForge.ViewModels
             ShowEditBTn = "Visible";
             ShowSaveBTn = false;
             ShowSaveBTnbtn = "Hidden";
+
             GetProfileData();
-           
+         
+
+        }
+        private ObservableCollection<UserDatum> _cityList;
+
+        public ObservableCollection<UserDatum> CityList
+        {
+            get { return _cityList; }
+            set
+            {
+                _cityList = value;
+                OnPropertyChanged(nameof(CityList));
+            }
+        }
+        private UserDatum _selectedCity;
+
+        public UserDatum SelectedCity
+        {
+            get { return _selectedCity; }
+            set { _selectedCity = value; }
         }
 
         private UserDataProfile _profileModel = new UserDataProfile();
@@ -129,6 +153,10 @@ namespace ideaForge.ViewModels
                     string imgpath = UrlHelper.baseURL + data.userData.image;
                     data.userData.image = imgpath;
                     ProfileModel = data.userData;
+                    if (CityList != null)
+                    {
+                        SelectedCity = CityList.FirstOrDefault(u=>u.city_Name==data?.userData?.city);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -152,6 +180,8 @@ namespace ideaForge.ViewModels
             {
                 ProfileModel.image = "";
             }
+        
+
             else if (string.IsNullOrEmpty(ProfileModel.name))
             {
                MessageBox.ShowError("Enter your name.");
@@ -180,14 +210,18 @@ namespace ideaForge.ViewModels
             {
                 if (ProfileModel.image != null)
                 {
-                    if (ProfileModel.image.ToLower().Contains(UrlHelper.baseURL.ToLower()))
+                    if (ProfileModel.image.ToLower().Contains(UrlHelper.baseURL.ToLower()) && 
+                        (ProfileModel.image.ToLower().Contains("png")||
+                        ProfileModel.image.ToLower().Contains("jpg")
+                        )
+                        )
                     {
-                        URL url = new URL(ProfileModel.image);
+                        //URL url = new URL(ProfileModel.image);
                         //java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
                         //URLConnection conn = url.openConnection();
                         //conn.setRequestProperty("User-Agent", "Firefox");
                         //java.io.InputStream inputStream = conn.getInputStream();
-                        int n = 0;
+                        //int n = 0;
                         //byte[] buffer = new byte[1024];
                         //while (-1 != (n = inputStream.read(buffer)))
                         //{
@@ -199,10 +233,11 @@ namespace ideaForge.ViewModels
                     }
                     else
                     {
-                        var imgd = ProfileModel.image;
-                        var stream = File.ReadAllBytes(imgd);
-                        var base64String = Convert.ToBase64String(stream);
-                        ProfileModel.image = base64String;
+                        ProfileModel.image = "";
+                        //var imgd = ProfileModel.image;
+                        //var stream = File.ReadAllBytes(imgd);
+                        //var base64String = Convert.ToBase64String(stream);
+                        //ProfileModel.image = base64String;
                     }
                 }
                 var result = await _profileService.SaveProfile(ProfileModel);
@@ -289,9 +324,26 @@ namespace ideaForge.ViewModels
             catch (Exception ex)
             {
 
-               MessageBox.ShowError(ex.Message);
+                MessageBox.ShowError(ex.Message);
+            }
+        
+        }
+        public async void GetCityList()
+        {
+            try
+            {
+                var userDatumCities = await _registerService.GetCityList();
+                CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.ShowError(ex.Message);
             }
 
         }
+
+
     }
 }
