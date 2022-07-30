@@ -120,10 +120,19 @@ namespace ideaForge
                           {
                               await this.Dispatcher.Invoke(async () =>
                               {
-                                  var model = (DashboardViewModel)this.DataContext;
-                              var rPage = (Requests)model.CurrentPage.Content;
-                              var ucModel = (RequestViewModel)rPage.DataContext;
-                             await ucModel.GetTodaysRequest("");
+                                  try
+                                  {
+                                      var model = (DashboardViewModel)this.DataContext;
+                                      var rPage = (Requests)model.CurrentPage.Content;
+                                      var ucModel = (RequestViewModel)rPage.DataContext;
+                                      await ucModel.GetTodaysRequest("");
+                                  }
+                                  catch 
+                                  {
+
+                                      e.Cancel = true;
+                                  }
+                                  
                               
                                   
                               });

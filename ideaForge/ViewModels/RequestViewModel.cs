@@ -236,7 +236,7 @@ namespace ideaForge.ViewModels
 
        
         #region Methods
-        public async Task GetTodaysRequest(string status)
+        public async Task<bool> GetTodaysRequest(string status)
         {
             IsBusy = true;
             try
@@ -295,15 +295,16 @@ namespace ideaForge.ViewModels
                     TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
                     //Console.WriteLine("hello    " + DateTime.Now);
                 }
-              
+                return true;
             }
             catch (Exception ex)
             {
 
                MessageBox.ShowError(ex.Message);
+                return false;
             }
             IsBusy = false;
-
+            return false;
         }
         public async Task GetAllRequest(string status)
         {

@@ -265,11 +265,12 @@ namespace ideaForge.ViewModels
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                 if(user != null)
                 {
-                    ShowDashboard();
+                 
                     Global.loginUserId = user.id;
                     Global.email_PhoneNo = user.email;
                     Global.Token = user.token;
                     Global.contactNo = user.contactNo;
+                    ShowDashboard();
                 }    
 
             }
