@@ -146,8 +146,9 @@ namespace ideaForge
                                     Global.email_PhoneNo = result.userData.email;
                                     Global.Token = result.userData.token;
                                     Global.contactNo = result.userData.contactNo;
-                                    ShowDashboard();
                                     Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                                    ShowDashboard();
+                                    
                                 }
                                 else
                                 {

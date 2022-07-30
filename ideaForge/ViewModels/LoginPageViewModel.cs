@@ -451,10 +451,14 @@ namespace ideaForge.ViewModels
                         var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
                         if (result.status)
                         {
-                            ShowDashboard();
                             IsBusy = false;
-
+                            Global.email_PhoneNo = result.userData.email;
+                            Global.contactNo = result.userData.contactNo;
+                            Global.loginUserId = result.userData.id;
+                            Global.Token = result.userData.token;
                             Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                            ShowDashboard();
+                          
 
 
                         }

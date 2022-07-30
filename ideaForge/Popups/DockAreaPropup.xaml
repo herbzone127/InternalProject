@@ -55,6 +55,7 @@
                         DisplayMemberPath="cityName"
     TextSearch.TextPath="cityName"
     ItemsSource="{Binding PilotLocations}"
+                SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
      SelectedValue="{Binding SelectedLocationId}"                   
    />
             <Button

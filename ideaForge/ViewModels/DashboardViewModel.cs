@@ -94,7 +94,7 @@ namespace ideaForge.ViewModels
         public DashboardViewModel()
         {
           //  CloseAllWindows();
-            ApplicationId = Barrel.ApplicationId;
+            //ApplicationId = Barrel.ApplicationId;
             PageName = "IF Dock";
             var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
             if (user != null)

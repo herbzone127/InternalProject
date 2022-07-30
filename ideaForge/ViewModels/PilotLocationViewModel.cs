@@ -58,10 +58,17 @@ namespace ideaForge.ViewModels
             get { return _pilotLocations; }
             set { _pilotLocations = value; }
         }
+        private PilotLocation _SelectedLocation;
+
+        public PilotLocation SelectedLocation
+        {
+            get { return _SelectedLocation; }
+            set { _SelectedLocation = value; }
+        }
 
         #endregion
         #region CommandMethod
-         readonly DelegateCommand _saveChangesCommand;
+        readonly DelegateCommand _saveChangesCommand;
         public ICommand SaveChangesCommand => _saveChangesCommand;
 
   
@@ -85,17 +92,51 @@ namespace ideaForge.ViewModels
                 
 
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                var result =await _pilotRequestServices.GetPilotLocations(user.id);
-                if (result.status)
+                if(user != null)
                 {
-                    if(result.PilotLocations.Count() != 0)
+                    var result = await _pilotRequestServices.GetPilotLocations(user.id);
+                    if (result.status)
                     {
-                        SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
-                        PilotLocations = new ObservableCollection<PilotLocation>(result.PilotLocations);
+                        if (result.PilotLocations.Count() != 0)
+                        {
+                            //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
+                            PilotLocations = new ObservableCollection<PilotLocation>(result.PilotLocations);
+                        }
+                        else
+                        {
+                            PilotLocations.Add(new PilotLocation
+                            {
+                                cityId = 1,
+                                comments = "Testing Site",
+                                city_Name = "Navi Mumbai, Maharashtra",
+                                id = 1,
+                                locationName = "Navi Mumbai, Maharashtra",
+                                reasonDescription = "Test Reason",
+                                reasonId = 1,
+                                userId = 0
+                            });
+                            SelectedLocation = PilotLocations[0];
+                        }
+
                     }
-                   
+                    else
+                    {
+                        PilotLocations.Add(new PilotLocation
+                        {
+                            cityId = 1,
+                            comments = "Testing Site",
+                            city_Name = "Navi Mumbai, Maharashtra",
+                            id = 1,
+                            locationName = "Navi Mumbai, Maharashtra",
+                            reasonDescription = "Test Reason",
+                            reasonId = 1,
+                            userId = 0
+                        });
+                        SelectedLocation = PilotLocations[0];
+                    }
+
                 }
-                
+
 
             }
             
