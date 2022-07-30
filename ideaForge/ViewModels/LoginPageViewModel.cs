@@ -254,24 +254,24 @@ namespace ideaForge.ViewModels
         {
             _errorsViewModel = new PropertyValidateModel();
             _errorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
-            Barrel.Current.EmptyAll();
+           // Barrel.Current.EmptyAll();
             ImageUrl = "/Images/LoginImage.png";
             BackButtonVisiblity = Visibility.Hidden;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
-                DockAreaPopup.Show();
-                
-                //Application.Current.MainWindow = new DockAreaPopup();
-                //Application.Current.MainWindow.ShowDialog();
 
-                //var window = (Login)Application.Current.Windows[0];
-                //window.Close();
+             
 
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                Global.loginUserId = user.id;
-                Global.email_PhoneNo = user.email;
-                Global.Token = user.token;
-                Global.contactNo = user.contactNo;
+                if(user != null)
+                {
+                    ShowDashboard();
+                    Global.loginUserId = user.id;
+                    Global.email_PhoneNo = user.email;
+                    Global.Token = user.token;
+                    Global.contactNo = user.contactNo;
+                }    
+
             }
             else
             {
@@ -435,7 +435,7 @@ namespace ideaForge.ViewModels
                 var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                 if (userOTP != null)
                 {
-                    DockAreaPopup.Show();
+                    ShowDashboard();
                 }
                 IsBusy = false;
             }
@@ -451,12 +451,14 @@ namespace ideaForge.ViewModels
                         var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
                         if (result.status)
                         {
-                            //Application.Current.Properties["ID"] = result.userData.id;
-                            //Global.Token = result.userData.token;
-                            DockAreaPopup.Show();
                             IsBusy = false;
-
+                            Global.email_PhoneNo = result.userData.email;
+                            Global.contactNo = result.userData.contactNo;
+                            Global.loginUserId = result.userData.id;
+                            Global.Token = result.userData.token;
                             Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                            ShowDashboard();
+                          
 
 
                         }
@@ -473,6 +475,7 @@ namespace ideaForge.ViewModels
                 }
                 
             }
+        IsBusy=false;
         }
         #endregion
         /// <summary>
@@ -509,6 +512,26 @@ namespace ideaForge.ViewModels
                MessageBox.ShowError(ex.Message);
             }
         
+        }
+        public void ShowDashboard()
+        {
+            var dialogYes = DockAreaPopup.Show();
+            //if (dialogYes == System.Windows.Forms.DialogResult.Yes)
+            //{
+
+            //    App.Current.MainWindow = new Dashboard();
+            //    if (Application.Current.Windows[0] is Login)
+            //    {
+            //        CloseAllWindows();
+            //    }
+
+               
+            //}
+        }
+        private void CloseAllWindows()
+        {
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+                App.Current.Windows[intCounter].Close();
         }
         #endregion
     }

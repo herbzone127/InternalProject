@@ -146,8 +146,9 @@ namespace ideaForge
                                     Global.email_PhoneNo = result.userData.email;
                                     Global.Token = result.userData.token;
                                     Global.contactNo = result.userData.contactNo;
-                                    DockAreaPopup.Show();
                                     Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                                    ShowDashboard();
+                                    
                                 }
                                 else
                                 {
@@ -276,6 +277,26 @@ namespace ideaForge
                 if (string.IsNullOrEmpty(txtOTP1.Text))
                     txtOTP1.Focus();
             }
+        }
+        public void ShowDashboard()
+        {
+            var dialogYes = DockAreaPopup.Show();
+            //if (dialogYes == System.Windows.Forms.DialogResult.Yes)
+            //{
+
+            //    App.Current.MainWindow = new Dashboard();
+            //    if (Application.Current.Windows[0] is Login)
+            //    {
+            //        CloseAllWindows();
+            //    }
+
+
+            //}
+        }
+        private void CloseAllWindows()
+        {
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+                App.Current.Windows[intCounter].Close();
         }
     }
 }

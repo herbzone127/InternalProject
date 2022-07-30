@@ -61,19 +61,28 @@ namespace ideaForge.Popups
         {
             try
             {
-                Application.Current.MainWindow = new Dashboard();
-                Application.Current.MainWindow.Show();
-                this.Close();
-                if (Application.Current.Windows[0] is Login)
-                {
-                    var window = Application.Current.Windows[0] as Login;
-                    if (window is Login)
-                    {
-                        window.Close();
-                    }
-                }
-              
+                //var dashboard= new Dashboard();
+                //dashboard.Show();
+                //this.Close();
+                //if (Application.Current.Windows[0] is Login)
+                //{
+                //    var window = Application.Current.Windows[0] as Login;
+                //    if (window is Login)
+                //    {
+                //        window.Close();
+                //    }
+
+                //}
+                Login.Effect = null;
+                result = System.Windows.Forms.DialogResult.Yes;
+                var dashboard = new Dashboard();
                
+                cDockAreaPopup.Close();
+                if (App.Current.Windows[0] is Login)
+                {
+                    App.Current.Windows[0].Close();
+                }
+                dashboard.ShowDialog();
             }
             catch (Exception)
             {
