@@ -240,6 +240,11 @@ namespace ideaForge.ViewModels
                         //var stream = File.ReadAllBytes(imgd);
                         //var base64String = Convert.ToBase64String(stream);
                         //ProfileModel.image = base64String;
+
+                        var imgData = ProfileModel.image;
+                        byte[] imageArray = File.ReadAllBytes(imgData);
+                        var base64Text = Convert.ToBase64String(imageArray);
+
                     }
                 }
                 var result = await _profileService.SaveProfile(ProfileModel);

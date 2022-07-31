@@ -24,7 +24,7 @@ namespace ideaForge.Converters
             return imgSrc;
         }
 
-        public static string ImageToByte(string fs)
+        public static string ImageToByte(FileStream fs)
         {
             byte[] imgBytes = new byte[fs.Length];
             fs.Read(imgBytes, 0, Convert.ToInt32(fs.Length));
