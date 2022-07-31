@@ -206,7 +206,8 @@
       <HintPath>..\packages\MahApps.Metro.IconPacks.4.11.0\lib\net47\MahApps.Metro.IconPacks.Zondicons.dll</HintPath>
     </Reference>
     <Reference Include="MapControl.WPF, Version=7.2.0.0, Culture=neutral, PublicKeyToken=f26fcf0059638459, processorArchitecture=MSIL">
-      <HintPath>..\packages\XAML.MapControl.7.2.0\lib\net48\MapControl.WPF.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MapControl.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -296,6 +297,7 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Map\HeadingToVisiblityConverter.cs" />
     <Compile Include="OutlinedText.cs" />
     <Compile Include="Pages\DashboardPages\OnGoingRidePage.xaml.cs">
       <DependentUpon>OnGoingRidePage.xaml</DependentUpon>
@@ -596,5 +598,6 @@
   <ItemGroup>
     <Resource Include="Images\flightLogo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ideaForge"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:map1="clr-namespace:MapControl;assembly=MapControl.WPF"
              mc:Ignorable="d"
               Startup="OnStartup">
     <Application.Resources>
@@ -12,8 +12,150 @@
         <Color x:Key="AccentBaseColor">#FFD80073</Color>-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-           
+                <ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 
+    xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF">
+                    <map:MapTileLayer
+        x:Key="OpenStreetMap"
+        TileSource="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        SourceName="OpenStreetMap"
+        Description="© [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
+                    <map:MapTileLayer
+        x:Key="OpenStreetMapGerman"
+        TileSource="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
+        SourceName="OpenStreetMap German"
+        Description="© [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
+                    <map:MapTileLayer
+        x:Key="OpenStreetMapFrench"
+        TileSource="http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
+        SourceName="OpenStreetMap French"
+        Description="© [OpenStreetMap France](https://www.openstreetmap.fr/mentions-legales/) © [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
+                    <map:MapTileLayer
+        x:Key="OpenTopoMap"
+        TileSource="https://tile.opentopomap.org/{z}/{x}/{y}.png"
+        SourceName="OpenTopoMap"
+        Description="© [OpenTopoMap](https://opentopomap.org/) © [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
+                    <map:MapTileLayer
+        x:Key="Seamarks"
+        TileSource="http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
+        SourceName="Seamarks"
+        MinZoomLevel="9"
+        MaxZoomLevel="18"/>
+                    <map:BingMapsTileLayer
+        x:Key="BingMapsRoad"
+        Mode="Road"
+        SourceName="Bing Maps Road"
+        Description="© [Microsoft](http://www.bing.com/maps/)"/>
+                    <map:BingMapsTileLayer
+        x:Key="BingMapsAerial"
+        Mode="Aerial"
+        SourceName="Bing Maps Aerial"
+        Description="© [Microsoft](http://www.bing.com/maps/)"
+        MapBackground="Black"
+        MapForeground="White"/>
+                    <map:BingMapsTileLayer
+        x:Key="BingMapsHybrid"
+        Mode="AerialWithLabels"
+        SourceName="Bing Maps Hybrid"
+        Description="© [Microsoft](http://www.bing.com/maps/)"
+        MapBackground="Black"
+        MapForeground="White"/>
+                    <map:WmtsTileLayer
+        x:Key="TopPlusOpenWMTS"
+        CapabilitiesUri="https://sgx.geodatenzentrum.de/wmts_topplus_open/1.0.0/WMTSCapabilities.xml"
+        SourceName="TopPlusOpen"
+        Description="© [BKG](https://gdz.bkg.bund.de/index.php/default/webdienste/topplus-produkte/wmts-topplusopen-wmts-topplus-open.html)"/>
+                    <map:WmsImageLayer
+        x:Key="TopPlusOpenWMS"
+        ServiceUri="https://sgx.geodatenzentrum.de/wms_topplus_open"
+        Description="© [BKG](https://gdz.bkg.bund.de/index.php/default/webdienste/topplus-produkte/wms-topplusopen-mit-layer-fur-normalausgabe-und-druck-wms-topplus-open.html)"/>
+                    <map:WmsImageLayer
+        x:Key="OpenStreetMapWMS"
+        ServiceUri="http://ows.terrestris.de/osm/service"
+        Description="© [terrestris GmbH &amp; Co. KG](http://ows.terrestris.de/) © [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
+                </ResourceDictionary>
+
+                <ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF">
+
+                    <Style TargetType="map:MapBase">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Style>
+
+                    <Style TargetType="map:MapItemsControl">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <ItemsPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <map1:MapPanel/>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <Style TargetType="ContentControl" x:Key="ContentControlStyle" BasedOn="{StaticResource {x:Type ContentControl}}">
+                        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType=map:MapBase}}"/>
+                        <Setter Property="BorderBrush" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=map:MapBase}}"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ContentControl">
+                                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <Style TargetType="map:MapContentControl" BasedOn="{StaticResource ContentControlStyle}"/>
+
+                    <Style TargetType="map:MapItem" BasedOn="{StaticResource ContentControlStyle}"/>
+
+                    <Style TargetType="map:Pushpin" BasedOn="{StaticResource ContentControlStyle}">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="Padding" Value="7,5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="map:Pushpin">
+                                    <map1:PushpinBorder
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderWidth="{Binding BorderThickness.Left, RelativeSource={RelativeSource TemplatedParent}}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </map1:PushpinBorder>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                 </ResourceDictionary>
                 <!--MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive!--> 
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

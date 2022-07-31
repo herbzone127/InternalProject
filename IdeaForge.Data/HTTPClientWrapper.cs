@@ -63,6 +63,15 @@ namespace IdeaForge.Data
 
             using (var client = new HttpClient())
             {
+                if (!string.IsNullOrEmpty(Global.Token))
+                {
+
+
+
+
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + Global.Token);
+
+                }
                 var serializeJson = JsonConvert.SerializeObject(postObject);
                 HttpContent content = new StringContent(serializeJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(apiUrl, content).ConfigureAwait(false);

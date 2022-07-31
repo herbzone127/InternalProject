@@ -10,77 +10,19 @@
              mc:Ignorable="d" 
              xmlns:converter="clr-namespace:ideaForge.Converters"
              xmlns:lc="clr-namespace:ideaForge"
+             
              xmlns:vm="clr-namespace:ideaForge.ViewModels"
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:IFDockViewModel />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
-            <map:MapTileLayer
-        x:Key="OpenStreetMap"
-        TileSource="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        SourceName="OpenStreetMap"
-        Description="© [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
-            <map:MapTileLayer
-        x:Key="OpenStreetMapGerman"
-        TileSource="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
-        SourceName="OpenStreetMap German"
-        Description="© [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
-            <map:MapTileLayer
-        x:Key="OpenStreetMapFrench"
-        TileSource="http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
-        SourceName="OpenStreetMap French"
-        Description="© [OpenStreetMap France](https://www.openstreetmap.fr/mentions-legales/) © [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
-            <map:MapTileLayer
-        x:Key="OpenTopoMap"
-        TileSource="https://tile.opentopomap.org/{z}/{x}/{y}.png"
-        SourceName="OpenTopoMap"
-        Description="© [OpenTopoMap](https://opentopomap.org/) © [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
-            <map:MapTileLayer
-        x:Key="Seamarks"
-        TileSource="http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
-        SourceName="Seamarks"
-        MinZoomLevel="9"
-        MaxZoomLevel="18"/>
-            <map:BingMapsTileLayer
-        x:Key="BingMapsRoad"
-        Mode="Road"
-        SourceName="Bing Maps Road"
-        Description="© [Microsoft](http://www.bing.com/maps/)"/>
-            <map:BingMapsTileLayer
-        x:Key="BingMapsAerial"
-        Mode="Aerial"
-        SourceName="Bing Maps Aerial"
-        Description="© [Microsoft](http://www.bing.com/maps/)"
-        MapBackground="Black"
-        MapForeground="White"/>
-            <map:BingMapsTileLayer
-        x:Key="BingMapsHybrid"
-        Mode="AerialWithLabels"
-        SourceName="Bing Maps Hybrid"
-        Description="© [Microsoft](http://www.bing.com/maps/)"
-        MapBackground="Black"
-        MapForeground="White"/>
-            <map:WmtsTileLayer
-        x:Key="TopPlusOpenWMTS"
-        CapabilitiesUri="https://sgx.geodatenzentrum.de/wmts_topplus_open/1.0.0/WMTSCapabilities.xml"
-        SourceName="TopPlusOpen"
-        Description="© [BKG](https://gdz.bkg.bund.de/index.php/default/webdienste/topplus-produkte/wmts-topplusopen-wmts-topplus-open.html)"/>
-            <map:WmsImageLayer
-        x:Key="TopPlusOpenWMS"
-        ServiceUri="https://sgx.geodatenzentrum.de/wms_topplus_open"
-        Description="© [BKG](https://gdz.bkg.bund.de/index.php/default/webdienste/topplus-produkte/wms-topplusopen-mit-layer-fur-normalausgabe-und-druck-wms-topplus-open.html)"/>
-            <map:WmsImageLayer
-        x:Key="OpenStreetMapWMS"
-        ServiceUri="http://ows.terrestris.de/osm/service"
-        Description="© [terrestris GmbH &amp; Co. KG](http://ows.terrestris.de/) © [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
             <!--<ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MapLayers.xaml"/>
             </ResourceDictionary.MergedDictionaries>-->
+
             <DataTemplate DataType="{x:Type vm:PolylineItem}">
                 <map:MapPolyline Locations="{Binding Locations}" Stroke="Red" StrokeThickness="3"/>
             </DataTemplate>
+
             <Style x:Key="PointItemStyle" TargetType="map:MapItem">
                 <EventSetter Event="TouchDown" Handler="MapItemTouchDown"/>
                 <Setter Property="AutoCollapse" Value="True"/>
@@ -164,8 +106,11 @@
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
-        
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:IFDockViewModel />
+    </UserControl.DataContext>
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -173,34 +118,34 @@
         </Grid.RowDefinitions>
         <Grid>
             <map:Map x:Name="map"
-                 MinZoomLevel="2" MaxZoomLevel="21" ZoomLevel="11" MouseWheelZoomDelta="1"
-                 Center="20.5937,78.9629"
+                 MinZoomLevel="2" MaxZoomLevel="21" ZoomLevel="13" MouseWheelZoomDelta="1"
+                 Center="{Binding Center}"
                  MouseLeftButtonDown="MapMouseLeftButtonDown"
                  MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave="MapMouseLeave"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting">
 
-                <map:MapItemsControl ItemsSource="{Binding Polylines}"/>
+                <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
 
-                <map:MapItemsControl ItemsSource="{Binding Points}"
+                <!--<map:MapItemsControl ItemsSource="{Binding Points}"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
-                                 SelectionMode="Extended"/>
+                                 SelectionMode="Extended"/>-->
 
                 <map:MapItemsControl ItemsSource="{Binding Pushpins}"
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}"/>
 
                 <!--<map:Pushpin AutoCollapse="True" Location="65,-18" Content="Iceland"/>
-            <map:Pushpin AutoCollapse="True" Location="71,25" Content="Norway"/>
-            <map:Pushpin AutoCollapse="True" Location="35,33" Content="Cyprus"/>
-            <map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>-->
+                <map:Pushpin AutoCollapse="True" Location="71,25" Content="Norway"/>
+                <map:Pushpin AutoCollapse="True" Location="35,33" Content="Cyprus"/>
+                <map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>-->
 
-                <map:MapPath Location="20.5937,78.9629" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
+                <map:MapPath Location="{Binding Center}" Stroke="Red" StrokeThickness="3" Fill="#1F007F00">
                     <map:MapPath.Data>
-                        <EllipseGeometry RadiusX="1852" RadiusY="1852"/>
+                        <EllipseGeometry RadiusX="1852" RadiusY="1852" />
                     </map:MapPath.Data>
                 </map:MapPath>
 
-                <map:Pushpin AutoCollapse="True" Location="20.5937,78.9629" Content="N 53°30' E 8°12'"/>
+                <map:Pushpin AutoCollapse="True" Location="{Binding Center}" Content="Navi Mumbai, Maharashtra"/>
             </map:Map>
 
             <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF">
@@ -215,29 +160,39 @@
             HorizontalAlignment="Center" VerticalAlignment="Top"
             IsHitTestVisible="False"/>
 
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6">
-                <!--<tools:MapLayersMenuButton x:Name="mapLayersMenuButton"
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6" Width="50">
+                <tools:MapLayersMenuButton x:Name="mapLayersMenuButton"
                 Margin="2" ToolTip="Map Layers and Overlays"
                 Map="{Binding ElementName=map}">
-                    <tools:MapLayerItem Text="OpenStreetMap" Layer="{StaticResource OpenStreetMap}"/>
-                    --><!--<tools:MapLayerItem Text="OpenStreetMap German" Layer="{StaticResource OpenStreetMapGerman}"/>
-                <tools:MapLayerItem Text="OpenStreetMap French" Layer="{StaticResource OpenStreetMapFrench}"/>
-                <tools:MapLayerItem Text="OpenTopoMap" Layer="{StaticResource OpenTopoMap}"/>
-                <tools:MapLayerItem Text="TopPlusOpen WMTS" Layer="{StaticResource TopPlusOpenWMTS}"/>
-                <tools:MapLayerItem Text="TopPlusOpen WMS" Layer="{StaticResource TopPlusOpenWMS}"/>
-                <tools:MapLayerItem Text="OpenStreetMap WMS" Layer="{StaticResource OpenStreetMapWMS}"/>--><!--
-                    <tools:MapLayersMenuButton.MapOverlays>
-                        <tools:MapLayerItem Text="Sample Image">
-                            <Image Source="/Images/10_535_330.jpg" map:MapPanel.BoundingBox="53.54031,8.08594,53.74871,8.43750"/>
-                        </tools:MapLayerItem>
-                        <tools:MapLayerItem Text="Seamarks" Layer="{StaticResource Seamarks}"/>
-                        <tools:MapLayerItem Text="Graticule">
-                            <map:MapGraticule Opacity="0.7"/>
-                        </tools:MapLayerItem>
-                        <tools:MapLayerItem Text="Scale">
-                            <map:MapScale HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-                        </tools:MapLayerItem>
-                    </tools:MapLayersMenuButton.MapOverlays>
+                  
+                        <tools:MapLayerItem  Text="OpenStreetMap" Layer="{StaticResource OpenStreetMap}"/>
+                        <!--<tools:MapLayerItem Text="OpenStreetMap German" Layer="{StaticResource OpenStreetMapGerman}"/>
+                        <tools:MapLayerItem Text="OpenStreetMap French" Layer="{StaticResource OpenStreetMapFrench}"/>
+                        <tools:MapLayerItem Text="OpenTopoMap" Layer="{StaticResource OpenTopoMap}"/>
+                        <tools:MapLayerItem Text="TopPlusOpen WMTS" Layer="{StaticResource TopPlusOpenWMTS}"/>
+                        <tools:MapLayerItem Text="TopPlusOpen WMS" Layer="{StaticResource TopPlusOpenWMS}"/>
+                        <tools:MapLayerItem Text="OpenStreetMap WMS" Layer="{StaticResource OpenStreetMapWMS}"/>-->
+                        <tools:MapLayersMenuButton.MapOverlays>
+                            <tools:MapLayerItem Text="Sample Image">
+                            <tools:MapLayerItem.Layer>
+                                <Image Source="/Images/10_535_330.jpg" map:MapPanel.BoundingBox="53.54031,8.08594,53.74871,8.43750"/>
+                            </tools:MapLayerItem.Layer>
+                               
+                            </tools:MapLayerItem>
+                            <tools:MapLayerItem Text="Seamarks" Layer="{StaticResource Seamarks}"/>
+                            <tools:MapLayerItem Text="Graticule">
+                            <tools:MapLayerItem.Layer>
+                                <map:MapGraticule Opacity="0.7"/>
+                            </tools:MapLayerItem.Layer>
+                            </tools:MapLayerItem>
+                            <tools:MapLayerItem Text="Scale">
+                            <tools:MapLayerItem.Layer>
+                                <map:MapScale HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                            </tools:MapLayerItem.Layer>
+                            </tools:MapLayerItem>
+                        </tools:MapLayersMenuButton.MapOverlays>
+                  
+                
                 </tools:MapLayersMenuButton>
 
                 <tools:MapProjectionsMenuButton x:Name="mapProjectionsMenuButton"
@@ -245,7 +200,7 @@
                 Map="{Binding ElementName=map}">
                     <tools:MapProjectionItem Text="Web Mercator" Projection="EPSG:3857"/>
                     <tools:MapProjectionItem Text="Equirectangular" Projection="EPSG:4326"/>
-                </tools:MapProjectionsMenuButton>-->
+                </tools:MapProjectionsMenuButton>
 
                 <Slider Orientation="Vertical" Margin="8" Height="100"
                     Minimum="{Binding MinZoomLevel, ElementName=map}"
@@ -267,12 +222,7 @@
             </StackPanel>
         </Grid>
 
-        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF">
-            <TextBlock Margin="4,2" FontSize="10"
-                       lc:HyperlinkText.InlinesSource="{Binding MapLayer.Description, ElementName=map}"/>
-        </Border>
 
-       
         <Border 
                     Grid.Row="0"
                       HorizontalAlignment="Right"
