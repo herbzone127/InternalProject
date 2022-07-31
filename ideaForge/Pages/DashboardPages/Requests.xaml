@@ -84,6 +84,7 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
+                                            <Run Text="{Binding userName}"/>
                                             <Run Text="{Binding contactNo}"/>
                                         </TextBlock>
                                     </DataTemplate>
@@ -213,6 +214,7 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
+                                            <Run Text="{Binding userName}"/>
                                             <Run Text="{Binding contactNo}"/>
                                         </TextBlock>
                                     </DataTemplate>

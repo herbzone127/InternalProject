@@ -39,6 +39,7 @@ namespace IdeaForge.Domain
         public Brush color { get; set; }
         public Brush TextColor { get; set; }
         public string StatusImage { get; set; }
+        public string userName { get; set; }
         public Visibility IsVisibleButton { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,22 @@ namespace ideaForge.Pages
         public ProfilePage()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+
+        private void TextBox_PreviewKeyDown_1(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
     }
 }

@@ -24,8 +24,10 @@ namespace IdeaForge.Domain
             public string comments { get; set; }
             public string city_Name { get; set; }
             public string reasonDescription { get; set; }
-        }
+            public bool isActive { get; set; }
+
+    }
 
 
-    
+
 }

@@ -65,12 +65,16 @@ namespace ideaForge.Popups
             cMessageBox.txtMessage.Text = message;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(title);
             cMessageBox.lblColorMessage.Text = coloredMessage;
-            LoginPage = new Window();
-            LoginPage = Application.Current.MainWindow;
-            //LoginPage.Background = ConvertColor("#000000");
-            //LoginPage.Opacity = 0.1;
-            //LoginPage.AllowsTransparency = true;
-            LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10};
+            if (LoginPage != null)
+            {
+                //LoginPage = new Window();
+                LoginPage = Application.Current.MainWindow;
+                //LoginPage.Background = ConvertColor("#000000");
+                //LoginPage.Opacity = 0.1;
+                //LoginPage.AllowsTransparency = true;
+                LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            }
+          
             //cMessageBox.Effect =new DropShadowEffect() { Color = Colors.Black, Opacity=100, ShadowDepth=0,BlurRadius=100,  };
             //icon
             switch (title)
@@ -109,15 +113,23 @@ namespace ideaForge.Popups
         public static DialogResult ShowError(string message)
         {
             cMessageBox = new MessageBox();
+           
             LoginPage = new Window();
-            LoginPage = Application.Current.MainWindow;
-            LoginPage.Effect = new BlurEffect();
+            if (LoginPage != null)
+            {
+                LoginPage = Application.Current.MainWindow;
+                LoginPage.Effect = new BlurEffect();
+               if(cMessageBox.Parent is Login)
+                {
+                    LoginPage = cMessageBox.Parent as Login;
+                    LoginPage.Effect = new BlurEffect();
+                }
+                
+            }
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
             //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
             cMessageBox.txtMessage.Text = message;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Error);
-            LoginPage = cMessageBox.Parent as Login;
-            LoginPage.Effect = new BlurEffect();
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/ErrorBack.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
             cMessageBox.ShowDialog();
@@ -128,14 +140,21 @@ namespace ideaForge.Popups
             cMessageBox = new MessageBox();
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
             LoginPage = new Window();
-            LoginPage = Application.Current.MainWindow;
-            LoginPage.Effect = new BlurEffect();
-            //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
+            if (LoginPage != null)
+            {
+                LoginPage = Application.Current.MainWindow;
+                LoginPage.Effect = new BlurEffect();
+                //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
+                if(cMessageBox.Parent is Login)
+                {
+                    LoginPage = cMessageBox.Parent as Login;
+                    LoginPage.Effect = new BlurEffect();
+                }
+            
+            }
             cMessageBox.txtMessage.Text = message;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Confirm);
             cMessageBox.lblColorMessage.Text = coloredMessage;
-            LoginPage = cMessageBox.Parent as Login;
-            LoginPage.Effect = new BlurEffect();
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/SuccessBack.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
             cMessageBox.ShowDialog();

@@ -104,6 +104,7 @@ namespace ideaForge.ViewModels
                         }
                         else
                         {
+                            PilotLocations = new ObservableCollection<PilotLocation>();
                             PilotLocations.Add(new PilotLocation
                             {
                                 cityId = 1,
@@ -121,6 +122,7 @@ namespace ideaForge.ViewModels
                     }
                     else
                     {
+                        PilotLocations = new ObservableCollection<PilotLocation>();
                         PilotLocations.Add(new PilotLocation
                         {
                             cityId = 1,

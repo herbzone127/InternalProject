@@ -89,7 +89,8 @@
                                 </ControlTemplate>
                             </Label.Template>
                         </Label>
-                    <TextBox  Text="{Binding ProfileModel.email}" Height="35" MinWidth="120" Foreground="Black">
+                    <TextBox  Text="{Binding ProfileModel.email}" Height="35" MinWidth="120" Foreground="Black"
+                              PreviewKeyDown="TextBox_PreviewKeyDown">
                         </TextBox>
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
@@ -104,7 +105,10 @@
                                 </ControlTemplate>
                             </Label.Template>
                         </Label>
-                    <TextBox  Text="{Binding ProfileModel.contactNo}" Height="35" Foreground="Black">
+                    <TextBox  Text="{Binding ProfileModel.contactNo}" Height="35" Foreground="Black"
+                              PreviewTextInput="TextBox_PreviewTextInput"
+                              PreviewKeyDown="TextBox_PreviewKeyDown_1"
+                              MaxLength="10" >
                         </TextBox>
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
@@ -149,8 +153,20 @@
                                 </ControlTemplate>
                             </Label.Template>
                         </Label>
-                    <TextBox  Text="{Binding ProfileModel.city}" Height="35" Foreground="Black">
-                        </TextBox>
+
+                    <Border BorderBrush="#d3d4d7" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
+                        <dotNetKitControls:AutoCompleteComboBox
+    SelectedValuePath="city_Name"
+                        DisplayMemberPath="city_Name"
+    TextSearch.TextPath="city_Name"
+    ItemsSource="{Binding CityList}"
+     SelectedValue="{Binding ProfileModel.city}"   
+                        Height="30"
+                        SelectedItem="{Binding SelectedCity}"
+   />
+                        </Border>
+                    <!--<TextBox  Text="{Binding ProfileModel.city}" Height="35" Foreground="Black">
+                        </TextBox>-->
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,15,10,0" IsEnabled="False">
