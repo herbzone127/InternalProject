@@ -280,6 +280,7 @@
     <Compile Include="Behaviors\SignUpPageBehaviors.cs" />
     <Compile Include="BindingProxy.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Converters\ByteImageConverter.cs" />
     <Compile Include="Converters\HeadingToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToUnsetValueConverter.cs" />
     <Compile Include="Converters\NullToVisiblityConverter.cs" />

@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using ideaForge.Popups;
 using MessageBox = ideaForge.Popups.MessageBox;
 using System.Collections.ObjectModel;
+using ideaForge.Converters;
+using javax.imageio;
 
 namespace ideaForge.ViewModels
 {
