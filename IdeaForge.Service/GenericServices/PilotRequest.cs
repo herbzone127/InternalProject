@@ -117,7 +117,7 @@ namespace IdeaForge.Service.GenericServices
         {
             try
             {
-                var url = UrlHelper.pilotLocationUrl+"/"+userId;
+                var url = UrlHelper.getpilotloaction + "/"+userId;
 
                 var resultString = await HTTPClientWrapper<PilotLocationResponse>.Get(url);
                 return resultString;
