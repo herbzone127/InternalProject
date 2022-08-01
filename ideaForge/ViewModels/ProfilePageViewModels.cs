@@ -242,8 +242,8 @@ namespace ideaForge.ViewModels
                         //ProfileModel.image = base64String;
 
                         var imgData = ProfileModel.image;
-                        byte[] imageArray = File.ReadAllBytes(imgData);
-                        var base64Text = Convert.ToBase64String(imageArray);
+                        byte[] imageArray = System.IO.File.ReadAllBytes(imgData);
+                        string base64ImageRepresentation = Convert.ToBase64String(imageArray);
 
                     }
                 }
