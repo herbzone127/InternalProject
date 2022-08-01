@@ -101,7 +101,7 @@
                             <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="{Binding startDate}"/>
+                                        <TextBlock Text="{Binding startDate}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -240,7 +240,7 @@
                             <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="{Binding startDate}"/>
+                                        <TextBlock Text="{Binding startDate}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
