@@ -1,4 +1,5 @@
 ﻿using ideaForge.Popups;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +53,7 @@ namespace ideaForge.ViewModels
         {
             _AcceptedCommand = new DelegateCommand(AcceptedCommandCanExecute);
             _RejectedCommand = new DelegateCommand(RejectedCommandCanExecute);
+            AllRequests = new ObservableCollection<RequestData>();
             //GetTodaysRequest("");
             //Task.Factory.StartNew(async() => {
 
@@ -59,9 +61,9 @@ namespace ideaForge.ViewModels
             //  await  GetTodaysRequest("");
             //} ).ConfigureAwait(false);
 
-
-            GetAllRequest("").ConfigureAwait(false);
-            GetTodaysRequest("").ConfigureAwait(false);
+            
+          
+          
         }
         #endregion
 
@@ -70,36 +72,16 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             var model = (RequestData)obj;
            
-                MessageBox.ShowSuccess("Selected record rejected ","Successful.");
+               
                 var result = await GetStatusChangesResponse(false, model.id);
                 if (result)
                 {
-                    SelectedAllRequest.statusID = 2;
-                    SelectedAllRequest.status = "Pending";
-                    if (SelectedAllRequest.statusID == 2)
-                    {
-                        //OnGoing
-                        SelectedAllRequest.color = ConvertColor("#F98926");
-                        SelectedAllRequest.TextColor = ConvertColor("#F98926");
-                        SelectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+                MessageBox.ShowSuccess("Selected record rejected ", "Successful.");
 
-                    }
-                    foreach (var selectedAllRequest in AllRequests.Where(u => u.id == model.id))
-                    {
-                        selectedAllRequest.statusID = 2;
-                        selectedAllRequest.status = "Pending";
-                        if (selectedAllRequest.statusID == 2)
-                        {
-                            //OnGoing
-                            selectedAllRequest.color = ConvertColor("#F98926");
-                            selectedAllRequest.TextColor = ConvertColor("#F98926");
-                            selectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
+                await GetAllRequest("");
+                await GetTodaysRequest("");
 
-                        }
-                    }
-
-
-                }
+            }
 
 
             
@@ -113,24 +95,19 @@ namespace ideaForge.ViewModels
             var model = (RequestData)obj;
             if(model.statusID == 1)
             {
-                MessageBox.ShowSuccess("Selected record accepted ", "successfully.");
+               
                 var result = await GetStatusChangesResponse(true, model.id);
                 if (result)
                 {
-                    SelectedAllRequest.statusID = 2;
-                    SelectedAllRequest.status = "Pending";
-                    if (SelectedAllRequest.statusID == 2)
-                    {
-                        //OnGoing
-                        SelectedAllRequest.color = ConvertColor("#F98926");
-                        SelectedAllRequest.TextColor = ConvertColor("#F98926");
-                        SelectedAllRequest.StatusImage = "/Images/ongoingIcon.png";
-
-                    }
-                   await GetAllRequest("");
+                    MessageBox.ShowSuccess("Selected record accepted ", "successfully.");
+                    await GetAllRequest("");
                    await GetTodaysRequest("");
 
 
+                }
+                else
+                {
+                    MessageBox.ShowError("Record is not updated");
                 }
                
 
@@ -251,6 +228,7 @@ namespace ideaForge.ViewModels
                             u.color = ConvertColor("#FFF4DB");
                             u.TextColor = ConvertColor("#FFC540");
                             u.StatusImage = "/Images/pendingIcon.png";
+                            u.IsVisibleButton = Visibility.Visible;
                         }
                         if (u.statusID == 2)
                         {
@@ -258,6 +236,7 @@ namespace ideaForge.ViewModels
                             u.color = ConvertColor("#FFF3D9");
                             u.TextColor = ConvertColor("#F98926");
                             u.StatusImage = "/Images/ongoingIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
 
                         }
                         if (u.statusID == 3)
@@ -265,12 +244,14 @@ namespace ideaForge.ViewModels
                             //UpComming
                             u.color = ConvertColor("#000000");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 4)
                         {
                             //Rejected
                             u.color = ConvertColor("#D42424");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 5)
                         {
@@ -278,20 +259,29 @@ namespace ideaForge.ViewModels
                             u.color = ConvertColor("#DEECFF");
                             u.TextColor = ConvertColor("#3398D8");
                             u.StatusImage = "/Images/CompleteRideIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 6)
                         {
                             //Cancel
                             u.color = ConvertColor("#A9ABB1");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                         if (u.statusID == 7)
                         {
                             //EndFlight
                             u.color = ConvertColor("#000000");
                             u.TextColor = ConvertColor("#FFFFFF");
+                            u.IsVisibleButton = Visibility.Hidden;
                         }
                     });
+                    //var dt = requests.userData;
+                    //if (dt!= null)
+                    //{
+                    //  dt=  dt.Where(u=>u.location==Global.PilotLoggedLocation).ToList();
+                    //    TodaysRequests = new ObservableCollection<RequestData>(dt);
+                    //}
                     TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
                     //Console.WriteLine("hello    " + DateTime.Now);
                 }
@@ -395,7 +385,7 @@ namespace ideaForge.ViewModels
             return result;
         }
 
-        
+         
         private Brush ConvertColor(string color)
         {
             var converter = new System.Windows.Media.BrushConverter();

@@ -15,7 +15,7 @@ namespace IdeaForge.Service.IGenericServices
         Task<RideResponse> GetRideById(int rideId);
         Task<bool> GetStatusChangesResponse(bool isAccepted , int rideId);
         Task<RideByPilotResponse> UpdateRideByPilot(Ride pilot);
-        Task<List<RideStatus>> GetAllStatuses();
+        Task<RideStatusResponse> GetAllStatuses();
         Task<FlightStatusResponse> AddUpdatePilotStatus(FlightStatus pilot);
         Task<FlightFeedbackResponse> AddUpdatePilotFeedback(FlightFeedback pilot);
         Task<PilotLocationResponse> GetPilotLocations(int userId);

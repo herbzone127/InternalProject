@@ -50,7 +50,9 @@ namespace ideaForge
                 worker.ProgressChanged += Worker_ProgressChanged;
                 worker.WorkerReportsProgress=true;  
                 worker.WorkerSupportsCancellation = true;
-                worker.RunWorkerAsync();
+                if (!worker.IsBusy)
+                    worker.RunWorkerAsync();
+                
             }
             else
             {
@@ -142,7 +144,8 @@ namespace ideaForge
                               
                                   
                               });
-                              worker.RunWorkerAsync();
+                              if (!worker.IsBusy)
+                                  worker.RunWorkerAsync();
                           }
                       
                      

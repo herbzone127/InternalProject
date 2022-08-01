@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericServices\GoogleMapsApiService.cs" />
+    <Compile Include="IGenericServices\IGoogleMapsApiService.cs" />
     <Compile Include="GenericServices\PilotRequest.cs" />
     <Compile Include="GenericServices\ProfileService.cs" />
     <Compile Include="GenericServices\RegisterService.cs" />

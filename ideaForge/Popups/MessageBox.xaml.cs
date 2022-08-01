@@ -67,12 +67,27 @@ namespace ideaForge.Popups
             cMessageBox.lblColorMessage.Text = coloredMessage;
             if (LoginPage != null)
             {
-                //LoginPage = new Window();
-                LoginPage = Application.Current.MainWindow;
-                //LoginPage.Background = ConvertColor("#000000");
-                //LoginPage.Opacity = 0.1;
-                //LoginPage.AllowsTransparency = true;
-                LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                if(Application.Current.MainWindow is Login)
+                {
+                    //LoginPage = new Window();
+                    LoginPage = Application.Current.MainWindow;
+                    //LoginPage.Background = ConvertColor("#000000");
+                    //LoginPage.Opacity = 0.1;
+                    //LoginPage.AllowsTransparency = true;
+                    LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                    LoginPage.IsEnabled = false;
+                }
+                if(Application.Current.MainWindow is Dashboard)
+                {
+                    //LoginPage = new Window();
+                    LoginPage = Application.Current.MainWindow;
+                    //LoginPage.Background = ConvertColor("#000000");
+                    //LoginPage.Opacity = 0.1;
+                    //LoginPage.AllowsTransparency = true;
+                    LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                    LoginPage.IsEnabled = false;
+                }
+               
             }
           
             //cMessageBox.Effect =new DropShadowEffect() { Color = Colors.Black, Opacity=100, ShadowDepth=0,BlurRadius=100,  };
@@ -118,17 +133,27 @@ namespace ideaForge.Popups
             if (LoginPage != null)
             {
                 LoginPage = Application.Current.MainWindow;
-                LoginPage.Effect = new BlurEffect();
+                LoginPage.IsEnabled = false;
+                LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
                if(cMessageBox.Parent is Login)
                 {
                     LoginPage = cMessageBox.Parent as Login;
-                    LoginPage.Effect = new BlurEffect();
+                    LoginPage.IsEnabled = false;
+                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                }
+               if(cMessageBox.Parent is Dashboard)
+                {
+                    LoginPage = cMessageBox.Parent as Dashboard;
+                    LoginPage.IsEnabled = false;
+                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
                 }
                 
             }
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
             //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
             cMessageBox.txtMessage.Text = message;
+            cMessageBox.txtMessage.HorizontalAlignment=System.Windows.HorizontalAlignment.Center;
+            cMessageBox.lblColorMessage.Visibility = Visibility.Hidden;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Error);
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/ErrorBack.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
@@ -143,14 +168,18 @@ namespace ideaForge.Popups
             if (LoginPage != null)
             {
                 LoginPage = Application.Current.MainWindow;
-                LoginPage.Effect = new BlurEffect();
+                LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
                 //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
                 if(cMessageBox.Parent is Login)
                 {
                     LoginPage = cMessageBox.Parent as Login;
-                    LoginPage.Effect = new BlurEffect();
+                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
                 }
-            
+                if (cMessageBox.Parent is Dashboard)
+                {
+                    LoginPage = cMessageBox.Parent as Dashboard;
+                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                }
             }
             cMessageBox.txtMessage.Text = message;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Confirm);

@@ -83,7 +83,7 @@
                 HorizontalAlignment="Left"/>
                 <TextBlock
                 x:Name="lblColorMessage"
-                Text="successful"
+                Text=""
                 Foreground="#91C84F" 
                 FontSize="10" 
                 Padding="0"

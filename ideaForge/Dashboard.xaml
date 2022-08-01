@@ -342,7 +342,7 @@
                        Foreground="Black"
                        FontWeight="SemiBold"
                              HorizontalContentAlignment="Right"      
-                       Content="Navi Mumbai, Maharashtra" />
+                       Content="Mumbai" />
                         </StackPanel>
                     </Grid>
 

@@ -145,7 +145,7 @@
                     </map:MapPath.Data>
                 </map:MapPath>
 
-                <map:Pushpin AutoCollapse="True" Location="{Binding Center}" Content="Navi Mumbai, Maharashtra"/>
+                <map:Pushpin AutoCollapse="True" Location="{Binding Center}" Content="Mumbai"/>
             </map:Map>
 
             <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF">

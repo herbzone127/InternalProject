@@ -43,8 +43,16 @@ namespace ideaForge
             }
             catch (Exception)
             {
+                try
+                {
+                    Application.Current.Shutdown();
+                }
+                catch (Exception)
+                {
 
-                Application.Current.Shutdown();
+              
+                }
+               
             }
             
                 

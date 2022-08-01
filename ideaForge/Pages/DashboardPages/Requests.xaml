@@ -13,7 +13,7 @@
         <vm:RequestViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <TabControl  >
+        <TabControl  SelectionChanged="TabControl_SelectionChanged" >
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
@@ -52,14 +52,15 @@
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid
-                         FontSize="14"
+                    <DataGrid FontSize="14"
+                         CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
+                        SelectedItem="{Binding TodayRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
+                        
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
-
                         <!--<DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="ContentTemplate">
@@ -93,7 +94,7 @@
                             <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<Label Content="{Binding id}"/>-->
+                                        <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -137,12 +138,15 @@
                             <DataGridTemplateColumn CanUserSort="True" Header="Action" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal"  
-                                                    Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
-                                                    >
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}">
                                             <Button BorderBrush="#E9E9E9" 
                                                     BorderThickness="1"
-                                                    Background="Transparent">
+                                                    Background="Transparent"
+                                                    Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.AcceptedCommand}"
+                                                    CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
@@ -153,7 +157,12 @@
                                                 BorderBrush="#E9E9E9" 
                                                     BorderThickness="1"
                                                     Background="Transparent"
-                                                    >
+                                                Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.RejectedCommand,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                                    CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/rejectIcon.png" />
                                                     <TextBlock Margin="5,0">Reject</TextBlock>
@@ -166,7 +175,6 @@
 
 
                         </DataGrid.Columns>
-
                     </DataGrid>
 
                 </Grid>
@@ -175,6 +183,7 @@
                      Foreground="White"
                      Background="#A9ABB1" 
                      FontSize="18"
+                     
                      >
                 <Grid Background="#FFF">
                     <Grid.ColumnDefinitions>
@@ -182,6 +191,7 @@
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid FontSize="14"
+                            
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding SelectedAllRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -223,7 +233,7 @@
                             <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<Label Content="{Binding id}"/>-->
+                                        <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

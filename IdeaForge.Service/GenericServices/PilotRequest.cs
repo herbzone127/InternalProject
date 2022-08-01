@@ -95,13 +95,13 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-        public async Task<List<RideStatus>> GetAllStatuses()
+        public async Task<RideStatusResponse> GetAllStatuses()
         {
             try
             {
                 var url = UrlHelper.getAllStatuses;
 
-                var resultString = await HTTPClientWrapper<List<RideStatus>>.Get(url);
+                var resultString = await HTTPClientWrapper<RideStatusResponse>.Get(url);
                 return resultString;
 
             }

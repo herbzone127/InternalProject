@@ -40,65 +40,69 @@ namespace ideaForge.Pages.DashboardPages
             var selectedRecord = (RequestData)grid.CurrentItem;
             var vModel =(RequestViewModel) this.DataContext;
             vModel.IsBusy = true;
-            var rideDetails = await vModel.GetRideById(selectedRecord.id);
-            if (rideDetails.status)
+            if(selectedRecord != null)
             {
-                Window parentWindow = Window.GetWindow(this);
-                var dashboard = (Dashboard)parentWindow;
-                var context = (DashboardViewModel)dashboard.DataContext;
-                if (selectedRecord.statusID.Equals(1))
+                var rideDetails = await vModel.GetRideById(selectedRecord.id);
+                if (rideDetails.status)
                 {
-                    dashboard.statusBorder.Visibility = Visibility.Visible;
-                    dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
-                    //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
-                    context.StatusLogo = "/Images/pendingIcon.png";
-                    dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
-                    dashboard.statusLabel.Content = "Pending";
-                    dashboard.statusLabel.Foreground = ConvertColor("#FFC540");
-                    dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                    dashboard.statusBorder.BorderBrush = ConvertColor("#FFC540");
-                    context.PageName = $"Booking Id:{selectedRecord.id}";
-                    context.CurrentPage.Content = new PendingRidePage(rideDetails.userData);
-                    dashboard.backButton.Visibility = Visibility.Visible;
-                }
-                if (selectedRecord.statusID.Equals(2))
-                {
-                    dashboard.statusBorder.Visibility = Visibility.Visible;
-                    dashboard.statusBorder.Background = ConvertColor("#FFF3D9");
-                    //dashboard.Header.
-                    //BitmapImage bitmap = new BitmapImage();
-                    //bitmap.BeginInit();
-                    //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
-                    //bitmap.EndInit();
-                    //dashboard.statusImage.Source = bitmap;
-                    context.StatusLogo = "/Images/ongoingIcon.png";
-                    dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
-                    dashboard.statusLabel.Content = "Ongoing";
-                    dashboard.statusLabel.Foreground = ConvertColor("#F98926");
-                    dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                    dashboard.statusBorder.BorderBrush = ConvertColor("#F98926");
-                    context.PageName = $"Booking Id:{selectedRecord.id}";
-                    context.CurrentPage.Content = new OnGoingRidePage(rideDetails.userData);
-                    dashboard.backButton.Visibility = Visibility.Visible;
+                    Window parentWindow = Window.GetWindow(this);
+                    var dashboard = (Dashboard)parentWindow;
+                    var context = (DashboardViewModel)dashboard.DataContext;
+                    if (selectedRecord.statusID.Equals(1))
+                    {
+                        dashboard.statusBorder.Visibility = Visibility.Visible;
+                        dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
+                        //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
+                        context.StatusLogo = "/Images/pendingIcon.png";
+                        dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
+                        dashboard.statusLabel.Content = "Pending";
+                        dashboard.statusLabel.Foreground = ConvertColor("#FFC540");
+                        dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
+                        dashboard.statusBorder.BorderBrush = ConvertColor("#FFC540");
+                        context.PageName = $"Booking Id:{selectedRecord.id}";
+                        context.CurrentPage.Content = new PendingRidePage(rideDetails.userData);
+                        dashboard.backButton.Visibility = Visibility.Visible;
+                    }
+                    if (selectedRecord.statusID.Equals(2))
+                    {
+                        dashboard.statusBorder.Visibility = Visibility.Visible;
+                        dashboard.statusBorder.Background = ConvertColor("#FFF3D9");
+                        //dashboard.Header.
+                        //BitmapImage bitmap = new BitmapImage();
+                        //bitmap.BeginInit();
+                        //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
+                        //bitmap.EndInit();
+                        //dashboard.statusImage.Source = bitmap;
+                        context.StatusLogo = "/Images/ongoingIcon.png";
+                        dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
+                        dashboard.statusLabel.Content = "Ongoing";
+                        dashboard.statusLabel.Foreground = ConvertColor("#F98926");
+                        dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
+                        dashboard.statusBorder.BorderBrush = ConvertColor("#F98926");
+                        context.PageName = $"Booking Id:{selectedRecord.id}";
+                        context.CurrentPage.Content = new OnGoingRidePage(rideDetails.userData);
+                        dashboard.backButton.Visibility = Visibility.Visible;
+                    }
+
+                    if (selectedRecord.statusID.Equals(5))
+                    {
+                        dashboard.statusBorder.Visibility = Visibility.Visible;
+                        dashboard.statusBorder.Background = ConvertColor("#DEECFF");
+                        context.StatusLogo = "/Images/CompleteRideIcon.png";
+                        dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
+                        dashboard.statusLabel.Content = "Completed";
+                        dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
+                        dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
+                        dashboard.statusBorder.BorderBrush = ConvertColor("#3398D8");
+                        context.PageName = $"Booking Id:{selectedRecord.id}";
+
+                        context.CurrentPage.Content = new CompletedRidePage(rideDetails.userData);
+                        dashboard.backButton.Visibility = Visibility.Visible;
+                    }
                 }
 
-                if (selectedRecord.statusID.Equals(5))
-                {
-                    dashboard.statusBorder.Visibility = Visibility.Visible;
-                    dashboard.statusBorder.Background = ConvertColor("#DEECFF");
-                    context.StatusLogo = "/Images/CompleteRideIcon.png";
-                    dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
-                    dashboard.statusLabel.Content = "Completed";
-                    dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
-                    dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                    dashboard.statusBorder.BorderBrush = ConvertColor("#3398D8");
-                    context.PageName = $"Booking Id:{selectedRecord.id}";
-                
-                    context.CurrentPage.Content = new CompletedRidePage(rideDetails.userData);
-                    dashboard.backButton.Visibility = Visibility.Visible;
-                }
             }
-           
+
             vModel.IsBusy = false;
 
         }
@@ -121,12 +125,33 @@ namespace ideaForge.Pages.DashboardPages
             var result = (Thickness)converter.ConvertFromString(border);
             return result;
         }
+
+        private async void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var tabControl =(TabControl) sender;
+            var selectedTab = tabControl.SelectedItem as TabItem;
+            var name = selectedTab.Header;
+            if (name != null)
+            {
+                if(name.Equals("All Requests"))
+                {
+                    var vModel = DataContext as RequestViewModel;
+                await vModel.GetAllRequest("");
+
+                }
+                if (name.Equals("Today's Requests"))
+                {
+                    var vModel = DataContext as RequestViewModel;
+                    await   vModel.GetTodaysRequest("");
+                }
+            }
+        }
         //private ImageSource ConvertImageSource(string source)
         //{
         //    var converter = new ImageSourceConverter();
         //    var location = Directory.GetCurrentDirectory();
         //    var imgAddress = location + source;
-            
+
         //    var result = (ImageSource)converter.ConvertFromString(imgAddress);
         //    return result;
         //}

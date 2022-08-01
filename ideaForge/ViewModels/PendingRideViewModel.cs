@@ -232,8 +232,11 @@ namespace ideaForge.ViewModels
             try
             {
               var result = await  _pilotRequestServices.GetAllStatuses();
-               
-                    RideStatuses = new ObservableCollection<RideStatus>(result);
+                if (result.status)
+                {
+                    RideStatuses = new ObservableCollection<RideStatus>(result.userData);
+                }
+                  
                 
             }
             catch (Exception)
