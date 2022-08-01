@@ -129,12 +129,14 @@ namespace ideaForge
                                       if (!status)
                                       {
                                           e.Cancel = true;
+                                          return;
                                       }
                                   }
                                   catch 
                                   {
 
                                       e.Cancel = true;
+                                      return;
                                   }
                                   
                               
