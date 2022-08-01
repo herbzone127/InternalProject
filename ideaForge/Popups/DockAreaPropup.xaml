@@ -18,6 +18,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
+        Closing="Window_Closing"
         >
     <Window.DataContext>
         <vm:IFDockViewModel/>
@@ -50,13 +51,14 @@
                 Margin="10,20,0,0" />
             <dotNetKitControls:AutoCompleteComboBox
                 Grid.Row="2"
-                Margin="10,0,10,10"
+                Margin="10,-10,10,10"
     SelectedValuePath="id"
-                        DisplayMemberPath="cityName"
-    TextSearch.TextPath="cityName"
+                        DisplayMemberPath="city_Name"
+    TextSearch.TextPath="city_Name"
     ItemsSource="{Binding PilotLocations}"
                 SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
-     SelectedValue="{Binding SelectedLocationId}"                   
+     SelectedValue="{Binding SelectedLocationId}"   
+                VerticalAlignment="Center"
    />
             <Button
                 x:Name="btnContinue"

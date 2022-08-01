@@ -56,14 +56,18 @@ namespace ideaForge.ViewModels
         public ObservableCollection<PilotLocation> PilotLocations
         {
             get { return _pilotLocations; }
-            set { _pilotLocations = value; }
+            set { _pilotLocations = value;
+                OnPropertyChanged(nameof(PilotLocations));
+            }
         }
         private PilotLocation _SelectedLocation;
 
         public PilotLocation SelectedLocation
         {
             get { return _SelectedLocation; }
-            set { _SelectedLocation = value; }
+            set { _SelectedLocation = value;
+                OnPropertyChanged(nameof(SelectedLocation));
+            }
         }
 
         #endregion
@@ -101,6 +105,7 @@ namespace ideaForge.ViewModels
                         {
                             //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
                             PilotLocations = new ObservableCollection<PilotLocation>(result.PilotLocations);
+                            SelectedLocation = PilotLocations[0];
                         }
                         else
                         {

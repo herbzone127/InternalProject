@@ -125,7 +125,11 @@ namespace ideaForge
                                       var model = (DashboardViewModel)this.DataContext;
                                       var rPage = (Requests)model.CurrentPage.Content;
                                       var ucModel = (RequestViewModel)rPage.DataContext;
-                                      await ucModel.GetTodaysRequest("");
+                                   var  status=   await ucModel.GetTodaysRequest("");
+                                      if (!status)
+                                      {
+                                          e.Cancel = true;
+                                      }
                                   }
                                   catch 
                                   {

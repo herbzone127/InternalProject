@@ -271,17 +271,16 @@
                        BorderThickness="0"
                         />-->
                         <dotNetKitControls:AutoCompleteComboBox
-                           BorderThickness="0"
-                            VerticalContentAlignment="Center"
-                            VerticalAlignment="Center"
+                Grid.Row="2"
+           BorderThickness="0"
                             BorderBrush="Transparent"
-                            Margin="2"
     SelectedValuePath="id"
-                        DisplayMemberPath="cityName"
-    TextSearch.TextPath="cityName"
-    ItemsSource="{Binding }"
-     SelectedValue="{Binding RegisterModel.city}"    
-                            Height="30"
+                        DisplayMemberPath="city_Name"
+    TextSearch.TextPath="city_Name"
+    ItemsSource="{Binding PilotLocations}"
+                SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
+     SelectedValue="{Binding SelectedLocationId}"   
+                VerticalAlignment="Center"
    />
                     </Border>
                     <!-- working 2 on the Row 0 and Row 1 for the Column 1-->
@@ -294,6 +293,8 @@
                         Grid.Row="1" Grid.Column="1"
                         Background="#A9ABB1"
                         Margin="0,0,0,0"
+                        IsOn="True"
+                        IsEnabled="False"
                         />
                 </Grid>
                 <!-- Row 0 Completed-->
@@ -315,7 +316,7 @@
                         </Label.Template>
                     </Label>
 
-                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
+                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5" Background="LightGray">
                         <dotNetKitControls:AutoCompleteComboBox
                            BorderThickness="0"
                             VerticalContentAlignment="Center"
@@ -328,22 +329,30 @@
     ItemsSource="{Binding CityList}"
      SelectedValue="{Binding RegisterModel.city}"    
                             Height="22"
+                            IsEnabled="False"
+                           
    />
+                        
                     </Border>
 
                 </StackPanel>
+                <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>
                 <!-- Row 1 Completed-->
 
                 <!-- Row 2 Started-->
-                <StackPanel  Grid.Row="2" Orientation="Vertical">
-                    <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                        <RichTextBox 
+                <Grid Grid.Row="2">
+                    <Grid>
+                        <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,20" BorderThickness="1" CornerRadius="5">
+                            <RichTextBox 
                             Margin="2"
                              BorderThickness="0"
                             BorderBrush="Transparent"
                             />
-                    </Border>
-                </StackPanel>
+                        </Border>
+                    </Grid>
+                    
+                </Grid>
+                <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>
                 <!-- Row 2 Completed-->
 
                 <!-- Row 3 Started-->

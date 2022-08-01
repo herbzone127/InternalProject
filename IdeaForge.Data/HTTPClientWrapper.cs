@@ -1,10 +1,12 @@
 ﻿using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
-
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IdeaForge.Data
@@ -25,24 +27,49 @@ namespace IdeaForge.Data
             T result = null;
             using (var httpClient = new HttpClient())
             {
-                if (!string.IsNullOrEmpty(Global.Token))
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
                 {
 
 
 
-                    
-                    httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + Global.Token);
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (user != null)
+                    {
+
+                        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + user.token);
+
+                    }
 
                 }
+                //if (!string.IsNullOrEmpty(Global.Token))
+                //{
+
+
+
+
+                //   
+
+                //}
+                //else
+                //{
+
+                //}
                 var response =await httpClient.GetAsync(new Uri(url));
 
-                response.EnsureSuccessStatusCode();
+                //response.EnsureSuccessStatusCode();
                 await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>
                 {
                     if (x.IsFaulted)
-                        throw x.Exception;
-
+                    {
+                        if (!Barrel.Current.IsExpired(url))
+                        {
+                            result= Barrel.Current.Get<T>(url); 
+                        }
+                    }
+                   
                     result = JsonConvert.DeserializeObject<T>(x.Result);
+                    Barrel.Current.Add<T>(url, result, TimeSpan.FromHours(1));
+                  
                 });
             }
 
@@ -63,27 +90,38 @@ namespace IdeaForge.Data
 
             using (var client = new HttpClient())
             {
-                if (!string.IsNullOrEmpty(Global.Token))
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
                 {
 
 
 
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (user != null)
+                    {
 
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + Global.Token);
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + user.token);
+
+                    }
 
                 }
                 var serializeJson = JsonConvert.SerializeObject(postObject);
                 HttpContent content = new StringContent(serializeJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(apiUrl, content).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+                //response.EnsureSuccessStatusCode();
 
                 await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>
                 {
                     if (x.IsFaulted)
-                        throw x.Exception;
+                    {
+                        if (!Barrel.Current.IsExpired(apiUrl))
+                        {
+                            result = Barrel.Current.Get<string>(apiUrl);
+                        }
+                    }
 
                     result = x.Result;
+                    Barrel.Current.Add<string>(apiUrl, result, TimeSpan.FromHours(1));
 
                 });
             

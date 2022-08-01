@@ -54,7 +54,8 @@ namespace ideaForge.Popups
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+           Application.Current.Shutdown();
+            //this.Close();
         }
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
@@ -93,6 +94,9 @@ namespace ideaForge.Popups
 
         }
 
-        
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //Application.Current.Shutdown();
+        }
     }
 }

@@ -238,7 +238,7 @@ namespace ideaForge.ViewModels
         #region Methods
         public async Task<bool> GetTodaysRequest(string status)
         {
-            IsBusy = true;
+            //IsBusy = true;
             try
             {
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
@@ -303,7 +303,7 @@ namespace ideaForge.ViewModels
                MessageBox.ShowError(ex.Message);
                 return false;
             }
-            IsBusy = false;
+            //IsBusy = false;
             return false;
         }
         public async Task GetAllRequest(string status)
