@@ -146,6 +146,11 @@ namespace ideaForge.Pages.DashboardPages
                 }
             }
         }
+
+        private void DataGrid_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
         //private ImageSource ConvertImageSource(string source)
         //{
         //    var converter = new ImageSourceConverter();

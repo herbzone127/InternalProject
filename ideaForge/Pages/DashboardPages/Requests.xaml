@@ -57,7 +57,7 @@
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding TodayRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
-                        
+                        MouseEnter="DataGrid_MouseEnter"
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
@@ -74,10 +74,10 @@
                         </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn   Header="Booking Id" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="{Binding id}"/>
+                                        <Label   Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

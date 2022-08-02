@@ -11,7 +11,7 @@ namespace IdeaForge.Domain
         {
             public string message { get; set; }
             public bool status { get; set; }
-            public List<PilotLocation> PilotLocations { get; set; }
+            public List<PilotLocation> userData { get; set; }
         }
 
         public class PilotLocation
