@@ -284,7 +284,9 @@ namespace ideaForge.ViewModels
                         //  dt=  dt.Where(u=>u.location==Global.PilotLoggedLocation).ToList();
                         //    TodaysRequests = new ObservableCollection<RequestData>(dt);
                         //}
-                        TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
+                        var data = requests.userData.OrderByDescending(x => x.updateOn).ThenBy(u => u.addedOn);
+                        TodaysRequests = new ObservableCollection<RequestData>(data);
+                        _ = TodaysRequests.OrderByDescending(u => u.updateOn).ThenBy(u => u.addedOn);
                         //Console.WriteLine("hello    " + DateTime.Now);
                     }
                 }
@@ -365,8 +367,10 @@ namespace ideaForge.ViewModels
                                 u.IsVisibleButton = Visibility.Hidden;
                             }
                         });
-                        AllRequests = new ObservableCollection<RequestData>(requests.userData);
 
+                        var data = requests.userData.OrderByDescending(x => x.updateOn).ThenBy(u=>u.addedOn);
+                        AllRequests = new ObservableCollection<RequestData>(data);
+                        _=AllRequests.OrderByDescending(x => x.updateOn).ThenBy(u => u.addedOn);
                     }
                 }
               
