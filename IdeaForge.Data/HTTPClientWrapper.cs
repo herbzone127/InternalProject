@@ -66,10 +66,21 @@ namespace IdeaForge.Data
                             result= Barrel.Current.Get<T>(url); 
                         }
                     }
-                   
-                    result = JsonConvert.DeserializeObject<T>(x.Result);
-                    Barrel.Current.Add<T>(url, result, TimeSpan.FromHours(1));
-                  
+                    if (response.IsSuccessStatusCode)
+                    {
+                        if (x.Result.ToLowerInvariant().Contains("status"))
+                        {
+                            result = JsonConvert.DeserializeObject<T>(x.Result);
+                            Barrel.Current.Add<T>(url, result, TimeSpan.FromHours(1));
+                        }
+
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        //throw new Exception( x.Exception;
+                    }
+
+
                 });
             }
 
@@ -119,9 +130,16 @@ namespace IdeaForge.Data
                             result = Barrel.Current.Get<string>(apiUrl);
                         }
                     }
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result = x.Result;
+                        Barrel.Current.Add<string>(apiUrl, result, TimeSpan.FromHours(1));
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        //throw x.Exception;
+                    }
 
-                    result = x.Result;
-                    Barrel.Current.Add<string>(apiUrl, result, TimeSpan.FromHours(1));
 
                 });
             
@@ -158,14 +176,21 @@ namespace IdeaForge.Data
                 HttpContent content = new StringContent(serializeJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(apiUrl, content).ConfigureAwait(false);
 
-                response.EnsureSuccessStatusCode();
+              
 
                 await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>
                 {
                     if (x.IsFaulted)
                         throw x.Exception;
-
-                    result = x.Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result = x.Result;
+                    }
+                    if(response.StatusCode== System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        //throw x.Exception;
+                    }
+                
 
                 });
 

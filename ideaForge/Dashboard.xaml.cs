@@ -82,9 +82,12 @@ namespace ideaForge
         {
             Barrel.Current.EmptyAll();
             trayProfile.Visibility = Visibility.Hidden;
+           
+           
+           
+           this.Close();
             var login = new Login();
             login.Show();
-            this.Close();
         }
 
         private void currentPg_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -174,7 +177,7 @@ namespace ideaForge
         private void loginWindow_Closing(object sender, CancelEventArgs e)
         {
            // CloseAllWindows();
-            App.Current.Shutdown();
+            //App.Current.Shutdown();
         }
         private void CloseAllWindows()
         {
