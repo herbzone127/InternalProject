@@ -1,4 +1,5 @@
-﻿using MapControl;
+﻿using MahApps.Metro.Controls;
+using MapControl;
 using MapControl.Caching;
 using MapControl.UiTools;
 using System;
@@ -183,6 +184,30 @@ namespace ideaForge.Pages.DashboardPages
             var mapItem = (MapItem)sender;
             mapItem.IsSelected = !mapItem.IsSelected;
             e.Handled = true;
+        }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            if (toggleSwitch != null)
+            {
+                if (toggleSwitch.IsOn == true)
+                {
+                    if (statusPanel1 != null)
+                    {
+                        statusPanel1.Visibility = Visibility.Hidden;
+                        statusPanel2.Visibility = Visibility.Hidden;
+                        statusPanel3.Visibility = Visibility.Hidden;
+                    }
+                  
+                }
+                else
+                {
+                    statusPanel1.Visibility = Visibility.Visible;
+                    statusPanel2.Visibility = Visibility.Visible;
+                    statusPanel3.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

@@ -226,7 +226,11 @@ namespace ideaForge.Popups
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            LoginPage.Effect = null;
+            if (LoginPage != null)
+            {
+                LoginPage.Effect = null;
+            }
+       
             //LoginPage.AllowsTransparency = false;
             Closing -= Window_Closing;
             e.Cancel = true;

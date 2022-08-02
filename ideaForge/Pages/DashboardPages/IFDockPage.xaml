@@ -291,16 +291,15 @@
                     Content="Status" />
                     <mah:ToggleSwitch
                         Grid.Row="1" Grid.Column="1"
-                        Background="#A9ABB1"
+                        Toggled="ToggleSwitch_Toggled"
                         Margin="0,0,0,0"
                         IsOn="True"
-                        IsEnabled="False"
                         />
                 </Grid>
                 <!-- Row 0 Completed-->
 
                 <!-- Row 1 Started-->
-                <StackPanel  Grid.Row="1" Orientation="Vertical">
+                <StackPanel  Grid.Row="1" Orientation="Vertical" x:Name="statusPanel1" Visibility="Hidden">
                     <Label
                             HorizontalAlignment="Left"
                             Margin="15,5,0,5"
@@ -316,7 +315,7 @@
                         </Label.Template>
                     </Label>
 
-                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5" Background="LightGray">
+                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5" >
                         <dotNetKitControls:AutoCompleteComboBox
                            BorderThickness="0"
                             VerticalContentAlignment="Center"
@@ -329,20 +328,19 @@
     ItemsSource="{Binding CityList}"
      SelectedValue="{Binding RegisterModel.city}"    
                             Height="22"
-                            IsEnabled="False"
-                           
+                        
    />
                         
                     </Border>
 
                 </StackPanel>
-                <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>
+                <!--<Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>-->
                 <!-- Row 1 Completed-->
 
                 <!-- Row 2 Started-->
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" x:Name="statusPanel2" Visibility="Hidden">
                     <Grid>
-                        <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,20" BorderThickness="1" CornerRadius="5">
+                        <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,0" BorderThickness="1" CornerRadius="5">
                             <RichTextBox 
                             Margin="2"
                              BorderThickness="0"
@@ -352,11 +350,11 @@
                     </Grid>
                     
                 </Grid>
-                <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>
+                <!--<Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>-->
                 <!-- Row 2 Completed-->
 
                 <!-- Row 3 Started-->
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="3" x:Name="statusPanel3" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -385,7 +383,7 @@
                     </Button>
                     <Button 
             Grid.Column="0"
-                
+                x:Name="CancelBtn"
             
             BorderThickness="1" Margin="15,10,10,10"
             BorderBrush="Black" 
