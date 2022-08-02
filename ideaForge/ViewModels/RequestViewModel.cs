@@ -224,6 +224,7 @@ namespace ideaForge.ViewModels
                     if (requests.status)
                     {
                         requests.userData.ForEach(u => {
+                            u.startDate.ToString("MM/dd/yyyy hh:mm:ss  tt");
                             if (u.statusID == 1)
                             {
                                 //Pending
@@ -313,6 +314,7 @@ namespace ideaForge.ViewModels
                     if (requests.status)
                     {
                         requests.userData.ForEach(u => {
+                            u.startDate.ToString("MM/dd/yyyy hh:mm:ss tt");
                             if (u.statusID == 1)
                             {
                                 //Pending
