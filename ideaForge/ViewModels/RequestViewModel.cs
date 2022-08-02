@@ -219,72 +219,76 @@ namespace ideaForge.ViewModels
             try
             {
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
-                if (requests.status)
+                if(requests != null)
                 {
-                    requests.userData.ForEach(u => {
-                        if (u.statusID == 1)
-                        {
-                            //Pending
-                            u.color = ConvertColor("#FFF4DB");
-                            u.TextColor = ConvertColor("#FFC540");
-                            u.StatusImage = "/Images/pendingIcon.png";
-                            u.IsVisibleButton = Visibility.Visible;
-                        }
-                        if (u.statusID == 2)
-                        {
-                            //OnGoing
-                            u.color = ConvertColor("#FFF3D9");
-                            u.TextColor = ConvertColor("#F98926");
-                            u.StatusImage = "/Images/ongoingIcon.png";
-                            u.IsVisibleButton = Visibility.Hidden;
+                    if (requests.status)
+                    {
+                        requests.userData.ForEach(u => {
+                            if (u.statusID == 1)
+                            {
+                                //Pending
+                                u.color = ConvertColor("#FFF4DB");
+                                u.TextColor = ConvertColor("#FFC540");
+                                u.StatusImage = "/Images/pendingIcon.png";
+                                u.IsVisibleButton = Visibility.Visible;
+                            }
+                            if (u.statusID == 2)
+                            {
+                                //OnGoing
+                                u.color = ConvertColor("#FFF3D9");
+                                u.TextColor = ConvertColor("#F98926");
+                                u.StatusImage = "/Images/ongoingIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
 
-                        }
-                        if (u.statusID == 3)
-                        {
-                            //UpComming
-                            u.color = ConvertColor("#000000");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 4)
-                        {
-                            //Rejected
-                            u.color = ConvertColor("#D42424");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 5)
-                        {
-                            //Completed
-                            u.color = ConvertColor("#DEECFF");
-                            u.TextColor = ConvertColor("#3398D8");
-                            u.StatusImage = "/Images/CompleteRideIcon.png";
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 6)
-                        {
-                            //Cancel
-                            u.color = ConvertColor("#A9ABB1");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 7)
-                        {
-                            //EndFlight
-                            u.color = ConvertColor("#000000");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                    });
-                    //var dt = requests.userData;
-                    //if (dt!= null)
-                    //{
-                    //  dt=  dt.Where(u=>u.location==Global.PilotLoggedLocation).ToList();
-                    //    TodaysRequests = new ObservableCollection<RequestData>(dt);
-                    //}
-                    TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
-                    //Console.WriteLine("hello    " + DateTime.Now);
+                            }
+                            if (u.statusID == 3)
+                            {
+                                //UpComming
+                                u.color = ConvertColor("#000000");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 4)
+                            {
+                                //Rejected
+                                u.color = ConvertColor("#D42424");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 5)
+                            {
+                                //Completed
+                                u.color = ConvertColor("#DEECFF");
+                                u.TextColor = ConvertColor("#3398D8");
+                                u.StatusImage = "/Images/CompleteRideIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 6)
+                            {
+                                //Cancel
+                                u.color = ConvertColor("#A9ABB1");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 7)
+                            {
+                                //EndFlight
+                                u.color = ConvertColor("#000000");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                        });
+                        //var dt = requests.userData;
+                        //if (dt!= null)
+                        //{
+                        //  dt=  dt.Where(u=>u.location==Global.PilotLoggedLocation).ToList();
+                        //    TodaysRequests = new ObservableCollection<RequestData>(dt);
+                        //}
+                        TodaysRequests = new ObservableCollection<RequestData>(requests.userData);
+                        //Console.WriteLine("hello    " + DateTime.Now);
+                    }
                 }
+            
                 return true;
             }
             catch (Exception ex)
@@ -302,66 +306,70 @@ namespace ideaForge.ViewModels
             try
             {
                 var requests = await _pilotRequestServices.GetAllRequest(status);
-                if (requests.status)
+                if (requests != null)
                 {
-                    requests.userData.ForEach(u => {
-                        if (u.statusID == 1)
-                        {
-                            //Pending
-                            u.color = ConvertColor("#FFF4DB");
-                            u.TextColor = ConvertColor("#FFC540");
-                            u.StatusImage = "/Images/pendingIcon.png";
-                            u.IsVisibleButton = Visibility.Visible;
-                        }
-                        if (u.statusID == 2)
-                        {
-                            //OnGoing
-                            u.color = ConvertColor("#FFF3D9");
-                            u.TextColor = ConvertColor("#F98926");
-                            u.StatusImage = "/Images/ongoingIcon.png";
-                            u.IsVisibleButton = Visibility.Hidden;
+                    if (requests.status)
+                    {
+                        requests.userData.ForEach(u => {
+                            if (u.statusID == 1)
+                            {
+                                //Pending
+                                u.color = ConvertColor("#FFF4DB");
+                                u.TextColor = ConvertColor("#FFC540");
+                                u.StatusImage = "/Images/pendingIcon.png";
+                                u.IsVisibleButton = Visibility.Visible;
+                            }
+                            if (u.statusID == 2)
+                            {
+                                //OnGoing
+                                u.color = ConvertColor("#FFF3D9");
+                                u.TextColor = ConvertColor("#F98926");
+                                u.StatusImage = "/Images/ongoingIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
 
-                        }
-                        if (u.statusID == 3)
-                        {
-                            //UpComming
-                            u.color = ConvertColor("#000000");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 4)
-                        {
-                            //Rejected
-                            u.color = ConvertColor("#D42424");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 5)
-                        {
-                            //Completed
-                            u.color = ConvertColor("#DEECFF");
-                            u.TextColor = ConvertColor("#3398D8");
-                            u.StatusImage = "/Images/CompleteRideIcon.png";
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 6)
-                        {
-                            //Cancel
-                            u.color = ConvertColor("#A9ABB1");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                        if (u.statusID == 7)
-                        {
-                            //EndFlight
-                            u.color = ConvertColor("#000000");
-                            u.TextColor = ConvertColor("#FFFFFF");
-                            u.IsVisibleButton = Visibility.Hidden;
-                        }
-                    });
-                    AllRequests = new ObservableCollection<RequestData>(requests.userData);
-                   
+                            }
+                            if (u.statusID == 3)
+                            {
+                                //UpComming
+                                u.color = ConvertColor("#000000");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 4)
+                            {
+                                //Rejected
+                                u.color = ConvertColor("#D42424");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 5)
+                            {
+                                //Completed
+                                u.color = ConvertColor("#DEECFF");
+                                u.TextColor = ConvertColor("#3398D8");
+                                u.StatusImage = "/Images/CompleteRideIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 6)
+                            {
+                                //Cancel
+                                u.color = ConvertColor("#A9ABB1");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            if (u.statusID == 7)
+                            {
+                                //EndFlight
+                                u.color = ConvertColor("#000000");
+                                u.TextColor = ConvertColor("#FFFFFF");
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                        });
+                        AllRequests = new ObservableCollection<RequestData>(requests.userData);
+
+                    }
                 }
+              
              
               
             }

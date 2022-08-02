@@ -54,7 +54,7 @@ namespace ideaForge.Popups
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
         {
-           Application.Current.Shutdown();
+           //Application.Current.Shutdown();
             //this.Close();
         }
 
@@ -79,11 +79,12 @@ namespace ideaForge.Popups
                 var dashboard = new Dashboard();
                
                 cDockAreaPopup.Close();
-                if (App.Current.Windows[0] is Login)
+              var loginWindow=  App.Current.Windows.OfType<Login>().FirstOrDefault();
+                if (loginWindow is Login)
                 {
-                    App.Current.Windows[0].Close();
+                    loginWindow.Close();
                 }
-                dashboard.ShowDialog();
+                dashboard.Show();
             }
             catch (Exception)
             {
