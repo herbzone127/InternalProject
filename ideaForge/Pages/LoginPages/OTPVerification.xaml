@@ -54,7 +54,7 @@
              Orientation="Horizontal"
             Margin="13,0,0,5" Height="26" VerticalAlignment="Bottom">
             <Label  Content="Didn't receive OTP?" Foreground="DimGray"/>
-            <Label MouseLeftButtonDown="Label_ResendOTPBTN" Foreground="#91c84f" MouseLeftButtonUp="Label_ResendOTPBTN" FontWeight="Bold">Resend OTP</Label>
+            <Label MouseLeftButtonDown="Label_ResendOTPBTN" Foreground="#91c84f" MouseLeftButtonUp="Label_ResendOTPBTN" FontWeight="Bold">Resend OTP in 120 sec</Label>
         </StackPanel>
         <!--<Button Grid.Row="6" 
                 Height="35"

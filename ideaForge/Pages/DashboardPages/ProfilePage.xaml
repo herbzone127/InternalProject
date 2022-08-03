@@ -112,7 +112,7 @@
                         </TextBox>
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
-                <StackPanel  Orientation="Vertical" Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding ShowSaveBTn}">
+                <StackPanel  Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="4" IsEnabled="{Binding ShowSaveBTn}">
                         <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
                             <Label.Template>
                                 <ControlTemplate>
@@ -127,7 +127,7 @@
                         </TextBox>
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
                         <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
                             <Label.Template>
                                 <ControlTemplate>
@@ -142,7 +142,7 @@
                         </TextBox>
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
                         <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
                             <Label.Template>
                                 <ControlTemplate>
@@ -169,7 +169,7 @@
                         </TextBox>-->
                         <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
                     </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,15,10,0" IsEnabled="False">
+                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="False">
                         <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
                             <Label.Template>
                                 <ControlTemplate>

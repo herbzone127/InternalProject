@@ -148,12 +148,13 @@
                 </Label>
                 <TextBox MaxLength="30" 
                         Tag="Enter Name"
-                       
                          Text="{Binding RegisterModel.name,
                     UpdateSourceTrigger=PropertyChanged,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True
-                    }" x:Name="txtName"  >
+                    }" x:Name="txtName"  
+                         PreviewTextInput="txtName_PreviewTextInput"
+                         PreviewKeyDown="NoSpace_PreviewKeyDown1">
                    
                 </TextBox>
                 <!--<Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>-->
@@ -209,6 +210,7 @@
                     UpdateSourceTrigger=PropertyChanged ,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True}"
+                          MaxLength="30" 
                           Tag="Enter Email"
                           PreviewKeyDown="TextBox_PreviewKeyDown_1"
                           >
@@ -260,10 +262,12 @@
 
                 <TextBox 
                     Tag="Enter Organization Name"
+                    MaxLength="30" 
                     Text="{Binding RegisterModel.organizationName,
                     UpdateSourceTrigger=PropertyChanged ,
                     NotifyOnValidationError=True, 
-                    ValidatesOnDataErrors=True}" x:Name="TxtOrganization" />
+                    ValidatesOnDataErrors=True}" x:Name="TxtOrganization" 
+                    PreviewKeyDown="NoSpace_PreviewKeyDown2"/>
                 <!--<Label Margin="15,0,0,0" Padding="0" x:Name="lblOrganization"  Content="Please Enter a Valid Organization Name" Foreground="Red" Visibility="Hidden"/>-->
             </StackPanel>
             <StackPanel Grid.Row="6" Orientation="Vertical">
@@ -279,7 +283,10 @@
                 </Label>
                 <TextBox 
                     Tag="Enter Department Name"
-                    Text="{Binding RegisterModel.departmentName}"   />
+                    MaxLength="30" 
+                    Text="{Binding RegisterModel.departmentName}"  
+                    PreviewKeyDown="NoSpace_PreviewKeyDown3"
+                    x:Name="DepartmentNameTxt"/>
             </StackPanel>
             <StackPanel  Grid.Row="7" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
