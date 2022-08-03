@@ -59,7 +59,7 @@ namespace ideaForge.Popups
         }
         public static DialogResult Show(string message, CMessageTitle title, CMessageButton okButton,string coloredMessage)
         {
-            //cMessageBox = new MessageBox();
+            cMessageBox = new MessageBox();
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(okButton);
             //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
             cMessageBox.txtMessage.Text = message;

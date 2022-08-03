@@ -99,9 +99,10 @@ namespace ideaForge
             }
             else
             {
+                var login = new Login();
                 var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
                 dashboard.Close();
-                var login = new Login();
+               
                 login.Show();
             }
 
