@@ -209,6 +209,7 @@
                     UpdateSourceTrigger=PropertyChanged ,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True}"
+                          MaxLength="30" 
                           Tag="Enter Email"
                           PreviewKeyDown="TextBox_PreviewKeyDown_1"
                           >
@@ -260,6 +261,7 @@
 
                 <TextBox 
                     Tag="Enter Organization Name"
+                    MaxLength="30" 
                     Text="{Binding RegisterModel.organizationName,
                     UpdateSourceTrigger=PropertyChanged ,
                     NotifyOnValidationError=True, 
@@ -279,6 +281,7 @@
                 </Label>
                 <TextBox 
                     Tag="Enter Department Name"
+                    MaxLength="30" 
                     Text="{Binding RegisterModel.departmentName}"   />
             </StackPanel>
             <StackPanel  Grid.Row="7" Orientation="Vertical">
