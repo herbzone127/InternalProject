@@ -65,30 +65,31 @@ namespace ideaForge.Popups
             cMessageBox.txtMessage.Text = message;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(title);
             cMessageBox.lblColorMessage.Text = coloredMessage;
-            if (LoginPage != null)
-            {
-                if(Application.Current.MainWindow is Login)
-                {
-                    //LoginPage = new Window();
-                    LoginPage = Application.Current.MainWindow;
-                    //LoginPage.Background = ConvertColor("#000000");
-                    //LoginPage.Opacity = 0.1;
-                    //LoginPage.AllowsTransparency = true;
-                    LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                    LoginPage.IsEnabled = false;
-                }
-                if(Application.Current.MainWindow is Dashboard)
-                {
-                    //LoginPage = new Window();
-                    LoginPage = Application.Current.MainWindow;
-                    //LoginPage.Background = ConvertColor("#000000");
-                    //LoginPage.Opacity = 0.1;
-                    //LoginPage.AllowsTransparency = true;
-                    LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                    LoginPage.IsEnabled = false;
-                }
-               
-            }
+            BackgroundBlur();
+
+       
+                //if(Application.Current.MainWindow is Login)
+                //{
+                //    //LoginPage = new Window();
+                //    LoginPage = Application.Current.MainWindow;
+                //    //LoginPage.Background = ConvertColor("#000000");
+                //    //LoginPage.Opacity = 0.1;
+                //    //LoginPage.AllowsTransparency = true;
+                //    LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                //    LoginPage.IsEnabled = false;
+                //}
+                //if(Application.Current.MainWindow is Dashboard)
+                //{
+                //    //LoginPage = new Window();
+                //    LoginPage = Application.Current.MainWindow;
+                //    //LoginPage.Background = ConvertColor("#000000");
+                //    //LoginPage.Opacity = 0.1;
+                //    //LoginPage.AllowsTransparency = true;
+                //    LoginPage.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+                //    LoginPage.IsEnabled = false;
+                //}
+
+            //}
           
             //cMessageBox.Effect =new DropShadowEffect() { Color = Colors.Black, Opacity=100, ShadowDepth=0,BlurRadius=100,  };
             //icon
@@ -130,25 +131,26 @@ namespace ideaForge.Popups
             cMessageBox = new MessageBox();
            
             LoginPage = new Window();
-            if (LoginPage != null)
-            {
-                LoginPage = Application.Current.MainWindow;
-                LoginPage.IsEnabled = false;
-                LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-               if(cMessageBox.Parent is Login)
-                {
-                    LoginPage = cMessageBox.Parent as Login;
-                    LoginPage.IsEnabled = false;
-                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                }
-               if(cMessageBox.Parent is Dashboard)
-                {
-                    LoginPage = cMessageBox.Parent as Dashboard;
-                    LoginPage.IsEnabled = false;
-                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                }
-                
-            }
+            BackgroundBlur();
+            //if (LoginPage != null)
+            //{
+            //    LoginPage = Application.Current.MainWindow;
+            //    LoginPage.IsEnabled = false;
+            //    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //   if(cMessageBox.Parent is Login)
+            //    {
+            //        LoginPage = cMessageBox.Parent as Login;
+            //        LoginPage.IsEnabled = false;
+            //        LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    }
+            //   if(cMessageBox.Parent is Dashboard)
+            //    {
+            //        LoginPage = cMessageBox.Parent as Dashboard;
+            //        LoginPage.IsEnabled = false;
+            //        LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    }
+
+            //}
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
             //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
             cMessageBox.txtMessage.Text = message;
@@ -164,23 +166,24 @@ namespace ideaForge.Popups
         {
             cMessageBox = new MessageBox();
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
-            LoginPage = new Window();
-            if (LoginPage != null)
-            {
-                LoginPage = Application.Current.MainWindow;
-                LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
-                if(cMessageBox.Parent is Login)
-                {
-                    LoginPage = cMessageBox.Parent as Login;
-                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                }
-                if (cMessageBox.Parent is Dashboard)
-                {
-                    LoginPage = cMessageBox.Parent as Dashboard;
-                    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
-                }
-            }
+            BackgroundBlur();
+            //LoginPage = new Window();
+            //if (LoginPage != null)
+            //{
+            //    LoginPage = Application.Current.MainWindow;
+            //    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
+            //    if(cMessageBox.Parent is Login)
+            //    {
+            //        LoginPage = cMessageBox.Parent as Login;
+            //        LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    }
+            //    if (cMessageBox.Parent is Dashboard)
+            //    {
+            //        LoginPage = cMessageBox.Parent as Dashboard;
+            //        LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    }
+            //}
             cMessageBox.txtMessage.Text = message;
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Confirm);
             cMessageBox.lblColorMessage.Text = coloredMessage;
@@ -193,13 +196,14 @@ namespace ideaForge.Popups
         {
             result = System.Windows.Forms.DialogResult.Yes;
             Border border = new Border();
-
+            BackgroundClear();
             cMessageBox.Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             result = System.Windows.Forms.DialogResult.No;
+            BackgroundClear();
             cMessageBox.Close();
         }
 
@@ -226,11 +230,8 @@ namespace ideaForge.Popups
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (LoginPage != null)
-            {
-                LoginPage.Effect = null;
-            }
-       
+            BackgroundClear();
+
             //LoginPage.AllowsTransparency = false;
             Closing -= Window_Closing;
             e.Cancel = true;
@@ -263,7 +264,41 @@ namespace ideaForge.Popups
             var brush = (Brush)converter.ConvertFromString(color);
             return brush;
         }
+        public static void BackgroundBlur()
+        {
+            var loginWindow = App.Current.Windows.OfType<Login>().FirstOrDefault();
+            if (loginWindow != null)
+            {
 
+                loginWindow.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            }
+            var dashboardWindow = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+            if (dashboardWindow != null)
+            {
+                dashboardWindow.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            }
+        }
+        public void BackgroundClear()
+        {
+            var loginWindow = App.Current.Windows.OfType<Login>().FirstOrDefault();
+            if (loginWindow != null)
+            {
+                if (loginWindow.Effect != null)
+                {
+                    loginWindow.Effect = null;
+                }
+
+            }
+            var dashboardWindow = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+            if (dashboardWindow != null)
+            {
+                if (dashboardWindow.Effect != null)
+                {
+                    dashboardWindow.Effect = null;
+                }
+
+            }
+        }
         private void btnPopupClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

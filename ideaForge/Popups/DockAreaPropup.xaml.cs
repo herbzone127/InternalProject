@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyCache.FileStore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,17 +45,36 @@ namespace ideaForge.Popups
         {
             cDockAreaPopup = new DockAreaPopup();
             cDockAreaPopup.btnContinue.Content = "Continue";
-            Login = new Window();
-            Login = Application.Current.MainWindow;
-            
-            Login.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //Login = new Window();
+            //Login = Application.Current.MainWindow;
+            var loginWindow = Application.Current.Windows.OfType<Login>().FirstOrDefault();
+            if (loginWindow != null) {
+                loginWindow.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            }
+           
             cDockAreaPopup.ShowDialog();
             return result;
         }
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
         {
-           Application.Current.Shutdown();
+            Close();
+            var loginWindow = Application.Current.Windows.OfType<Login>().FirstOrDefault();
+            if(loginWindow != null)
+            {
+                Barrel.Current.EmptyAll();
+                if (loginWindow.Effect != null)
+                {
+                    loginWindow.Effect = null;
+                }
+                loginWindow.Show();
+            }
+            else
+            {
+                var login = new Login();
+                login.Show();
+            }
+           //Application.Current.Shutdown();
             //this.Close();
         }
 
@@ -74,16 +94,19 @@ namespace ideaForge.Popups
                 //    }
 
                 //}
-                Login.Effect = null;
+                //Login.Effect = null;
                 result = System.Windows.Forms.DialogResult.Yes;
                 var dashboard = new Dashboard();
                
                 cDockAreaPopup.Close();
-                if (App.Current.Windows[0] is Login)
+              var loginWindow=  App.Current.Windows.OfType<Login>().FirstOrDefault();
+                if (loginWindow is Login)
                 {
-                    App.Current.Windows[0].Close();
+                    if (loginWindow.Effect != null)
+                        loginWindow.Effect = null;
+                    loginWindow.Close();
                 }
-                dashboard.ShowDialog();
+                dashboard.Show();
             }
             catch (Exception)
             {

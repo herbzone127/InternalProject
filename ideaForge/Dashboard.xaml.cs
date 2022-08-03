@@ -32,8 +32,14 @@ namespace ideaForge
         {
             InitializeComponent();
             this.WindowState = Global.LoginState;
+            var login = Application.Current.Windows.OfType<Login>().FirstOrDefault();
+            if (login != null)
+            {
+                login.Close();
+            }
+            
         }
-
+   
         private  void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
         {
             statusBorder.Visibility=Visibility.Hidden;
@@ -82,12 +88,27 @@ namespace ideaForge
         {
             Barrel.Current.EmptyAll();
             trayProfile.Visibility = Visibility.Hidden;
-           
-           
-           
-           this.Close();
-            var login = new Login();
-            login.Show();
+            Barrel.Current.EmptyAll();
+            var previousLogin = Application.Current.Windows.OfType<Login>().FirstOrDefault();
+            if (previousLogin != null)
+            {
+                previousLogin.Effect = null;
+              var dashboard  = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                dashboard.Close();
+                previousLogin.Show();
+            }
+            else
+            {
+                var login = new Login();
+                var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                dashboard.Close();
+               
+                login.Show();
+            }
+
+            
+          
+          
         }
 
         private void currentPg_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -176,6 +197,7 @@ namespace ideaForge
 
         private void loginWindow_Closing(object sender, CancelEventArgs e)
         {
+            
            // CloseAllWindows();
             //App.Current.Shutdown();
         }

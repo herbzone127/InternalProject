@@ -10,6 +10,7 @@
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
             xmlns:pg="clr-namespace:ideaForge.Pages.DashboardPages"          
         mc:Ignorable="d"
+                      
                     Closing="loginWindow_Closing"
                       xmlns:converters="clr-namespace:ideaForge.Converters"
       x:Name="loginWindow"

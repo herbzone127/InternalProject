@@ -101,10 +101,10 @@ namespace ideaForge.ViewModels
                     var result = await _pilotRequestServices.GetPilotLocations(user.id);
                     if (result.status)
                     {
-                        if (result.PilotLocations.Count() != 0)
+                        if (result.userData.Count() != 0)
                         {
                             //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
-                            PilotLocations = new ObservableCollection<PilotLocation>(result.PilotLocations);
+                            PilotLocations = new ObservableCollection<PilotLocation>(result.userData);
                             SelectedLocation = PilotLocations[0];
                         }
                         else

@@ -41,17 +41,9 @@ namespace ideaForge
                 var mainWindow = serviceProvider.GetService<Login>();
                 mainWindow.Show();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                try
-                {
-                    Application.Current.Shutdown();
-                }
-                catch (Exception)
-                {
-
-              
-                }
+                
                
             }
             
