@@ -55,7 +55,7 @@ namespace ideaForge
         private void LanguageComboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(languageCombobox.Text))
-            {
+            { 
                 languageWaterMark.Visibility = Visibility.Visible;
             }
             else
@@ -72,6 +72,12 @@ namespace ideaForge
         private void TextBox_PreviewKeyDown_1(object sender, KeyEventArgs e)
         {
             e.Handled = e.Key == Key.Space;
+        }
+
+        private void txtName_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

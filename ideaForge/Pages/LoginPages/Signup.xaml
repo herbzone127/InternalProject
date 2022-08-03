@@ -148,12 +148,12 @@
                 </Label>
                 <TextBox MaxLength="30" 
                         Tag="Enter Name"
-                       
                          Text="{Binding RegisterModel.name,
                     UpdateSourceTrigger=PropertyChanged,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True
-                    }" x:Name="txtName"  >
+                    }" x:Name="txtName"  
+                         PreviewTextInput="txtName_PreviewTextInput">
                    
                 </TextBox>
                 <!--<Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>-->
