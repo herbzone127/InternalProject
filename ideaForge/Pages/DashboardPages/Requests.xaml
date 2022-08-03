@@ -84,10 +84,14 @@
                             <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding userName}" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding contactNo}"/>
+                                        </StackPanel>
+                                        <!--<TextBlock>
                                             <Run Text="{Binding userName}"/>
                                             <Run Text="{Binding contactNo}"/>
-                                        </TextBlock>
+                                        </TextBlock>-->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -223,10 +227,10 @@
                             <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock>
-                                            <Run Text="{Binding userName}"/>
-                                            <Run Text="{Binding contactNo}"/>
-                                        </TextBlock>
+                                        <StackPanel Orientation="Vertical" >
+                                            <TextBlock Text="{Binding userName}" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding contactNo}"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

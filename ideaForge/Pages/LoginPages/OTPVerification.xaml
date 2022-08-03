@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ideaForge" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="40,50,40,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="auto"/>
@@ -19,13 +19,14 @@
                           x:Name="progreshbar"
                           Grid.Column="1" Grid.RowSpan="5"/>
 
-        <Image Source="/Images/flightLogo.png" Height="80" VerticalAlignment="Bottom"/>
+        <Image Source="/Images/flightLogo.png" Height="60" VerticalAlignment="Bottom"/>
         <Label 
-            FontSize="34" 
+            
+            FontSize="24" 
             FontFamily="Segoe UI" 
             FontWeight="SemiBold" 
             Grid.Row="1"
-            Content="OTP Verification" HorizontalAlignment="Left" Width="315" Height="55" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+            Content="OTP Verification" HorizontalAlignment="Left" Width="315" Height="55" Margin="5,40,0,0" VerticalAlignment="Bottom"/>
         <Label 
             Grid.Row="2" 
             Margin="15,0,0,5" 
@@ -51,7 +52,7 @@
         <StackPanel
             Grid.Row="5" 
              Orientation="Horizontal"
-            Margin="15,0,0,5" Height="26" VerticalAlignment="Bottom">
+            Margin="13,0,0,5" Height="26" VerticalAlignment="Bottom">
             <Label  Content="Didn't receive OTP?" Foreground="DimGray"/>
             <Label MouseLeftButtonDown="Label_ResendOTPBTN" Foreground="#91c84f" MouseLeftButtonUp="Label_ResendOTPBTN" FontWeight="Bold">Resend OTP</Label>
         </StackPanel>

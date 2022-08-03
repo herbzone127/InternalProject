@@ -14,7 +14,7 @@
         ShowInTaskbar="False"
        ShowActivated="True"
       Topmost="True"
-        Title="DockAreaPropup" Height="250" Width="300"
+        Title="DockAreaPropup" Height="180" Width="300"
         Background="Transparent"
         AllowsTransparency="True"
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
@@ -41,17 +41,17 @@
                 FontWeight="SemiBold" 
                 FontFamily="Segoe UI" 
                 Content="IF Docks Area" 
-                Margin="50,20,0,0" />
+                Margin="50,-10,0,0" />
             <Label 
                 Grid.Row="1" 
                 FontSize="12" 
                 FontWeight="Normal" 
                 FontFamily="Segoe UI" 
                 Content="Please select IF Docks location" 
-                Margin="10,20,0,0" />
+                Margin="10,0,0,0" />
             <dotNetKitControls:AutoCompleteComboBox
                 Grid.Row="2"
-                Margin="10,-10,10,10"
+                Margin="10,0,10,10"
     SelectedValuePath="id"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
