@@ -85,7 +85,7 @@
         </TextBox>
         <Button Grid.Row="6" Grid.Column="0" x:Name="Send" BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" 
          Command="{Binding LoginCommand}"
-                Content="GET OTP" Grid.ColumnSpan="2" Foreground="White" Background="#91c84f">
+                Content="CONTINUE" Grid.ColumnSpan="2" Foreground="White" Background="#91c84f">
             <Button.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Style.Resources>
