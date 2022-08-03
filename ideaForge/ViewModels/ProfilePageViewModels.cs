@@ -151,7 +151,7 @@ namespace ideaForge.ViewModels
                 {
 
                     var data = await _profileService.GetProfile(new IdeaForge.Domain.ProfilemodelID { id = profil.id, token = token });
-                    data.userData.addedondat = data.userData.addedon.ToString("dd/MM/yyyy");
+                    data.userData.addedondat = data.userData.addedon.ToString("dd/MMMM/yyyy");
                     string imgpath = UrlHelper.baseURL + data.userData.image;
                     data.userData.image = imgpath;
                     ProfileModel = data.userData;
