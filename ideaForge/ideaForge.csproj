@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>63</ApplicationRevision>
-    <ApplicationVersion>1.0.0.63</ApplicationVersion>
+    <ApplicationRevision>65</ApplicationRevision>
+    <ApplicationVersion>1.0.0.65</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -598,6 +598,23 @@
   <ItemGroup>
     <Resource Include="Images\flightLogo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\upcommingIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\rejectedIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\completedIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cancelledIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\endedIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\viewButtonIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

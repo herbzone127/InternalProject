@@ -53,11 +53,12 @@
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid FontSize="14"
+                            HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
-                        SelectedItem="{Binding TodayRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                        ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
-                        MouseEnter="DataGrid_MouseEnter"
+                        SelectedItem="{Binding TodaysRequests,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding TodayRequest,Mode=TwoWay}" 
+                        
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
@@ -74,42 +75,49 @@
                         </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn   Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn  Header="Booking Id" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label   Content="{Binding id}"/>
+                                        <Label Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
+                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="200">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical" >
                                             <TextBlock Text="{Binding userName}" FontWeight="SemiBold"/>
                                             <TextBlock Text="{Binding contactNo}"/>
                                         </StackPanel>
-                                        <!--<TextBlock>
-                                            <Run Text="{Binding userName}"/>
-                                            <Run Text="{Binding contactNo}"/>
-                                        </TextBlock>-->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding startDate}"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock>
+                                            <Run FontWeight="SemiBold" Text="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}"/>
+
+                                            </TextBlock>
+                                            <TextBlock>
+                                             <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                             <Run Text=" - "/>
+                                             <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Status" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Status" Width="auto">
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -139,11 +147,30 @@
                                 </DataGridTemplateColumn.CellTemplate>
 
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Action" Width="*">
+                            <DataGridTemplateColumn CanUserSort="False" Header="Action" Width="250">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}">
-                                            <Button BorderBrush="#E9E9E9" 
+                                        <StackPanel Orientation="Horizontal"  >
+                                            <Button
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    Visibility="{Binding ViewButtonVisible, FallbackValue=Hidden}"
+                                                    BorderThickness="1"
+                                                    Background="Transparent"
+                                                    Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.ViewCommand}"
+                                                    CommandParameter="{Binding .}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Height="8" Source="/Images/viewButtonIcon.png" />
+                                                    <TextBlock Margin="5,0">View</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button 
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
                                                     BorderThickness="1"
                                                     Background="Transparent"
                                                     Command="{Binding 
@@ -152,11 +179,12 @@
                                                 Path=DataContext.AcceptedCommand}"
                                                     CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Source="/Images/acceptIcon.png" />
+                                                    <Image Height="8" Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
                                                 </StackPanel>
                                             </Button>
                                             <Button 
+                                                Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
                                                 Margin="5,0"
                                                 BorderBrush="#E9E9E9" 
                                                     BorderThickness="1"
@@ -168,7 +196,7 @@
                                                 UpdateSourceTrigger=PropertyChanged}"
                                                     CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Source="/Images/rejectIcon.png" />
+                                                    <Image Height="8" Source="/Images/rejectIcon.png" />
                                                     <TextBlock Margin="5,0">Reject</TextBlock>
                                                 </StackPanel>
                                             </Button>
@@ -195,7 +223,7 @@
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid FontSize="14"
-                            
+                            HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding SelectedAllRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -217,14 +245,14 @@
                         </DataGrid.Resources>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn  Header="Booking Id" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
+                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="200">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
@@ -234,21 +262,32 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Date &amp; Time Slot" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding startDate}"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock>
+                                               <Run FontWeight="SemiBold" Text="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}"/>
+
+                                            </TextBlock>
+                                            <TextBlock>
+                                             <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                             <Run Text=" - "/>
+                                             <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Status" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Header="Status" Width="auto">
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -278,11 +317,30 @@
                                 </DataGridTemplateColumn.CellTemplate>
 
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Action" Width="*">
+                            <DataGridTemplateColumn CanUserSort="False" Header="Action" Width="250">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}">
-                                            <Button BorderBrush="#E9E9E9" 
+                                        <StackPanel Orientation="Horizontal"  >
+                                            <Button
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    Visibility="{Binding ViewButtonVisible, FallbackValue=Hidden}"
+                                                    BorderThickness="1"
+                                                    Background="Transparent"
+                                                    Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.ViewCommand}"
+                                                    CommandParameter="{Binding .}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Height="8" Source="/Images/viewButtonIcon.png" />
+                                                    <TextBlock Margin="5,0">View</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button 
+                                                Margin="5,0"
+                                                BorderBrush="#E9E9E9" 
+                                                    Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
                                                     BorderThickness="1"
                                                     Background="Transparent"
                                                     Command="{Binding 
@@ -291,11 +349,12 @@
                                                 Path=DataContext.AcceptedCommand}"
                                                     CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Source="/Images/acceptIcon.png" />
+                                                    <Image Height="8" Source="/Images/acceptIcon.png" />
                                                     <TextBlock Margin="5,0">Accept</TextBlock>
                                                 </StackPanel>
                                             </Button>
                                             <Button 
+                                                Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
                                                 Margin="5,0"
                                                 BorderBrush="#E9E9E9" 
                                                     BorderThickness="1"
@@ -307,7 +366,7 @@
                                                 UpdateSourceTrigger=PropertyChanged}"
                                                     CommandParameter="{Binding .}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Source="/Images/rejectIcon.png" />
+                                                    <Image Height="8" Source="/Images/rejectIcon.png" />
                                                     <TextBlock Margin="5,0">Reject</TextBlock>
                                                 </StackPanel>
                                             </Button>
