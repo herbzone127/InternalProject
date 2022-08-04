@@ -177,7 +177,7 @@
                                 <RowDefinition Height="*"/>
                                 
                             </Grid.RowDefinitions>
-                            <Image  Source="/Images/bell.png" Height="25" Margin="0,10,200,10" Grid.Column="0" ></Image>
+                            <Image  Source="/Images/bell.png" Height="25" Margin="0,10,180,10" Grid.Column="0" ></Image>
 
 
                          
@@ -295,7 +295,7 @@
                        FontSize="25"
                        Foreground="Black"
                        FontWeight="SemiBold"
-                                   
+                              FontFamily="Segoe UI"     
                        Content="{Binding PageName,Mode=TwoWay}" />
                         <Border
                             Grid.Column="2"
@@ -326,7 +326,7 @@
 
                         </Border>
                         <StackPanel 
-                           
+                           Margin="0,0,30,0"
                             Grid.Column="3"
                               VerticalAlignment="Center"
                             HorizontalAlignment="Right"

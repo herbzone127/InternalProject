@@ -96,7 +96,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <StackPanel Grid.Row="7" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="7" Grid.Column="0" Margin="5,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <Label  Content="Don't have an account?" Foreground="DimGray"/>
             <Button  FontWeight="Bold" 
                      Background="Transparent"
