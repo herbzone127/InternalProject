@@ -4,7 +4,7 @@ using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System;
-using java.net;
+//using java.net;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +19,8 @@ using ideaForge.Popups;
 using MessageBox = ideaForge.Popups.MessageBox;
 using System.Collections.ObjectModel;
 using ideaForge.Converters;
-using javax.imageio;
+//using javax.imageio;
+using MonkeyCache.FileStore;
 
 namespace ideaForge.ViewModels
 {
@@ -49,6 +50,7 @@ namespace ideaForge.ViewModels
 
         public ProfilePageViewModels()
         {
+       ProfileModel = new UserDataProfile();
             GetCityList();
             _SaveChanges_Comand = new DelegateCommand(SaveChanges_ComandExecut);
             _CancelChanges_Comand = new DelegateCommand(CancelChanges_ComandExecut);
@@ -79,6 +81,13 @@ namespace ideaForge.ViewModels
         {
             get { return _selectedCity; }
             set { _selectedCity = value; }
+        }
+        private string _base64Image;
+
+        public string Base64Image
+        {
+            get { return _base64Image; }
+            set { _base64Image = value; }
         }
 
         private UserDataProfile _profileModel = new UserDataProfile();
@@ -141,35 +150,57 @@ namespace ideaForge.ViewModels
         #region OtherMethods
         public async void GetProfileData()
         {
-            
-            ProfilemodelID profil = new ProfilemodelID();
-            profil.id = Global.loginUserId;
-            if(profil.id != 0)
-            {
-                string token = Global.Token;
-                try
-                {
 
-                    var data = await _profileService.GetProfile(new IdeaForge.Domain.ProfilemodelID { id = profil.id, token = token });
-                    data.userData.addedondat = data.userData.addedon.ToString("dd/MMMM/yyyy");
-                    string imgpath = UrlHelper.baseURL + data.userData.image;
-                    data.userData.image = imgpath;
-                    ProfileModel = data.userData;
-                    if (CityList != null)
+            //ProfilemodelID profil = new ProfilemodelID();
+            //profil.id = Global.loginUserId;
+            if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+            {
+                var profil = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                if (profil.id != 0)
+                {
+                    //string token = Global.Token;
+                    try
                     {
-                        SelectedCity = CityList.FirstOrDefault(u=>u.city_Name==data?.userData?.city);
+
+                        var data = await _profileService.GetProfile(new IdeaForge.Domain.ProfilemodelID { id = profil.id, token = profil.token });
+
+                        if (data != null)
+                        {
+                            if (data.userData != null)
+                            {
+                                if (data.userData.addedon is DateTime)
+                                    data.userData.addedondat = data?.userData?.addedon.ToString("dd/MMMM/yyyy");
+                                string imgpath = UrlHelper.baseURL + data.userData.image;
+                                //data.userData.image = imgpath;
+                                ProfileModel = new UserDataProfile();
+                                ProfileModel = data.userData;
+                                if (CityList != null)
+                                {
+                                    SelectedCity = CityList.FirstOrDefault(u => u.city_Name == data?.userData?.city);
+                                }
+                            }
+                            //data?.userData?.addedondat = data?.userData?.addedon.ToString("dd/MMMM/yyyy");
+
+
+                        }
+                        else
+                        {
+                            MessageBox.ShowError("Server not responding.Please try  again.");
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.ShowError(ex.Message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-
-                   MessageBox.ShowError(ex.Message);
+                    MessageBox.ShowError("User Not Found.");
                 }
             }
-            else
-            {
-                
-            }
+       
             
 
         }
@@ -180,7 +211,8 @@ namespace ideaForge.ViewModels
             ProfileModel.token = Global.Token;
             if (ProfileModel.image == null)
             {
-                ProfileModel.image = "";
+                //ProfileModel.image = "";
+                ProfileModel.image = Base64Image;
             }
         
 
@@ -241,25 +273,37 @@ namespace ideaForge.ViewModels
                         //var base64String = Convert.ToBase64String(stream);
                         //ProfileModel.image = base64String;
 
-                        var imgData = ProfileModel.image;
-                        byte[] imageArray = System.IO.File.ReadAllBytes(imgData);
-                        string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                        //var imgData = ProfileModel.image;
+                        ProfileModel.image = Base64Image;
 
                     }
                 }
-                var result = await _profileService.SaveProfile(ProfileModel);
-                if (result.status)
+                try
                 {
-                    MessageBox.ShowSuccess(result.message,"");
-                    ShowEditBTn = "Visible";
-                    ShowSaveBTn = false;
-                    ShowSaveBTnbtn = "Hidden";
-                    GetProfileData();
+                    var result = await _profileService.SaveProfile(ProfileModel);
+                    if (result != null)
+                    {
+                        if (result.status)
+                        {
+                            MessageBox.ShowSuccess(result.message, "");
+                            ShowEditBTn = "Visible";
+                            ShowSaveBTn = false;
+                            ShowSaveBTnbtn = "Hidden";
+                            GetProfileData();
+                        }
+                        else
+                        {
+                            MessageBox.ShowError("Profile not updated,Please try agin.");
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                   MessageBox.ShowError("Profile not updated,Please try agin.");
+                    MessageBox.ShowError("Profile not updated,Please try agin.");
+
                 }
+           
+              
             }
         }
         public  void CancelChanges_ComandExecut(object obj)
@@ -276,7 +320,7 @@ namespace ideaForge.ViewModels
             ShowSaveBTn = true;
             ShowSaveBTnbtn = "Visible";
         }
-        public async void Photo_UploadExecut(object obj)
+        public void Photo_UploadExecut(object obj)
         {
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Select a picture";
@@ -298,17 +342,18 @@ namespace ideaForge.ViewModels
                 var Source = new BitmapImage(new Uri(op.FileName));
               
                 //byte[] byt = System.Text.Encoding.UTF8.GetBytes(Source.);
-                var base64String = Convert.ToBase64String(bytes);
-                byte[] imageBytes = Convert.FromBase64String(base64String);
+                string base64String = Convert.ToBase64String(bytes);
+                Base64Image = base64String;
+
+                //byte[] imageBytes = Convert.FromBase64String(base64String);
                 //string path = Path.Combine("C:/Users/Admin/Source/Repos/ideaforgepilotapp/ideaForge/","Images/", GetImageName());
                 //System.IO.File.WriteAllBytes(path, stream);
                 string imge = string.Format("/Images/{0}", GetImageName());
 
                 GetProfileDataimges(resourceName);
-
-
-
+                
             }
+           
         }
         public  string GetImageName()
         {

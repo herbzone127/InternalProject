@@ -21,7 +21,6 @@
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
-
             <!--  This is the template for all menu items. In this sample we use the glyph items.  -->
             <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
                 <DockPanel Height="48" LastChildFill="True">
@@ -292,9 +291,9 @@
                                Padding="5,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       FontSize="25"
+                       FontSize="20"
                        Foreground="Black"
-                       FontWeight="SemiBold"
+                       FontWeight="Medium"
                               FontFamily="Segoe UI"     
                        Content="{Binding PageName,Mode=TwoWay}" />
                         <Border
@@ -334,14 +333,15 @@
                             >
                             <Image 
                           Margin="0,10"
+                                Height="18"
                             Source="/Images/markerIcon.png"/>
                             <Label 
                                 Margin="0,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       FontSize="24"
+                       FontSize="18"
                        Foreground="Black"
-                       FontWeight="SemiBold"
+                       FontWeight="Normal"
                              HorizontalContentAlignment="Right"      
                        Content="Mumbai" />
                         </StackPanel>

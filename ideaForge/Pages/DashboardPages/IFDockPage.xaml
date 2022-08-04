@@ -225,17 +225,18 @@
 
         <Border 
                     Grid.Row="0"
+            VerticalAlignment="Top"
                       HorizontalAlignment="Right"
-            Margin="0,0,20,0"
+            Margin="0,20,20,0"
                    Width="350"
-                  Height="250"
+                  Height="269"
                   Background="#FFFFFF">
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="55"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="65"/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 <!-- creating rows in row 0-->
@@ -302,7 +303,7 @@
                 <StackPanel  Grid.Row="1" Orientation="Vertical" x:Name="statusPanel1" Visibility="Hidden">
                     <Label
                             HorizontalAlignment="Left"
-                            Margin="15,5,0,5"
+                            Margin="15,20,0,5"
                              FontFamily="Segoe UI" 
                             FontWeight="SemiBold">
                         <Label.Template>
@@ -364,7 +365,7 @@
                 
             x:Name="Send" 
             BorderThickness="1" Margin="10,10,15,10"
-            BorderBrush="Black" 
+            BorderBrush="Transparent"
                 Content="CONTINUE" 
             Foreground="White" 
             Background="#91c84f">
@@ -376,6 +377,7 @@
                                 <Style.Resources>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="CornerRadius" Value="5" />
+                                        <!--<Setter Property="BorderBrush" Value="Transparent" />-->
                                     </Style>
                                 </Style.Resources>
                             </Style>
@@ -384,12 +386,13 @@
                     <Button 
             Grid.Column="0"
                 x:Name="CancelBtn"
-            
+            BorderBrush="Transparent"
             BorderThickness="1" Margin="15,10,10,10"
-            BorderBrush="Black" 
+            
                 Content="Cancel" 
-            Foreground="White" 
-            Background="#A9ABB1">
+            Foreground="Black" 
+                       
+            Background="#E9E9E9">
 
 
 
@@ -398,6 +401,7 @@
                                 <Style.Resources>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="CornerRadius" Value="5" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
                                     </Style>
                                 </Style.Resources>
                             </Style>
