@@ -61,7 +61,9 @@
                     </ControlTemplate>
                 </Label.Template>
             </Label>
-            <TextBox  Text="{Binding ProfileModel.name}" Height="35" Foreground="Black">
+            <TextBox  Text="{Binding ProfileModel.name}" Height="35" x:Name="txtName" Foreground="Black"
+                      MaxLength="30" 
+                      PreviewKeyDown="NoSpace_PreviewKeyDown1">
             </TextBox>
             <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
         </StackPanel>
@@ -110,7 +112,9 @@
                     </ControlTemplate>
                 </Label.Template>
             </Label>
-            <TextBox  Text="{Binding ProfileModel.organizationName}" Height="35" Foreground="Black">
+            <TextBox  Text="{Binding ProfileModel.organizationName}" Height="35" x:Name="TxtOrganization" Foreground="Black"
+                      PreviewKeyDown="NoSpace_PreviewKeyDown2"
+                      MaxLength="30" >
             </TextBox>
             <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
         </StackPanel>
@@ -125,7 +129,11 @@
                     </ControlTemplate>
                 </Label.Template>
             </Label>
-            <TextBox  Text="{Binding ProfileModel.departmentName}"  Height="35"  Foreground="Black">
+            <TextBox  Text="{Binding ProfileModel.departmentName}"  Height="35"
+                      PreviewKeyDown="NoSpace_PreviewKeyDown3"
+                      x:Name="DepartmentNameTxt"
+                      MaxLength="30" 
+                      Foreground="Black">
             </TextBox>
             <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
         </StackPanel>
