@@ -41,5 +41,6 @@ namespace IdeaForge.Domain
         public string StatusImage { get; set; }
         public string userName { get; set; }
         public Visibility IsVisibleButton { get; set; }
+        public Visibility ViewButtonVisible { get; set; }
     }
 }

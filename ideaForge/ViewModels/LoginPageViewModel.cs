@@ -419,13 +419,19 @@ namespace ideaForge.ViewModels
         public async Task<UserData> ResendOTP()
         {
             IsBusy = true;
-            var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
-            if (result.status)
+            var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Global.email_PhoneNo });
+            if (result != null)
             {
-                return result.userData;
+                if (result.status)
+                {
+                    IsBusy = false;
+                    return result.userData;
+                }
             }
-            return null;
+            
             IsBusy = false;
+            return null;
+        
         }
         private async void OtpCanCanExecute(object obj)
         {

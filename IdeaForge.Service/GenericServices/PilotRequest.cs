@@ -21,13 +21,18 @@ namespace IdeaForge.Service.GenericServices
                 var url = UrlHelper.StatusChangesURL + "/" + isAccepted + "/" + rideId;
               
                 var resultString = await HTTPClientWrapper<StatusChanges>.PostRequest(url, null);
-                var result = JsonConvert.DeserializeObject<bool>(resultString);
-                if(result==true)
+                if (!resultString.ToLower().Contains("status"))
                 {
-                    return true;
-                }
+                    var result = JsonConvert.DeserializeObject<bool>(resultString);
+                    if (result == true)
+                    {
+                        return true;
+                    }
 
-                return false;
+                    return false;
+
+                }
+              
 
             }
             catch (Exception ex)
