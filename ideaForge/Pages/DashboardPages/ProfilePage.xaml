@@ -14,7 +14,7 @@
     <UserControl.DataContext>
         <vm:ProfilePageViewModels/>
     </UserControl.DataContext>
-    <Grid Grid.Row="3" Background="#FFFFFF" Margin="10" >
+    <Grid Background="#FFFFFF" >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
