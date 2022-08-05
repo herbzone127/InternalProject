@@ -117,7 +117,11 @@ namespace ideaForge.ViewModels
             }) ;
             if (flightStatus.status)
             {
-                RideById.statusID = 5;
+                if(BadWeather || CameraError|| CommunicationLoss || TechnicalError)
+                {
+                    RideById.statusID = 6;
+                }
+               
                 var result = await _pilotRequestServices.UpdateRideByPilot(RideById);
                 if (result.status)
                 {

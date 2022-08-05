@@ -40,6 +40,7 @@ namespace ideaForge.ViewModels
         public IFDockViewModel()
         {
             _saveChangesCommand = new DelegateCommand(CanExecuteSaveChanges);
+            _cancelCommand = new DelegateCommand(CanExecuteCancel);
             SelectedLocation = new IdeaForge.Domain.PilotLocation();
             GetPilotLocations().ConfigureAwait(false);
             GetReasons().ConfigureAwait(false);

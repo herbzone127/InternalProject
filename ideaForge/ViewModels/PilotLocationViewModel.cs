@@ -122,75 +122,105 @@ namespace ideaForge.ViewModels
         readonly DelegateCommand _saveChangesCommand;
         public ICommand SaveChangesCommand => _saveChangesCommand;
 
-  
+        readonly DelegateCommand _cancelCommand;
+        public ICommand CancelCommand => _cancelCommand;
 
-     async   void CanExecuteSaveChanges(object obj)
+        async   void CanExecuteSaveChanges(object obj)
         {
-            var result =await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation {
-                cityId=SelectedLocationId,
-                comments=Comments,
-                city_Name=SelectedLocation.city_Name,id=Id,
-                locationName=SelectedLocation.locationName,
-           reasonDescription=SelectedLocation.reasonDescription,
-            reasonId=ReasonId,
-            userId=Global.loginUserId
-            });
-            try
+            if(!string.IsNullOrEmpty(Comments) && ReasonId>0 )
             {
-                if (result != null)
+                var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
                 {
-                    if (result.status)
+                    cityId = SelectedLocation.cityId,
+                    comments = Comments,
+                    city_Name = SelectedLocation.city_Name,
+                    id = SelectedLocation.id,
+                    locationName = SelectedLocation.locationName,
+                    reasonDescription = SelectedLocation.reasonDescription,
+                    reasonId = ReasonId,
+                    userId = Global.loginUserId,
+                    isActive = IsActive,
+
+                });
+                try
+                {
+                    if (result != null)
                     {
-                      var  count = PilotLocations.Where(u=>u.cityId == SelectedLocationId).Count();
-                        if(count == 0) {
-                            PilotLocationsGrid.Add(new PilotLocation
-                            {
-                                cityId = SelectedLocationId,
-                                comments = Comments,
-                                city_Name = SelectedLocation.city_Name,
-                                id = Id,
-                                locationName = SelectedLocation.locationName,
-                                reasonDescription = SelectedLocation.reasonDescription,
-                                reasonId = ReasonId,
-                                userId = Global.loginUserId
-                            });
+                        if (result.status)
+                        {
+                            await GetPilotLocations();
+
+                            MessageBox.ShowSuccess("Save record ", " successfully.");
                         }
                         else
                         {
-                            foreach (var item in PilotLocationsGrid)
-                            {
-                                item.cityId = SelectedLocationId;
-                                item.comments = Comments;
-                                item.city_Name = SelectedLocation.city_Name;
-                                item.id = Id;
-                                item.locationName = SelectedLocation.locationName;
-                                item.reasonDescription = SelectedLocation.reasonDescription;
-                                item.reasonId = ReasonId;
-                                item.userId = Global.loginUserId;
-                            }
+                            MessageBox.ShowError(result.message);
                         }
-                       
-                        MessageBox.ShowSuccess("Save record ", " successfully.");
-                    }
-                    else
-                    {
-                        MessageBox.ShowError(result.message);
-                    }
 
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.ShowError(ex.Message);
                 }
             }
-            catch (Exception ex)
+            else
             {
+                var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
+                {
+                    cityId = SelectedLocation.cityId,
+                    comments = SelectedLocation.comments,
+                    city_Name = SelectedLocation.city_Name,
+                    id = SelectedLocation.id,
+                    locationName = SelectedLocation.locationName,
+                    reasonDescription = SelectedLocation.reasonDescription,
+                    reasonId = SelectedLocation.reasonId,
+                    userId = Global.loginUserId,
+                    isActive = IsActive,
 
-                MessageBox.ShowError(ex.Message);
+                });
+                try
+                {
+                    if (result != null)
+                    {
+                        if (result.status)
+                        {
+                            await GetPilotLocations();
+
+                            MessageBox.ShowSuccess("Save record ", " successfully.");
+                        }
+                        else
+                        {
+                            MessageBox.ShowError(result.message);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.ShowError(ex.Message);
+                }
             }
+            
+           
          
             
+        }
+        async void CanExecuteCancel(object obj)
+        {
+            Comments = "";
+            SelectedReason = new Reason();
+            await GetReasons();
+            IsActive = true;
+            ReasonId = 0;
         }
         #endregion
         #region ApiMethods
          async Task GetPilotLocations()
         {
+            PilotLocationsGrid = new ObservableCollection<PilotLocation>();
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
                 
@@ -201,15 +231,43 @@ namespace ideaForge.ViewModels
                     if (user != null)
                     {
                         var result = await _pilotRequestServices.GetPilotLocations(user.id);
+                        
                         if (result.status)
                         {
-                            if (result.userData.Count() != 0)
+                            if (result.userData != null)
                             {
-                                //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
-                                PilotLocations = new ObservableCollection<PilotLocation>(result.userData);
-                                SelectedLocation = PilotLocations[0];
-                                IsActive = !SelectedLocation.isActive;
+                                if (result.userData.Count() != 0)
+                                {
+                                    //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
+                                    PilotLocations = new ObservableCollection<PilotLocation>(result.userData);
+                                    SelectedLocation = PilotLocations[0];
+                                    IsActive = SelectedLocation.isActive;
+                                    foreach (var item in PilotLocations)
+                                    {
+                                        if (item.reasonId > 0)
+                                        {
+                                            PilotLocationsGrid.Add(new PilotLocation
+                                            {
+                                                cityId = item.cityId,
+                                                comments = item.comments,
+                                                city_Name = item.city_Name,
+                                                id = item.id,
+                                                locationName = item.locationName,
+                                                reasonDescription = item.reasonDescription,
+                                                reasonId = item.reasonId,
+                                                userId = Global.loginUserId,
+                                                isActive = item.isActive,
+                                                IsVisible = System.Windows.Visibility.Visible
+                                            }) ;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.ShowError(result.message);
+                                }
                             }
+                      
                             else
                             {
                                 MessageBox.ShowError(result.message);

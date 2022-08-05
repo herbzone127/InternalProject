@@ -330,6 +330,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#9F52FF");
                                 u.StatusImage = "/Images/upcoomingIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                             if (u.statusID == 4)
                             {
@@ -338,6 +339,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#D42424");
                                 u.StatusImage = "/Images/rejectedIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                             if (u.statusID == 5)
                             {
@@ -355,6 +357,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#D42424");
                                 u.StatusImage = "/Images/cancelledIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                             if (u.statusID == 7)
                             {
@@ -363,6 +366,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#C84F90");
                                 u.StatusImage = "/Images/endedIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                         });
                         //var dt = requests.userData;
@@ -427,6 +431,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#9F52FF");
                                 u.StatusImage = "/Images/upcoomingIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                             if (u.statusID == 4)
                             {
@@ -435,6 +440,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#D42424");
                                 u.StatusImage = "/Images/rejectedIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                             if (u.statusID == 5)
                             {
@@ -452,6 +458,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#D42424");
                                 u.StatusImage = "/Images/cancelledIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                             if (u.statusID == 7)
                             {
@@ -460,6 +467,7 @@ namespace ideaForge.ViewModels
                                 u.TextColor = ConvertColor("#C84F90");
                                 u.StatusImage = "/Images/endedIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
                             }
                         });
 

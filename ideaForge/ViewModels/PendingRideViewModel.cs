@@ -63,13 +63,19 @@ namespace ideaForge.ViewModels
         private async void CanExecuteSaveChanges(object obj)
         {
             IsBusy = true;
-            if (RideStatusId == 2)
+            
+            if (RideStatusId == 1)
             {
                 RideById.SecretKey = GenerateRandomCryptographicKey(16);
                 RideById.ControlKey = GenerateRandomCryptographicKey(8);
+                RideById.statusID = 3;
+            }
+            if(RideStatusId == 2)
+            {
+                RideById.statusID = 4;
             }
             
-            RideById.statusID = RideStatusId;
+      
           var result =await  _pilotRequestServices.UpdateRideByPilot(RideById);
             if (result.status)
             {
@@ -232,21 +238,35 @@ namespace ideaForge.ViewModels
 
         public async Task GetAllStatuses()
         {
-            try
+            RideStatuses = new ObservableCollection<RideStatus>();
+            RideStatuses.Add(new RideStatus { 
+            name="Rejected",
+            statusId=2,
+            
+            
+            });
+            RideStatuses.Add(new RideStatus
             {
-              var result = await  _pilotRequestServices.GetAllStatuses();
-                if (result.status)
-                {
-                    RideStatuses = new ObservableCollection<RideStatus>(result.userData);
-                }
-                  
-                
-            }
-            catch (Exception)
-            {
+                name = "Accepted",
+                statusId = 1,
 
-                throw;
-            }
+
+            });
+            //try
+            //{
+            //  var result = await  _pilotRequestServices.GetAllStatuses();
+            //    if (result.status)
+            //    {
+            //        RideStatuses = new ObservableCollection<RideStatus>(result.userData);
+            //    }
+
+
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace IdeaForge.Domain
 {
@@ -25,6 +26,7 @@ namespace IdeaForge.Domain
             public string city_Name { get; set; }
             public string reasonDescription { get; set; }
             public bool isActive { get; set; }
+        public Visibility IsVisible { get; set; }
 
     }
 

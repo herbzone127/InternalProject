@@ -33,8 +33,8 @@ namespace IdeaForge.Domain
         public string updateBy { get; set; }
         public DateTime updateOn { get; set; }
         public bool pushNotification { get; set; }
-        public string latitude { get; set; }
-        public string longitude { get; set; }
+        public string originLatitude { get; set; }
+        public string originLongitude { get; set; }
         public bool liveVideoStream { get; set; }
         public string MissionName { get; set; }
         public string ControlKey { get; set; }

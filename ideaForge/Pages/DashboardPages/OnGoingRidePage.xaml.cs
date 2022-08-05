@@ -35,11 +35,11 @@ namespace ideaForge.Pages.DashboardPages
 
             vModel.FlightTime1 = userData.startDate.ToString("hh:mm:ss tt")+"-"+userData.endDate.ToString("hh:mm:ss tt");//For Time
             vModel.StatusForUser1 = userData.status;
-            vModel.Latitude1 = userData.latitude;
-            vModel.Longtitude1 = userData.longitude;
+            vModel.Latitude1 = userData.originLatitude;
+            vModel.Longtitude1 = userData.originLongitude;
             vModel.UAV1 = userData.UAVID;
-            //vModel.ControlKey1 = userData.ControlKey;
-            //vModel.SecretKey1 = userData.SecretKey;
+            vModel.ControlKey1 = userData.ControlKey;
+            vModel.SecretKey1 = userData.SecretKey;
 
 
         }

@@ -397,7 +397,7 @@
             BorderBrush="Transparent"
                 Content="Cancel" 
             Foreground="Black" 
-                       
+                       Command="{Binding CancelCommand}"
             Background="#E9E9E9">
 
 
@@ -428,26 +428,56 @@
             </Border.Effect>
         </Border>
         <Grid Grid.Row="1" Background="White">
-            <DataGrid ItemsSource="{Binding Path=Albums}"
+            <DataGrid ItemsSource="{Binding Path=PilotLocationsGrid}"
+                    SelectedItem="{Binding SelectedLocationGrid}"
           AutoGenerateColumns="False">
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="ContentTemplate">
-                            <Setter.Value>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
-                                </DataTemplate>
-                            </Setter.Value>
-                        </Setter>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                         Value="True">
+                                <Setter Property="Background"
+                            Value="#E8F4D9" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
-                </DataGrid.Resources>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="SR" Width="*"/>
-                    <DataGridTextColumn Header="IF DOCK" Width="*"/>
-                    <DataGridTextColumn Header="STATUS" Width="*"/>
-                    <DataGridTextColumn Header="STATUS DESCRIPTION" Width="*"/>
-                    <DataGridTextColumn Header="Action" Width="*"/>
+                    <DataGridTemplateColumn  Header="SR" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding id}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="IF Dock" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding city_Name}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="Status" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding reasonDescription}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="Status" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding comments}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="Action" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <mah:ToggleSwitch IsOn="{Binding isActive}" Visibility="{Binding IsVisible,FallbackValue=Hidden}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
             </DataGrid>

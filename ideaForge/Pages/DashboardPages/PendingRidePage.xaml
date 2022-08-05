@@ -79,7 +79,7 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                     <TextBox 
                                 Background="#F5F5F5"
                                         BorderBrush="#A9ABB1"
-                                Text="{Binding FlightDate1}" Height="35"  Foreground="Black"/>
+                                Text="{Binding FlightDate1,StringFormat={}{0:dd/MM/yyyy}}" Height="35"  Foreground="Black"/>
                                 </StackPanel>
 
 
