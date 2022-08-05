@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ideaForge"
       xmlns:vm="clr-namespace:ideaForge.ViewModels"
+             SizeChanged="UserControl_SizeChanged"
         mc:Ignorable="d"
         
      
@@ -12,7 +13,7 @@
     <UserControl.Resources>
 
     </UserControl.Resources>
-    <Grid Margin="40,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+    <Grid x:Name="loginControl" Margin="40,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="auto"/>
@@ -83,15 +84,26 @@
                 </Style>
             </TextBox.Resources>
         </TextBox>
-        <Button Grid.Row="6" Grid.Column="0" x:Name="Send" BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" 
+        <Button Grid.Row="6" Grid.Column="0" x:Name="Send" BorderThickness="1" Margin="10,0,10,0" 
+                   BorderBrush="Transparent"
+                Content="CONTINUE" 
+            Foreground="White" 
+            Background="#91c84f"
          Command="{Binding LoginCommand}"
-                Content="CONTINUE" Grid.ColumnSpan="2" Foreground="White" Background="#91c84f">
+               Grid.ColumnSpan="2" >
             <Button.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Style.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#5D9115"/>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
+
                     </Style.Resources>
                 </Style>
             </Button.Resources>

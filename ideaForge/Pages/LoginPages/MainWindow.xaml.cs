@@ -55,5 +55,21 @@ namespace ideaForge
         {
             e.Handled = e.Key == Key.Space;
         }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var loginWindow = Application.Current.Windows.OfType<Login>().FirstOrDefault();
+            if(loginWindow != null)
+            {
+                if(loginWindow.WindowState== WindowState.Maximized)
+                {
+                    loginControl.Margin= new Thickness(180,0,180,0);
+                }
+                else
+                {
+                    loginControl.Margin = new Thickness(40, 0, 40, 0);
+                }
+            }
+        }
     }
 }

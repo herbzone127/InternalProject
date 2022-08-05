@@ -135,6 +135,23 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
+        public async Task<ReasonsResponse> GetReasons()
+        {
+            try
+            {
+                var url = UrlHelper.getReasons ;
+
+                var resultString = await HTTPClientWrapper<ReasonsResponse>.Get(url);
+                return resultString;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
         public async Task<PilotLocationResponse> AddUpdatePilotLocations(PilotLocation location)
         {
             try

@@ -11,7 +11,7 @@
              xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
       xmlns:vm="clr-namespace:ideaForge.ViewModels"
         mc:Ignorable="d"
-        
+        SizeChanged="UserControl_SizeChanged"
      
        >
     <UserControl.Resources>
@@ -116,7 +116,7 @@
         </Style>
     </UserControl.Resources>
     <ScrollViewer>
-        <Grid Margin="40,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <Grid x:Name="loginControl" Margin="40,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="auto"/>
                 <RowDefinition  Height="*"/>
@@ -337,12 +337,13 @@
                 
             x:Name="Send" 
             BorderThickness="1" Margin="10,0,10,0"
-            BorderBrush="Black" 
+              BorderBrush="Transparent"
                 Content="CONTINUE" 
             Foreground="White" 
+            Background="#91c84f"
                 IsEnabled="{Binding CanCreate}"
                 Command="{Binding RegisterCommand}"
-            Background="#91c84f">
+            >
 
                 <!--<e:Interaction.Behaviors>
                     <behavior:SignUpPageBehaviors></behavior:SignUpPageBehaviors>

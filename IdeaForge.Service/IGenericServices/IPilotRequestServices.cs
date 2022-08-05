@@ -20,6 +20,7 @@ namespace IdeaForge.Service.IGenericServices
         Task<FlightFeedbackResponse> AddUpdatePilotFeedback(FlightFeedback pilot);
         Task<PilotLocationResponse> GetPilotLocations(int userId);
         Task<PilotLocationResponse> AddUpdatePilotLocations(PilotLocation location);
+        Task<ReasonsResponse> GetReasons();
 
 
     }

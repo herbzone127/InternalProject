@@ -180,7 +180,13 @@
             <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,84,10,126" Grid.ColumnSpan="2"  Visibility="{Binding ShowSaveBTnbtn}"  Grid.RowSpan="2">
-            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Comand}" Foreground="White" Background="#A9ABB1" >
+            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  Content="CANCEL" Command="{Binding CancelChanges_Comand}"
+                      BorderBrush="Transparent"
+               
+            Foreground="Black" 
+                       
+            Background="#E9E9E9"
+                     >
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Style.Resources>
@@ -191,7 +197,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Black" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
+            <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Transparent" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Style.Resources>
@@ -204,7 +210,7 @@
             </Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,84,10,126" Grid.ColumnSpan="2"  Visibility="{Binding ShowEditBTn}" Grid.RowSpan="2">
-            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Black" Content="EDIT" Command="{Binding Editable_Comand}" Foreground="White" Background="#A9ABB1" >
+            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Transparent" Content="EDIT" Command="{Binding Editable_Comand}" Foreground="White" Background="#A9ABB1" >
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Style.Resources>

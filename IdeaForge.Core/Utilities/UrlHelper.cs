@@ -24,6 +24,7 @@ namespace IdeaForge.Core.Utilities
         public const string getAllStatuses = baseURL + "/api/pilotRequests/getAllStatus";
         public const string addUpdatePilotStatus = baseURL + "/api/pilotRequests/addUpdatePilotStatus";
         public const string getpilotloaction = baseURL + "/api/IFDock/getpilotlocation";
-        public const string updateloactionbyid = baseURL+ "/api/IFDock/updateloactionbyid";
+        public const string getReasons = baseURL + "/api/IFDock/getReasons";
+        public const string updateloactionbyid = baseURL+ "/api/IFDock/AddUpdatePilotLocation";
     }
 }

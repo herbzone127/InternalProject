@@ -333,10 +333,12 @@ namespace ideaForge.ViewModels
         {
             IsBusy = true;
             ImageUrl = "/Images/LoginImage.png";
+            PageName = "";
             AuthenticationPage = new MainWindow();
             RegisterModel = new Register();
             BackButtonVisiblity = Visibility.Hidden;
             IsBusy = false;
+          
         }
 
         private void SignupCanExecute(object obj)
@@ -370,6 +372,7 @@ namespace ideaForge.ViewModels
                     if (result.status)
                     {
                         BackButtonVisiblity = Visibility.Visible;
+                        PageName = "";
                         ImageUrl = "/Images/optFrame.png";
                         Global.email_PhoneNo = Email_PhoneNo;
                         AuthenticationPage = new OtpVerification();

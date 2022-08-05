@@ -51,14 +51,14 @@ namespace ideaForge.Pages.DashboardPages
                     if (selectedRecord.statusID.Equals(1))
                     {
                         dashboard.statusBorder.Visibility = Visibility.Visible;
-                        dashboard.statusBorder.Background = ConvertColor("#FFF4DB");
+                        dashboard.statusBorder.Background = ConvertColor("#DEECFF");
                         //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
                         context.StatusLogo = "/Images/pendingIcon.png";
                         dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                         dashboard.statusLabel.Content = "Pending";
-                        dashboard.statusLabel.Foreground = ConvertColor("#FFC540");
+                        dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
                         dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                        dashboard.statusBorder.BorderBrush = ConvertColor("#FFC540");
+                        dashboard.statusBorder.BorderBrush = ConvertColor("#3398D8");
                         context.PageName = $"Booking Id:{selectedRecord.id}";
                         context.CurrentPage.Content = new PendingRidePage(rideDetails.userData);
                         dashboard.backButton.Visibility = Visibility.Visible;
@@ -78,7 +78,7 @@ namespace ideaForge.Pages.DashboardPages
                         dashboard.statusLabel.Content = "Ongoing";
                         dashboard.statusLabel.Foreground = ConvertColor("#F98926");
                         dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                        dashboard.statusBorder.BorderBrush = ConvertColor("#F98926");
+                        dashboard.statusBorder.BorderBrush = ConvertColor("#FFF3D9");
                         context.PageName = $"Booking Id:{selectedRecord.id}";
                         context.CurrentPage.Content = new OnGoingRidePage(rideDetails.userData);
                         dashboard.backButton.Visibility = Visibility.Visible;
@@ -87,13 +87,13 @@ namespace ideaForge.Pages.DashboardPages
                     if (selectedRecord.statusID.Equals(5))
                     {
                         dashboard.statusBorder.Visibility = Visibility.Visible;
-                        dashboard.statusBorder.Background = ConvertColor("#DEECFF");
-                        context.StatusLogo = "/Images/CompleteRideIcon.png";
+                        dashboard.statusBorder.Background = ConvertColor("#E8F4D9");
+                        context.StatusLogo = "/Images/completedIcon.png";
                         dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
                         dashboard.statusLabel.Content = "Completed";
-                        dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
+                        dashboard.statusLabel.Foreground = ConvertColor("#91C84F");
                         dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                        dashboard.statusBorder.BorderBrush = ConvertColor("#3398D8");
+                        dashboard.statusBorder.BorderBrush = ConvertColor("#E8F4D9");
                         context.PageName = $"Booking Id:{selectedRecord.id}";
 
                         context.CurrentPage.Content = new CompletedRidePage(rideDetails.userData);

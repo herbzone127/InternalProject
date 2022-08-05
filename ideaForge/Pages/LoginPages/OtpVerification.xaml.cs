@@ -391,5 +391,21 @@ namespace ideaForge
             for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
                 App.Current.Windows[intCounter].Close();
         }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var loginWindow = Application.Current.Windows.OfType<Login>().FirstOrDefault();
+            if (loginWindow != null)
+            {
+                if (loginWindow.WindowState == WindowState.Maximized)
+                {
+                    loginControl.Margin = new Thickness(180, 50, 180, 0);
+                }
+                else
+                {
+                    loginControl.Margin = new Thickness(40, 50, 40, 0);
+                }
+            }
+        }
     }
 }

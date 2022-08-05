@@ -59,6 +59,7 @@
     <Compile Include="FlightStatus.cs" />
     <Compile Include="ProfileModel.cs" />
     <Compile Include="PropertyValidateModel.cs" />
+    <Compile Include="Reasons.cs" />
     <Compile Include="Ride.cs" />
     <Compile Include="RideByPilot.cs" />
     <Compile Include="RideStatus.cs" />

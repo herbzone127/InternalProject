@@ -522,7 +522,13 @@
                             BorderThickness="1"  
                             Margin="0,0,10,0" 
                             Height="35"
-                            Width="130"  BorderBrush="Black" Content="CANCEL" Command="{Binding CancelChanges_Command}" Foreground="White" Background="#A9ABB1" >
+                            Width="130"   Content="CANCEL" Command="{Binding CancelChanges_Command}" 
+                             BorderBrush="Transparent"
+              
+            Foreground="Black" 
+                       
+            Background="#E9E9E9"
+                            >
                             <Button.Resources>
                                 <Style TargetType="{x:Type Button}">
                                     <Style.Resources>
@@ -536,10 +542,12 @@
                         <Button  
                             BorderThickness="1" 
                             Height="35" Width="130" 
-                            BorderBrush="Black"
+                           
                             Content="SAVE CHANGES"
-                            Foreground="White"
-                            Background="#91c84f"
+                             BorderBrush="Transparent"
+              
+            Foreground="White" 
+            Background="#91c84f"
                             Command="{Binding SaveChanges_Command}">
                             <Button.Resources>
                                 <Style TargetType="{x:Type Button}">

@@ -195,17 +195,17 @@ namespace ideaForge.Pages.DashboardPages
                 {
                     if (statusPanel1 != null)
                     {
-                        statusPanel1.Visibility = Visibility.Hidden;
-                        statusPanel2.Visibility = Visibility.Hidden;
-                        statusPanel3.Visibility = Visibility.Hidden;
+                        statusPanel1.IsEnabled = false;
+                        statusPanel2.IsEnabled = false;
+                        //statusPanel3.IsEnabled = false;
                     }
                   
                 }
                 else
                 {
-                    statusPanel1.Visibility = Visibility.Visible;
-                    statusPanel2.Visibility = Visibility.Visible;
-                    statusPanel3.Visibility = Visibility.Visible;
+                    statusPanel1.IsEnabled = true;
+                    statusPanel2.IsEnabled = true;
+                    //statusPanel3.IsEnabled = true;
                 }
             }
         }

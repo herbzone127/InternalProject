@@ -1,6 +1,8 @@
-﻿using MapControl;
+﻿using IdeaForge.Domain;
+using MapControl;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,8 +42,9 @@ namespace ideaForge.ViewModels
             _saveChangesCommand = new DelegateCommand(CanExecuteSaveChanges);
             SelectedLocation = new IdeaForge.Domain.PilotLocation();
             GetPilotLocations().ConfigureAwait(false);
-
+            GetReasons().ConfigureAwait(false);
             Center = new Location(19.076, 72.8777);
+            PilotLocationsGrid = new ObservableCollection<PilotLocation>();
             //center.getLatitude() - 0.0005, center.getLongitude() - 0.001)
             //Points.Add(new PointItem
             //{

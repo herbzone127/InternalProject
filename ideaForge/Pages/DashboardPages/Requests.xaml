@@ -260,7 +260,7 @@
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid FontSize="14"
+                    <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
@@ -270,17 +270,18 @@
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True" 
                         Grid.ColumnSpan="2">
-                        <!--<DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                         Value="True">
+                                        <Setter Property="Background"
+                            Value="#E8F4D9" />
+                                    </Trigger>
+                                </Style.Triggers>
                             </Style>
-                        </DataGrid.Resources>-->
+                        </DataGrid.RowStyle>
+
                         <DataGrid.Columns>
 
                             <DataGridTemplateColumn  Header="Booking Id" Width="*">
@@ -294,8 +295,29 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <TextBlock Text="{Binding userName}" FontWeight="SemiBold"/>
-                                            <TextBlock Text="{Binding contactNo}"/>
+                                            <TextBlock Text="{Binding userName}" FontWeight="SemiBold">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <Trigger Property ="IsMouseOver" Value="False">
+                                                                <Setter Property= "Foreground" Value="Black"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding contactNo}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <Trigger Property ="IsMouseOver" Value="False">
+                                                                <Setter Property= "Foreground" Value="Black"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+
+                                            </TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -361,10 +383,11 @@
                                         <StackPanel Orientation="Horizontal"  >
                                             <Button
                                                 Margin="5,0"
+                                                Width="32"
                                                 BorderBrush="#E9E9E9" 
                                                     Visibility="{Binding ViewButtonVisible, FallbackValue=Hidden}"
                                                     BorderThickness="1"
-                                                    Background="Transparent"
+                                                    Background="White"
                                                     Command="{Binding 
                                                 RelativeSource={RelativeSource 
                                                 AncestorType={x:Type UserControl}}, 
@@ -377,10 +400,11 @@
                                             </Button>
                                             <Button 
                                                 Margin="5,0"
+                                                 Width="32"
                                                 BorderBrush="#E9E9E9" 
                                                     Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
                                                     BorderThickness="1"
-                                                    Background="Transparent"
+                                                    Background="White"
                                                     Command="{Binding 
                                                 RelativeSource={RelativeSource 
                                                 AncestorType={x:Type UserControl}}, 
@@ -394,9 +418,10 @@
                                             <Button 
                                                 Visibility="{Binding IsVisibleButton, FallbackValue=Hidden}"
                                                 Margin="5,0"
+                                                 Width="32"
                                                 BorderBrush="#E9E9E9" 
                                                     BorderThickness="1"
-                                                    Background="Transparent"
+                                                    Background="White"
                                                 Command="{Binding 
                                                 RelativeSource={RelativeSource 
                                                 AncestorType={x:Type UserControl}}, 
