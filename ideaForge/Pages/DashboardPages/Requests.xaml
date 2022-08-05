@@ -26,7 +26,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <TabControl  SelectionChanged="TabControl_SelectionChanged" >
+        <TabControl  x:Name="rTabControl" x:FieldModifier="public"  SelectionChanged="TabControl_SelectionChanged" >
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">

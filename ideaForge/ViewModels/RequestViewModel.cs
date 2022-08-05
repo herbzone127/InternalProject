@@ -310,7 +310,15 @@ namespace ideaForge.ViewModels
                                 u.color = ConvertColor("#DEECFF");
                                 u.TextColor = ConvertColor("#3398D8");
                                 u.StatusImage = "/Images/pendingIcon.png";
-                                u.IsVisibleButton = Visibility.Visible;
+                                if (Global.IsIFDockStatus)
+                                {
+                                    u.IsVisibleButton = Visibility.Visible;
+                                }
+                                else
+                                {
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                }
+                                
                                 u.ViewButtonVisible = Visibility.Visible;
                             }
                             if (u.statusID == 2)
@@ -411,7 +419,14 @@ namespace ideaForge.ViewModels
                                 u.color = ConvertColor("#DEECFF");
                                 u.TextColor = ConvertColor("#3398D8");
                                 u.StatusImage = "/Images/pendingIcon.png";
-                                u.IsVisibleButton = Visibility.Visible;
+                                if (Global.IsIFDockStatus)
+                                {
+                                    u.IsVisibleButton = Visibility.Visible;
+                                }
+                                else
+                                {
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                }
                                 u.ViewButtonVisible = Visibility.Visible;
                             }
                             if (u.statusID == 2)

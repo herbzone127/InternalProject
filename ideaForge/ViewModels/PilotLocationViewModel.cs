@@ -242,6 +242,7 @@ namespace ideaForge.ViewModels
                                     PilotLocations = new ObservableCollection<PilotLocation>(result.userData);
                                     SelectedLocation = PilotLocations[0];
                                     IsActive = SelectedLocation.isActive;
+                                    Global.IsIFDockStatus = SelectedLocation.isActive;
                                     foreach (var item in PilotLocations)
                                     {
                                         if (item.reasonId > 0)

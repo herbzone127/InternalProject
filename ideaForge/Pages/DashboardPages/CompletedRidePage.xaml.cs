@@ -29,7 +29,7 @@ namespace ideaForge.Pages.DashboardPages
             vModel.MissionName = rideDetails.MissionName;
             double totalHours = (rideDetails.endDate - rideDetails.startDate).TotalHours;
             vModel.TotalRequestedTime = Math.Round(totalHours, 2); ;
-            vModel.FlightDate = rideDetails.startDate.ToString("dd/MM/yyyy hh:mm:ss P=tt");
+            vModel.FlightDate = rideDetails.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
             vModel.FlightTime = rideDetails.startDate.ToString("hh:mm:ss tt") + "-" + rideDetails.endDate.ToString("hh:mm:ss tt");//For Time
             vModel.StatusForUser = rideDetails.status;
             vModel.UserFeedBack = (string)rideDetails.comments;

@@ -26,7 +26,7 @@ namespace ideaForge
     /// </summary>
     public partial class Dashboard : MetroWindow
     {
-        BackgroundWorker worker = new BackgroundWorker();
+      
         static string pg=string.Empty;
         public Dashboard()
         {
@@ -50,14 +50,7 @@ namespace ideaForge
             if (value.Label== "Requests")
             {
                
-                worker.DoWork += worker_DoWork;
-              
-                worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-                worker.ProgressChanged += Worker_ProgressChanged;
-                worker.WorkerReportsProgress=true;  
-                worker.WorkerSupportsCancellation = true;
-                if (!worker.IsBusy)
-                    worker.RunWorkerAsync();
+             
                 
             }
             else
@@ -70,11 +63,7 @@ namespace ideaForge
 
         }
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            object userObject = e.UserState;
-            int percentage = e.ProgressPercentage;
-        }
+      
 
         private  void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -117,74 +106,7 @@ namespace ideaForge
          
         }
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            var bgWorker = (BackgroundWorker)sender;
-            if (e.Cancelled)
-            {
-                return;
-            }
-          
-           
-        }
-
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            if (pg!= "Requests")
-            {
-                e.Cancel = true;
-               
-            }
-            else
-            {
-                Task.Run(async () =>
-                {
-                  
-                        
-                      await Task.Delay(TimeSpan.FromSeconds(30)).ContinueWith(async(task) => {
-                          if (task.IsCompleted)
-                          {
-                              await this.Dispatcher.Invoke(async () =>
-                              {
-                                  try
-                                  {
-                                      var model = (DashboardViewModel)this.DataContext;
-                                      var rPage = (Requests)model.CurrentPage.Content;
-                                      var ucModel = (RequestViewModel)rPage.DataContext;
-                                   var  status=   await ucModel.GetTodaysRequest("");
-                                      if (!status)
-                                      {
-                                          e.Cancel = true;
-                                          return;
-                                      }
-                                  }
-                                  catch 
-                                  {
-
-                                      e.Cancel = true;
-                                      return;
-                                  }
-                                  
-                              
-                                  
-                              });
-                              if (!worker.IsBusy)
-                                  worker.RunWorkerAsync();
-                          }
-                      
-                     
-                      
-                         
-                    });
-
-                });
-          
-                
-            }
-           
-         
-             //vModel.GetTodaysRequest("").Wait();
-        }
+    
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {

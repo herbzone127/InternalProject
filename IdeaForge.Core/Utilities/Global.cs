@@ -17,5 +17,6 @@ namespace IdeaForge.Core.Utilities
         public static int SignupCounter { get; set; }
         public static string PilotLoggedLocation { get; set; }
         public static string GoogleMapsApiKey { get; set; }
+        public static bool IsIFDockStatus { get; set; }
     }
 }

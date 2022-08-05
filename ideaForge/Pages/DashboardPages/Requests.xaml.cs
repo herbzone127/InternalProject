@@ -2,19 +2,23 @@
 using IdeaForge.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+//using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ideaForge.Pages.DashboardPages
 {
@@ -23,7 +27,7 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class Requests : UserControl
     {
-      
+        BackgroundWorker worker = new BackgroundWorker();
         public Requests()
         {
             InitializeComponent();
@@ -45,8 +49,9 @@ namespace ideaForge.Pages.DashboardPages
                 var rideDetails = await vModel.GetRideById(selectedRecord.id);
                 if (rideDetails.status)
                 {
-                    Window parentWindow = Window.GetWindow(this);
-                    var dashboard = (Dashboard)parentWindow;
+                    var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                    //Window parentWindow = Window.GetWindow(this);
+                    //var dashboard = (Dashboard)parentWindow;
                     var context = (DashboardViewModel)dashboard.DataContext;
                     if (selectedRecord.statusID.Equals(1))
                     {
@@ -142,11 +147,115 @@ namespace ideaForge.Pages.DashboardPages
                 if (name.Equals("Today's Requests"))
                 {
                     var vModel = DataContext as RequestViewModel;
-                    await   vModel.GetTodaysRequest("");
+                    await vModel.GetTodaysRequest("");
+                    worker.DoWork += worker_DoWork;
+
+                    worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+                    worker.ProgressChanged += Worker_ProgressChanged;
+                    worker.WorkerReportsProgress = true;
+                    worker.WorkerSupportsCancellation = true;
+                    if (!worker.IsBusy)
+                        worker.RunWorkerAsync();
                 }
             }
         }
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var bgWorker = (BackgroundWorker)sender;
+            if (e.Cancelled)
+            {
+                return;
+            }
 
+
+        }
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            object userObject = e.UserState;
+            int percentage = e.ProgressPercentage;
+        }
+        private async void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            await this.Dispatcher.Invoke(async () =>
+            {
+            var parentWindow = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                if (parentWindow != null)
+                {
+                    var menu = parentWindow.Content as MahApps.Metro.Controls.HamburgerMenu;
+                    if (menu != null)
+                    {
+                        var selectedItem = (MahApps.Metro.Controls.HamburgerMenuItem)menu.SelectedItem;
+
+                        if (selectedItem.Label!= "Requests")
+                        {
+                            worker.CancelAsync();
+                            e.Cancel = true;
+                            return;
+
+                        }
+                        if(selectedItem.Label== "Requests")
+                        {
+                            var selectedTab = rTabControl.SelectedItem as TabItem;
+                            var name = selectedTab.Header;
+                         if(!name.Equals( "Today's Requests"))
+                            {
+                                worker.CancelAsync();
+                                e.Cancel = true;
+                                return;
+                            }
+                            else
+                            {
+                                       await   Task.Delay(TimeSpan.FromSeconds(30));
+                                
+
+                                        try
+                                        {
+
+
+                                    var vModel = DataContext as RequestViewModel;
+                                    var status= await vModel.GetTodaysRequest("");
+                                            if (!status)
+                                            {
+                                                e.Cancel = true;
+                                                worker.CancelAsync();
+                                                return;
+                                            }
+                                            
+                                        }
+                                        catch(Exception ex)
+                                        {
+
+                                            e.Cancel = true;
+                                            worker.CancelAsync();
+                                            return;
+                                        }
+
+
+
+
+                                        if (!worker.IsBusy)
+                                            worker.RunWorkerAsync();
+                                    }
+
+
+
+
+
+
+                            
+                            
+
+                           
+
+
+                        }
+                    }
+                }
+            });
+
+
+            //vModel.GetTodaysRequest("").Wait();
+        }
         private void DataGrid_MouseEnter(object sender, MouseEventArgs e)
         {
 

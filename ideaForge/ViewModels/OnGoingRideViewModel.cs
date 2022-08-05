@@ -119,7 +119,7 @@ namespace ideaForge.ViewModels
             {
                 if(BadWeather || CameraError|| CommunicationLoss || TechnicalError)
                 {
-                    RideById.statusID = 6;
+                    RideById.statusID = 7;
                 }
                
                 var result = await _pilotRequestServices.UpdateRideByPilot(RideById);
