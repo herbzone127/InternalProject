@@ -399,11 +399,13 @@ namespace ideaForge
             {
                 if (loginWindow.WindowState == WindowState.Maximized)
                 {
-                    loginControl.Margin = new Thickness(180, 50, 180, 0);
+                    loginControl.Margin = new Thickness(180, 0, 180, 0);
+                    loginControl.VerticalAlignment = VerticalAlignment.Center;
                 }
                 else
                 {
                     loginControl.Margin = new Thickness(40, 50, 40, 0);
+                    loginControl.VerticalAlignment = VerticalAlignment.Top;
                 }
             }
         }

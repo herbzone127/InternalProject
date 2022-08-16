@@ -22,10 +22,14 @@ namespace IdeaForge.Service.GenericServices
 
                 var serializeJson = JsonConvert.SerializeObject(profilID);
                 var resultString = await HTTPClientWrapper<ProfilemodelID>.PostRequestToken(url, profilID, Global.Token);
-                var result = JsonConvert.DeserializeObject<ProfileModel>(resultString);
-                //var url = UrlHelper.loginURL;
-                //var result = await HTTPClientWrapper<Login>.Get(url);
-                return result;
+                if(resultString != null)
+                {
+                    var result = JsonConvert.DeserializeObject<ProfileModel>(resultString);
+                    //var url = UrlHelper.loginURL;
+                    //var result = await HTTPClientWrapper<Login>.Get(url);
+                    return result;
+                }
+                return null; 
             }
             catch (Exception ex)
             {

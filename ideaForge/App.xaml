@@ -133,7 +133,7 @@
                         <Setter Property="HorizontalAlignment" Value="Center"/>
                         <Setter Property="VerticalAlignment" Value="Bottom"/>
                         <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="CornerRadius" Value="5"/>
+                        <!--<Setter Property="CornerRadius" Value="5"/>-->
                         <Setter Property="Padding" Value="7,5"/>
                         <Setter Property="Template">
                             <Setter.Value>
@@ -143,7 +143,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderWidth="{Binding BorderThickness.Left, RelativeSource={RelativeSource TemplatedParent}}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
+                        
                         Padding="{TemplateBinding Padding}">
                                         <ContentPresenter
                             Content="{TemplateBinding Content}"

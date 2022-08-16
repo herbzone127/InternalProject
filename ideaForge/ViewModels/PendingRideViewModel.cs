@@ -1,5 +1,6 @@
 ﻿using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,9 +67,19 @@ namespace ideaForge.ViewModels
             
             if (RideStatusId == 1)
             {
-                RideById.SecretKey = GenerateRandomCryptographicKey(16);
-                RideById.ControlKey = GenerateRandomCryptographicKey(8);
-                RideById.statusID = 3;
+                var requests =await _pilotRequestServices.GetTodaysRequest("");
+                int count = requests.userData.Where(u => u.statusID == 2 &&  u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).Count();
+                if (count > 0)
+                {
+                    MessageBox.ShowError("Only one flight can be in Ongoing status at a time");
+                }
+                else
+                {
+                    RideById.SecretKey = GenerateRandomCryptographicKey(16);
+                    RideById.ControlKey = GenerateRandomCryptographicKey(8);
+                    RideById.statusID = 3;
+                }
+                  
             }
             if(RideStatusId == 2)
             {

@@ -14,7 +14,7 @@
         ShowInTaskbar="False"
        ShowActivated="True"
       Topmost="True"
-        Title="DockAreaPropup" Height="180" Width="300"
+        Title="DockAreaPropup" Height="200" Width="300"
         Background="Transparent"
         AllowsTransparency="True"
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
@@ -49,17 +49,29 @@
                 FontFamily="Segoe UI" 
                 Content="Please select IF Docks location" 
                 Margin="10,0,0,0" />
-            <dotNetKitControls:AutoCompleteComboBox
-                Grid.Row="2"
-                Margin="10,0,10,10"
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <dotNetKitControls:AutoCompleteComboBox
+                
+                Margin="10,0,10,0"
+                x:Name="cLocation"
     SelectedValuePath="id"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
-    ItemsSource="{Binding PilotLocations}"
-                SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
+    ItemsSource="{Binding CityList}"
+                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
      SelectedValue="{Binding SelectedLocationId}"   
                 VerticalAlignment="Center"
+                    SelectionChanged="cLocation_SelectionChanged"
    />
+                <Label
+            Margin="5,-5,0,0"
+                    x:Name="lblError"
+                    Visibility="Hidden"
+                Content="Please select one city first"
+                    Foreground="Red"
+                />
+            </StackPanel>
+           
             <Button
                 x:Name="btnContinue"
                 Grid.Row="3"
@@ -76,7 +88,7 @@
               VerticalAlignment="Top"
                 Width="20"
                 Height="20"
-                Margin="0,14,3,0"
+                Margin="0,18,3,0"
                 CornerRadius="15"
               >
 

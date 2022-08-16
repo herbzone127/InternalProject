@@ -1,5 +1,7 @@
 ﻿using ideaForge.ViewModels;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,9 +30,12 @@ namespace ideaForge.Pages.DashboardPages
     public partial class Requests : UserControl
     {
         BackgroundWorker worker = new BackgroundWorker();
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
         public Requests()
         {
             InitializeComponent();
+           Global.isStoped = false;
         }
 
         private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
@@ -176,81 +181,108 @@ namespace ideaForge.Pages.DashboardPages
         }
         private async void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            
             await this.Dispatcher.Invoke(async () =>
             {
-            var parentWindow = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-                if (parentWindow != null)
+                if (!Global.isStoped)
                 {
-                    var menu = parentWindow.Content as MahApps.Metro.Controls.HamburgerMenu;
-                    if (menu != null)
+                    var parentWindow = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                    if (parentWindow != null)
                     {
-                        var selectedItem = (MahApps.Metro.Controls.HamburgerMenuItem)menu.SelectedItem;
-
-                        if (selectedItem.Label!= "Requests")
+                        var menu = parentWindow.Content as MahApps.Metro.Controls.HamburgerMenu;
+                        if (menu != null)
                         {
-                            worker.CancelAsync();
-                            e.Cancel = true;
-                            return;
+                            var selectedItem = (MahApps.Metro.Controls.HamburgerMenuItem)menu.SelectedItem;
 
-                        }
-                        if(selectedItem.Label== "Requests")
-                        {
-                            var selectedTab = rTabControl.SelectedItem as TabItem;
-                            var name = selectedTab.Header;
-                         if(!name.Equals( "Today's Requests"))
+                            if (selectedItem.Label != "Requests")
                             {
+                                log.Info("BackgroundWorker is  Closed");
                                 worker.CancelAsync();
+                                Global.isStoped = true;
                                 e.Cancel = true;
+                           
                                 return;
+
                             }
-                            else
+                            if (selectedItem.Label == "Requests")
                             {
-                                       await   Task.Delay(TimeSpan.FromSeconds(30));
-                                
+                                var selectedTab = rTabControl.SelectedItem as TabItem;
+                                var name = selectedTab.Header;
+                                if (!name.Equals("Today's Requests"))
+                                {
+                                    log.Info("BackgroundWorker is  Closed");
+                                    Global.isStoped = true;
+                                    worker.CancelAsync();
+                                    e.Cancel = true;
+                                    return;
+                                }
+                                else
+                                {
+                                    await Task.Delay(TimeSpan.FromSeconds(30));
 
-                                        try
+
+                                    try
+                                    {
+
+
+                                        var vModel = DataContext as RequestViewModel;
+                                        var status = await vModel.GetTodaysRequest("");
+                                        log.Info("Today is Request Updating Frequently");
+                                        if (!status)
                                         {
-
-
-                                    var vModel = DataContext as RequestViewModel;
-                                    var status= await vModel.GetTodaysRequest("");
-                                            if (!status)
-                                            {
-                                                e.Cancel = true;
-                                                worker.CancelAsync();
-                                                return;
-                                            }
-                                            
-                                        }
-                                        catch(Exception ex)
-                                        {
-
+                                            log.Info("Today Request not working.");
                                             e.Cancel = true;
+                                            Global.isStoped = true;
                                             worker.CancelAsync();
                                             return;
                                         }
 
-
-
-
-                                        if (!worker.IsBusy)
-                                            worker.RunWorkerAsync();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        log.Error(ex.Message, ex);
+                                        e.Cancel = true;
+                                        Global.isStoped = true;
+                                        worker.CancelAsync();
+                                        return;
                                     }
 
 
 
 
+                                    if (!worker.IsBusy)
+                                        worker.RunWorkerAsync();
+                                }
 
 
-                            
-                            
-
-                           
 
 
+
+
+
+
+
+
+
+
+                            }
                         }
                     }
                 }
+                else
+                {
+                    if (worker.IsBusy == true && worker.WorkerSupportsCancellation == true)
+                    {
+                        worker.CancelAsync();
+                    }
+
+                    //On DoWork event (UI layer):
+                    if ((worker.CancellationPending == true))
+                    {
+                        e.Cancel = true;
+                    }
+                }
+        
             });
 
 

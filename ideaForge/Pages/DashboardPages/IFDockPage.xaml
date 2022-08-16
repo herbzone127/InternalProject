@@ -118,15 +118,18 @@
         </Grid.RowDefinitions>
         <Grid>
             <map:Map x:Name="map"
-                 MinZoomLevel="2" MaxZoomLevel="21" ZoomLevel="13" MouseWheelZoomDelta="1"
-                 Center="{Binding Center}"
+                 MinZoomLevel="2" MaxZoomLevel="21" ZoomLevel="9" MouseWheelZoomDelta="1"
+                 Center="{Binding SelectedCity.position}"
                  MouseLeftButtonDown="MapMouseLeftButtonDown"
                  MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave="MapMouseLeave"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting">
 
                 <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
-
+                <map:MapPolygon  Stroke="Red" StrokeThickness="5" 
+                        
+                                 Locations="{Binding PolyLocations}"
+                           />
                 <!--<map:MapItemsControl ItemsSource="{Binding Points}"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
                                  SelectionMode="Extended"/>-->
@@ -139,13 +142,13 @@
                 <map:Pushpin AutoCollapse="True" Location="35,33" Content="Cyprus"/>
                 <map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>-->
 
-                <map:MapPath Location="{Binding Center}" Stroke="Red" StrokeThickness="3" Fill="#1F007F00">
+                <!--<map:MapPath Location="{Binding SelectedCity.position}" Stroke="Red" StrokeThickness="3" Fill="#1F007F00">
                     <map:MapPath.Data>
                         <EllipseGeometry RadiusX="1852" RadiusY="1852" />
                     </map:MapPath.Data>
-                </map:MapPath>
+                </map:MapPath>-->
 
-                <map:Pushpin AutoCollapse="True" Location="{Binding Center}" Content="Mumbai"/>
+                <map:Pushpin AutoCollapse="True" Location="{Binding SelectedCity.position}" Content="{Binding SelectedCity.city_Name}"/>
             </map:Map>
 
             <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF">
@@ -271,19 +274,22 @@
                        BorderBrush="Transparent"
                        BorderThickness="0"
                         />-->
-                        <dotNetKitControls:AutoCompleteComboBox
+                        
+                        <!--<dotNetKitControls:AutoCompleteComboBox
                 Grid.Row="2"
            BorderThickness="0"
                             BorderBrush="Transparent"
     SelectedValuePath="id"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
-    ItemsSource="{Binding PilotLocations}"
-                SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
+    ItemsSource="{Binding CityList,Mode=TwoWay}"
+                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
      SelectedValue="{Binding SelectedLocationId}"   
-                       
+                            x:Name="cLocation"
+                       SelectionChanged="AutoCompleteComboBox_SelectionChanged"
                 VerticalAlignment="Center"
-   />
+   />-->
+                        <TextBox Margin="2" BorderBrush="Transparent" BorderThickness="0" Text="{Binding CityName}" IsEnabled="False"/>
                     </Border>
                     <!-- working 2 on the Row 0 and Row 1 for the Column 1-->
                     <Label 
@@ -443,10 +449,10 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn  Header="SR" Width="*">
+                    <DataGridTemplateColumn  Header="SR No" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding id}"/>
+                                <Label Content="{Binding SRNO}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -457,17 +463,21 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn  Header="Status" Width="*">
+                    <DataGridTemplateColumn  Header="Status Description" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding reasonDescription}"/>
+                                <TextBlock>
+                                    <Run Text="{Binding reasonDescription}"/>
+                                    <Run Text=" - "/>
+                                    <Run Text="{Binding comments}"/>
+                                </TextBlock>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn  Header="Status" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding comments}"/>
+                                <Label Content="{Binding StringStatus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

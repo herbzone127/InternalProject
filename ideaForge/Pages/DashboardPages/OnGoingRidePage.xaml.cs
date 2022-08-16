@@ -32,7 +32,7 @@ namespace ideaForge.Pages.DashboardPages
             double totalHours = (userData.endDate - userData.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;
             vModel.FlightDate1 = userData.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
-
+           
             vModel.FlightTime1 = userData.startDate.ToString("hh:mm:ss tt")+"-"+userData.endDate.ToString("hh:mm:ss tt");//For Time
             vModel.StatusForUser1 = userData.status;
             vModel.Latitude1 = userData.originLatitude;

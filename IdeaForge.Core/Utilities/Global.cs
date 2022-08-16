@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaForge.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,7 @@ namespace IdeaForge.Core.Utilities
         public static string PilotLoggedLocation { get; set; }
         public static string GoogleMapsApiKey { get; set; }
         public static bool IsIFDockStatus { get; set; }
+        public static UserDatum SelectedLocation { get; set; }
+        public static bool isStoped { get; set; }
     }
 }

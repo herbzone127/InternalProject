@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Windows.Controls;
 using System.Windows.Input;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace ideaForge.ViewModels
 {
@@ -21,6 +23,14 @@ namespace ideaForge.ViewModels
         ///  All Properties are here
         /// </summary>
         #region Properties
+        private string _pageLocation;
+
+        public string PageLocation
+        {
+            get { return _pageLocation; }
+            set { _pageLocation = value; }
+        }
+
         private string _statusLogo;
 
         public string StatusLogo
@@ -105,7 +115,8 @@ namespace ideaForge.ViewModels
                 ProfileImage =UrlHelper.baseURL+ user.image;
                 UserName= user.name;
             }
-            CurrentPage = new UserControl();
+            PageLocation = Global.SelectedLocation?.city_Name;
+            CurrentPage = new System.Windows.Controls.UserControl();
             CurrentPage.Content = new IFDockPage();
             _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
 

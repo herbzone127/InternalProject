@@ -1,4 +1,6 @@
-﻿using IdeaForge.Domain;
+﻿using com.sun.tools.javac.util;
+using IdeaForge.Core.Utilities;
+using IdeaForge.Domain;
 using MapControl;
 using System;
 using System.Collections.Generic;
@@ -32,20 +34,36 @@ namespace ideaForge.ViewModels
 
     public partial class IFDockViewModel : ViewModelBase
     {
-        public Location Center { get; set; }
+        public Location _center;
+        public Location Center { get { return _center; } set { _center = value; OnPropertyChanged(nameof(Center)); } }
         public List<PointItem> Points { get; } = new List<PointItem>();
         public List<PointItem> Pushpins { get; } = new List<PointItem>();
         public List<PolylineItem> Polylines { get; } = new List<PolylineItem>();
+        private List<Location> _polyLocations;
+
+        public List<Location> PolyLocations
+        {
+            get { return _polyLocations; }
+            set { _polyLocations = value; 
+            OnPropertyChanged(nameof(PolyLocations));   
+            }
+        }
 
         public IFDockViewModel()
         {
+        
             _saveChangesCommand = new DelegateCommand(CanExecuteSaveChanges);
             _cancelCommand = new DelegateCommand(CanExecuteCancel);
-            SelectedLocation = new IdeaForge.Domain.PilotLocation();
-            GetPilotLocations().ConfigureAwait(false);
+            SelectedLocation = new PilotLocation();
+            GetCityList().ConfigureAwait(false);
+            //GetPilotLocations().ConfigureAwait(false);
             GetReasons().ConfigureAwait(false);
-            Center = new Location(19.076, 72.8777);
+            //Center = new Location(19.076, 72.8777);
             PilotLocationsGrid = new ObservableCollection<PilotLocation>();
+            //if (Global.SelectedLocation != null)
+            //{
+            //    SelectedLocation= Global.SelectedLocation;
+            //}
             //center.getLatitude() - 0.0005, center.getLongitude() - 0.001)
             //Points.Add(new PointItem
             //{
@@ -106,16 +124,19 @@ namespace ideaForge.ViewModels
             //    Name = "Navi Mumbai, Maharashtra",
             //    Location = new Location(53.5207, 8.2323)
             //});
-
+        
             //Polylines.Add(new PolylineItem
             //{
-            //    Locations = LocationCollection.Parse("53.5140,8.1451 53.5123,8.1506 53.5156,8.1623 53.5276,8.1757 53.5491,8.1852 53.5495,8.1877 53.5426,8.1993 53.5184,8.2219 53.5182,8.2386 53.5195,8.2387")
+            //    Locations = LocationCollection.Parse("72.775970459,18.890695572 72.775970459,19.315412521 73.124320984,19.315412521 73.124320984,18.890695572 72.775970459,18.890695572")
             //});
 
             //Polylines.Add(new PolylineItem
             //{
             //    Locations = LocationCollection.Parse($"{Center.Latitude - 0.0005},{Center.Longitude - 0.001},{Center.Latitude + 0.0005},{Center.Longitude() + 0.001}")
             //});
+            //List<Position> geopoints = new List<Position>();
+            //geopoints.Add(new Position(19.076 - 0.0005, 72.8777 - 0.001));
+            //geopoints.Add(new Position(19.076 + 0.0005, 72.8777 + 0.001));
         }
     }
 }

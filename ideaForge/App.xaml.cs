@@ -1,6 +1,8 @@
 ﻿using ControlzEx.Theming;
 using IdeaForge.Service.GenericServices;
 using IdeaForge.Service.IGenericServices;
+using IdeaForge.Services;
+using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
 using System;
@@ -19,6 +21,7 @@ namespace ideaForge
     public partial class App : Application
     {
         public static IServiceProvider serviceProvider { get; private set; }
+        private static readonly ILog log = LogManager.GetLogger(typeof(App));
         public App()
         {
             Barrel.ApplicationId = "ideaForgeWPF";
@@ -38,6 +41,8 @@ namespace ideaForge
         {
             try
             {
+                log4net.Config.XmlConfigurator.Configure();
+                log.Info("        =============  Started Logging  =============        ");
                 var mainWindow = serviceProvider.GetService<Login>();
                 mainWindow.Show();
             }
@@ -58,6 +63,7 @@ namespace ideaForge
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<IProfileSerevice, ProfileService>();
             services.AddScoped<IPilotRequestServices, PilotRequest>();
+            services.AddScoped<IGoogleMapsApiService, GoogleMapsApiService>();
 
 
         }

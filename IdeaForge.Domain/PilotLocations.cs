@@ -27,7 +27,8 @@ namespace IdeaForge.Domain
             public string reasonDescription { get; set; }
             public bool isActive { get; set; }
         public Visibility IsVisible { get; set; }
-
+        public int SRNO { get; set; }
+        public string StringStatus { get; set; }
     }
 
 

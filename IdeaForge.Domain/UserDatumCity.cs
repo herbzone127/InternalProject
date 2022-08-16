@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MapControl;
 namespace IdeaForge.Domain
 {
     public class CityData
@@ -17,6 +17,10 @@ namespace IdeaForge.Domain
     {
         public int id { get; set; }
         public string city_Name { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string state { get; set; }
+        public Location position { get; set; }
     }
    
 }

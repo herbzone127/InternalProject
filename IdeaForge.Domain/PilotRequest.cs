@@ -40,7 +40,12 @@ namespace IdeaForge.Domain
         public Brush TextColor { get; set; }
         public string StatusImage { get; set; }
         public string userName { get; set; }
+        public string originLatitude { get; set; }
+        public string originLongitude { get; set; }
+        public string destionLatitude { get; set; }
+        public string destionLongitude { get; set; }
         public Visibility IsVisibleButton { get; set; }
         public Visibility ViewButtonVisible { get; set; }
+        public string city { get; set; }
     }
 }

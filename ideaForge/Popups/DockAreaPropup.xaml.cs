@@ -1,6 +1,9 @@
-﻿using MonkeyCache.FileStore;
+﻿using IdeaForge.Core.Utilities;
+using IdeaForge.Domain;
+using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,31 +85,29 @@ namespace ideaForge.Popups
         {
             try
             {
-                //var dashboard= new Dashboard();
-                //dashboard.Show();
-                //this.Close();
-                //if (Application.Current.Windows[0] is Login)
-                //{
-                //    var window = Application.Current.Windows[0] as Login;
-                //    if (window is Login)
-                //    {
-                //        window.Close();
-                //    }
-
-                //}
-                //Login.Effect = null;
-                result = System.Windows.Forms.DialogResult.Yes;
-                var dashboard = new Dashboard();
-               
-                cDockAreaPopup.Close();
-              var loginWindow=  App.Current.Windows.OfType<Login>().FirstOrDefault();
-                if (loginWindow is Login)
+              var selectedITem=  cLocation.SelectedItem as UserDatum;
+                if(selectedITem != null)
                 {
-                    if (loginWindow.Effect != null)
-                        loginWindow.Effect = null;
-                    loginWindow.Close();
+                    lblError.Visibility = Visibility.Hidden;
+                    Global.SelectedLocation=selectedITem;
+                    result = System.Windows.Forms.DialogResult.Yes;
+                    var dashboard = new Dashboard();
+
+                    cDockAreaPopup.Close();
+                    var loginWindow = App.Current.Windows.OfType<Login>().FirstOrDefault();
+                    if (loginWindow is Login)
+                    {
+                        if (loginWindow.Effect != null)
+                            loginWindow.Effect = null;
+                        loginWindow.Close();
+                    }
+                    dashboard.Show();
                 }
-                dashboard.Show();
+                else
+                {
+                    lblError.Visibility = Visibility.Visible;
+                }
+                
             }
             catch (Exception)
             {
@@ -120,6 +121,11 @@ namespace ideaForge.Popups
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Application.Current.Shutdown();
+        }
+
+        private void cLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lblError.Visibility = Visibility.Hidden;
         }
     }
 }

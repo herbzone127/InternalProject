@@ -58,9 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\IdeaForge.Core\IdeaForge.Core.csproj">
       <Project>{416c7f1d-5b45-4be3-84d8-a1d17dc5caf4}</Project>
       <Name>IdeaForge.Core</Name>
@@ -73,6 +70,9 @@
       <Project>{a29c7a05-83f5-4b66-ad24-c882a6768477}</Project>
       <Name>IdeaForge.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

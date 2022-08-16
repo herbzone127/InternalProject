@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using ideaForge.ViewModels;
+using IdeaForge.Domain;
+using MahApps.Metro.Controls;
 using MapControl;
 using MapControl.Caching;
 using MapControl.UiTools;
@@ -35,7 +37,7 @@ namespace ideaForge.Pages.DashboardPages
             //TileImageLoader.Cache = new SQLiteCache(TileImageLoader.DefaultCacheFolder);
             //TileImageLoader.Cache = null;
 
-
+           
             BingMapsTileLayer.ApiKey = "WFTYWdHWIQZqxPrvhGGj~hbBrBZlsoiQDin89QFZRHA~Alh9BSR4Jn_GpbPNWpKMtPUDQWzJzDCAqJM_fnLgomFUXxnOm4GKkVVnI1vS4lt3";
             
             InitializeComponent();
@@ -58,6 +60,7 @@ namespace ideaForge.Pages.DashboardPages
                 //    Text = "Bing Maps Aerial with Labels",
                 //    Layer = (UIElement)Resources["BingMapsHybrid"]
                 //});
+                
             }
             if (!string.IsNullOrEmpty(BingMapsTileLayer.ApiKey))
             {
@@ -208,6 +211,17 @@ namespace ideaForge.Pages.DashboardPages
                     //statusPanel3.IsEnabled = true;
                 }
             }
+        }
+
+        private  void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //var comboBox = cLocation.SelectedItem as UserDatum;
+            //if(comboBox != null)
+            //{
+            //    var vModel = DataContext as IFDockViewModel;
+            //    vModel.UserSelectedCity(comboBox);
+            //}
+
         }
     }
 }

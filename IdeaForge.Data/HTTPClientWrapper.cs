@@ -33,7 +33,7 @@ namespace IdeaForge.Data
 
 
                     var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                    if (user != null)
+                    if (user?.token != null)
                     {
 
                         httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + user.token);
@@ -171,7 +171,14 @@ namespace IdeaForge.Data
 
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer "+token);
+                //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer "+token);
+                var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                if (user != null)
+                {
+
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", $"Bearer " + user.token);
+
+                }
                 var serializeJson = JsonConvert.SerializeObject(postObject);
                 HttpContent content = new StringContent(serializeJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(apiUrl, content).ConfigureAwait(false);
@@ -181,14 +188,25 @@ namespace IdeaForge.Data
                 await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>
                 {
                     if (x.IsFaulted)
-                        throw x.Exception;
+                    {
+                        if (x.Result != null)
+                            throw new Exception(x.Result);
+                        if(x.Exception != null)
+                        throw new Exception(x.Exception.Message, x.Exception);
+                    }
+                        
                     if (response.IsSuccessStatusCode)
                     {
+
                         result = x.Result;
                     }
-                    if(response.StatusCode== System.Net.HttpStatusCode.Unauthorized)
+                    if(response.StatusCode== System.Net.HttpStatusCode.Unauthorized || response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {
-                        //throw x.Exception;
+                        if (x.Result != null)
+
+                            throw new Exception($"{x.Result},Token:{user.token}");
+                        if(x.Exception != null)
+                        throw new Exception(x.Exception?.Message, x.Exception);
                     }
                 
 

@@ -3,11 +3,14 @@ using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
+using IdeaForge.Services;
+using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,10 +25,12 @@ namespace ideaForge.ViewModels
         /// <summary>
         /// Services
         /// </summary>
-       #region Services
+        #region Services
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public IPilotRequestServices _pilotRequestServices
          => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
-
+        public IGoogleMapsApiService _googleMapsApiService
+        => App.serviceProvider.GetRequiredService<IGoogleMapsApiService>();
         #endregion
         public int rideId { get; set; }
         private RequestData _selectedAllRequest;
@@ -74,132 +79,160 @@ namespace ideaForge.ViewModels
         #endregion
         private async void ViewCommandCanExecute(object obj)
         {
-           var  selectedRecord = obj as RequestData;
-             IsBusy = true;
-            if (selectedRecord != null)
+            try
             {
-                var rideDetails = await GetRideById(selectedRecord.id);
-                if (rideDetails.status)
+                var selectedRecord = obj as RequestData;
+                IsBusy = true;
+                if (selectedRecord != null)
                 {
-                    
-                   
-                    var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-                    if (dashboard != null)
+                    var rideDetails = await GetRideById(selectedRecord.id);
+                    if (rideDetails.status)
                     {
-                        var context = (DashboardViewModel)dashboard.DataContext;
-                        if (selectedRecord.statusID.Equals(1))
+
+
+                        var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                        if (dashboard != null)
                         {
-                            dashboard.statusBorder.Visibility = Visibility.Visible;
-                            dashboard.statusBorder.Background = ConvertColor("#DEECFF");
-                            //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
-                            context.StatusLogo = "/Images/pendingIcon.png";
-                            dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
-                            dashboard.statusLabel.Content = "Pending";
-                            dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
-                            dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                            dashboard.statusBorder.BorderBrush = ConvertColor("#3398D8");
-                            context.PageName = $"Booking Id:{selectedRecord.id}";
-                            context.CurrentPage.Content = new PendingRidePage(rideDetails.userData);
-                            dashboard.backButton.Visibility = Visibility.Visible;
-                        }
-                        if (selectedRecord.statusID.Equals(2))
-                        {
-                            dashboard.statusBorder.Visibility = Visibility.Visible;
-                            dashboard.statusBorder.Background = ConvertColor("#FFF3D9");
-                            //dashboard.Header.
-                            //BitmapImage bitmap = new BitmapImage();
-                            //bitmap.BeginInit();
-                            //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
-                            //bitmap.EndInit();
-                            //dashboard.statusImage.Source = bitmap;
-                            context.StatusLogo = "/Images/ongoingIcon.png";
-                            dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
-                            dashboard.statusLabel.Content = "Ongoing";
-                            dashboard.statusLabel.Foreground = ConvertColor("#F98926");
-                            dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                            dashboard.statusBorder.BorderBrush = ConvertColor("#FFF3D9");
-                            context.PageName = $"Booking Id:{selectedRecord.id}";
-                            context.CurrentPage.Content = new OnGoingRidePage(rideDetails.userData);
-                            dashboard.backButton.Visibility = Visibility.Visible;
+                            var context = (DashboardViewModel)dashboard.DataContext;
+                            if (selectedRecord.statusID.Equals(1))
+                            {
+                                dashboard.statusBorder.Visibility = Visibility.Visible;
+                                dashboard.statusBorder.Background = ConvertColor("#DEECFF");
+                                //dashboard.statusImage.Source = ConvertImageSource("/Images/pendingIcon.png");
+                                context.StatusLogo = "/Images/pendingIcon.png";
+                                dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
+                                dashboard.statusLabel.Content = "Pending";
+                                dashboard.statusLabel.Foreground = ConvertColor("#3398D8");
+                                dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
+                                dashboard.statusBorder.BorderBrush = ConvertColor("#3398D8");
+                                context.PageName = $"Booking Id:{selectedRecord.id}";
+                                context.CurrentPage.Content = new PendingRidePage(rideDetails.userData);
+                                dashboard.backButton.Visibility = Visibility.Visible;
+                            }
+                            if (selectedRecord.statusID.Equals(2))
+                            {
+                                dashboard.statusBorder.Visibility = Visibility.Visible;
+                                dashboard.statusBorder.Background = ConvertColor("#FFF3D9");
+                                //dashboard.Header.
+                                //BitmapImage bitmap = new BitmapImage();
+                                //bitmap.BeginInit();
+                                //bitmap.UriSource = new Uri("/Images/pendingIcon.png");
+                                //bitmap.EndInit();
+                                //dashboard.statusImage.Source = bitmap;
+                                context.StatusLogo = "/Images/ongoingIcon.png";
+                                dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
+                                dashboard.statusLabel.Content = "Ongoing";
+                                dashboard.statusLabel.Foreground = ConvertColor("#F98926");
+                                dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
+                                dashboard.statusBorder.BorderBrush = ConvertColor("#FFF3D9");
+                                context.PageName = $"Booking Id:{selectedRecord.id}";
+                                context.CurrentPage.Content = new OnGoingRidePage(rideDetails.userData);
+                                dashboard.backButton.Visibility = Visibility.Visible;
+                            }
+
+                            if (selectedRecord.statusID.Equals(5))
+                            {
+                                dashboard.statusBorder.Visibility = Visibility.Visible;
+                                dashboard.statusBorder.Background = ConvertColor("#E8F4D9");
+                                context.StatusLogo = "/Images/completedIcon.png";
+                                dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
+                                dashboard.statusLabel.Content = "Completed";
+                                dashboard.statusLabel.Foreground = ConvertColor("#91C84F");
+                                dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
+                                dashboard.statusBorder.BorderBrush = ConvertColor("#E8F4D9");
+                                context.PageName = $"Booking Id:{selectedRecord.id}";
+
+                                context.CurrentPage.Content = new CompletedRidePage(rideDetails.userData);
+                                dashboard.backButton.Visibility = Visibility.Visible;
+                            }
                         }
 
-                        if (selectedRecord.statusID.Equals(5))
-                        {
-                            dashboard.statusBorder.Visibility = Visibility.Visible;
-                            dashboard.statusBorder.Background = ConvertColor("#E8F4D9");
-                            context.StatusLogo = "/Images/completedIcon.png";
-                            dashboard.statusBorder.CornerRadius = ConvertBorderRadius("6");
-                            dashboard.statusLabel.Content = "Completed";
-                            dashboard.statusLabel.Foreground = ConvertColor("#91C84F");
-                            dashboard.statusBorder.BorderThickness = ConvertBorderThickness("1");
-                            dashboard.statusBorder.BorderBrush = ConvertColor("#E8F4D9");
-                            context.PageName = $"Booking Id:{selectedRecord.id}";
-
-                            context.CurrentPage.Content = new CompletedRidePage(rideDetails.userData);
-                            dashboard.backButton.Visibility = Visibility.Visible;
-                        }
                     }
-                  
+
                 }
 
+                IsBusy = false;
             }
+            catch (Exception ex)
+            {
 
-            IsBusy = false;
+               log.Error(ex.Message,ex);
+            }
+          
         }
         private async void RejectedCommandCanExecute(object obj)
         {
-            IsBusy = true;
-            var model = (RequestData)obj;
-           
-               
+            try
+            {
+                IsBusy = true;
+                var model = (RequestData)obj;
+
+
                 var result = await GetStatusChangesResponse(false, model.id);
                 if (result)
                 {
-                MessageBox.ShowSuccess("Selected record rejected ", "Successful.");
+                    MessageBox.ShowSuccess("Selected record rejected ", "Successful.");
 
-                await GetAllRequest("");
-                await GetTodaysRequest("");
+                    await GetAllRequest("");
+                    await GetTodaysRequest("");
 
+                }
+
+
+
+
+                IsBusy = false;
             }
+            catch (Exception ex)
+            {
 
-
-            
-           
-            IsBusy = false;
+                log.Error(ex.Message,ex);
+            }
+         
         }
 
         private async void AcceptedCommandCanExecute(object obj)
         {
             IsBusy = true;
             var model = (RequestData)obj;
-            if(model.statusID == 1)
+            var requests = await _pilotRequestServices.GetTodaysRequest("");
+            if (requests?.userData != null)
             {
                
-                var result = await GetStatusChangesResponse(true, model.id);
-                if (result)
+                int count = requests.userData.Where(u => u.statusID == 2 && u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).Count();
+                if (count > 0)
                 {
-                    MessageBox.ShowSuccess("Selected record accepted ", "successfully.");
-                    await GetAllRequest("");
-                   await GetTodaysRequest("");
+                    MessageBox.ShowError("Only one flight can be in Ongoing status at a time");
+                } else
+                if (model.statusID == 1)
+                {
+
+                    var result = await GetStatusChangesResponse(true, model.id);
+                    if (result)
+                    {
+                        MessageBox.ShowSuccess("Selected record accepted ", "successfully.");
+                        await GetAllRequest("");
+                        await GetTodaysRequest("");
+
+
+                    }
+                    else
+                    {
+                        MessageBox.ShowError("Record is not updated");
+                    }
 
 
                 }
                 else
                 {
-                    MessageBox.ShowError("Record is not updated");
+                    MessageBox.ShowError("Only pending rides can be accepted");
                 }
-               
-
+                IsBusy = false;
             }
-            else
-            {
-               MessageBox.ShowError("Only pending rides can be accepted");
-            }
-            IsBusy = false;
         }
+
+
      
-
-
 
 
         #region ObservableCollections
@@ -297,33 +330,46 @@ namespace ideaForge.ViewModels
             //IsBusy = true;
             try
             {
+                
                 var requests = await _pilotRequestServices.GetTodaysRequest(status);
-                if(requests != null)
+              
+                if (requests != null)
                 {
                     if (requests.status)
                     {
-                        requests.userData.ForEach(u => {
-                            u.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
-                            if (u.statusID == 1)
+                        requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).ToList();
+                        requests.userData.ForEach(async u => {
+                         
+                                u.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
+                            double totalHours = (  u.startDate- DateTime.Now).TotalHours;
+                          
+                            if (totalHours <= -0.01 && totalHours>= -0.05 && u.statusID == 3)
                             {
-                                //Pending
-                                u.color = ConvertColor("#DEECFF");
-                                u.TextColor = ConvertColor("#3398D8");
-                                u.StatusImage = "/Images/pendingIcon.png";
-                                if (Global.IsIFDockStatus)
+                             var result= await  _pilotRequestServices.UpdateRideByPilot(new Ride
                                 {
-                                    u.IsVisibleButton = Visibility.Visible;
-                                }
-                                else
-                                {
-                                    u.IsVisibleButton = Visibility.Hidden;
-                                }
-                                
-                                u.ViewButtonVisible = Visibility.Visible;
-                            }
-                            if (u.statusID == 2)
-                            {
-                                //OnGoing
+                                    statusID = 2,
+                                    addedBy = u.addedBy,
+                                    addedOn = u.addedOn,
+                                    endDate = u.endDate,
+                                    id = u.id,
+                                    videoLink = u.videoLink,
+                                    originLatitude = u.originLatitude,
+                                    originLongitude = u.originLongitude,
+                                    userID = Convert.ToInt32(u.addedBy),
+                                    updateBy = Convert.ToString(Global.loginUserId),
+                                    updateOn = DateTime.UtcNow,
+                                     isActive=u.isActive,
+                                     requestID=u.requestID,
+                                     location=u.location,
+                                     requestOn=u.requestOn,
+                                     startDate=u.startDate,
+                                    
+                               SecretKey = GenerateRandomCryptographicKey(16),
+                               ControlKey = GenerateRandomCryptographicKey(8),
+                                status ="OnGoing",
+                                    
+                                   
+                                }) ;
                                 u.color = ConvertColor("#FFF3D9");
                                 u.TextColor = ConvertColor("#F98926");
                                 u.StatusImage = "/Images/ongoingIcon.png";
@@ -331,51 +377,143 @@ namespace ideaForge.ViewModels
                                 u.ViewButtonVisible = Visibility.Visible;
 
                             }
-                            if (u.statusID == 3)
+                            double endFlightHours = (u.endDate - DateTime.Now).TotalHours;
+                            if (endFlightHours <= -0.05 && u.statusID != 7 && u.statusID == 2)
                             {
-                                //UpComming
-                                u.color = ConvertColor("#EEE2FF");
-                                u.TextColor = ConvertColor("#9F52FF");
-                                u.StatusImage = "/Images/upcoomingIcon.png";
-                                u.IsVisibleButton = Visibility.Hidden;
-                                u.ViewButtonVisible = Visibility.Hidden;
-                            }
-                            if (u.statusID == 4)
-                            {
-                                //Rejected
-                                u.color = ConvertColor("#FFDFDF");
-                                u.TextColor = ConvertColor("#D42424");
-                                u.StatusImage = "/Images/rejectedIcon.png";
-                                u.IsVisibleButton = Visibility.Hidden;
-                                u.ViewButtonVisible = Visibility.Hidden;
-                            }
-                            if (u.statusID == 5)
-                            {
-                                //Completed
+                                var result = await _pilotRequestServices.UpdateRideByPilot(new Ride
+                                {
+                                    statusID = 5,
+                                    addedBy = u.addedBy,
+                                    addedOn = u.addedOn,
+                                    endDate = u.endDate,
+                                    id = u.id,
+                                    videoLink = u.videoLink,
+                                    originLatitude = u.originLatitude,
+                                    originLongitude = u.originLongitude,
+                                    userID = Convert.ToInt32(u.addedBy),
+                                    updateBy = Convert.ToString(Global.loginUserId),
+                                    updateOn = DateTime.UtcNow,
+                                    isActive = u.isActive,
+                                    requestID = u.requestID,
+                                    location = u.location,
+                                    requestOn = u.requestOn,
+                                    startDate = u.startDate,
+                                    status = "Completed",
+
+
+                                });
                                 u.color = ConvertColor("#E8F4D9");
                                 u.TextColor = ConvertColor("#91C84F");
                                 u.StatusImage = "/Images/completedIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Visible;
                             }
-                            if (u.statusID == 6)
+                                if (endFlightHours <= -0.5 && u.statusID!=7 && u.statusID!=2)
                             {
-                                //Cancel
-                                u.color = ConvertColor("#FFF2F2");
-                                u.TextColor = ConvertColor("#D42424");
-                                u.StatusImage = "/Images/cancelledIcon.png";
-                                u.IsVisibleButton = Visibility.Hidden;
-                                u.ViewButtonVisible = Visibility.Hidden;
-                            }
-                            if (u.statusID == 7)
-                            {
-                                //EndFlight
+                                await _pilotRequestServices.UpdateRideByPilot(new Ride
+                                {
+                                    statusID = 7,
+                                    addedBy = u.addedBy,
+                                    addedOn = u.addedOn,
+                                    endDate = u.endDate,
+                                    id = u.id,
+                                    videoLink = u.videoLink,
+                                    originLatitude = u.originLatitude,
+                                    originLongitude = u.originLongitude,
+                                    userID = Convert.ToInt32(u.addedBy),
+                                    updateBy = Convert.ToString(Global.loginUserId),
+                                    updateOn = DateTime.UtcNow,
+                                    isActive = u.isActive,
+                                    requestID = u.requestID,
+                                    location = u.location,
+                                    requestOn = u.requestOn,
+                                    startDate = u.startDate,
+                                    status = u.status
+
+                                });
                                 u.color = ConvertColor("#FFDCEF");
                                 u.TextColor = ConvertColor("#C84F90");
                                 u.StatusImage = "/Images/endedIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Hidden;
                             }
+
+
+                            if (u.statusID == 1)
+                                {
+                                    //Pending
+                                    u.color = ConvertColor("#DEECFF");
+                                    u.TextColor = ConvertColor("#3398D8");
+                                    u.StatusImage = "/Images/pendingIcon.png";
+
+                                    if (Global.IsIFDockStatus && u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim())
+                                    {
+                                        u.IsVisibleButton = Visibility.Visible;
+                                    }
+                                    else
+                                    {
+                                        u.IsVisibleButton = Visibility.Hidden;
+                                    }
+
+                                    u.ViewButtonVisible = Visibility.Visible;
+                                }
+                                if (u.statusID == 2)
+                                {
+                                    //OnGoing
+                                    u.color = ConvertColor("#FFF3D9");
+                                    u.TextColor = ConvertColor("#F98926");
+                                    u.StatusImage = "/Images/ongoingIcon.png";
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                    u.ViewButtonVisible = Visibility.Visible;
+
+                                }
+                                if (u.statusID == 3)
+                                {
+                                    //UpComming
+                                    u.color = ConvertColor("#EEE2FF");
+                                    u.TextColor = ConvertColor("#9F52FF");
+                                    u.StatusImage = "/Images/upcomingIcon.png";
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                    u.ViewButtonVisible = Visibility.Hidden;
+                                }
+                                if (u.statusID == 4)
+                                {
+                                    //Rejected
+                                    u.color = ConvertColor("#FFDFDF");
+                                    u.TextColor = ConvertColor("#D42424");
+                                    u.StatusImage = "/Images/rejectedIcon.png";
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                    u.ViewButtonVisible = Visibility.Hidden;
+                                }
+                                if (u.statusID == 5)
+                                {
+                                    //Completed
+                                    u.color = ConvertColor("#E8F4D9");
+                                    u.TextColor = ConvertColor("#91C84F");
+                                    u.StatusImage = "/Images/completedIcon.png";
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                    u.ViewButtonVisible = Visibility.Visible;
+                                }
+                                if (u.statusID == 6)
+                                {
+                                    //Cancel
+                                    u.color = ConvertColor("#FFF2F2");
+                                    u.TextColor = ConvertColor("#D42424");
+                                    u.StatusImage = "/Images/cancelledIcon.png";
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                    u.ViewButtonVisible = Visibility.Hidden;
+                                }
+                                if (u.statusID == 7)
+                                {
+                                    //EndFlight
+                                    u.color = ConvertColor("#FFDCEF");
+                                    u.TextColor = ConvertColor("#C84F90");
+                                    u.StatusImage = "/Images/endedIcon.png";
+                                    u.IsVisibleButton = Visibility.Hidden;
+                                    u.ViewButtonVisible = Visibility.Hidden;
+                                }
+                            
+                  
                         });
                         //var dt = requests.userData;
                         //if (dt!= null)
@@ -387,15 +525,16 @@ namespace ideaForge.ViewModels
                         TodaysRequests = new ObservableCollection<RequestData>(data);
                         _ = TodaysRequests.OrderByDescending(u => u.updateOn).ThenBy(u => u.addedOn);
                         //Console.WriteLine("hello    " + DateTime.Now);
+                        return true;
                     }
                 }
             
-                return true;
+                return false;
             }
             catch (Exception ex)
             {
-
-               MessageBox.ShowError(ex.Message);
+                log.Error(ex.Message,ex);
+                MessageBox.ShowError(ex.Message);
                 return false;
             }
             //IsBusy = false;
@@ -411,15 +550,113 @@ namespace ideaForge.ViewModels
                 {
                     if (requests.status)
                     {
+                        requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).ToList();
                         requests.userData.ForEach(u => {
                             u.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
+                            double totalHours = (u.startDate - DateTime.Now).TotalHours;
+
+                            if (totalHours <= -0.01 && totalHours >= -0.05 && u.statusID == 3)
+                            {
+                                var result =  _pilotRequestServices.UpdateRideByPilot(new Ride
+                                {
+                                    statusID = 2,
+                                    addedBy = u.addedBy,
+                                    addedOn = u.addedOn,
+                                    endDate = u.endDate,
+                                    id = u.id,
+                                    videoLink = u.videoLink,
+                                    originLatitude = u.originLatitude,
+                                    originLongitude = u.originLongitude,
+                                    userID = Convert.ToInt32(u.addedBy),
+                                    updateBy = Convert.ToString(Global.loginUserId),
+                                    updateOn = DateTime.UtcNow,
+                                    isActive = u.isActive,
+                                    requestID = u.requestID,
+                                    location = u.location,
+                                    requestOn = u.requestOn,
+                                    startDate = u.startDate,
+                                    status = "OnGoing",
+                                    SecretKey = GenerateRandomCryptographicKey(16),
+                                    ControlKey = GenerateRandomCryptographicKey(8),
+
+                                }).ConfigureAwait(false);
+                                u.statusID = 2;
+                                u.color = ConvertColor("#FFF3D9");
+                                u.TextColor = ConvertColor("#F98926");
+                                u.StatusImage = "/Images/ongoingIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Visible;
+
+                            }
+                            double endFlightHours = (u.endDate - DateTime.Now).TotalHours;
+                            if (endFlightHours <= -0.05 && u.statusID != 7 && u.statusID == 2)
+                            {
+                                var result =  _pilotRequestServices.UpdateRideByPilot(new Ride
+                                {
+                                    statusID = 5,
+                                    addedBy = u.addedBy,
+                                    addedOn = u.addedOn,
+                                    endDate = u.endDate,
+                                    id = u.id,
+                                    videoLink = u.videoLink,
+                                    originLatitude = u.originLatitude,
+                                    originLongitude = u.originLongitude,
+                                    userID = Convert.ToInt32(u.addedBy),
+                                    updateBy = Convert.ToString(Global.loginUserId),
+                                    updateOn = DateTime.UtcNow,
+                                    isActive = u.isActive,
+                                    requestID = u.requestID,
+                                    location = u.location,
+                                    requestOn = u.requestOn,
+                                    startDate = u.startDate,
+                                    status = "Completed",
+
+
+                                }).ConfigureAwait(false);
+                                u.statusID = 5;
+                                u.color = ConvertColor("#E8F4D9");
+                                u.TextColor = ConvertColor("#91C84F");
+                                u.StatusImage = "/Images/completedIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Visible;
+                            }
+                            if (endFlightHours <= -0.5 && u.statusID != 7 && u.statusID != 2)
+                            {
+                                 _pilotRequestServices.UpdateRideByPilot(new Ride
+                                {
+                                    statusID = 7,
+                                    addedBy = u.addedBy,
+                                    addedOn = u.addedOn,
+                                    endDate = u.endDate,
+                                    id = u.id,
+                                    videoLink = u.videoLink,
+                                    originLatitude = u.originLatitude,
+                                    originLongitude = u.originLongitude,
+                                    userID = Convert.ToInt32(u.addedBy),
+                                    updateBy = Convert.ToString(Global.loginUserId),
+                                    updateOn = DateTime.UtcNow,
+                                    isActive = u.isActive,
+                                    requestID = u.requestID,
+                                    location = u.location,
+                                    requestOn = u.requestOn,
+                                    startDate = u.startDate,
+                                    status = u.status
+
+                                }).ConfigureAwait(false);
+                                u.statusID = 7;
+                                u.color = ConvertColor("#FFDCEF");
+                                u.TextColor = ConvertColor("#C84F90");
+                                u.StatusImage = "/Images/endedIcon.png";
+                                u.IsVisibleButton = Visibility.Hidden;
+                                u.ViewButtonVisible = Visibility.Hidden;
+                            }
                             if (u.statusID == 1)
                             {
                                 //Pending
                                 u.color = ConvertColor("#DEECFF");
                                 u.TextColor = ConvertColor("#3398D8");
                                 u.StatusImage = "/Images/pendingIcon.png";
-                                if (Global.IsIFDockStatus)
+                                if (Global.IsIFDockStatus && u.city == Global.SelectedLocation.city_Name)
                                 {
                                     u.IsVisibleButton = Visibility.Visible;
                                 }
@@ -444,7 +681,7 @@ namespace ideaForge.ViewModels
                                 //UpComming
                                 u.color = ConvertColor("#EEE2FF");
                                 u.TextColor = ConvertColor("#9F52FF");
-                                u.StatusImage = "/Images/upcoomingIcon.png";
+                                u.StatusImage = "/Images/upcomingIcon.png";
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Hidden;
                             }
@@ -498,22 +735,47 @@ namespace ideaForge.ViewModels
             }
             catch (Exception ex)
             {
-
+                log.Error(ex.Message,ex);
                MessageBox.ShowError(ex.Message);
             }
             IsBusy = false;
         }
+        public string GenerateRandomCryptographicKey(int keyLength)
+        {
+            RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            byte[] randomBytes = new byte[keyLength];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+            return Convert.ToBase64String(randomBytes);
+        }
         public async Task<RideResponse>  GetRideById(int status)
         {
-            var result= await _pilotRequestServices.GetRideById(status);
-            return result;
+            try
+            {
+                var result = await _pilotRequestServices.GetRideById(status);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                log.Error(ex.Message,ex);
+            }
+         return null;
         }
 
         public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId)
         {
-            var result = await _pilotRequestServices.GetStatusChangesResponse(isAccepted,rideId);
-           
-            return result;
+            try
+            {
+                var result = await _pilotRequestServices.GetStatusChangesResponse(isAccepted, rideId);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                log.Error(ex.Message,ex);
+            }
+            return false; 
         }
 
          

@@ -2,6 +2,7 @@
 using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
+using IdeaForge.Service.GenericServices;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
@@ -13,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Linq;
-
+using MapControl;
 namespace ideaForge.ViewModels
 {
     public partial class IFDockViewModel : ViewModelBase
@@ -24,10 +25,11 @@ namespace ideaForge.ViewModels
         #region Services
         public IPilotRequestServices _pilotRequestServices
          => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
-
+        public IRegisterService _registerService
+        => App.serviceProvider.GetRequiredService<IRegisterService>();
         #endregion
 
-        
+
         #region Properties
         private int _selectedLocationId;
 
@@ -102,9 +104,22 @@ namespace ideaForge.ViewModels
         {
             get { return _SelectedLocation; }
             set { _SelectedLocation = value;
+               
                 OnPropertyChanged(nameof(SelectedLocation));
+              
+
+                   
             }
         }
+
+        private void UserSelectedLocation(UserDatum selectedLocation)
+        {
+           if(selectedLocation != null)
+            {
+                Global.SelectedLocation=selectedLocation;
+            }
+        }
+
         private PilotLocation _SelectedLocationGrid;
 
         public PilotLocation SelectedLocationGrid
@@ -125,18 +140,81 @@ namespace ideaForge.ViewModels
         readonly DelegateCommand _cancelCommand;
         public ICommand CancelCommand => _cancelCommand;
 
+        public ObservableCollection<UserDatum> _cityList;
+        public ObservableCollection<UserDatum> CityList { get 
+            {
+                return _cityList;
+            }
+
+
+            set { 
+            _cityList = value;
+                OnPropertyChanged(nameof(CityList));
+            }
+        
+        
+        
+        }
+        //public ObservableCollection<UserDatum> _cityListIFDock;
+        //public ObservableCollection<UserDatum> CityListIFDock
+        //{
+        //    get
+        //    {
+        //        return _cityListIFDock;
+        //    }
+
+
+        //    set
+        //    {
+        //        _cityListIFDock = value;
+        //        OnPropertyChanged(nameof(CityListIFDock));
+        //    }
+
+
+
+        //}
+        public UserDatum _selectedCity= new UserDatum();
+        public UserDatum SelectedCity { get { return _selectedCity; }  set { _selectedCity = value; OnPropertyChanged(nameof(SelectedCity));
+            
+            } }
+
+        public void UserSelectedCity(UserDatum selectedCity)
+        {
+            if(SelectedCity != null)
+            {
+                
+                var result = PilotLocations.Where(u => u.city_Name == selectedCity.city_Name && u.userId == Global.loginUserId).FirstOrDefault();
+                if (result != null)
+                {
+                    SelectedLocation= result;
+
+                    IsActive = SelectedLocation.isActive;
+
+                    Center = new Location(Convert.ToDouble(SelectedCity.Latitude), Convert.ToDouble(SelectedCity.Longitude));
+
+                }
+                else
+                {
+                    IsActive = false;
+                    SelectedLocation = new PilotLocation();
+                }
+
+            }
+
+        }
+
         async   void CanExecuteSaveChanges(object obj)
         {
             if(!string.IsNullOrEmpty(Comments) && ReasonId>0 )
             {
                 var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
                 {
-                    cityId = SelectedLocation.cityId,
+                    cityId = SelectedCity.id,
                     comments = Comments,
-                    city_Name = SelectedLocation.city_Name,
-                    id = SelectedLocation.id,
-                    locationName = SelectedLocation.locationName,
-                    reasonDescription = SelectedLocation.reasonDescription,
+                    city_Name = SelectedCity.city_Name,
+                    id = 0,
+                    locationName = SelectedCity.city_Name,
+                    reasonDescription = Comments,
                     reasonId = ReasonId,
                     userId = Global.loginUserId,
                     isActive = IsActive,
@@ -169,13 +247,13 @@ namespace ideaForge.ViewModels
             {
                 var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
                 {
-                    cityId = SelectedLocation.cityId,
-                    comments = SelectedLocation.comments,
-                    city_Name = SelectedLocation.city_Name,
-                    id = SelectedLocation.id,
-                    locationName = SelectedLocation.locationName,
-                    reasonDescription = SelectedLocation.reasonDescription,
-                    reasonId = SelectedLocation.reasonId,
+                    cityId = SelectedCity.id,
+                    comments = "",
+                    city_Name = SelectedCity.city_Name,
+                    id = 0,
+                    locationName = SelectedCity.city_Name,
+                    reasonDescription = "",
+                    reasonId = 2,
                     userId = Global.loginUserId,
                     isActive = IsActive,
 
@@ -238,35 +316,30 @@ namespace ideaForge.ViewModels
                             {
                                 if (result.userData.Count() != 0)
                                 {
-                                    //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
-                                    PilotLocations = new ObservableCollection<PilotLocation>(result.userData);
-                                    SelectedLocation = PilotLocations[0];
-                                    IsActive = SelectedLocation.isActive;
-                                    Global.IsIFDockStatus = SelectedLocation.isActive;
-                                    foreach (var item in PilotLocations)
+                                    var pilotLocations = result.userData.Where(u => u.cityId == Global.SelectedLocation?.id && u.userId == Global.loginUserId).ToList();
+                                    var selectedLocation = pilotLocations.FirstOrDefault();
+                                    if (selectedLocation != null)
                                     {
-                                        if (item.reasonId > 0)
+                                       
+                                        IsActive = selectedLocation.isActive;
+                                        Global.IsIFDockStatus = selectedLocation.isActive;
+                                        foreach (var item in pilotLocations)
                                         {
-                                            PilotLocationsGrid.Add(new PilotLocation
-                                            {
-                                                cityId = item.cityId,
-                                                comments = item.comments,
-                                                city_Name = item.city_Name,
-                                                id = item.id,
-                                                locationName = item.locationName,
-                                                reasonDescription = item.reasonDescription,
-                                                reasonId = item.reasonId,
-                                                userId = Global.loginUserId,
-                                                isActive = item.isActive,
-                                                IsVisible = System.Windows.Visibility.Visible
-                                            }) ;
+                                            item.SRNO = 1;
+                                            if (item.isActive)
+                                                item.StringStatus = "Active";
+                                            else
+                                                item.StringStatus = "InActive";
                                         }
+                                        //PilotLocations = new ObservableCollection<PilotLocation>(user.);
+                                        PilotLocationsGrid = new ObservableCollection<PilotLocation>(pilotLocations);
                                     }
+                                    
+                                    //var selectedLoc=  result.userData.Where(u => u.cityId == Global.SelectedLocation?.id && u.userId==Global.loginUserId).FirstOrDefault();
+                                    //  if (selectedLoc != null)
+                                    //      SelectedLocation = selectedLoc;
                                 }
-                                else
-                                {
-                                    MessageBox.ShowError(result.message);
-                                }
+                              
                             }
                       
                             else
@@ -289,6 +362,51 @@ namespace ideaForge.ViewModels
             }
             
         }
+        public async Task GetCityList()
+        {
+            try
+            {
+                var userDatumCities = await _registerService.GetCityList();
+                userDatumCities.userData.ForEach(u => u.position = new Location(Convert.ToDouble(u.Latitude), Convert.ToDouble(u.Longitude)));
+                CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+          
+                    if(Global.SelectedLocation?.city_Name==null)
+                    Global.SelectedLocation= CityList[0];
+                SelectedCity=Global.SelectedLocation;
+                if (SelectedCity != null)
+                {
+                    if (SelectedCity?.city_Name == "Mumbai")
+                    {
+                        PolyLocations = new List<Location>();
+                        PolyLocations.Add(new Location(18.890695572,72.775970459) );
+                        PolyLocations.Add(new Location(19.315412521,72.775970459));
+                        PolyLocations.Add(new Location(19.315412521,73.124320984));
+                        PolyLocations.Add(new Location(18.890695572,73.124320984));
+                        PolyLocations.Add(new Location(18.890695572, 72.775970459));
+                        //18.890695572,72.775970459
+                        //19.315412521,72.775970459
+                        //19.315412521,73.124320984
+                        //18.890695572,73.124320984
+                        //18.890695572,72.775970459
+                    }
+                    //MapPolygon.Location = SelectedCity.position;
+
+
+
+                }
+                CityName = Global.SelectedLocation.city_Name;
+                await GetPilotLocations();
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.ShowError(ex.Message);
+            }
+
+        }
         async Task GetReasons()
         {
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
@@ -304,7 +422,7 @@ namespace ideaForge.ViewModels
                         {
                             if (result.userData.Count() != 0)
                             {
-                                //SelectedLocationId = result.PilotLocations.FirstOrDefault().id;
+                                result.userData = result.userData.Where(u => u.id != 2).ToList();
                                 Reasons = new ObservableCollection<Reason>(result.userData);
                                 SelectedReason = Reasons[0];
                             }

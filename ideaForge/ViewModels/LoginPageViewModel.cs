@@ -513,7 +513,11 @@ namespace ideaForge.ViewModels
             try
             {
                 var userDatumCities = await _registerService.GetCityList();
-                CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+                if (userDatumCities != null)
+                {
+                    CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+                }
+        
             
             }
             catch (Exception ex)
