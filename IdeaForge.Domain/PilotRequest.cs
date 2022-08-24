@@ -47,5 +47,7 @@ namespace IdeaForge.Domain
         public Visibility IsVisibleButton { get; set; }
         public Visibility ViewButtonVisible { get; set; }
         public string city { get; set; }
+        public int TotalAcceptedRidesByUser { get; set; }
+        public int TotalRejectedRidesByUser { get; set; }
     }
 }

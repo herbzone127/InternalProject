@@ -127,7 +127,8 @@ namespace ideaForge.ViewModels
             //CurrentPage = new ProfilePage();
             _ProfileMenuCommand = new DelegateCommand(CanExecuteIFProfilePage);
             //_ProfileMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
-            
+
+            _ReportMenuCommand = new DelegateCommand(CanExecuteReportsPage);
         }
         #endregion
         /// <summary>
@@ -172,6 +173,14 @@ namespace ideaForge.ViewModels
             CurrentPage.Content = new ProfilePage();
             IsBusy = false;
         }
+        private void CanExecuteReportsPage(object obj)
+        {
+            IsBusy = true;
+            PageName = "Reports";
+            CurrentPage.Content = new Reports();
+            IsBusy = false;
+        }
+
         #endregion
         private void CloseAllWindows()
         {
