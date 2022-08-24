@@ -174,44 +174,18 @@ namespace ideaForge
                     {
 
                         var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                        if (userOTP != null)
+                        if (userOTP != null && userOTP?.id != 0)
                         {
                             DockAreaPopup.Show();
+                        }
+                        else
+                        {
+                           await GetOTP();
                         }
                     }
                     else
                     {
-                        string notp = txtOTP1.Text + txtOTP2.Text + txtOTP3.Text + txtOTP4.Text + txtOTP5.Text + txtOTP6.Text;
-                        if (notp.Length == 6)
-                        {
-                            progreshbar.IsActive = true;
-                            int.TryParse(notp, out int otpResult);
-                            if (otpResult > 0)
-                            {
-                                var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
-                                if (result.status && result.userData.id != 0)
-                                {
-                                    Global.loginUserId = result.userData.id;
-                                    Global.email_PhoneNo = result.userData.email;
-                                    Global.Token = result.userData.token;
-                                    Global.contactNo = result.userData.contactNo;
-                                    worker.CancelAsync();
-                                    Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
-                                    ShowDashboard();
-                                    
-                                }
-                                else
-                                {
-
-                                    var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
-                                }
-                            }
-                            else
-                            {
-
-                                var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
-                            }
-                        }
+                      await  GetOTP();
                     }
                     progreshbar.IsActive = false;
                 }
@@ -219,7 +193,40 @@ namespace ideaForge
                     txtOTP1.Focus();
             }
         }
+        private async Task GetOTP()
+        {
+            string notp = txtOTP1.Text + txtOTP2.Text + txtOTP3.Text + txtOTP4.Text + txtOTP5.Text + txtOTP6.Text;
+            if (notp.Length == 6)
+            {
+                progreshbar.IsActive = true;
+                int.TryParse(notp, out int otpResult);
+                if (otpResult > 0)
+                {
+                    var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
+                    if (result.status && result.userData.id != 0)
+                    {
+                        Global.loginUserId = result.userData.id;
+                        Global.email_PhoneNo = result.userData.email;
+                        Global.Token = result.userData.token;
+                        Global.contactNo = result.userData.contactNo;
+                        worker.CancelAsync();
+                        Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                        ShowDashboard();
 
+                    }
+                    else
+                    {
+
+                        var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                    }
+                }
+                else
+                {
+
+                    var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
+                }
+            }
+        }
         private async void txtOTP_PreviewKeyDown(object sender, KeyEventArgs e)
         {
           
@@ -285,7 +292,7 @@ namespace ideaForge
                     {
 
                         var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                        if (userOTP != null)
+                        if (userOTP != null && userOTP?.id!=0)
                         {
                             DockAreaPopup.Show();
                         }

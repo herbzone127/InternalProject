@@ -263,7 +263,7 @@ namespace ideaForge.ViewModels
              
 
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                if(user != null)
+                if(user != null && user?.id!=0)
                 {
                  
                     Global.loginUserId = user.id;
@@ -271,7 +271,11 @@ namespace ideaForge.ViewModels
                     Global.Token = user.token;
                     Global.contactNo = user.contactNo;
                     ShowDashboard();
-                }    
+                }
+                else
+                {
+                    AuthenticationPage = new MainWindow();
+                }   
 
             }
             else
@@ -316,7 +320,7 @@ namespace ideaForge.ViewModels
                 if (result.status)
                 {
                     //MessageBox.ShowSuccess(result.message,"");
-                    MessageBox.Show(result.message, CMessageTitle.Confirm, CMessageButton.Ok, " Successfully.");
+                    MessageBox.ShowSuccess(result.message,  "");
                     RegisterModel = new Register();
                     SignupBackButtonCanExecute(null);
                 }
@@ -334,10 +338,18 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             ImageUrl = "/Images/LoginImage.png";
             PageName = "";
+           
             AuthenticationPage = new MainWindow();
             RegisterModel = new Register();
+            OTP1 = "";
+            OTP2 = "";
+            OTP3 = "";
+            OTP4 = "";
+            OTP5 = "";
+            OTP6 = "";
             BackButtonVisiblity = Visibility.Hidden;
             IsBusy = false;
+      
           
         }
 
@@ -395,7 +407,17 @@ namespace ideaForge.ViewModels
                         BackButtonVisiblity = Visibility.Visible;
                         ImageUrl = "/Images/optFrame.png";
                         Global.email_PhoneNo = Email_PhoneNo;
-                        AuthenticationPage = new OtpVerification();
+
+                        // var otp = (OtpVerification)AuthenticationPage;
+
+
+                        AuthenticationPage.Content = new OtpVerification();
+                        OTP1 = "";
+                        OTP2 = "";
+                        OTP3 = "";
+                        OTP4 = "";
+                        OTP5 = "";
+                        OTP6 = "";
                         IsBusy = false;
                         Email_PhoneNo = "";
                     }
@@ -467,6 +489,12 @@ namespace ideaForge.ViewModels
                             Global.loginUserId = result.userData.id;
                             Global.Token = result.userData.token;
                             Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                            OTP1 = "";
+                            OTP2 = "";
+                            OTP3 = "";
+                            OTP4 = "";
+                            OTP5 = "";
+                            OTP6 = "";
                             ShowDashboard();
                           
 
@@ -474,13 +502,15 @@ namespace ideaForge.ViewModels
                         }
                         else
                         {
-
+                            Barrel.Current.EmptyAll();
+                            
                             MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
                         }
                     }
                     else
                     {
-                       MessageBox.ShowError("Please enter a valid OTP Number");
+                        Barrel.Current.EmptyAll();
+                        MessageBox.ShowError("Please enter a valid OTP Number");
                     }
                 }
                 

@@ -85,8 +85,9 @@ namespace ideaForge
 
         private void logout_MouseLeftDownUp(object sender, MouseButtonEventArgs e)
         {
-            Barrel.Current.EmptyAll();
+            //Barrel.Current.EmptyAll();
             trayProfile.Visibility = Visibility.Hidden;
+            Global.IsIFDockStatus = false;
             Barrel.Current.EmptyAll();
             var previousLogin = Application.Current.Windows.OfType<Login>().FirstOrDefault();
             if (previousLogin != null)
@@ -94,6 +95,7 @@ namespace ideaForge
                 previousLogin.Effect = null;
               var dashboard  = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
                 dashboard.Close();
+                previousLogin.WindowState=dashboard.WindowState;
                 previousLogin.Show();
             }
             else
@@ -101,7 +103,7 @@ namespace ideaForge
                 var login = new Login();
                 var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
                 dashboard.Close();
-               
+                login.WindowState = dashboard.WindowState;
                 login.Show();
             }
 
@@ -123,6 +125,7 @@ namespace ideaForge
             statusBorder.Visibility = Visibility.Hidden;
             backButton.Visibility = Visibility.Hidden;
             var vModel = (DashboardViewModel)this.DataContext;
+            Global.isStoped = false;
             vModel.CurrentPage.Content = new Requests();
             vModel.PageName = "Requests";
         }

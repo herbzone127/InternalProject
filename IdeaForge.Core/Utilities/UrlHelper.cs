@@ -11,7 +11,7 @@ namespace IdeaForge.Core.Utilities
 //#if DEBUG
 //        public const string baseURL = "https://localhost:44340";
 //#else
- public const string baseURL = "http://ifapi.dweb.in";
+public const string baseURL = "http://ifapi.dweb.in";
 //#endif
         public const string loginURL = baseURL + "/api/login/pilotlogin";
         public const string getCityList = baseURL + "/api/login/getcitylist";

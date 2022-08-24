@@ -1,5 +1,6 @@
 ﻿using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -100,6 +101,7 @@ namespace ideaForge.ViewModels
         #region Constructor
         public CompleteRideViewModel()
         {
+            Global.isStoped = true;
 
             var result = RideById;
             _TextCopyLatitude_Comand = new DelegateCommand(TextCopyLatitude_ComandExecut);
@@ -145,7 +147,7 @@ namespace ideaForge.ViewModels
         private void CanExecuteCancelChanges(object obj)
         {
             var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-
+            Global.isStoped = false;
             dashboard.statusBorder.Visibility = Visibility.Hidden;
             dashboard.backButton.Visibility = Visibility.Hidden;
 

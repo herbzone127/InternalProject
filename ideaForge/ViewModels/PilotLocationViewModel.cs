@@ -116,7 +116,8 @@ namespace ideaForge.ViewModels
         {
            if(selectedLocation != null)
             {
-                Global.SelectedLocation=selectedLocation;
+                var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+               selectedCity=selectedLocation;
             }
         }
 
@@ -182,7 +183,7 @@ namespace ideaForge.ViewModels
         {
             if(SelectedCity != null)
             {
-                
+                //Barrel.Current.Add<UserDatum>("SelectedLocation",selectedCity,TimeSpan.FromHours(5));
                 var result = PilotLocations.Where(u => u.city_Name == selectedCity.city_Name && u.userId == Global.loginUserId).FirstOrDefault();
                 if (result != null)
                 {
@@ -316,7 +317,8 @@ namespace ideaForge.ViewModels
                             {
                                 if (result.userData.Count() != 0)
                                 {
-                                    var pilotLocations = result.userData.Where(u => u.cityId == Global.SelectedLocation?.id && u.userId == Global.loginUserId).ToList();
+                                    var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                                    var pilotLocations = result.userData.Where(u => u.cityId == selectedCity?.id && u.userId == Global.loginUserId).ToList();
                                     var selectedLocation = pilotLocations.FirstOrDefault();
                                     if (selectedLocation != null)
                                     {
@@ -369,10 +371,13 @@ namespace ideaForge.ViewModels
                 var userDatumCities = await _registerService.GetCityList();
                 userDatumCities.userData.ForEach(u => u.position = new Location(Convert.ToDouble(u.Latitude), Convert.ToDouble(u.Longitude)));
                 CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
-          
-                    if(Global.SelectedLocation?.city_Name==null)
-                    Global.SelectedLocation= CityList[0];
-                SelectedCity=Global.SelectedLocation;
+                var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                if (selectedCity==null)
+                {
+                    Barrel.Current.Add<UserDatum>("SelectedLocation", CityList[0], TimeSpan.FromHours(5));
+                }
+                   
+                SelectedCity=selectedCity;
                 if (SelectedCity != null)
                 {
                     if (SelectedCity?.city_Name == "Mumbai")
@@ -394,7 +399,9 @@ namespace ideaForge.ViewModels
 
 
                 }
-                CityName = Global.SelectedLocation.city_Name;
+          
+                if(selectedCity?.city_Name!=null)
+                CityName = selectedCity.city_Name;
                 await GetPilotLocations();
 
 

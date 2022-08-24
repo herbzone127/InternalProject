@@ -6,6 +6,7 @@ using IdeaForge.Service.IGenericServices;
 using IdeaForge.Services;
 using log4net;
 using Microsoft.Extensions.DependencyInjection;
+using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -198,8 +199,8 @@ namespace ideaForge.ViewModels
             var requests = await _pilotRequestServices.GetTodaysRequest("");
             if (requests?.userData != null)
             {
-               
-                int count = requests.userData.Where(u => u.statusID == 2 && u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).Count();
+                var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                int count = requests.userData.Where(u => u.statusID == 2 && u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).Count();
                 if (count > 0)
                 {
                     MessageBox.ShowError("Only one flight can be in Ongoing status at a time");
@@ -337,7 +338,10 @@ namespace ideaForge.ViewModels
                 {
                     if (requests.status)
                     {
-                        requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).ToList();
+                        var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                        
+
+                        requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).ToList();
                         requests.userData.ForEach(async u => {
                          
                                 u.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
@@ -408,11 +412,11 @@ namespace ideaForge.ViewModels
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Visible;
                             }
-                                if (endFlightHours <= -0.5 && u.statusID!=7 && u.statusID!=2)
+                                if (endFlightHours <= -0.5 && u.statusID!=7 && u.statusID!=2 && u.statusID!=5)
                             {
                                 await _pilotRequestServices.UpdateRideByPilot(new Ride
                                 {
-                                    statusID = 7,
+                                    statusID = 8,
                                     addedBy = u.addedBy,
                                     addedOn = u.addedOn,
                                     endDate = u.endDate,
@@ -431,9 +435,9 @@ namespace ideaForge.ViewModels
                                     status = u.status
 
                                 });
-                                u.color = ConvertColor("#FFDCEF");
-                                u.TextColor = ConvertColor("#C84F90");
-                                u.StatusImage = "/Images/endedIcon.png";
+                                u.color = ConvertColor("#FFDFDF");
+                                u.TextColor = ConvertColor("#D42424");
+                                u.StatusImage = "/Images/iconCanceled.png";
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Hidden;
                             }
@@ -446,7 +450,7 @@ namespace ideaForge.ViewModels
                                     u.TextColor = ConvertColor("#3398D8");
                                     u.StatusImage = "/Images/pendingIcon.png";
 
-                                    if (Global.IsIFDockStatus && u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim())
+                                    if (Global.IsIFDockStatus && u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim())
                                     {
                                         u.IsVisibleButton = Visibility.Visible;
                                     }
@@ -550,7 +554,8 @@ namespace ideaForge.ViewModels
                 {
                     if (requests.status)
                     {
-                        requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).ToList();
+                        var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                        requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).ToList();
                         requests.userData.ForEach(u => {
                             u.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
                             double totalHours = (u.startDate - DateTime.Now).TotalHours;
@@ -620,11 +625,11 @@ namespace ideaForge.ViewModels
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Visible;
                             }
-                            if (endFlightHours <= -0.5 && u.statusID != 7 && u.statusID != 2)
+                            if (endFlightHours <= -0.5 && u.statusID != 7 && u.statusID != 2 && u.statusID != 5)
                             {
                                  _pilotRequestServices.UpdateRideByPilot(new Ride
                                 {
-                                    statusID = 7,
+                                    statusID = 8,
                                     addedBy = u.addedBy,
                                     addedOn = u.addedOn,
                                     endDate = u.endDate,
@@ -643,10 +648,9 @@ namespace ideaForge.ViewModels
                                     status = u.status
 
                                 }).ConfigureAwait(false);
-                                u.statusID = 7;
-                                u.color = ConvertColor("#FFDCEF");
-                                u.TextColor = ConvertColor("#C84F90");
-                                u.StatusImage = "/Images/endedIcon.png";
+                                u.color = ConvertColor("#FFDFDF");
+                                u.TextColor = ConvertColor("#D42424");
+                                u.StatusImage = "/Images/iconCanceled.png";
                                 u.IsVisibleButton = Visibility.Hidden;
                                 u.ViewButtonVisible = Visibility.Hidden;
                             }
@@ -656,7 +660,8 @@ namespace ideaForge.ViewModels
                                 u.color = ConvertColor("#DEECFF");
                                 u.TextColor = ConvertColor("#3398D8");
                                 u.StatusImage = "/Images/pendingIcon.png";
-                                if (Global.IsIFDockStatus && u.city == Global.SelectedLocation.city_Name)
+
+                                if (Global.IsIFDockStatus && u.city == selectedCity?.city_Name)
                                 {
                                     u.IsVisibleButton = Visibility.Visible;
                                 }

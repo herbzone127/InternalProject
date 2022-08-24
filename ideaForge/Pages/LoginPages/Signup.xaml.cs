@@ -110,6 +110,7 @@ namespace ideaForge
                 if (loginWindow.WindowState == WindowState.Maximized)
                 {
                     loginControl.Margin = new Thickness(180, 0, 180, 0);
+
                 }
                 else
                 {

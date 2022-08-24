@@ -1,4 +1,5 @@
-﻿using MahApps;
+﻿using IdeaForge.Core.Utilities;
+using MahApps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,7 @@ namespace ideaForge.Popups
         public static DialogResult Show(string message, CMessageTitle title, CMessageButton okButton,string coloredMessage)
         {
             cMessageBox = new MessageBox();
+            Global.isStoped = true;
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(okButton);
             //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
             cMessageBox.txtMessage.Text = message;
@@ -129,7 +131,7 @@ namespace ideaForge.Popups
         public static DialogResult ShowError(string message)
         {
             cMessageBox = new MessageBox();
-           
+            Global.isStoped = true;
             LoginPage = new Window();
             BackgroundBlur();
             //if (LoginPage != null)
@@ -165,6 +167,7 @@ namespace ideaForge.Popups
         public static DialogResult ShowSuccess(string message, string coloredMessage)
         {
             cMessageBox = new MessageBox();
+            Global.isStoped = true;
             cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
             BackgroundBlur();
             //LoginPage = new Window();
@@ -231,7 +234,7 @@ namespace ideaForge.Popups
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             BackgroundClear();
-
+            Global.isStoped = false;
             //LoginPage.AllowsTransparency = false;
             Closing -= Window_Closing;
             e.Cancel = true;

@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>83</ApplicationRevision>
-    <ApplicationVersion>1.0.0.83</ApplicationVersion>
+    <ApplicationRevision>91</ApplicationRevision>
+    <ApplicationVersion>1.0.0.91</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -447,6 +447,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ideaForge_TemporaryKey.pfx" />
+    <Resource Include="Images\upcomingIcon.png" />
+    <Resource Include="Images\iconCanceled.png" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -120,8 +120,10 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <TextBox Background="#F5F5F5"
-                                        BorderBrush="#A9ABB1" Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0"/>
+                                    <mah:ToggleSwitch IsOn="True"  Margin="15,0,10,0" />
+                                    <!--<ToggleButton  IsChecked="True"  Margin="15,0,10,0"/>-->
+                                    <!--<TextBox Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1" Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0"/>-->
                                 </StackPanel>
 
 
@@ -133,8 +135,9 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <TextBox Background="#F5F5F5"
-                                        BorderBrush="#A9ABB1" Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0"/>
+                                    <mah:ToggleSwitch IsOn="True"  Margin="15,0,10,0" />
+                                    <!--<TextBox Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1" Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0"/>-->
                                 </StackPanel>
 
 

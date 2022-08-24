@@ -1,4 +1,5 @@
-﻿using IdeaForge.Core.Utilities;
+﻿using ideaForge.ViewModels;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using MonkeyCache.FileStore;
 using System;
@@ -47,9 +48,18 @@ namespace ideaForge.Popups
         public static DialogResult Show()
         {
             cDockAreaPopup = new DockAreaPopup();
+            cDockAreaPopup.DataContext = new IFDockViewModel();
             cDockAreaPopup.btnContinue.Content = "Continue";
             //Login = new Window();
             //Login = Application.Current.MainWindow;
+          var selectedCity=  Barrel.Current.Get<UserDatum>("SelectedLocation");
+            if(selectedCity != null)
+            {
+            var vModel = cDockAreaPopup.DataContext as IFDockViewModel;
+                vModel.SelectedCity = selectedCity;
+                vModel.SelectedLocationId = selectedCity.id;
+                //cDockAreaPopup.cLocation.SelectedItem = selectedCity;
+            }
             var loginWindow = Application.Current.Windows.OfType<Login>().FirstOrDefault();
             if (loginWindow != null) {
                 loginWindow.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
@@ -83,13 +93,15 @@ namespace ideaForge.Popups
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
+           
             try
             {
               var selectedITem=  cLocation.SelectedItem as UserDatum;
                 if(selectedITem != null)
                 {
                     lblError.Visibility = Visibility.Hidden;
-                    Global.SelectedLocation=selectedITem;
+
+                    Barrel.Current.Add<UserDatum>("SelectedLocation", selectedITem, TimeSpan.FromHours(5));
                     result = System.Windows.Forms.DialogResult.Yes;
                     var dashboard = new Dashboard();
 
@@ -105,14 +117,15 @@ namespace ideaForge.Popups
                 }
                 else
                 {
+                    
                     lblError.Visibility = Visibility.Visible;
                 }
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                //throw;
             }
           
 

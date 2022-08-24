@@ -115,7 +115,8 @@ namespace ideaForge.ViewModels
                 ProfileImage =UrlHelper.baseURL+ user.image;
                 UserName= user.name;
             }
-            PageLocation = Global.SelectedLocation?.city_Name;
+            var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+            PageLocation = selectedCity?.city_Name;
             CurrentPage = new System.Windows.Controls.UserControl();
             CurrentPage.Content = new IFDockPage();
             _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);

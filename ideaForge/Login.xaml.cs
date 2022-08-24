@@ -1,7 +1,7 @@
 ﻿using IdeaForge.Core.Utilities;
 using log4net;
 using MahApps.Metro.Controls;
-
+using System.Windows;
 
 namespace ideaForge
 {
@@ -21,6 +21,14 @@ namespace ideaForge
         private void loginWindow_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             Global.LoginState = this.WindowState;
+            //if(this.WindowState== System.Windows.WindowState.Maximized)
+            //{
+            //    loginImage.Margin= new Thickness(0, 80, 0, 80);
+            //}
+            //if (this.WindowState == System.Windows.WindowState.Maximized)
+            //{
+            //    loginImage.Margin = new Thickness(0, 40, 0, 40);
+            //}
         }
     }
 }

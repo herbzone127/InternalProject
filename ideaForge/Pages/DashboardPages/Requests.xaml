@@ -100,29 +100,12 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <TextBlock Text="{Binding userName}" FontWeight="SemiBold">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Style.Triggers>
-                                                            <Trigger Property ="IsMouseOver" Value="False">
-                                                                <Setter Property= "Foreground" Value="Black"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-</TextBlock>
-                                            <TextBlock Text="{Binding contactNo}">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Style.Triggers>
-                                                            <Trigger Property ="IsMouseOver" Value="False">
-                                                                <Setter Property= "Foreground" Value="Black"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
+                                            <Label Content="{Binding userName}" FontWeight="SemiBold">
+                                              </Label>
+                                            <Label Content="{Binding contactNo}">
+                                             
                                            
-                                            </TextBlock>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -138,15 +121,18 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
-                                            <TextBlock>
-                                               <Run FontWeight="SemiBold" Text="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}"/>
-                                               
-                                            </TextBlock>
-                                            <TextBlock>
-                                             <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                            <Label FontWeight="SemiBold" Content="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}">
+                                              
+                                            </Label>
+                                            <Label>
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
                                              <Run Text=" - "/>
                                              <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
-                                            </TextBlock>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
 
                                     </DataTemplate>
@@ -295,29 +281,14 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <TextBlock Text="{Binding userName}" FontWeight="SemiBold">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Style.Triggers>
-                                                            <Trigger Property ="IsMouseOver" Value="False">
-                                                                <Setter Property= "Foreground" Value="Black"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                            <TextBlock Text="{Binding contactNo}">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Style.Triggers>
-                                                            <Trigger Property ="IsMouseOver" Value="False">
-                                                                <Setter Property= "Foreground" Value="Black"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
+                                            <Label Content="{Binding userName}" FontWeight="SemiBold">
 
-                                            </TextBlock>
+                                            </Label>
+                                            <Label Content="{Binding contactNo}">
+
+
+                                            </Label>
+
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -333,15 +304,21 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
-                                            <TextBlock>
-                                               <Run FontWeight="SemiBold" Text="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}"/>
+                                            <Label  FontWeight="SemiBold" Content="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}">
+                                           
 
-                                            </TextBlock>
-                                            <TextBlock>
-                                             <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                            </Label>
+                                            <Label>
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                          <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
                                              <Run Text=" - "/>
                                              <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
-                                            </TextBlock>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                               
+                                           
+                                            </Label>
                                         </StackPanel>
 
                                     </DataTemplate>

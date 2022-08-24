@@ -19,7 +19,7 @@ namespace IdeaForge.Domain
         public int id { get; set; }
         public string email { get; set; }
         public string name { get; set; }
-        public int languageID { get; set; }
+        public int? languageID { get; set; }
         public string contactNo { get; set; }
         public string organizationName { get; set; }
         public string departmentName { get; set; }

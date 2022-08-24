@@ -1,9 +1,11 @@
-﻿using ideaForge.Pages.DashboardPages;
+﻿using com.sun.corba.se.impl.orbutil.closure;
+using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
+using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -56,6 +58,7 @@ namespace ideaForge.ViewModels
             _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
             _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
 
+            Global.isStoped = true;
             GetAllStatuses().ConfigureAwait(false);
         }
 
@@ -67,11 +70,14 @@ namespace ideaForge.ViewModels
             
             if (RideStatusId == 1)
             {
+                var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                 var requests =await _pilotRequestServices.GetTodaysRequest("");
-                int count = requests.userData.Where(u => u.statusID == 2 &&  u.city?.ToLower()?.Trim() == Global.SelectedLocation.city_Name?.ToLower()?.Trim()).Count();
+                int count = requests.userData.Where(u => u.statusID == 2 &&  u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).Count();
                 if (count > 0)
                 {
                     MessageBox.ShowError("Only one flight can be in Ongoing status at a time");
+                    IsBusy = false;
+                    return;
                 }
                 else
                 {
@@ -106,7 +112,7 @@ namespace ideaForge.ViewModels
 
             dashboard.statusBorder.Visibility = Visibility.Hidden;
             dashboard.backButton.Visibility = Visibility.Hidden;
-
+            Global.isStoped = false;
             var context = (DashboardViewModel)dashboard.DataContext;
             context.CurrentPage = new Requests();
             context.PageName = "Requests";
@@ -251,14 +257,14 @@ namespace ideaForge.ViewModels
         {
             RideStatuses = new ObservableCollection<RideStatus>();
             RideStatuses.Add(new RideStatus { 
-            name="Rejected",
+            name="Reject",
             statusId=2,
             
             
             });
             RideStatuses.Add(new RideStatus
             {
-                name = "Accepted",
+                name = "Accept",
                 statusId = 1,
 
 

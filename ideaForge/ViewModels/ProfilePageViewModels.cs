@@ -169,8 +169,8 @@ namespace ideaForge.ViewModels
                         {
                             if (data.userData != null)
                             {
-                                if (data.userData.addedon is DateTime)
-                                    data.userData.addedondat = data?.userData?.addedon.ToString("dd/MMMM/yyyy");
+                                //if (data.userData.addedon is DateTime)
+                                //    data.userData.addedondat = data?.userData?.addedon.ToString("dd/MM/yyyy");
                               
                                
                                 //data.userData.image = imgpath;
@@ -214,14 +214,14 @@ namespace ideaForge.ViewModels
         public async void SaveChanges_ComandExecut(object obj)
         {
             ProfileModel.token = Global.Token;
-            if (ProfileModel.Image == null)
-            {
-                //ProfileModel.image = "";
-                ProfileModel.Image = Base64Image;
-            }
+            //if (ProfileModel.Image == null)
+            //{
+            //    //ProfileModel.image = "";
+            //    ProfileModel.Image = Base64Image;
+            //}
         
 
-            else if (string.IsNullOrEmpty(ProfileModel.name))
+            if (string.IsNullOrEmpty(ProfileModel.name))
             {
                MessageBox.ShowError("Enter your name.");
             }
@@ -255,6 +255,7 @@ namespace ideaForge.ViewModels
                         )
                         )
                     {
+                        ProfileModel.Image = ProfileModel.Image; 
                         //URL url = new URL(ProfileModel.image);
                         //java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
                         //URLConnection conn = url.openConnection();
@@ -279,7 +280,7 @@ namespace ideaForge.ViewModels
                         //ProfileModel.image = base64String;
 
                         //var imgData = ProfileModel.image;
-                        ProfileModel.Image = Base64Image;
+                        ProfileModel.Image = Base64Image==null?"":Base64Image;
                         //ProfileModel.image = "";
                     }
                 }

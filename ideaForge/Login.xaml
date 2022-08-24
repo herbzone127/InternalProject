@@ -21,7 +21,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Margin="-15,0,0,0" Grid.Column="0" Source="{Binding ImageUrl}"/>
+        <Grid Grid.Column="0" Background="#f8f8f9">
+            <Image x:Name="loginImage" Margin="0,60,0,60"  Source="{Binding ImageUrl}"/>
+        </Grid>
+      
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="auto"/>

@@ -1,5 +1,6 @@
 ﻿using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +35,6 @@ namespace ideaForge.ViewModels
 
         #endregion
         private bool _isBusy;
-
         public bool IsBusy
         {
             get { return _isBusy; }
@@ -94,7 +94,7 @@ namespace ideaForge.ViewModels
         #region Constructor
         public OnGoingRideViewModel()
         {
-            
+            Global.isStoped = true;
             _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
             _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
 
@@ -142,7 +142,7 @@ namespace ideaForge.ViewModels
         {
             var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
 
-
+            Global.isStoped = false;
             dashboard.statusBorder.Visibility = Visibility.Hidden;
             dashboard.backButton.Visibility = Visibility.Hidden;
             var context = (DashboardViewModel)dashboard.DataContext;
