@@ -1,5 +1,7 @@
-﻿using IdeaForge.Domain;
+﻿using ideaForge.Pages.DashboardPages;
+using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
+using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
 using System;
@@ -16,6 +18,7 @@ namespace ideaForge.ViewModels
 {
     public class ReportsDataViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public IPilotRequestServices _pilotRequestServices
       => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
         private ObservableCollection<RequestData> _ridesAcceptedByUsers;
@@ -94,7 +97,35 @@ namespace ideaForge.ViewModels
 
         private async void ViewCommandCanExecute(object obj)
         {
-
+            IsBusy = true;
+            var selectedRecord = obj as RequestData;
+            try
+            {
+                if (selectedRecord != null)
+                {
+                    var rideDetails = await GetRideById(selectedRecord.id);
+                    if (rideDetails.status)
+                    {
+                        var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                        if (dashboard != null)
+                        {
+                            var context = (DashboardViewModel)dashboard.DataContext;
+                            context.CurrentPage.Content = new ReportCompletedPage(rideDetails.userData);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+            }
+            //var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+            //if (dashboard != null)
+            //{
+            //    var context = (DashboardViewModel)dashboard.DataContext;
+            //    context.CurrentPage.Content = new ReportsData();
+            //}
+            IsBusy = false;
         }
 
         private bool _isBusy;
@@ -125,6 +156,20 @@ namespace ideaForge.ViewModels
             var converter = new System.Windows.Media.BrushConverter();
             var brush = (Brush)converter.ConvertFromString(color);
             return brush;
+        }
+        public async Task<RideResponse> GetRideById(int status)
+        {
+            try
+            {
+                var result = await _pilotRequestServices.GetRideById(status);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                log.Error(ex.Message, ex);
+            }
+            return null;
         }
     }
 }

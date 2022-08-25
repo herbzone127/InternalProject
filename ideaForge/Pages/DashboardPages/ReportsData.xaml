@@ -15,16 +15,14 @@
 
     <Grid Background="#FFF">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                         ItemsSource="{Binding RidesAcceptedByUsers}"
                         AutoGenerateColumns="False"
-                        CanUserSortColumns="True" 
-                        Grid.ColumnSpan="2">
+                        CanUserSortColumns="True">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -148,10 +146,10 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <mah:ProgressRing Grid.Column="1"
+        <mah:ProgressRing
                     IsActive="{Binding IsBusy}" 
-                    Foreground="#91C84F" 
+                    Foreground="#91C84F" HorizontalAlignment="Left" Margin="502,0,0,0" 
                     />
-        
+
     </Grid>
 </UserControl>

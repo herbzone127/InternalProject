@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>91</ApplicationRevision>
-    <ApplicationVersion>1.0.0.91</ApplicationVersion>
+    <ApplicationRevision>93</ApplicationRevision>
+    <ApplicationVersion>1.0.0.93</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -301,6 +301,9 @@
     </Compile>
     <Compile Include="Map\HeadingToVisiblityConverter.cs" />
     <Compile Include="OutlinedText.cs" />
+    <Compile Include="Pages\DashboardPages\ReportCompletedPage.xaml.cs">
+      <DependentUpon>ReportCompletedPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DashboardPages\OnGoingRidePage.xaml.cs">
       <DependentUpon>OnGoingRidePage.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,12 @@
     </Compile>
     <Compile Include="Pages\DashboardPages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DashboardPages\Reports.xaml.cs">
+      <DependentUpon>Reports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DashboardPages\ReportsData.xaml.cs">
+      <DependentUpon>ReportsData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\DashboardPages\Requests.xaml.cs">
       <DependentUpon>Requests.xaml</DependentUpon>
@@ -331,6 +340,7 @@
     <Compile Include="Popups\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ReportCompleteViewModel.cs" />
     <Compile Include="ViewModels\OnGoingRideViewModel.cs" />
     <Compile Include="ViewModels\PendingRideViewModel.cs" />
     <Compile Include="ViewModels\CompleteRideViewModel.cs" />
@@ -339,6 +349,8 @@
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\PilotLocationViewModel.cs" />
     <Compile Include="ViewModels\ProfilePageViewModels.cs" />
+    <Compile Include="ViewModels\ReportsDataViewModel.cs" />
+    <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Dashboard.xaml">
@@ -350,6 +362,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HamburgerViews\HamburgerMenuSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DashboardPages\ReportCompletedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -372,6 +388,14 @@
     <Page Include="Pages\DashboardPages\MapLayers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DashboardPages\Reports.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DashboardPages\ReportsData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\DashboardPages\Requests.xaml">
       <SubType>Designer</SubType>
