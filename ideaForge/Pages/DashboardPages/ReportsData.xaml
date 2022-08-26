@@ -22,6 +22,8 @@
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                         ItemsSource="{Binding RidesAcceptedByUsers}"
                         AutoGenerateColumns="False"
+                  x:FieldModifier="public"
+                  Name="ReportDataTable"
                         CanUserSortColumns="True">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">

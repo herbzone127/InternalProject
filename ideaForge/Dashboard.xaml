@@ -332,6 +332,13 @@
                             HorizontalAlignment="Right"
                             Orientation="Horizontal"
                             >
+                            <Button BorderBrush="#91C84F"
+                                    BorderThickness="1"
+                                    x:FieldModifier="public"
+                                    x:Name="ExcelBtn"
+                                    Click="ExcelBtn_Click"
+                                    Visibility="Hidden">
+                            </Button>
                             <Image 
                           Margin="0,10"
                                 Height="18"

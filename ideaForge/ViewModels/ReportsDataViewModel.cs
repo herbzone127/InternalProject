@@ -107,6 +107,7 @@ namespace ideaForge.ViewModels
                     if (rideDetails.status)
                     {
                         var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                        dashboard.ExcelBtn.Visibility = Visibility.Visible;
                         if (dashboard != null)
                         {
                             var context = (DashboardViewModel)dashboard.DataContext;

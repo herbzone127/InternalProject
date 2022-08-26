@@ -12,6 +12,7 @@ using ideaForge.Pages.DashboardPages;
 using MonkeyCache.FileStore;
 using System.Windows.Input;
 using log4net;
+using System.Windows;
 
 namespace ideaForge.ViewModels
 {
@@ -77,6 +78,7 @@ namespace ideaForge.ViewModels
                         if (dashboard != null)
                         {
                             var context = (DashboardViewModel)dashboard.DataContext;
+                            dashboard.backButton.Visibility = Visibility.Visible;
                             context.CurrentPage.Content = new ReportsData(rideDetails.userData);
                         }
                     }

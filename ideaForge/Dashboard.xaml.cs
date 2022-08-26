@@ -2,10 +2,13 @@
 using ideaForge.ViewModels;
 using IdeaForge.Core.Utilities;
 using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -125,9 +128,19 @@ namespace ideaForge
             statusBorder.Visibility = Visibility.Hidden;
             backButton.Visibility = Visibility.Hidden;
             var vModel = (DashboardViewModel)this.DataContext;
-            Global.isStoped = false;
-            vModel.CurrentPage.Content = new Requests();
-            vModel.PageName = "Requests";
+
+            if(vModel.PageName == "Reports")
+            {
+                Global.isStoped = false;
+                vModel.CurrentPage.Content = new Reports();
+                vModel.PageName = "Reports";
+            }
+            else 
+            {
+                Global.isStoped = false;
+                vModel.CurrentPage.Content = new Requests();
+                vModel.PageName = "Requests";
+            }
         }
 
         private void loginWindow_Closing(object sender, CancelEventArgs e)
@@ -162,6 +175,42 @@ namespace ideaForge
         private void Border_MouseEnter(object sender, MouseEventArgs e)
         {
             trayProfile.Visibility = Visibility.Hidden;
+        }
+
+        private void ExcelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var reportPage = App.Current.Windows.OfType<ReportsData>().FirstOrDefault();
+
+            var filename = "";
+
+            try
+            {
+                reportPage.ReportDataTable.SelectionMode = DataGridSelectionMode.Extended;
+                reportPage.ReportDataTable.SelectAllCells();
+
+                Clipboard.Clear();
+                ApplicationCommands.Copy.Execute(null, reportPage.ReportDataTable);
+
+                var saveFileDialog = new SaveFileDialog
+                {
+                    FileName = filename != "" ? filename : "gpmfca-exportedDocument",
+                    DefaultExt = ".csv",
+                    Filter = "Common Seprated Documents (.csv)|*.csv"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    var clip2 = Clipboard.GetText();
+                    File.WriteAllText(saveFileDialog.FileName, clip2.Replace('\t', ','), Encoding.UTF8);
+                    Process.Start(saveFileDialog.FileName);
+                }
+
+                reportPage.ReportDataTable.UnselectAllCells();
+                reportPage.ReportDataTable.SelectionMode = DataGridSelectionMode.Single;
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }
