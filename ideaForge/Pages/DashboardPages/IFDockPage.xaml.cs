@@ -30,87 +30,96 @@ namespace ideaForge.Pages.DashboardPages
     {
         public IFDockPage()
         {
-            ImageLoader.HttpClient.DefaultRequestHeaders.Add("User-Agent", "ideaForge");
+            try
+            {
+                ImageLoader.HttpClient.DefaultRequestHeaders.Add("User-Agent", "ideaForge");
 
-            TileImageLoader.Cache = new ImageFileCache(TileImageLoader.DefaultCacheFolder);
-            //TileImageLoader.Cache = new FileDbCache(TileImageLoader.DefaultCacheFolder);
-            //TileImageLoader.Cache = new SQLiteCache(TileImageLoader.DefaultCacheFolder);
-            //TileImageLoader.Cache = null;
+                TileImageLoader.Cache = new ImageFileCache(TileImageLoader.DefaultCacheFolder);
+                //TileImageLoader.Cache = new FileDbCache(TileImageLoader.DefaultCacheFolder);
+                //TileImageLoader.Cache = new SQLiteCache(TileImageLoader.DefaultCacheFolder);
+                //TileImageLoader.Cache = null;
 
+
+                BingMapsTileLayer.ApiKey = "WFTYWdHWIQZqxPrvhGGj~hbBrBZlsoiQDin89QFZRHA~Alh9BSR4Jn_GpbPNWpKMtPUDQWzJzDCAqJM_fnLgomFUXxnOm4GKkVVnI1vS4lt3";
+
+                InitializeComponent();
+                if (!string.IsNullOrEmpty(BingMapsTileLayer.ApiKey))
+                {
+                    //mapLayersMenuButton.MapLayers.Add(new MapLayerItem
+                    //{
+                    //    Text = "Bing Maps Road",
+                    //    Layer = (UIElement)Resources["BingMapsRoad"]
+                    //});
+
+                    //mapLayersMenuButton.MapLayers.Add(new MapLayerItem
+                    //{
+                    //    Text = "Bing Maps Aerial",
+                    //    Layer = (UIElement)Resources["BingMapsAerial"]
+                    //});
+
+                    //mapLayersMenuButton.MapLayers.Add(new MapLayerItem
+                    //{
+                    //    Text = "Bing Maps Aerial with Labels",
+                    //    Layer = (UIElement)Resources["BingMapsHybrid"]
+                    //});
+
+                }
+                if (!string.IsNullOrEmpty(BingMapsTileLayer.ApiKey))
+                {
+                    mapLayersMenuButton.MapLayers.Add(new MapLayerItem
+                    {
+                        Text = "Bing Maps Road",
+                        Layer = new BingMapsTileLayer
+                        {
+                            Mode = BingMapsTileLayer.MapMode.Road,
+                            SourceName = "Bing Maps Road",
+                            Description = "© [Microsoft](http://www.bing.com/maps/)"
+                        }
+                    });
+
+                    mapLayersMenuButton.MapLayers.Add(new MapLayerItem
+                    {
+                        Text = "Bing Maps Aerial",
+                        Layer = new BingMapsTileLayer
+                        {
+                            Mode = BingMapsTileLayer.MapMode.Aerial,
+                            SourceName = "Bing Maps Aerial",
+                            Description = "© [Microsoft](http://www.bing.com/maps/)",
+                            MapForeground = new SolidColorBrush(Colors.White),
+                            MapBackground = new SolidColorBrush(Colors.Black)
+                        }
+                    });
+
+                    mapLayersMenuButton.MapLayers.Add(new MapLayerItem
+                    {
+                        Text = "Bing Maps Aerial with Labels",
+                        Layer = new BingMapsTileLayer
+                        {
+                            Mode = BingMapsTileLayer.MapMode.AerialWithLabels,
+                            SourceName = "Bing Maps Hybrid",
+                            Description = "© [Microsoft](http://www.bing.com/maps/)",
+                            MapForeground = new SolidColorBrush(Colors.White),
+                            MapBackground = new SolidColorBrush(Colors.Black)
+                        }
+                    });
+                }
+                AddChartServerLayer();
+
+                if (TileImageLoader.Cache is ImageFileCache cache)
+                {
+                    Loaded += async (s, e) =>
+                    {
+                        await Task.Delay(2000);
+                        await cache.Clean();
+                    };
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
            
-            BingMapsTileLayer.ApiKey = "WFTYWdHWIQZqxPrvhGGj~hbBrBZlsoiQDin89QFZRHA~Alh9BSR4Jn_GpbPNWpKMtPUDQWzJzDCAqJM_fnLgomFUXxnOm4GKkVVnI1vS4lt3";
-            
-            InitializeComponent();
-            if (!string.IsNullOrEmpty(BingMapsTileLayer.ApiKey))
-            {
-                //mapLayersMenuButton.MapLayers.Add(new MapLayerItem
-                //{
-                //    Text = "Bing Maps Road",
-                //    Layer = (UIElement)Resources["BingMapsRoad"]
-                //});
-
-                //mapLayersMenuButton.MapLayers.Add(new MapLayerItem
-                //{
-                //    Text = "Bing Maps Aerial",
-                //    Layer = (UIElement)Resources["BingMapsAerial"]
-                //});
-
-                //mapLayersMenuButton.MapLayers.Add(new MapLayerItem
-                //{
-                //    Text = "Bing Maps Aerial with Labels",
-                //    Layer = (UIElement)Resources["BingMapsHybrid"]
-                //});
-                
-            }
-            if (!string.IsNullOrEmpty(BingMapsTileLayer.ApiKey))
-            {
-                mapLayersMenuButton.MapLayers.Add(new MapLayerItem
-                {
-                    Text = "Bing Maps Road",
-                    Layer = new BingMapsTileLayer
-                    {
-                        Mode = BingMapsTileLayer.MapMode.Road,
-                        SourceName = "Bing Maps Road",
-                        Description = "© [Microsoft](http://www.bing.com/maps/)"
-                    }
-                });
-
-                mapLayersMenuButton.MapLayers.Add(new MapLayerItem
-                {
-                    Text = "Bing Maps Aerial",
-                    Layer = new BingMapsTileLayer
-                    {
-                        Mode = BingMapsTileLayer.MapMode.Aerial,
-                        SourceName = "Bing Maps Aerial",
-                        Description = "© [Microsoft](http://www.bing.com/maps/)",
-                        MapForeground = new SolidColorBrush(Colors.White),
-                        MapBackground = new SolidColorBrush(Colors.Black)
-                    }
-                });
-
-                mapLayersMenuButton.MapLayers.Add(new MapLayerItem
-                {
-                    Text = "Bing Maps Aerial with Labels",
-                    Layer = new BingMapsTileLayer
-                    {
-                        Mode = BingMapsTileLayer.MapMode.AerialWithLabels,
-                        SourceName = "Bing Maps Hybrid",
-                        Description = "© [Microsoft](http://www.bing.com/maps/)",
-                        MapForeground = new SolidColorBrush(Colors.White),
-                        MapBackground = new SolidColorBrush(Colors.Black)
-                    }
-                });
-            }
-            AddChartServerLayer();
-
-            if (TileImageLoader.Cache is ImageFileCache cache)
-            {
-                Loaded += async (s, e) =>
-                {
-                    await Task.Delay(2000);
-                    await cache.Clean();
-                };
-            }
         }
 
         partial void AddChartServerLayer();

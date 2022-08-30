@@ -51,16 +51,26 @@ namespace ideaForge.ViewModels
 
         public IFDockViewModel()
         {
-        
-            _saveChangesCommand = new DelegateCommand(CanExecuteSaveChanges);
-            _cancelCommand = new DelegateCommand(CanExecuteCancel);
-            SelectedLocation = new PilotLocation();
-            GetCityList().ConfigureAwait(false);
-            //GetPilotLocations().ConfigureAwait(false);
-            GetReasons().ConfigureAwait(false);
-            //Center = new Location(19.076, 72.8777);
-            PilotLocationsGrid = new ObservableCollection<PilotLocation>();
-            AdminLocationsGrid = new ObservableCollection<adminPilotLocation>();
+            try
+            {
+                _saveChangesCommand = new DelegateCommand(CanExecuteSaveChanges);
+                _cancelCommand = new DelegateCommand(CanExecuteCancel);
+                SelectedLocation = new PilotLocation();
+                GetCityList().ConfigureAwait(false);
+                //GetPilotLocations().ConfigureAwait(false);
+                GetReasons().ConfigureAwait(false);
+                new adminPilotLocation();
+                //Center = new Location(19.076, 72.8777);
+                PilotLocationsGrid = new ObservableCollection<PilotLocation>();
+                AdminLocationsGrid = new ObservableCollection<adminPilotLocation>();
+                SelectedLocationGrid = new PilotLocation();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
             //if (Global.SelectedLocation != null)
             //{
             //    SelectedLocation= Global.SelectedLocation;

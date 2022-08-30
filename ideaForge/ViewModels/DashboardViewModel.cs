@@ -3,9 +3,11 @@ using ideaForge.Pages.AdminDashboardPages;
 using ideaForge.Pages.DashboardPages;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
+using MahApps.Metro.Controls;
 using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,10 +103,20 @@ namespace ideaForge.ViewModels
             }
         }
         #endregion
+        #region Observable Collections
+        private ObservableCollection<HamburgerMenuGlyphItem> _menuItems;
+
+        public ObservableCollection<HamburgerMenuGlyphItem> MenuItems
+        {
+            get { return _menuItems; }
+            set { _menuItems = value; }
+        }
+
+        #endregion
         #region Construtor
         public DashboardViewModel()
         {
-          //  CloseAllWindows();
+            //  CloseAllWindows();
             //ApplicationId = Barrel.ApplicationId;
             PageName = "IF Dock";
             var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
@@ -115,6 +127,51 @@ namespace ideaForge.ViewModels
                 else
                 ProfileImage =UrlHelper.baseURL+ user.image;
                 UserName= user.name;
+
+                if(user.roleID == 2)
+                {
+                    #region MenuItems
+                    MenuItems = new ObservableCollection<HamburgerMenuGlyphItem>();
+
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteIFDockMenu),
+                        Glyph = "/Images/anchor.png",
+                        Label = "IF Dock"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteRequestPage),
+                        Glyph = "/Images/request.png",
+                        Label = "Requests"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteReportsPage),
+                        Glyph = "/Images/nounReport.png",
+                        Label = "Report"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteIFProfilePage),
+                        Glyph = "/Images/nounProfile.png",
+                        Label = "Profile"
+                    });
+                    #endregion
+                }
+                else
+                {
+                    #region MenuItems
+                    MenuItems = new ObservableCollection<HamburgerMenuGlyphItem>();
+
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteIFDockMenu),
+                        Glyph = "/Images/anchor.png",
+                        Label = "IF Dock"
+                    });
+                    #endregion
+                }
             }
             var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
             PageLocation = selectedCity?.city_Name;

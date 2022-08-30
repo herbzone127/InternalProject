@@ -98,7 +98,7 @@
                        PaneForeground="#000000"
                             PaneBackground="White"
                             Foreground="#000000"
-                        
+                        ItemsSource="{Binding MenuItems}"
                           ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                           ItemTemplate="{StaticResource HamburgerMenuItem}"
                           OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}">
@@ -116,7 +116,7 @@
         </Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
 
         <!--  Items  -->
-        <Controls:HamburgerMenu.ItemsSource>
+        <!--<Controls:HamburgerMenu.ItemsSource>
 
             <Controls:HamburgerMenuItemCollection>
                 <Controls:HamburgerMenuGlyphItem Glyph="/Images/anchor.png" Label="IF Dock" Command="{Binding IFDockMenuCommand}" />
@@ -124,7 +124,7 @@
                 <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounReport.png" Label="Report" Command="{Binding ReportMenuCommand }"/>
                 <Controls:HamburgerMenuGlyphItem Glyph="/Images/nounProfile.png" Label="Profile" Command="{Binding ProfileMenuCommand}"/>
             </Controls:HamburgerMenuItemCollection>
-        </Controls:HamburgerMenu.ItemsSource>
+        </Controls:HamburgerMenu.ItemsSource>-->
         <!--  Options  -->
         <!--
         <Controls:HamburgerMenu.OptionsItemsSource>
