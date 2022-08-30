@@ -34,7 +34,7 @@ namespace ideaForge.ViewModels
 
 
         public async Task GetReportsByUser()
-        {
+        {//1245
             IsBusy = true;
             var requests = await _pilotRequestServices.GetAllRequest("");
             if (requests != null)
@@ -45,8 +45,10 @@ namespace ideaForge.ViewModels
                     requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).ToList();
                     requests.userData.ForEach(u =>
                     {
-                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && (x.statusID == 2 || x.statusID == 5)).Count();
+                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && (x.statusID == 2 )).Count();
                         u.TotalRejectedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 4).Count();
+                        u.TotalServiceByUser= requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 5).Count();
+                        u.TotalRequestedByUser = requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 1).Count();
                     });
                     var distinct = requests.userData.GroupBy(u => u.addedBy).Select(x => x.First());
                     RidesAcceptedByUsers = new ObservableCollection<RequestData>(distinct);

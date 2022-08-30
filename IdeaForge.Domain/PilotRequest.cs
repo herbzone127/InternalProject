@@ -49,5 +49,7 @@ namespace IdeaForge.Domain
         public string city { get; set; }
         public int TotalAcceptedRidesByUser { get; set; }
         public int TotalRejectedRidesByUser { get; set; }
+        public int TotalServiceByUser { get; set; }
+        public int TotalRequestedByUser { get; set; }
     }
 }
