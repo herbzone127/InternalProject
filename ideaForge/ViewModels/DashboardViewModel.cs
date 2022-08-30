@@ -147,12 +147,6 @@ namespace ideaForge.ViewModels
                     });
                     MenuItems.Add(new HamburgerMenuGlyphItem
                     {
-                        Command = new DelegateCommand(CanExecuteUserManagementPage),
-                        Glyph = "/Images/nounProfile.png",
-                        Label = "User Management"
-                    });
-                    MenuItems.Add(new HamburgerMenuGlyphItem
-                    {
                         Command = new DelegateCommand(CanExecuteReportsPage),
                         Glyph = "/Images/nounReport.png",
                         Label = "Report"
@@ -165,7 +159,7 @@ namespace ideaForge.ViewModels
                     });
                     #endregion
                 }
-                else
+                else //Admin Pages 
                 {
                     #region MenuItems
                     MenuItems = new ObservableCollection<HamburgerMenuGlyphItem>();
@@ -175,6 +169,12 @@ namespace ideaForge.ViewModels
                         Command = new DelegateCommand(CanExecuteIFDockMenu),
                         Glyph = "/Images/anchor.png",
                         Label = "IF Dock"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteUserManagementPage),
+                        Glyph = "/Images/nounProfile.png",
+                        Label = "User Management"
                     });
                     #endregion
                 }
@@ -269,11 +269,35 @@ namespace ideaForge.ViewModels
         }
         private void CanExecuteUserManagementPage(object obj)
         {
+            var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
             IsBusy = true;
+            if (dashboard != null)
+            {
+                dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Hidden;
+                dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
+            }
             PageName = "User Management";
             CurrentPage.Content = new UserManagementPage();
             IsBusy = false;
         }
+        #endregion
+
+        #region ObservableCollectionList
+        private ObservableCollection<UserDatum> _cityList;
+
+        public ObservableCollection<UserDatum> CityList
+        {
+            get { return _cityList; }
+            set
+            {
+                _cityList = value;
+                OnPropertyChanged(nameof(CityList));
+            }
+        }
+        #endregion
+
+        #region ApiMethods
+
         #endregion
         private void CloseAllWindows()
         {

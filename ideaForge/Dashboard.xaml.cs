@@ -264,5 +264,22 @@ namespace ideaForge
              
           
         }
+
+        private void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CityComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(cityComboBox.Text))
+            {
+                cityWaterMark.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                cityWaterMark.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }

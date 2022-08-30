@@ -9,6 +9,8 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
             xmlns:pg="clr-namespace:ideaForge.Pages.DashboardPages"          
+                                   xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+
         mc:Ignorable="d"
                 
                     Closing="loginWindow_Closing"
@@ -325,7 +327,10 @@
                             </Grid>
 
                         </Border>
-                        <StackPanel 
+                        <StackPanel
+                            x:FieldModifier="public"
+                            x:Name="DashBoardDataStackPanel"
+                            Visibility="Visible"
                            Margin="0,0,45,0"
                             Grid.Column="3"
                               VerticalAlignment="Center"
@@ -355,6 +360,36 @@
                              HorizontalContentAlignment="Right"      
                        Content="{Binding PageLocation}" />
                         </StackPanel>
+
+                        <Border 
+                            Visibility="Hidden"
+                            x:FieldModifier="public"
+                            x:Name="CityComboBox"
+                            Margin="0,0,45,0"
+                            Grid.Column="3"
+                              VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#A9ABB1" BorderThickness="0" CornerRadius="0">
+                            <Grid>
+                                <dotNetKitControls:AutoCompleteComboBox Height="20" Width="100"
+                                SelectedValuePath="city_Name"
+                                DisplayMemberPath="city_Name"
+                                TextSearch.TextPath="city_Name"
+                                ItemsSource="{Binding CityList}"
+                                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
+                                SelectedValue="{Binding SelectedLocationId}"  
+                                SelectionChanged="AutoCompleteComboBox_SelectionChanged"
+                                x:Name="cityComboBox"
+                                TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
+                                <TextBlock Margin="8 10"
+                                       Foreground="#A9ABB1"
+                                       x:Name="cityWaterMark"
+                                       IsHitTestVisible="False"
+                                       Text="Select City" />
+                            </Grid>
+
+                        </Border>
+
                     </Grid>
 
                     <Border.Effect>

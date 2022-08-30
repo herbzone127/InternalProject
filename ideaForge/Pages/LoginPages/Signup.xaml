@@ -329,11 +329,11 @@
 
 
                         <dotNetKitControls:AutoCompleteComboBox Height="35"
-    SelectedValuePath="city_Name"
-                        DisplayMemberPath="city_Name"
-    TextSearch.TextPath="city_Name"
-    ItemsSource="{Binding CityList}"
-     SelectedValue="{Binding RegisterModel.city,
+                    SelectedValuePath="city_Name"
+                    DisplayMemberPath="city_Name"
+                    TextSearch.TextPath="city_Name"
+                    ItemsSource="{Binding CityList}"
+                     SelectedValue="{Binding RegisterModel.city,
                     UpdateSourceTrigger=PropertyChanged ,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True}"   
