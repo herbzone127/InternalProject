@@ -22,8 +22,6 @@ namespace IdeaForge.Service.IGenericServices
         Task<PilotLocationResponse> AddUpdatePilotLocations(PilotLocation location);
         Task<ReasonsResponse> GetReasons();
         Task<adminLocationResponse> GetAdminLocations();
-        Task<String> AddAdminLocations(addminPilotLocation admin);
-
-
+        Task<String> AddAdminLocations(addminPilotLocation adminPilot);
     }
 }

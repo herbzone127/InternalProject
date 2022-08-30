@@ -16,6 +16,8 @@ using System.Windows.Input;
 using System.Xml.Linq;
 using MessageBox = ideaForge.Popups.MessageBox;
 using MapControl;
+using log4net;
+
 namespace ideaForge.ViewModels
 {
     public partial class IFDockViewModel : ViewModelBase
@@ -24,6 +26,7 @@ namespace ideaForge.ViewModels
         /// Services
         /// </summary>
         #region Services
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public IPilotRequestServices _pilotRequestServices
          => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
         public IRegisterService _registerService
@@ -523,7 +526,8 @@ namespace ideaForge.ViewModels
                       
                             else
                             {
-                                MessageBox.ShowError(result.message);
+                                log.Info("Pilot Locations are 0");
+                                //MessageBox.ShowError(result.message);
                             }
 
                         }
@@ -532,8 +536,8 @@ namespace ideaForge.ViewModels
                 }
                 catch (Exception ex)
                 {
-
-                    MessageBox.ShowError(ex.Message);
+                    log.Error(ex.Message, ex);
+                    //MessageBox.ShowError(ex.Message);
                 }
               
 

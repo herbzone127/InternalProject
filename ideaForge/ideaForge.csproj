@@ -345,6 +345,9 @@
     <Compile Include="Pages\DashboardPages\RequestsPage.xaml.cs">
       <DependentUpon>RequestsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DashboardPages\UserManagementPage.xaml.cs">
+      <DependentUpon>UserManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\LoginPages\Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
@@ -366,6 +369,7 @@
     <Compile Include="ViewModels\ReportsDataViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\UserManagementPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Dashboard.xaml">
       <SubType>Designer</SubType>
@@ -420,6 +424,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DashboardPages\RequestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DashboardPages\UserManagementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
