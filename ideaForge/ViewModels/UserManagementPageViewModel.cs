@@ -1,4 +1,7 @@
-﻿using IdeaForge.Domain;
+﻿using DocumentFormat.OpenXml.Office2010.CustomUI;
+using ideaForge.Pages.AdminDashboardPages;
+using ideaForge.Pages.DashboardPages;
+using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
@@ -9,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace ideaForge.ViewModels
 {
@@ -16,11 +20,28 @@ namespace ideaForge.ViewModels
     {
         public IPilotRequestServices _pilotRequestServices => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
         private ObservableCollection<RequestData> _ridesAcceptedByUsers;
+
+        private UserControl _currentPage;
+
+        private readonly DelegateCommand _viewCommand;
+        public ICommand ViewCommand => _viewCommand;
+
+
+        public UserControl CurrentPage
+        {
+            get { return _currentPage; }
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged(nameof(CurrentPage));
+            }
+        }
         public UserManagementPageViewModel()
         {
             GetReportsByUser().ConfigureAwait(false);
-
-        }
+            _viewCommand = new DelegateCommand(ViewCommandCanExecute);
+        
+    }
 
         public ObservableCollection<RequestData> RidesAcceptedByUsers
         {
@@ -68,5 +89,21 @@ namespace ideaForge.ViewModels
             }
         }
 
+        private async void ViewCommandCanExecute(object obj)
+        {
+            IsBusy = true;
+                        var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                        if (dashboard != null)
+                        {
+                            var context = (DashboardViewModel)dashboard.DataContext;
+                context.PageName = "next page";
+                dashboard.btnExcel.Visibility = System.Windows.Visibility.Visible;
+                context.CurrentPage.Content = new UserManagementDetailPage();
+                        }
+                    
+                
+            
+            IsBusy = false;
+        }
     }
 }
