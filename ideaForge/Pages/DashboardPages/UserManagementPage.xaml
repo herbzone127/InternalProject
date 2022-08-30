@@ -51,7 +51,7 @@
                                 </Label>
                                 <Button Content="Active" Command="{Binding }"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
-                                        <Style TargetType="{x:Type Button} ">
+                                        <Style TargetType="{x:Type Button}">
 
                                             <Style.Resources>
                                                 <Style TargetType="{x:Type Border}">
@@ -80,7 +80,7 @@
                             <Label Content="{Binding TotalAcceptedRidesByUser}"/>
                                 <Button Content="View" Command="{Binding }"   Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
-                                        <Style TargetType="{x:Type Button} ">
+                                        <Style TargetType="{x:Type Button}">
 
                                             <Style.Resources>
                                                 <Style TargetType="{x:Type Border}">
@@ -109,7 +109,7 @@
                                 <Label Content="{Binding TotalRejectedRidesByUser}"/>
                                 <Button Content="View" Command="{Binding }"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
-                                        <Style TargetType="{x:Type Button} ">
+                                        <Style TargetType="{x:Type Button}">
 
                                             <Style.Resources>
                                                 <Style TargetType="{x:Type Border}">
@@ -140,7 +140,7 @@
                                 <Label Content="{Binding TotalAcceptedRidesByUser}"/>
                                 <Button Content="View" Command="{Binding }"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
-                                        <Style TargetType="{x:Type Button} ">
+                                        <Style TargetType="{x:Type Button}">
                                             
                                             <Style.Resources>
                                                 <Style TargetType="{x:Type Border}">
@@ -170,7 +170,7 @@
                                 <Label Content="{Binding TotalServiceByUser}"/>
                                 <Button Content="View" Command="{Binding }"   Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
-                                        <Style TargetType="{x:Type Button} ">
+                                        <Style TargetType="{x:Type Button}">
                                             
                                             <Style.Resources>
                                                 <Style TargetType="{x:Type Border}">
