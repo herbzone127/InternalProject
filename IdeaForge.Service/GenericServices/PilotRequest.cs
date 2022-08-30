@@ -223,5 +223,40 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
+        public async Task<adminLocationResponse> GetAdminLocations()
+        {
+            try
+            {
+                var url = UrlHelper.adminLocationUrl;
+                dynamic a = null;
+                var resultString = await HTTPClientWrapper<adminLocationResponse>.PostRequest(url, a);
+                var result = JsonConvert.DeserializeObject<adminLocationResponse>(resultString);
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
+        public async Task<String> AddAdminLocations(addminPilotLocation adminPilot)
+        {
+            try
+            {
+                var url = UrlHelper.adminUpdateLocationUrl;
+                var resultString = await HTTPClientWrapper<addminPilotLocation>.PostRequest(url, adminPilot);
+                //var result = JsonConvert.DeserializeObject<adminLocationResponse>(resultString);
+                return "true";
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return "";
+        }
     }
 }

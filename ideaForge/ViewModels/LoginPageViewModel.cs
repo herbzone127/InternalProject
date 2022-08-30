@@ -115,6 +115,26 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(OTP6));
             }
         }
+        private bool _adminCheck;
+        public bool adminCheck
+        {
+            get { return _adminCheck; }
+            set
+            {
+                _adminCheck = value;
+                OnPropertyChanged(nameof(adminCheck));
+            }
+        }
+        private bool _PilotCheck;
+        public bool PilotCheck
+        {
+            get { return _PilotCheck; }
+            set
+            {
+                _PilotCheck = value;
+                OnPropertyChanged(nameof(PilotCheck));
+            }
+        }
         /// <summary>
         /// Properties with getter and setter
         /// </summary>
@@ -260,29 +280,41 @@ namespace ideaForge.ViewModels
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
 
-             
+
 
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                if(user != null && user?.id!=0)
+                if (user != null && user?.id != 0 && user.roleID == 2)
                 {
-                 
+
                     Global.loginUserId = user.id;
                     Global.email_PhoneNo = user.email;
                     Global.Token = user.token;
                     Global.contactNo = user.contactNo;
+                    Global.RoleID = user.roleID;
                     ShowDashboard();
+                }
+                else if (user != null && user?.id != 0 && user.roleID == 3)
+                {
+
+                    Global.loginUserId = user.id;
+                    Global.email_PhoneNo = user.email;
+                    Global.Token = user.token;
+                    Global.contactNo = user.contactNo;
+                    Global.RoleID = user.roleID;
+                    var dashboard = new Dashboard();
+                    dashboard.Show();
                 }
                 else
                 {
                     AuthenticationPage = new MainWindow();
-                }   
+                }
 
             }
             else
             {
                 AuthenticationPage = new MainWindow();
             }
-          
+
             _loginCommand = new DelegateCommand(LoginCanExecute);
             _signupCommand = new DelegateCommand(SignupCanExecute);
             _pilotoptcommand = new DelegateCommand(OtpCanCanExecute);
@@ -311,26 +343,53 @@ namespace ideaForge.ViewModels
         }
         public async void RegisterNewUserCanExecute(object obj)
         {
-            IsBusy = true;
-            RegisterModel.Validate();
-            if (!RegisterModel.HasErrors)
+            if (PilotCheck == true)
             {
-                BackButtonVisiblity = Visibility.Visible;
-                var result = await _registerService.Register(RegisterModel);
-                if (result.status)
+                IsBusy = true;
+                RegisterModel.Validate();
+                if (!RegisterModel.HasErrors)
                 {
-                    //MessageBox.ShowSuccess(result.message,"");
-                    MessageBox.ShowSuccess(result.message,  "");
-                    RegisterModel = new Register();
-                    SignupBackButtonCanExecute(null);
+                    BackButtonVisiblity = Visibility.Visible;
+                    var result = await _registerService.Register(RegisterModel);
+                    if (result.status)
+                    {
+                        //MessageBox.ShowSuccess(result.message,"");
+                        MessageBox.ShowSuccess(result.message, "");
+                        RegisterModel = new Register();
+                        SignupBackButtonCanExecute(null);
+                    }
+                    else
+                    {
+                        //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                    }
                 }
-                else
-                {
-                    //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
-                    MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
-                }
+                IsBusy = false;
             }
-            IsBusy = false;
+            else if (adminCheck == true)
+            {
+                IsBusy = true;
+                RegisterModel.Validate();
+                if (!RegisterModel.HasErrors)
+                {
+                    BackButtonVisiblity = Visibility.Visible;
+                    var result = await _registerService.AdminRegister(RegisterModel);
+                    if (result.status)
+                    {
+                        //MessageBox.ShowSuccess(result.message,"");
+                        MessageBox.ShowSuccess(result.message, "");
+                        RegisterModel = new Register();
+                        SignupBackButtonCanExecute(null);
+                    }
+                    else
+                    {
+                        //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                    }
+                }
+                IsBusy = false;
+            }
+
         }
 
         private void SignupBackButtonCanExecute(object obj)
@@ -338,7 +397,8 @@ namespace ideaForge.ViewModels
             IsBusy = true;
             ImageUrl = "/Images/LoginImage.png";
             PageName = "";
-           
+            adminCheck = false;
+            PilotCheck = false;
             AuthenticationPage = new MainWindow();
             RegisterModel = new Register();
             OTP1 = "";
@@ -357,7 +417,7 @@ namespace ideaForge.ViewModels
         {
             IsBusy = true;
             ImageUrl = "/Images/signupFrame.png";
-            PageName = "Signup";
+            PageName = "";
             AuthenticationPage = new Signup();
             BackButtonVisiblity = Visibility.Visible;
             IsBusy = false;
@@ -366,80 +426,161 @@ namespace ideaForge.ViewModels
 
         private async void LoginCanExecute(object obj)
         {
-            IsBusy = true;
-            if (!string.IsNullOrEmpty(Email_PhoneNo))
+            if (adminCheck == false)
             {
-                //number regex 
-                string numberRegex = @"^[0-9]{10}$";
-                bool isMatchedNumber = Regex.IsMatch(Email_PhoneNo, numberRegex);
 
-                //email regex
-                string emailRegex = @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
-                bool isMatchedEmail = Regex.IsMatch(Email_PhoneNo, emailRegex);
-
-                //Number Validation on Login
-                if (isMatchedNumber)
+                IsBusy = true;
+                if (!string.IsNullOrEmpty(Email_PhoneNo))
                 {
-                    var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
-                    if (result.status)
+                    //number regex 
+                    string numberRegex = @"^[0-9]{10}$";
+                    bool isMatchedNumber = Regex.IsMatch(Email_PhoneNo, numberRegex);
+
+                    //email regex
+                    string emailRegex = @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
+                    bool isMatchedEmail = Regex.IsMatch(Email_PhoneNo, emailRegex);
+
+                    //Number Validation on Login
+                    if (isMatchedNumber)
                     {
-                        BackButtonVisiblity = Visibility.Visible;
-                        PageName = "";
-                        ImageUrl = "/Images/optFrame.png";
-                        Global.email_PhoneNo = Email_PhoneNo;
-                        AuthenticationPage = new OtpVerification();
-                        IsBusy = false;
-                        Email_PhoneNo = "";
+                        var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
+                        if (result.status)
+                        {
+                            BackButtonVisiblity = Visibility.Visible;
+                            PageName = "";
+                            ImageUrl = "/Images/optFrame.png";
+                            Global.email_PhoneNo = Email_PhoneNo;
+                            AuthenticationPage = new OtpVerification();
+                            IsBusy = false;
+                            Email_PhoneNo = "";
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                            //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        }
                     }
+                    //Email Validation on Login
+                    else if (isMatchedEmail)
+                    {
+                        var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
+                        if (result.status)
+                        {
+                            BackButtonVisiblity = Visibility.Visible;
+                            ImageUrl = "/Images/optFrame.png";
+                            Global.email_PhoneNo = Email_PhoneNo;
+
+                            // var otp = (OtpVerification)AuthenticationPage;
+
+
+                            AuthenticationPage.Content = new OtpVerification();
+                            OTP1 = "";
+                            OTP2 = "";
+                            OTP3 = "";
+                            OTP4 = "";
+                            OTP5 = "";
+                            OTP6 = "";
+                            IsBusy = false;
+                            Email_PhoneNo = "";
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                            //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        }
+                    }
+                    //No Validation Succesfull
                     else
                     {
                         IsBusy = false;
-                        MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
-                        //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        MessageBox.Show("Please enter a valid Contact Number/Email", CMessageTitle.Error, CMessageButton.Ok, "");
                     }
                 }
-                //Email Validation on Login
-                else if (isMatchedEmail)
-                {
-                    var result = await _loginService.Login(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
-                    if (result.status)
-                    {
-                        BackButtonVisiblity = Visibility.Visible;
-                        ImageUrl = "/Images/optFrame.png";
-                        Global.email_PhoneNo = Email_PhoneNo;
-
-                        // var otp = (OtpVerification)AuthenticationPage;
-
-
-                        AuthenticationPage.Content = new OtpVerification();
-                        OTP1 = "";
-                        OTP2 = "";
-                        OTP3 = "";
-                        OTP4 = "";
-                        OTP5 = "";
-                        OTP6 = "";
-                        IsBusy = false;
-                        Email_PhoneNo = "";
-                    }
-                    else
-                    {
-                        IsBusy = false;
-                        MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
-                        //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
-                    }
-                }
-                //No Validation Succesfull
                 else
                 {
-                    IsBusy = false;
-                    MessageBox.Show("Please enter a valid Contact Number/Email", CMessageTitle.Error, CMessageButton.Ok, "");
+                    MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
                 }
+                IsBusy = false;
             }
             else
             {
-                MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
+                IsBusy = true;
+                if (!string.IsNullOrEmpty(Email_PhoneNo))
+                {
+                    //number regex 
+                    string numberRegex = @"^[0-9]{10}$";
+                    bool isMatchedNumber = Regex.IsMatch(Email_PhoneNo, numberRegex);
+
+                    //email regex
+                    string emailRegex = @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
+                    bool isMatchedEmail = Regex.IsMatch(Email_PhoneNo, emailRegex);
+
+                    //Number Validation on Login
+                    if (isMatchedNumber)
+                    {
+                        var result = await _loginService.adminLogin(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
+                        if (result.status)
+                        {
+                            BackButtonVisiblity = Visibility.Visible;
+                            PageName = "";
+                            ImageUrl = "/Images/optFrame.png";
+                            Global.email_PhoneNo = Email_PhoneNo;
+                            AuthenticationPage = new OtpVerification();
+                            IsBusy = false;
+                            Email_PhoneNo = "";
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                            //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        }
+                    }
+                    //Email Validation on Login
+                    else if (isMatchedEmail)
+                    {
+                        var result = await _loginService.adminLogin(new IdeaForge.Domain.Login { email_PhoneNo = Email_PhoneNo.Trim() });
+                        if (result.status)
+                        {
+                            BackButtonVisiblity = Visibility.Visible;
+                            ImageUrl = "/Images/optFrame.png";
+                            Global.email_PhoneNo = Email_PhoneNo;
+
+                            // var otp = (OtpVerification)AuthenticationPage;
+
+
+                            AuthenticationPage.Content = new OtpVerification();
+                            OTP1 = "";
+                            OTP2 = "";
+                            OTP3 = "";
+                            OTP4 = "";
+                            OTP5 = "";
+                            OTP6 = "";
+                            IsBusy = false;
+                            Email_PhoneNo = "";
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                            //MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                        }
+                    }
+                    //No Validation Succesfull
+                    else
+                    {
+                        IsBusy = false;
+                        MessageBox.Show("Please enter a valid Contact Number/Email", CMessageTitle.Error, CMessageButton.Ok, "");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
+                }
+                IsBusy = false;
             }
-         IsBusy = false;
         }
         public async Task<UserData> ResendOTP()
         {
@@ -460,62 +601,125 @@ namespace ideaForge.ViewModels
         }
         private async void OtpCanCanExecute(object obj)
         {
-            IsBusy = true;
-            if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+            if (adminCheck == false)
             {
-                
-                var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                if (userOTP != null)
+                IsBusy = true;
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
                 {
-                    ShowDashboard();
+
+                    var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (userOTP != null)
+                    {
+                        ShowDashboard();
+                    }
+                    IsBusy = false;
+                }
+                else
+                {
+                    string newOTP = string.Format("{0}{1}{2}{3}{4}{5}", OTP1, OTP2, OTP3, OTP4, OTP5, OTP6);
+                    if (newOTP.Length == 6)
+                    {
+                        int.TryParse(newOTP, out int otpResult);
+                        if (otpResult > 0)
+                        {
+
+                            var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
+                            if (result.status)
+                            {
+                                IsBusy = false;
+                                Global.email_PhoneNo = result.userData.email;
+                                Global.contactNo = result.userData.contactNo;
+                                Global.loginUserId = result.userData.id;
+                                Global.Token = result.userData.token;
+                                Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                                OTP1 = "";
+                                OTP2 = "";
+                                OTP3 = "";
+                                OTP4 = "";
+                                OTP5 = "";
+                                OTP6 = "";
+                                ShowDashboard();
+
+
+
+                            }
+                            else
+                            {
+                                Barrel.Current.EmptyAll();
+
+                                MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, ""); ;
+                            }
+                        }
+                        else
+                        {
+                            Barrel.Current.EmptyAll();
+                            MessageBox.ShowError("Please enter a valid OTP Number");
+                        }
+                    }
+
                 }
                 IsBusy = false;
             }
             else
             {
-                string newOTP = string.Format("{0}{1}{2}{3}{4}{5}", OTP1, OTP2, OTP3, OTP4, OTP5, OTP6);
-                if(newOTP.Length == 6)
+                IsBusy = true;
+                if (!Barrel.Current.IsExpired(UrlHelper.adminOTPUrl))
                 {
-                    int.TryParse(newOTP, out int otpResult);
-                    if (otpResult > 0)
+
+                    var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.adminOTPUrl);
+                    if (userOTP != null)
                     {
-
-                        var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
-                        if (result.status)
+                        ShowDashboard();
+                    }
+                    IsBusy = false;
+                }
+                else
+                {
+                    string newOTP = string.Format("{0}{1}{2}{3}{4}{5}", OTP1, OTP2, OTP3, OTP4, OTP5, OTP6);
+                    if (newOTP.Length == 6)
+                    {
+                        int.TryParse(newOTP, out int otpResult);
+                        if (otpResult > 0)
                         {
-                            IsBusy = false;
-                            Global.email_PhoneNo = result.userData.email;
-                            Global.contactNo = result.userData.contactNo;
-                            Global.loginUserId = result.userData.id;
-                            Global.Token = result.userData.token;
-                            Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
-                            OTP1 = "";
-                            OTP2 = "";
-                            OTP3 = "";
-                            OTP4 = "";
-                            OTP5 = "";
-                            OTP6 = "";
-                            ShowDashboard();
-                          
+
+                            var result = await _loginService.adminOTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
+                            if (result.status)
+                            {
+                                IsBusy = false;
+                                Global.email_PhoneNo = result.userData.email;
+                                Global.contactNo = result.userData.contactNo;
+                                Global.loginUserId = result.userData.id;
+                                Global.Token = result.userData.token;
+                                Barrel.Current.Add(UrlHelper.adminOTPUrl, result.userData, TimeSpan.FromHours(5));
+                                OTP1 = "";
+                                OTP2 = "";
+                                OTP3 = "";
+                                OTP4 = "";
+                                OTP5 = "";
+                                OTP6 = "";
+                                ShowDashboard();
 
 
+
+                            }
+                            else
+                            {
+                                Barrel.Current.EmptyAll();
+
+                                MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, ""); ;
+                            }
                         }
                         else
                         {
                             Barrel.Current.EmptyAll();
-                            
-                            MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                            MessageBox.ShowError("Please enter a valid OTP Number");
                         }
                     }
-                    else
-                    {
-                        Barrel.Current.EmptyAll();
-                        MessageBox.ShowError("Please enter a valid OTP Number");
-                    }
+
                 }
-                
+                IsBusy = false;
             }
-        IsBusy=false;
+
         }
         #endregion
         /// <summary>

@@ -38,7 +38,7 @@
       
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Source="/Images/flightLogo.png" Margin="0,0,0,20" Grid.ColumnSpan="2"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Pilot Login" VerticalAlignment="Center" HorizontalAlignment="Left" 
+        <Label Grid.Row="2" Grid.Column="0" Content="Login" VerticalAlignment="Center" HorizontalAlignment="Left" 
                FontSize="28" FontFamily="Segoe UI" Foreground="Black" FontWeight="SemiBold" Grid.ColumnSpan="2"/>
         <Label Grid.Row="3" Grid.Column="0" Content="Phone / Email" FontWeight="SemiBold"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
         <TextBox MaxLength="30" Grid.Row="4" Grid.Column="0" Text="{Binding Email_PhoneNo}" Margin="10,0,10,0" 

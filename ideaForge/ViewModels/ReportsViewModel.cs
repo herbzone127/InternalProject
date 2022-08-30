@@ -76,7 +76,10 @@ namespace ideaForge.ViewModels
                         var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
                         if (dashboard != null)
                         {
+                            dashboard.btnExcel.Visibility = System.Windows.Visibility.Visible;
+                            dashboard.backButton.Visibility = System.Windows.Visibility.Visible;
                             var context = (DashboardViewModel)dashboard.DataContext;
+                            context.PageName = "Report Details";
                             context.CurrentPage.Content = new ReportsData(rideDetails.userData);
                         }
                     }

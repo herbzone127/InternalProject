@@ -110,6 +110,9 @@ namespace ideaForge.ViewModels
                         if (dashboard != null)
                         {
                             var context = (DashboardViewModel)dashboard.DataContext;
+                            dashboard.backButton.Visibility = Visibility.Visible;
+                            dashboard.btnExcel.Visibility = Visibility.Hidden;
+                            context.PageName = $"Booking Id: {selectedRecord.id}";
                             context.CurrentPage.Content = new ReportCompletedPage(rideDetails.userData);
                         }
                     }

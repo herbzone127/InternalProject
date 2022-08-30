@@ -50,5 +50,42 @@ namespace IdeaForge.Service.GenericServices
             }
 
         }
+        public async Task<LoginResponse> adminLogin(Login login)
+        {
+            try
+            {
+                var url = UrlHelper.adminLoginUrl;
+
+                var serializeJson = JsonConvert.SerializeObject(login);
+                var resultString = await HTTPClientWrapper<Login>.PostRequest(url, login);
+                var result = JsonConvert.DeserializeObject<LoginResponse>(resultString);
+                //var url = UrlHelper.loginURL;
+                //var result = await HTTPClientWrapper<Login>.Get(url);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+        }
+        public async Task<OTPResponse> adminOTP(PilotOTP pilotOPT)
+        {
+            try
+            {
+                var url = UrlHelper.adminOTPUrl;
+                var serializeJson = JsonConvert.SerializeObject(pilotOPT);
+                var resultString = await HTTPClientWrapper<PilotOTP>.PostRequest(url, pilotOPT);
+                var result = JsonConvert.DeserializeObject<OTPResponse>(resultString);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }

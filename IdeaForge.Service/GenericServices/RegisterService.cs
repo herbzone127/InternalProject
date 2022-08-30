@@ -44,5 +44,21 @@ namespace IdeaForge.Service.GenericServices
             }
            
         }
+        public async Task<RegisterResponse> AdminRegister(Register register)
+        {
+            try
+            {
+                var url = UrlHelper.adminSingUpUrl;
+                var result = await HTTPClientWrapper<Register>.PostRequest(url, register);
+                var resultModel = JsonConvert.DeserializeObject<RegisterResponse>(result);
+                return resultModel;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }

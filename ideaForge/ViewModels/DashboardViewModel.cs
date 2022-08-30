@@ -1,4 +1,5 @@
 ﻿using ideaForge.Pages;
+using ideaForge.Pages.AdminDashboardPages;
 using ideaForge.Pages.DashboardPages;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
@@ -118,7 +119,16 @@ namespace ideaForge.ViewModels
             var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
             PageLocation = selectedCity?.city_Name;
             CurrentPage = new System.Windows.Controls.UserControl();
-            CurrentPage.Content = new IFDockPage();
+            if (Global.RoleID == 2)
+            {
+                PageName = "IF Dock";
+                CurrentPage.Content = new IFDockPage();
+            }
+            if (Global.RoleID == 3)
+            {
+                PageName = "Admin IF Dock";
+                CurrentPage.Content = new AdminIFDockPage();
+            }
             _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
 
             //CurrentPage = new RequestsPage();
@@ -154,10 +164,20 @@ namespace ideaForge.ViewModels
         #region CommandMethods
         private void CanExecuteIFDockMenu(object obj)
         {
-            IsBusy = true; 
-            PageName = "IF Dock";
-            CurrentPage.Content = new IFDockPage();
-            IsBusy = false; 
+            if (Global.RoleID == 2)
+            {
+                IsBusy = true;
+                PageName = "IF Dock";
+                CurrentPage.Content = new IFDockPage();
+                IsBusy = false;
+            }
+            if (Global.RoleID == 3)
+            {
+                IsBusy = true;
+                PageName = "Admin IF Dock";
+                CurrentPage.Content = new AdminIFDockPage();
+                IsBusy = false;
+            }
         }
         private void CanExecuteRequestPage(object obj)
         {

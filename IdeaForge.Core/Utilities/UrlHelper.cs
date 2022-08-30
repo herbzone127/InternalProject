@@ -30,5 +30,10 @@ public const string baseURL = "http://ifapi.dweb.in";
         public const string getpilotloaction = baseURL + "/api/IFDock/getpilotlocation";
         public const string getReasons = baseURL + "/api/IFDock/getReasons";
         public const string updateloactionbyid = baseURL+ "/api/IFDock/AddUpdatePilotLocation";
+        public const string adminLoginUrl = baseURL + "/api/login/adminlogin";
+        public const string adminOTPUrl = baseURL + "/api/login/validateadminOTP";
+        public const string adminSingUpUrl = baseURL + "/api/login/adminsignup";
+        public const string adminLocationUrl = baseURL + "/api/Admins/GetLocation";
+        public const string adminUpdateLocationUrl = baseURL + "/api/Admins/AddLocation";
     }
 }

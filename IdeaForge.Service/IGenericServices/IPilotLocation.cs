@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaForge.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace IdeaForge.Service.IGenericServices
 {
     internal interface IPilotLocation
     {
+       
     }
 }

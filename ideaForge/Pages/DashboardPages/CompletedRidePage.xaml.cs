@@ -21,6 +21,7 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class CompletedRidePage : UserControl
     {
+        public IdeaForge.Domain.Ride _ride;
         public CompletedRidePage(IdeaForge.Domain.Ride rideDetails)
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace ideaForge.Pages.DashboardPages
             vModel.StatusForUser = rideDetails.status;
             vModel.UserFeedBack = (string)rideDetails.comments;
             vModel.UAVId = rideDetails.UAVID;
+            _ride=rideDetails;
             //vModel.ControlKey = rideDetails.ControlKey;
             //vModel.SecretKey = rideDetails.SecretKey;
         }

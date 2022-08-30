@@ -39,8 +39,8 @@ namespace ideaForge.Popups
             Yes,
             No,
             Cancel,
-            Confirm
-
+            Confirm,
+            Successful
         }
         public string GetTitle(CMessageTitle value)
         {
@@ -56,7 +56,8 @@ namespace ideaForge.Popups
             Error,
             Info,
             Warning,
-            Confirm
+            Confirm,
+            Successful
         }
         public static DialogResult Show(string message, CMessageTitle title, CMessageButton okButton,string coloredMessage)
         {
@@ -191,6 +192,38 @@ namespace ideaForge.Popups
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Confirm);
             cMessageBox.lblColorMessage.Text = coloredMessage;
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/SuccessBack.png", UriKind.Relative));
+            cMessageBox.btnOk.Background = ConvertColor("#91C84F");
+            cMessageBox.ShowDialog();
+            return result;
+        }
+
+        public static DialogResult ShowSuccessful(string message, string coloredMessage)
+        {
+            cMessageBox = new MessageBox();
+            Global.isStoped = true;
+            cMessageBox.btnOk.Content = cMessageBox.GetButtonText(CMessageButton.Ok);
+            BackgroundBlur();
+            //LoginPage = new Window();
+            //if (LoginPage != null)
+            //{
+            //    LoginPage = Application.Current.MainWindow;
+            //    LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    //cMessageBox.btnCancel.Content = cMessageBox.GetButtonText(noButton);
+            //    if(cMessageBox.Parent is Login)
+            //    {
+            //        LoginPage = cMessageBox.Parent as Login;
+            //        LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    }
+            //    if (cMessageBox.Parent is Dashboard)
+            //    {
+            //        LoginPage = cMessageBox.Parent as Dashboard;
+            //        LoginPage.Effect =new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
+            //    }
+            //}
+            cMessageBox.txtMessage.Text = message;
+            cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Successful);
+            cMessageBox.lblColorMessage.Text = coloredMessage;
+            cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/SuccessfulAdminIcon.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
             cMessageBox.ShowDialog();
             return result;

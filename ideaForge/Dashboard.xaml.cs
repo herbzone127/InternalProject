@@ -1,4 +1,6 @@
-﻿using ideaForge.Pages.DashboardPages;
+﻿using ClosedXML.Excel;
+using ideaForge.Models;
+using ideaForge.Pages.DashboardPages;
 using ideaForge.ViewModels;
 using IdeaForge.Core.Utilities;
 using MahApps.Metro.Controls;
@@ -6,6 +8,7 @@ using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -32,6 +35,7 @@ namespace ideaForge
         {
             InitializeComponent();
             this.WindowState = Global.LoginState;
+            btnExcel.Visibility = Visibility.Hidden;
             var login = Application.Current.Windows.OfType<Login>().FirstOrDefault();
             if (login != null)
             {
@@ -47,17 +51,18 @@ namespace ideaForge
             var menu = (HamburgerMenu)sender;
             var value =(HamburgerMenuGlyphItem) menu.SelectedItem;
             pg = value.Label;
-            if (value.Label== "Requests")
+            if (value.Label== "Report")
             {
-               
-             
-                
+
+                btnExcel.Visibility= Visibility.Visible;
+
+
             }
             else
             {
-                
+                btnExcel.Visibility = Visibility.Hidden;
                 //worker.CancelAsync();
-                
+
             }
            
 
@@ -126,8 +131,23 @@ namespace ideaForge
             backButton.Visibility = Visibility.Hidden;
             var vModel = (DashboardViewModel)this.DataContext;
             Global.isStoped = false;
-            vModel.CurrentPage.Content = new Requests();
-            vModel.PageName = "Requests";
+            if (vModel.PageName.Contains("Booking"))
+            {
+                var selectedRecord = vModel.CurrentPage.Content as ReportCompletedPage;  
+                vModel.CurrentPage.Content = new ReportsData(selectedRecord._ride);
+                vModel.PageName = "Report Details";
+                backButton.Visibility=Visibility.Visible;
+            }else
+            if (vModel.PageName== "Report Details")
+            {
+                vModel.CurrentPage.Content = new Reports();
+                vModel.PageName = "Reports";
+            }
+            else
+            {
+                vModel.CurrentPage.Content = new Requests();
+                vModel.PageName = "Requests";
+            }
         }
 
         private void loginWindow_Closing(object sender, CancelEventArgs e)
@@ -162,6 +182,87 @@ namespace ideaForge
         private void Border_MouseEnter(object sender, MouseEventArgs e)
         {
             trayProfile.Visibility = Visibility.Hidden;
+        }
+
+        private void btnExcel_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog.Filter = "Excel |*.xlsx";
+            var dialog = saveFileDialog.ShowDialog();
+            if (dialog== System.Windows.Forms.DialogResult.OK)
+            {
+                var vModel = (DashboardViewModel)this.DataContext;
+                Global.isStoped = true;
+
+                var pageName = vModel.PageName;
+                if (pageName == "Reports")
+                {
+                    var result = (Reports)vModel.CurrentPage.Content;
+                    var rModel = (ReportsViewModel)result.DataContext;
+                    List<ReportsToExcel> lst = new List<ReportsToExcel>();
+                    rModel.RidesAcceptedByUsers.ToList().ForEach(u => {
+                        lst.Add(new ReportsToExcel{PilotName=u.userName,FilghtAccepted=u.TotalAcceptedRidesByUser,FlightRejected=u.TotalRejectedRidesByUser });
+                    });
+                    string fileName = "reports.xlsx";
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var dt = IdeaForge.Core.ListtoDataTableConverter.ToDataTable(lst);
+                        wb.Worksheets.Add(dt);
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            wb.SaveAs(stream);
+                            //Return xlsx Excel File  
+                            File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+                            ideaForge.Popups.MessageBox.ShowSuccess("File Download"," Successfully");
+                        }
+                    }
+                }
+                if (pageName == "Report Details")
+                {
+                    var result = (ReportsData)vModel.CurrentPage.Content;
+                    var rModel = (ReportsDataViewModel)result.DataContext;
+                    List<ReportDetailsToExcel> lst = new List<ReportDetailsToExcel>();
+                    rModel.RidesAcceptedByUsers.ToList().ForEach(u => {
+                        var model = new ReportDetailsToExcel
+                        {
+                            BookingId = u.id,
+                            ContactNo = u.contactNo,
+                            UserName = u.userName,
+                            DateTime = u.startDate.ToShortDateString(),
+                            StartTime = u.startDate.ToShortTimeString(),
+                            EndTime = u.endDate.ToShortTimeString(),
+                            IFDock = u.location,
+
+
+                        };
+                        if(u.statusID==2|| u.statusID == 5)
+                        {
+                            model.Status = "Accepted";
+                        }
+                        else
+                        {
+                            model.Status = "Rejected";
+                        }
+                        lst.Add(model); 
+                    });
+                    string fileName = "reports.xlsx";
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var dt = IdeaForge.Core.ListtoDataTableConverter.ToDataTable(lst);
+                        wb.Worksheets.Add(dt);
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            wb.SaveAs(stream);
+                            //Return xlsx Excel File  
+                            File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+                            ideaForge.Popups.MessageBox.ShowSuccess("File Download", " Successfully");
+                        }
+                    }
+                }
+            }
+             
+          
         }
     }
 }

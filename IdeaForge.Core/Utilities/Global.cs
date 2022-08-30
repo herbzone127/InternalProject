@@ -21,5 +21,6 @@ namespace IdeaForge.Core.Utilities
         public static bool IsIFDockStatus { get; set; }
         public static UserDatum SelectedLocation { get; set; }
         public static bool isStoped { get; set; }
+        public static int RoleID { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Linq;
+using MessageBox = ideaForge.Popups.MessageBox;
 using MapControl;
 namespace ideaForge.ViewModels
 {
@@ -132,7 +133,17 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(SelectedLocationGrid));
             }
         }
+        ObservableCollection<adminPilotLocation> _adminLocationsGrid;
 
+        public ObservableCollection<adminPilotLocation> AdminLocationsGrid
+        {
+            get { return _adminLocationsGrid; }
+            set
+            {
+                _adminLocationsGrid = value;
+                OnPropertyChanged(nameof(AdminLocationsGrid));
+            }
+        }
         #endregion
         #region CommandMethod
         readonly DelegateCommand _saveChangesCommand;
@@ -204,74 +215,205 @@ namespace ideaForge.ViewModels
 
         }
 
-        async   void CanExecuteSaveChanges(object obj)
+        async void CanExecuteSaveChanges(object obj)
         {
-            if(!string.IsNullOrEmpty(Comments) && ReasonId>0 )
+            if (Global.RoleID == 2)
             {
-                var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
+                if (!string.IsNullOrEmpty(Comments) && ReasonId > 0)
                 {
-                    cityId = SelectedCity.id,
-                    comments = Comments,
-                    city_Name = SelectedCity.city_Name,
-                    id = 0,
-                    locationName = SelectedCity.city_Name,
-                    reasonDescription = Comments,
-                    reasonId = ReasonId,
-                    userId = Global.loginUserId,
-                    isActive = IsActive,
-
-                });
-                try
-                {
-                    if (result != null)
+                    var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
                     {
-                        if (result.status)
-                        {
-                            await GetPilotLocations();
+                        cityId = SelectedCity.id,
+                        comments = Comments,
+                        city_Name = SelectedCity.city_Name,
+                        id = 0,
+                        locationName = SelectedCity.city_Name,
+                        reasonDescription = Comments,
+                        reasonId = ReasonId,
+                        userId = Global.loginUserId,
+                        isActive = IsActive,
 
-                            MessageBox.ShowSuccess("Save record ", " successfully.");
-                        }
-                        else
+                    });
+                    try
+                    {
+                        if (result != null)
                         {
-                            MessageBox.ShowError(result.message);
-                        }
+                            if (result.status)
+                            {
+                                await GetPilotLocations();
+                                await GetAdminLocations();
 
+                                MessageBox.ShowSuccess("Save record ", " successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.ShowError(result.message);
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.ShowError(ex.Message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
+                    var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
+                    {
+                        cityId = SelectedCity.id,
+                        comments = "",
+                        city_Name = SelectedCity.city_Name,
+                        id = 0,
+                        locationName = SelectedCity.city_Name,
+                        reasonDescription = "",
+                        reasonId = 2,
+                        userId = Global.loginUserId,
+                        isActive = IsActive,
 
-                    MessageBox.ShowError(ex.Message);
+                    });
+                    try
+                    {
+                        if (result != null)
+                        {
+                            if (result.status)
+                            {
+                                await GetPilotLocations();
+                                await GetAdminLocations();
+                                MessageBox.ShowSuccess("Save record ", " successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.ShowError(result.message);
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.ShowError(ex.Message);
+                    }
                 }
             }
             else
             {
-                var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
-                {
-                    cityId = SelectedCity.id,
-                    comments = "",
-                    city_Name = SelectedCity.city_Name,
-                    id = 0,
-                    locationName = SelectedCity.city_Name,
-                    reasonDescription = "",
-                    reasonId = 2,
-                    userId = Global.loginUserId,
-                    isActive = IsActive,
-
-                });
                 try
                 {
-                    if (result != null)
+                    var item = AdminLocationsGrid.Where(x => x.cityId == _selectedCity.id).FirstOrDefault();
+                    if (ReasonId == 0)
                     {
+                        ReasonId = 2;
+                    }
+                    if (item.isActive == true)
+                    {
+                        item.isActive = false;
+                    }
+                    else
+                    {
+                        item.isActive = true;
+                    }
+
+                    addminPilotLocation data = new addminPilotLocation
+                    {
+                        id = item.id,
+                        locationName = item.locationName,
+                        isActive = item.isActive,
+                        update_By = 328,
+                        cityId = item.cityId,
+                        reasonId = ReasonId,
+                        comments = string.IsNullOrEmpty(Comments) ? "" : Comments
+                    };
+                    await AddAdminLocations(data);
+                    GetAdminLocations();
+                    if (item.isActive == true)
+                    {
+                        MessageBox.ShowSuccessful(item.locationName + " Serviceable area enable successfully.", "");
+                    }
+                    else
+                    {
+                        MessageBox.ShowSuccessful(item.locationName + " Serviceable area disable successfully.", "");
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+
+
+
+
+        }
+
+        async Task GetAdminLocations()
+        {
+            AdminLocationsGrid = new ObservableCollection<adminPilotLocation>();
+            if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+            {
+
+
+                var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                try
+                {
+                    if (user != null)
+                    {
+                        var result = await _pilotRequestServices.GetAdminLocations();
+
                         if (result.status)
                         {
-                            await GetPilotLocations();
+                            if (result.userData != null)
+                            {
+                                if (result.userData.Count() != 0)
+                                {
+                                    //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
 
-                            MessageBox.ShowSuccess("Save record ", " successfully.");
-                        }
-                        else
-                        {
-                            MessageBox.ShowError(result.message);
+                                    //var selectedLocation = adminLocations.FirstOrDefault();
+                                    //if (selectedLocation != null)
+                                    //{
+
+                                    //    IsActive = selectedLocation.isActive;
+                                    //    Global.IsIFDockStatus = selectedLocation.isActive;
+                                    //    
+                                    //    //PilotLocations = new ObservableCollection<PilotLocation>(user.);
+
+                                    //}
+                                    List<adminPilotLocation> adminList = new List<adminPilotLocation>();
+                                    foreach (var item in result.userData)
+                                    {
+                                        adminPilotLocation admin = new adminPilotLocation();
+                                        admin.id = item.id;
+                                        admin.locationName = item.locationName;
+                                        admin.reasonDescription = item.reasonDescription;
+                                        if (item.isActive)
+                                            admin.StringStatus = "Active";
+                                        else
+                                            admin.StringStatus = "InActive";
+                                        admin.isActive = item.isActive;
+                                        admin.reasonId = item.reasonId;
+                                        admin.userId = item.userId;
+                                        admin.cityId = item.cityId;
+                                        admin.city_Name = item.city_Name;
+                                        admin.comments = item.comments;
+                                        adminList.Add(admin);
+                                    }
+                                    var adminLocations = adminList;
+                                    AdminLocationsGrid = new ObservableCollection<adminPilotLocation>(adminLocations);
+
+                                    //var selectedLoc=  result.userData.Where(u => u.cityId == Global.SelectedLocation?.id && u.userId==Global.loginUserId).FirstOrDefault();
+                                    //  if (selectedLoc != null)
+                                    //      SelectedLocation = selectedLoc;
+                                }
+
+                            }
+
+                            else
+                            {
+                                MessageBox.ShowError(result.message);
+                            }
+
                         }
 
                     }
@@ -281,11 +423,46 @@ namespace ideaForge.ViewModels
 
                     MessageBox.ShowError(ex.Message);
                 }
+
+
+
             }
-            
-           
-         
-            
+
+        }
+
+        public async Task AddAdminLocations(addminPilotLocation adminloctaion)
+        {
+            if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+            {
+
+
+                var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                try
+                {
+                    if (user != null)
+                    {
+                        var result = await _pilotRequestServices.AddAdminLocations(adminloctaion);
+
+                        if (result == "true")
+                        {
+                            await GetAdminLocations();
+                        }
+                        else
+                        {
+                            MessageBox.ShowError(result);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.ShowError(ex.Message);
+                }
+
+
+
+            }
+
         }
         async void CanExecuteCancel(object obj)
         {
@@ -403,7 +580,7 @@ namespace ideaForge.ViewModels
                 if(selectedCity?.city_Name!=null)
                 CityName = selectedCity.city_Name;
                 await GetPilotLocations();
-
+                await GetAdminLocations();
 
 
             }

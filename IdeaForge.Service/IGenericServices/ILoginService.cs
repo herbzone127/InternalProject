@@ -11,5 +11,7 @@ namespace IdeaForge.Service.IGenericServices
     {
         Task<LoginResponse> Login(Login login);
         Task<OTPResponse> OTP(PilotOTP pilotOPT);
+        Task<LoginResponse> adminLogin(Login login);
+        Task<OTPResponse> adminOTP(PilotOTP pilotOPT);
     }
 }

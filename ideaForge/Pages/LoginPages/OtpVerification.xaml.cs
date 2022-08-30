@@ -102,7 +102,8 @@ namespace ideaForge
 
         private async void OTP_Key_Up(object sender, KeyEventArgs e)
         {
-
+            var model = DataContext as LoginPageViewModel;
+            bool isAdmin = model.adminCheck;
             var text = (TextBox)sender;
 
             Regex regex = new Regex("[^0-9]+");
@@ -170,62 +171,134 @@ namespace ideaForge
                 if (!string.IsNullOrEmpty(txtOTP5.Text))
                 {
                     txtOTP6.Focus();
-                    if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                    if (isAdmin == false)
                     {
-
-                        var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                        if (userOTP != null && userOTP?.id != 0)
+                        if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
                         {
-                            DockAreaPopup.Show();
+
+                            var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                            if (userOTP != null && userOTP?.id != 0)
+                            {
+                                DockAreaPopup.Show();
+                            }
+                            else
+                            {
+                                await GetOTP(isAdmin);
+                            }
                         }
                         else
                         {
-                           await GetOTP();
+                            await GetOTP(isAdmin);
                         }
+                        progreshbar.IsActive = false;
                     }
                     else
                     {
-                      await  GetOTP();
+                        if (!Barrel.Current.IsExpired(UrlHelper.adminOTPUrl))
+                        {
+                            //Barrel.Current.EmptyAll();
+                            var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.adminOTPUrl);
+                            if (userOTP != null && userOTP?.id != 0)
+                            {
+                                DockAreaPopup.Show();
+                            }
+                            else
+                            {
+                                await GetOTP(isAdmin);
+                            }
+                        }
+                        else
+                        {
+                            await GetOTP(isAdmin);
+                        }
+                        progreshbar.IsActive = false;
                     }
-                    progreshbar.IsActive = false;
+
                 }
                 if (string.IsNullOrEmpty(txtOTP1.Text))
                     txtOTP1.Focus();
             }
         }
-        private async Task GetOTP()
+        private async Task GetOTP(bool isAdmin)
         {
-            string notp = txtOTP1.Text + txtOTP2.Text + txtOTP3.Text + txtOTP4.Text + txtOTP5.Text + txtOTP6.Text;
-            if (notp.Length == 6)
+            if (isAdmin == false)
             {
-                progreshbar.IsActive = true;
-                int.TryParse(notp, out int otpResult);
-                if (otpResult > 0)
+                string notp = txtOTP1.Text + txtOTP2.Text + txtOTP3.Text + txtOTP4.Text + txtOTP5.Text + txtOTP6.Text;
+                if (notp.Length == 6)
                 {
-                    var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
-                    if (result.status && result.userData.id != 0)
+                    progreshbar.IsActive = true;
+                    int.TryParse(notp, out int otpResult);
+                    if (otpResult > 0)
                     {
-                        Global.loginUserId = result.userData.id;
-                        Global.email_PhoneNo = result.userData.email;
-                        Global.Token = result.userData.token;
-                        Global.contactNo = result.userData.contactNo;
-                        worker.CancelAsync();
-                        Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
-                        ShowDashboard();
+                        var result = await _loginService.OTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
+                        if (result.status && result.userData.id != 0)
+                        {
+                            Global.loginUserId = result.userData.id;
+                            Global.email_PhoneNo = result.userData.email;
+                            Global.Token = result.userData.token;
+                            Global.contactNo = result.userData.contactNo;
+                            Global.RoleID = result.userData.roleID;
+                            worker.CancelAsync();
+                            Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
+                            if (result.userData.roleID == 2)
+                            {
+                                ShowDashboard();
+                            }
+                            if (result.userData.roleID == 3)
+                            {
+                                var dashboard = new Dashboard();
+                                dashboard.Show();
+                            }
 
+                        }
+                        else
+                        {
+
+                            var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                        }
                     }
                     else
                     {
 
-                        var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                        var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
                     }
                 }
-                else
+            }
+            else
+            {
+                string notp = txtOTP1.Text + txtOTP2.Text + txtOTP3.Text + txtOTP4.Text + txtOTP5.Text + txtOTP6.Text;
+                if (notp.Length == 6)
                 {
+                    progreshbar.IsActive = true;
+                    int.TryParse(notp, out int otpResult);
+                    if (otpResult > 0)
+                    {
+                        var result = await _loginService.adminOTP(new IdeaForge.Domain.PilotOTP { email_PhoneNo = Global.email_PhoneNo, otp = otpResult });
+                        if (result.status && result.userData.id != 0)
+                        {
+                            Global.loginUserId = result.userData.id;
+                            Global.email_PhoneNo = result.userData.email;
+                            Global.Token = result.userData.token;
+                            Global.contactNo = result.userData.contactNo;
+                            worker.CancelAsync();
+                            Barrel.Current.Add(UrlHelper.adminOTPUrl, result.userData, TimeSpan.FromHours(5));
+                            ShowDashboard();
 
-                    var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
+                        }
+                        else
+                        {
+
+                            var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                        }
+                    }
+                    else
+                    {
+
+                        var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
+                    }
                 }
             }
+
         }
         private async void txtOTP_PreviewKeyDown(object sender, KeyEventArgs e)
         {

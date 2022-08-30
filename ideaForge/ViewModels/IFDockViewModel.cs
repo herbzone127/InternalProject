@@ -60,6 +60,7 @@ namespace ideaForge.ViewModels
             GetReasons().ConfigureAwait(false);
             //Center = new Location(19.076, 72.8777);
             PilotLocationsGrid = new ObservableCollection<PilotLocation>();
+            AdminLocationsGrid = new ObservableCollection<adminPilotLocation>();
             //if (Global.SelectedLocation != null)
             //{
             //    SelectedLocation= Global.SelectedLocation;
@@ -124,7 +125,7 @@ namespace ideaForge.ViewModels
             //    Name = "Navi Mumbai, Maharashtra",
             //    Location = new Location(53.5207, 8.2323)
             //});
-        
+
             //Polylines.Add(new PolylineItem
             //{
             //    Locations = LocationCollection.Parse("72.775970459,18.890695572 72.775970459,19.315412521 73.124320984,19.315412521 73.124320984,18.890695572 72.775970459,18.890695572")

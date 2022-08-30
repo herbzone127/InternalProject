@@ -10,6 +10,7 @@ namespace IdeaForge.Service.IGenericServices
     public interface IRegisterService
     {
         Task<RegisterResponse> Register(Register register);
+        Task<RegisterResponse> AdminRegister(Register register);
         Task<CityData> GetCityList();
     }
 }
