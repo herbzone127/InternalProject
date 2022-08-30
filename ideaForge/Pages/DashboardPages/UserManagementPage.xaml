@@ -8,6 +8,9 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
              xmlns:vm="clr-namespace:ideaForge.ViewModels"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:UserManagementPageViewModel/>
+    </UserControl.DataContext>
 
     <Grid Background="#FFF">
         <Grid.ColumnDefinitions>
