@@ -333,6 +333,9 @@
     <Compile Include="Pages\DashboardPages\RequestsPage.xaml.cs">
       <DependentUpon>RequestsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DashboardPages\UserManagementDetailPage.xaml.cs">
+      <DependentUpon>UserManagementDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DashboardPages\UserManagementPage.xaml.cs">
       <DependentUpon>UserManagementPage.xaml</DependentUpon>
     </Compile>
@@ -412,6 +415,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DashboardPages\RequestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DashboardPages\UserManagementDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

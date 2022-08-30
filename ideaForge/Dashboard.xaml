@@ -367,11 +367,12 @@
                             x:Name="CityComboBox"
                             Margin="0,0,45,0"
                             Grid.Column="3"
-                              VerticalAlignment="Center"
+                            VerticalAlignment="Center"
                             HorizontalAlignment="Right"
-                            BorderBrush="#A9ABB1" BorderThickness="0" CornerRadius="0">
+                            BorderBrush="#A9ABB1" BorderThickness="1" CornerRadius="5"
+                            >
                             <Grid>
-                                <dotNetKitControls:AutoCompleteComboBox Height="20" Width="100"
+                                <dotNetKitControls:AutoCompleteComboBox Height="auto" Width="150"
                                 SelectedValuePath="city_Name"
                                 DisplayMemberPath="city_Name"
                                 TextSearch.TextPath="city_Name"
@@ -381,7 +382,7 @@
                                 SelectionChanged="AutoCompleteComboBox_SelectionChanged"
                                 x:Name="cityComboBox"
                                 TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
-                                <TextBlock Margin="8 10"
+                                <TextBlock Margin="5"
                                        Foreground="#A9ABB1"
                                        x:Name="cityWaterMark"
                                        IsHitTestVisible="False"
