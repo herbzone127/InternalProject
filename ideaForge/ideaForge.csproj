@@ -360,6 +360,7 @@
     <Compile Include="ViewModels\ReportsDataViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\UserManagementDetailPageViewModel.cs" />
     <Compile Include="ViewModels\UserManagementPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Dashboard.xaml">
