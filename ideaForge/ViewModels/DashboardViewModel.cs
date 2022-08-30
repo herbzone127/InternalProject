@@ -5,6 +5,7 @@ using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using MahApps.Metro.Controls;
 using MonkeyCache.FileStore;
+using IdeaForge.Service.IGenericServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,11 +16,23 @@ using System.Web.UI;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UserControl = System.Windows.Controls.UserControl;
+using MessageBox = ideaForge.Popups.MessageBox;
+using log4net;
+using Microsoft.Extensions.DependencyInjection;
+using MapControl;
 
 namespace ideaForge.ViewModels
 {
     public class DashboardViewModel : ViewModelBase
     {
+        #region Services
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public IPilotRequestServices _pilotRequestServices
+         => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+        public IRegisterService _registerService
+        => App.serviceProvider.GetRequiredService<IRegisterService>();
+        #endregion
+
         public string ApplicationId { get; set; }
 
         /// <summary>
@@ -102,6 +115,17 @@ namespace ideaForge.ViewModels
             OnPropertyChanged(nameof(CurrentPage));
             }
         }
+
+        public UserDatum _selectedCity = new UserDatum();
+        public UserDatum SelectedCity
+        {
+            get { return _selectedCity; }
+            set
+            {
+                _selectedCity = value; OnPropertyChanged(nameof(SelectedCity));
+
+            }
+        }
         #endregion
         #region Observable Collections
         private ObservableCollection<HamburgerMenuGlyphItem> _menuItems;
@@ -116,6 +140,16 @@ namespace ideaForge.ViewModels
         #region Construtor
         public DashboardViewModel()
         {
+            try
+            {
+                GetCityList().ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             //  CloseAllWindows();
             //ApplicationId = Barrel.ApplicationId;
             PageName = "IF Dock";
@@ -246,7 +280,13 @@ namespace ideaForge.ViewModels
             }
             if (Global.RoleID == 3)
             {
+                var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
                 IsBusy = true;
+                if (dashboard != null)
+                {
+                    dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Visible;
+                    dashboard.CityComboBox.Visibility = System.Windows.Visibility.Hidden;
+                }
                 PageName = "Admin IF Dock";
                 CurrentPage.Content = new AdminIFDockPage();
                 IsBusy = false;
@@ -303,7 +343,30 @@ namespace ideaForge.ViewModels
         #endregion
 
         #region ApiMethods
+        public async Task GetCityList()
+        {
+            try
+            {
+                var userDatumCities = await _registerService.GetCityList();
+                userDatumCities.userData.ForEach(u => u.position = new Location(Convert.ToDouble(u.Latitude), Convert.ToDouble(u.Longitude)));
+                CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+                var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                if (selectedCity == null)
+                {
+                    Barrel.Current.Add<UserDatum>("SelectedLocation", CityList[0], TimeSpan.FromHours(5));
+                }
 
+                SelectedCity = selectedCity;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.ShowError(ex.Message);
+            }
+
+        }
         #endregion
         private void CloseAllWindows()
         {
