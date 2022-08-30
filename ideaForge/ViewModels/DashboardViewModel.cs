@@ -147,6 +147,12 @@ namespace ideaForge.ViewModels
                     });
                     MenuItems.Add(new HamburgerMenuGlyphItem
                     {
+                        Command = new DelegateCommand(CanExecuteUserManagementPage),
+                        Glyph = "/Images/nounProfile.png",
+                        Label = "User Management"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
                         Command = new DelegateCommand(CanExecuteReportsPage),
                         Glyph = "/Images/nounReport.png",
                         Label = "Report"
@@ -196,6 +202,8 @@ namespace ideaForge.ViewModels
             //_ProfileMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
 
             _ReportMenuCommand = new DelegateCommand(CanExecuteReportsPage);
+
+            _UserManagementPage = new DelegateCommand(CanExecuteUserManagementPage);
         }
         #endregion
         /// <summary>
@@ -213,11 +221,13 @@ namespace ideaForge.ViewModels
 
         private readonly DelegateCommand _ProfileMenuCommand;
         public ICommand ProfileMenuCommand => _ProfileMenuCommand;
+        private readonly DelegateCommand _UserManagementPage;
+        public ICommand UserManagementPage => _UserManagementPage;
         #endregion
         /// <summary>
         /// Command Methods 
         /// </summary>
-      
+
         #region CommandMethods
         private void CanExecuteIFDockMenu(object obj)
         {
@@ -257,7 +267,13 @@ namespace ideaForge.ViewModels
             CurrentPage.Content = new Reports();
             IsBusy = false;
         }
-
+        private void CanExecuteUserManagementPage(object obj)
+        {
+            IsBusy = true;
+            PageName = "User Management";
+            CurrentPage.Content = new UserManagementPage();
+            IsBusy = false;
+        }
         #endregion
         private void CloseAllWindows()
         {
