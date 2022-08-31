@@ -414,7 +414,8 @@ namespace ideaForge.ViewModels
 
                             else
                             {
-                                MessageBox.ShowError(result.message);
+                                log.Error("Admin Data Not Loaded yet");
+                                //MessageBox.ShowError(result.message);
                             }
 
                         }
@@ -424,7 +425,8 @@ namespace ideaForge.ViewModels
                 catch (Exception ex)
                 {
 
-                    MessageBox.ShowError(ex.Message);
+                    log.Error(ex.Message,ex);
+                    // MessageBox.ShowError(ex.Message);
                 }
 
 
@@ -590,8 +592,8 @@ namespace ideaForge.ViewModels
             }
             catch (Exception ex)
             {
-
-                MessageBox.ShowError(ex.Message);
+                log.Error(ex.Message, ex);
+                //MessageBox.ShowError(ex.Message);
             }
 
         }
@@ -619,15 +621,16 @@ namespace ideaForge.ViewModels
                         }
                         else
                         {
-                            MessageBox.ShowError(result.messaage);
+                            log.Error("Data not Loaded yet");
+                            //MessageBox.ShowError(result.messaage);
                         }
 
                     }
                 }
                 catch (Exception ex)
                 {
-
-                    MessageBox.ShowError(ex.Message);
+                    log.Error(ex.Message,ex);
+                    //MessageBox.ShowError(ex.Message);
                 }
              
 

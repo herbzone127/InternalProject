@@ -65,7 +65,7 @@ namespace ideaForge.ViewModels
                 AdminLocationsGrid = new ObservableCollection<adminPilotLocation>();
                 SelectedLocationGrid = new PilotLocation();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
