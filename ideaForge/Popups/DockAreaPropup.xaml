@@ -54,12 +54,12 @@
                 
                 Margin="10,0,10,0"
                 x:Name="cLocation"
-    SelectedValuePath="id"
-                        DisplayMemberPath="city_Name"
-    TextSearch.TextPath="city_Name"
-    ItemsSource="{Binding CityList}"
+                SelectedValuePath="id"
+                DisplayMemberPath="city_Name"
+                TextSearch.TextPath="city_Name"
+                ItemsSource="{Binding CityList}"
                 SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
-     SelectedValue="{Binding SelectedLocationId}"   
+                SelectedValue="{Binding SelectedLocationId}"   
                 VerticalAlignment="Center"
                     SelectionChanged="cLocation_SelectionChanged"
    />

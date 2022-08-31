@@ -126,6 +126,18 @@ namespace ideaForge.ViewModels
 
             }
         }
+
+        private int _selectedLocationId;
+
+        public int SelectedLocationId
+        {
+            get { return _selectedLocationId; }
+            set
+            {
+                _selectedLocationId = value;
+                OnPropertyChanged(nameof(SelectedLocationId));
+            }
+        }
         #endregion
         #region Observable Collections
         private ObservableCollection<HamburgerMenuGlyphItem> _menuItems;
@@ -244,6 +256,8 @@ namespace ideaForge.ViewModels
             _ReportMenuCommand = new DelegateCommand(CanExecuteReportsPage);
 
             _UserManagementPage = new DelegateCommand(CanExecuteUserManagementPage);
+
+            _selectionCommand = new DelegateCommand(CanExecuteUserManagementPageWithData);
         }
         #endregion
         /// <summary>
@@ -263,6 +277,8 @@ namespace ideaForge.ViewModels
         public ICommand ProfileMenuCommand => _ProfileMenuCommand;
         private readonly DelegateCommand _UserManagementPage;
         public ICommand UserManagementPage => _UserManagementPage;
+        private readonly DelegateCommand _selectionCommand;
+        public ICommand SelectionChangeCityCombo => _selectionCommand;
         #endregion
         /// <summary>
         /// Command Methods 
@@ -323,7 +339,21 @@ namespace ideaForge.ViewModels
                 dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
             }
             PageName = "User Management";
-            CurrentPage.Content = new UserManagementPage();
+            CurrentPage.Content = new UserManagementPage("");
+            IsBusy = false;
+        }
+        private void CanExecuteUserManagementPageWithData(object obj)
+        {
+            var selectedCityName = SelectedCity;
+            var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+            IsBusy = true;
+            if (dashboard != null)
+            {
+                dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Hidden;
+                dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
+            }
+            PageName = "User Management";
+            CurrentPage.Content = new UserManagementPage(selectedCityName);
             IsBusy = false;
         }
         #endregion

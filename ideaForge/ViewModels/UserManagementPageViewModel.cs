@@ -33,7 +33,7 @@ namespace ideaForge.ViewModels
         }
 
 
-        public async Task GetReportsByUser()
+        public async Task GetReportsByUser(string selectedCityName)
         {//1245
             IsBusy = true;
             var requests = await _pilotRequestServices.GetAllRequest("");
@@ -41,6 +41,7 @@ namespace ideaForge.ViewModels
             {
                 if (requests.status)
                 {
+                    //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                     var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                     requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).ToList();
                     requests.userData.ForEach(u =>

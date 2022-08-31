@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IdeaForge.Domain;
+using ideaForge.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,14 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class UserManagementPage : UserControl
     {
-        public UserManagementPage()
+        public UserManagementPage(string selectedCity)
         {
             InitializeComponent();
+
+            this.DataContext = new UserManagementPageViewModel();
+            var vModel = (UserManagementPageViewModel)DataContext;
+
+            vModel.GetReportsByUser(selectedCity).ConfigureAwait(false);
         }
     }
 }
