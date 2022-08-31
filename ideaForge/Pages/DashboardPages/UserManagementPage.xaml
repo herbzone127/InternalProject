@@ -78,7 +78,13 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                             <Label Content="{Binding TotalAcceptedRidesByUser}"/>
-                                <Button Content="View" Command="{Binding }"   Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
+                                <Button Content="View" 
+                                        Command="{Binding 
+                                        RelativeSource={RelativeSource 
+                                        AncestorType={x:Type UserControl}}, 
+                                        Path=DataContext.ViewCommand}"
+                                        CommandParameter="{Binding .}"   
+                                        Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
                                         <Style TargetType="{x:Type Button}">
 
@@ -107,7 +113,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding TotalRejectedRidesByUser}"/>
-                                <Button Content="View" Command="{Binding }"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
+                                <Button Content="View" Command="{Binding UserManagementDetailCommand}"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
                                         <Style TargetType="{x:Type Button}">
 
@@ -138,7 +144,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding TotalAcceptedRidesByUser}"/>
-                                <Button Content="View" Command="{Binding }"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
+                                <Button Content="View" Command="{Binding UserManagementDetailCommand}"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
                                         <Style TargetType="{x:Type Button}">
                                             
@@ -168,7 +174,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" >
                                 <Label Content="{Binding TotalServiceByUser}"/>
-                                <Button Content="View" Command="{Binding }"   Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
+                                <Button Content="View" Command="{Binding UserManagementDetailCommand}"   Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
                                         <Style TargetType="{x:Type Button}">
                                             
