@@ -3,10 +3,12 @@ using ideaForge.Models;
 using ideaForge.Pages.DashboardPages;
 using ideaForge.ViewModels;
 using IdeaForge.Core.Utilities;
+using IdeaForge.Domain;
 using MahApps.Metro.Controls;
 using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -41,6 +43,7 @@ namespace ideaForge
             {
                 login.Close();
             }
+
             
         }
    
@@ -275,6 +278,19 @@ namespace ideaForge
             {
                 cityWaterMark.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void cityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var vModel = this.DataContext as DashboardViewModel;
+            var currentPage = vModel.CurrentPage.Content as UserManagementPage;
+            if(currentPage != null)
+            {
+                var userViewModel = currentPage.DataContext as UserManagementPageViewModel;
+                userViewModel.GetReportsByUser(vModel.SelectedCity?.city_Name?.ToLower()?.Trim()).ConfigureAwait(false);
+                //userViewModel.RidesAcceptedByUsers = new ObservableCollection<IdeaForge.Domain.RequestData>();
+            }
+           
         }
     }
 }

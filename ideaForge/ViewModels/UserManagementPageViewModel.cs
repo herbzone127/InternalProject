@@ -8,6 +8,7 @@ using MonkeyCache.FileStore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,9 +50,19 @@ namespace ideaForge.ViewModels
         }
         public UserManagementPageViewModel()
         {
-            GetReportsByUser("").ConfigureAwait(false);
+            var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+
+            var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+          
+            if (dashboard != null)
+            {
+                var cityData = dashboard.cityComboBox.ItemsSource as ObservableCollection<UserDatum>;
+                var index = cityData.IndexOf(cityData.FirstOrDefault(u => u.id == selectedCity.id));
+                dashboard.cityComboBox.SelectedIndex=index;
+            }
+            GetReportsByUser(selectedCity?.city_Name?.ToLower()?.Trim()).ConfigureAwait(false);
+
             _viewCommand = new DelegateCommand(ViewCommandCanExecute);
-        
     }
 
         public ObservableCollection<RequestData> RidesAcceptedByUsers
@@ -68,14 +79,14 @@ namespace ideaForge.ViewModels
         public async Task GetReportsByUser(string selectedCityName)
         {
             IsBusy = true;
-            var requests = await _pilotRequestServices.GetAllRequest(selectedCityName);
+            var requests = await _pilotRequestServices.GetAllRequest("");
             if (requests != null)
             {
                 if (requests.status)
                 {
                     //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
-                    var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
-                    requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).ToList();
+                 
+                    requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCityName).ToList();
                     requests.userData.ForEach(u =>
                     {
                         u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && (x.statusID == 2 )).Count();

@@ -20,6 +20,7 @@ using MessageBox = ideaForge.Popups.MessageBox;
 using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using MapControl;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ideaForge.ViewModels
 {
@@ -152,9 +153,12 @@ namespace ideaForge.ViewModels
         #region Construtor
         public DashboardViewModel()
         {
+            
             try
             {
                 GetCityList().ConfigureAwait(false);
+                  
+
             }
             catch (Exception)
             {
@@ -257,7 +261,7 @@ namespace ideaForge.ViewModels
 
             _UserManagementPage = new DelegateCommand(CanExecuteUserManagementPage);
 
-            _selectionCommand = new DelegateCommand(CanExecuteUserManagementPageWithData);
+            //_selectionCommand = new DelegateCommand(CanExecuteUserManagementPageWithData);
         }
         #endregion
         /// <summary>
@@ -277,8 +281,8 @@ namespace ideaForge.ViewModels
         public ICommand ProfileMenuCommand => _ProfileMenuCommand;
         private readonly DelegateCommand _UserManagementPage;
         public ICommand UserManagementPage => _UserManagementPage;
-        private readonly DelegateCommand _selectionCommand;
-        public ICommand SelectionChangeCityCombo => _selectionCommand;
+        //private readonly DelegateCommand _selectionCommand;
+        //public ICommand SelectionChangeCityCombo => _selectionCommand;
         #endregion
         /// <summary>
         /// Command Methods 
@@ -338,24 +342,27 @@ namespace ideaForge.ViewModels
                 dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Hidden;
                 dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
             }
+            var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+
+            SelectedCity = selectedCity;
             PageName = "User Management";
-            CurrentPage.Content = new UserManagementPage("");
+            CurrentPage.Content = new UserManagementPage();
             IsBusy = false;
         }
-        private void CanExecuteUserManagementPageWithData(object obj)
-        {
-            var selectedCityName = SelectedCity;
-            var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-            IsBusy = true;
-            if (dashboard != null)
-            {
-                dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Hidden;
-                dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
-            }
-            PageName = "User Management";
-            CurrentPage.Content = new UserManagementPage(selectedCityName.ToString());
-            IsBusy = false;
-        }
+        //public void CanExecuteUserManagementPageWithData()
+        //{
+        //    var selectedCityName = SelectedCity;
+        //    var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+        //    IsBusy = true;
+        //    if (dashboard != null)
+        //    {
+        //        dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Hidden;
+        //        dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
+        //    }
+        //    PageName = "User Management";
+        //    CurrentPage.Content = new UserManagementPage(selectedCityName.ToString());
+        //    IsBusy = false;
+        //}
         #endregion
 
         #region ObservableCollectionList
@@ -386,16 +393,16 @@ namespace ideaForge.ViewModels
                     Barrel.Current.Add<UserDatum>("SelectedLocation", CityList[0], TimeSpan.FromHours(5));
                 }
 
-                SelectedCity = selectedCity;
+                //SelectedCity = selectedCity;
 
-
+                
             }
             catch (Exception ex)
             {
 
                 MessageBox.ShowError(ex.Message);
             }
-
+           
         }
         #endregion
         private void CloseAllWindows()
