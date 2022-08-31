@@ -38,7 +38,7 @@ namespace ideaForge.ViewModels
         }
         public UserManagementPageViewModel()
         {
-            GetReportsByUser().ConfigureAwait(false);
+            GetReportsByUser("").ConfigureAwait(false);
             _viewCommand = new DelegateCommand(ViewCommandCanExecute);
         
     }
@@ -57,7 +57,7 @@ namespace ideaForge.ViewModels
         public async Task GetReportsByUser(string selectedCityName)
         {//1245
             IsBusy = true;
-            var requests = await _pilotRequestServices.GetAllRequest("");
+            var requests = await _pilotRequestServices.GetAllRequest(selectedCityName);
             if (requests != null)
             {
                 if (requests.status)

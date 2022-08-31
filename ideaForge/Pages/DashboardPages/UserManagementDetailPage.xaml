@@ -16,7 +16,7 @@
         <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
-                        ItemsSource="{Binding RidesAcceptedByUsers}"
+                        ItemsSource="{Binding Selected}"
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True">
             <DataGrid.RowStyle>

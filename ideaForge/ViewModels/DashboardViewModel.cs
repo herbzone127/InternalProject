@@ -353,7 +353,7 @@ namespace ideaForge.ViewModels
                 dashboard.CityComboBox.Visibility = System.Windows.Visibility.Visible;
             }
             PageName = "User Management";
-            CurrentPage.Content = new UserManagementPage(selectedCityName);
+            CurrentPage.Content = new UserManagementPage(selectedCityName.ToString());
             IsBusy = false;
         }
         #endregion

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ideaForge.ViewModels
 {
-    internal class UserManagementDetailPageViewModel
+    public class UserManagementDetailPageViewModel
     {
+        public UserManagementDetailPageViewModel()
+        {
+
+        }
     }
 }

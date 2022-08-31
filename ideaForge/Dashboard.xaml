@@ -379,7 +379,7 @@
                                 ItemsSource="{Binding CityList}"
                                 SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
                                 SelectedValue="{Binding SelectedLocationId}"
-                                SelectionChanged="{Binding SelectionChangeCityCombo}"
+                               
                                 x:Name="cityComboBox"
                                 TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
                                 <TextBlock Margin="5"
