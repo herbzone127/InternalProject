@@ -22,14 +22,9 @@ namespace ideaForge.Pages.DashboardPages
     /// </summary>
     public partial class UserManagementPage : UserControl
     {
-        public UserManagementPage(string selectedCity)
+        public UserManagementPage()
         {
             InitializeComponent();
-
-            this.DataContext = new UserManagementPageViewModel();
-            var vModel = (UserManagementPageViewModel)DataContext;
-
-            vModel.GetReportsByUser(selectedCity).ConfigureAwait(false);
         }
     }
 }
