@@ -12,6 +12,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -121,13 +122,14 @@ namespace ideaForge.ViewModels
             if (dashboard != null)
             {
              var context = (DashboardViewModel)dashboard.DataContext;
-             context.PageName = "next page";
+             context.PageName = "User Management Detail";
              dashboard.btnExcel.Visibility = System.Windows.Visibility.Visible;
              var detailPage= new UserManagementDetailPage();
              var vModel= detailPage.DataContext as UserManagementDetailPageViewModel;
              vModel.SelectedRequest = selectedRecord;
              vModel.StatusID = statusID;
              context.CurrentPage.Content = detailPage;
+                dashboard.backButton.Visibility = Visibility.Visible;
                   
             }
                     

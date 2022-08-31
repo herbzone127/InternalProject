@@ -137,11 +137,25 @@ namespace ideaForge
             if (vModel.PageName.Contains("Booking"))
             {
                 var selectedRecord = vModel.CurrentPage.Content as ReportCompletedPage;  
-                vModel.CurrentPage.Content = new ReportsData(selectedRecord._ride);
-                vModel.PageName = "Report Details";
-                backButton.Visibility=Visibility.Visible;
+                if (selectedRecord != null)
+                {
+                    vModel.CurrentPage.Content = new ReportsData(selectedRecord._ride);
+                    vModel.PageName = "Report Details";
+                    backButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    vModel.CurrentPage.Content = new Requests();
+                    vModel.PageName = "Requests";
+                }
+                
             }else
-            if (vModel.PageName== "Report Details")
+            if (vModel.PageName == "User Management Detail")
+            {
+                vModel.CurrentPage.Content = new UserManagementPage();
+                vModel.PageName = "User Management";
+            }
+            else if (vModel.PageName== "Report Details")
             {
                 vModel.CurrentPage.Content = new Reports();
                 vModel.PageName = "Reports";
@@ -151,6 +165,7 @@ namespace ideaForge
                 vModel.CurrentPage.Content = new Requests();
                 vModel.PageName = "Requests";
             }
+            
         }
 
         private void loginWindow_Closing(object sender, CancelEventArgs e)

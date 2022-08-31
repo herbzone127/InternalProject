@@ -293,7 +293,13 @@ namespace ideaForge.ViewModels
         {
             if (Global.RoleID == 2)
             {
+                var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
                 IsBusy = true;
+                if (dashboard != null)
+                {
+                    dashboard.DashBoardDataStackPanel.Visibility = System.Windows.Visibility.Visible;
+                    dashboard.CityComboBox.Visibility = System.Windows.Visibility.Hidden;
+                }
                 PageName = "IF Dock";
                 CurrentPage.Content = new IFDockPage();
                 IsBusy = false;
