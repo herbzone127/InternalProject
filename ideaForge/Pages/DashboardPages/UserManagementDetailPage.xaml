@@ -8,7 +8,9 @@
              xmlns:vm="clr-namespace:ideaForge.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
+    <UserControl.DataContext>
+        <vm:UserManagementDetailPageViewModel/>
+    </UserControl.DataContext>
     <Grid Background="#FFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -16,7 +18,7 @@
         <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
-                        ItemsSource="{Binding Selected}"
+                  ItemsSource="{Binding SelectedUserRides}"
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True">
             <DataGrid.RowStyle>
@@ -117,7 +119,7 @@
         </DataGrid>
 
         <mah:ProgressRing
-                    IsActive="{Binding IsBusy}" 
+                    IsActive="{Binding IsBusy,FallbackValue=false}" 
                     Foreground="#91C84F" HorizontalAlignment="Left" Margin="502,0,0,0" 
                     />
 

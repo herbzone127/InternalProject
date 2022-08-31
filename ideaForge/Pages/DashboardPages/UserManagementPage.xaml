@@ -20,6 +20,7 @@
                             HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                         ItemsSource="{Binding RidesAcceptedByUsers}"
+                  SelectedItem="{Binding SelectedRideByUser,Mode=TwoWay}"
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True">
             <DataGrid.RowStyle>
@@ -77,13 +78,13 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                            <Label Content="{Binding TotalAcceptedRidesByUser}"/>
+                            <Label Content="{Binding TotalRequestedByUser}"/>
                                 <Button Content="View" 
                                         Command="{Binding 
                                         RelativeSource={RelativeSource 
                                         AncestorType={x:Type UserControl}}, 
                                         Path=DataContext.ViewCommand}"
-                                        CommandParameter="{Binding .}"   
+                                        CommandParameter="1"   
                                         Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >
                                         <Style TargetType="{x:Type Button}">

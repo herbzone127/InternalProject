@@ -27,6 +27,17 @@ namespace ideaForge.ViewModels
         public ICommand ViewCommand => _viewCommand;
 
 
+        private RequestData _SelectedRideByUser;
+
+        public RequestData SelectedRideByUser
+        {
+            get { return _SelectedRideByUser; }
+            set { _SelectedRideByUser = value; 
+            OnPropertyChanged(nameof(SelectedRideByUser));  
+            }
+        }
+
+
         public UserControl CurrentPage
         {
             get { return _currentPage; }
@@ -55,7 +66,7 @@ namespace ideaForge.ViewModels
 
 
         public async Task GetReportsByUser(string selectedCityName)
-        {//1245
+        {
             IsBusy = true;
             var requests = await _pilotRequestServices.GetAllRequest(selectedCityName);
             if (requests != null)
@@ -92,15 +103,22 @@ namespace ideaForge.ViewModels
 
         private async void ViewCommandCanExecute(object obj)
         {
+            var selectedRecord=SelectedRideByUser;
+            int statusID = Convert.ToInt32(obj);
             IsBusy = true;
-                        var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-                        if (dashboard != null)
-                        {
-                            var context = (DashboardViewModel)dashboard.DataContext;
-                context.PageName = "next page";
-                dashboard.btnExcel.Visibility = System.Windows.Visibility.Visible;
-                context.CurrentPage.Content = new UserManagementDetailPage();
-                        }
+            var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+            if (dashboard != null)
+            {
+             var context = (DashboardViewModel)dashboard.DataContext;
+             context.PageName = "next page";
+             dashboard.btnExcel.Visibility = System.Windows.Visibility.Visible;
+             var detailPage= new UserManagementDetailPage();
+             var vModel= detailPage.DataContext as UserManagementDetailPageViewModel;
+             vModel.SelectedRequest = selectedRecord;
+             vModel.StatusID = statusID;
+             context.CurrentPage.Content = detailPage;
+                  
+            }
                     
                 
             
