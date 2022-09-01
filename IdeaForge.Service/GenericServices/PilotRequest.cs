@@ -259,7 +259,7 @@ namespace IdeaForge.Service.GenericServices
             return "";
         }
 
-        async Task<UserFeedbackResponse> GetUserFeedbackByRideId(int rideId)
+       public async Task<UserFeedbackResponse> GetUserFeedbackByRideId(int rideId)
         {
             try
             {

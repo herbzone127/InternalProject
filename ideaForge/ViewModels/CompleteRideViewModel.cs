@@ -1,4 +1,5 @@
-﻿using ideaForge.Pages.DashboardPages;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
@@ -117,7 +118,7 @@ namespace ideaForge.ViewModels
             _Image_Rating4_Comand = new DelegateCommand(Image_Rating4_ComandExecut);
             _Image_Rating5_Comand = new DelegateCommand(Image_Rating5_ComandExecut);
             RestStarRating();
-
+            //GetUserFeedback(RideById.id).ConfigureAwait(false);
             _saveChanges_Command = new DelegateCommand(CanExecuteSaveChanges);
             _cancelChanges_Command = new DelegateCommand(CanExecuteCancelChanges);
 
@@ -441,7 +442,27 @@ namespace ideaForge.ViewModels
         }
         #endregion
 
-
+        #region ApiMethods
+        public async Task<UserFeedback> GetUserFeedback(int rideId)
+        {
+            var request = await _pilotRequestServices.GetUserFeedbackByRideId(rideId);
+            if (request.status)
+            {
+                if (request.userData != null)
+                {
+                    var result = request.userData.FirstOrDefault();
+                    UserFeedBack = result.Comments;
+                    Rating_Num = result.Rating;
+                    return result;
+                }
+            }
+            else
+            {
+                MessageBox.ShowError(request.message);
+            }
+            return null;
+        }
+        #endregion
 
     }
 }

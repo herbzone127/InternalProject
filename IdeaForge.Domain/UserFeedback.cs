@@ -10,7 +10,7 @@ namespace IdeaForge.Domain
     {
         public bool status { get; set; }
         public string message { get; set; }
-        public List<UserFeedback> UserFeedback { get; set; }
+        public List<UserFeedback> userData { get; set; }
     }
     public class UserFeedback
     {
