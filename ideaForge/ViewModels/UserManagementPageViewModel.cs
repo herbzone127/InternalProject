@@ -20,7 +20,7 @@ namespace ideaForge.ViewModels
 {
     public class UserManagementPageViewModel : ViewModelBase
     {
-        public IPilotRequestServices _pilotRequestServices => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+        public IAdminRequestServices _pilotRequestServices => App.serviceProvider.GetRequiredService<IAdminRequestServices>();
         private ObservableCollection<RequestData> _ridesAcceptedByUsers;
 
         private UserControl _currentPage;

@@ -64,6 +64,7 @@ namespace ideaForge
             services.AddScoped<IProfileSerevice, ProfileService>();
             services.AddScoped<IPilotRequestServices, PilotRequest>();
             services.AddScoped<IGoogleMapsApiService, GoogleMapsApiService>();
+            services.AddScoped<IAdminRequestServices, AdminRequest>();
 
 
         }
