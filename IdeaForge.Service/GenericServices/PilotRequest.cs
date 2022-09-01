@@ -258,5 +258,24 @@ namespace IdeaForge.Service.GenericServices
             }
             return "";
         }
+
+        async Task<UserFeedbackResponse> GetUserFeedbackByRideId(int rideId)
+        {
+            try
+            {
+                var url = UrlHelper.UserFeedbackByRideIdURL + "/" + rideId;
+
+                var result = await HTTPClientWrapper<UserFeedbackResponse>.Get(url);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
     }
 }

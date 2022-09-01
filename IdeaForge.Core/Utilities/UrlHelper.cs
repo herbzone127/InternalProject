@@ -36,5 +36,6 @@ public const string baseURL = "http://ifapi.dweb.in";
         public const string adminSingUpUrl = baseURL + "/api/login/adminsignup";
         public const string adminLocationUrl = baseURL + "/api/Admins/GetLocation";
         public const string adminUpdateLocationUrl = baseURL + "/api/Admins/AddLocation";
+        public const string UserFeedbackByRideIdURL = baseURL + "/api/pilotRequests/UserFeedbackByRideId";
     }
 }
