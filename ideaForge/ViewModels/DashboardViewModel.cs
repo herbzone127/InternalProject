@@ -195,12 +195,7 @@ namespace ideaForge.ViewModels
                         Glyph = "/Images/request.png",
                         Label = "Requests"
                     });
-                    MenuItems.Add(new HamburgerMenuGlyphItem
-                    {
-                        Command = new DelegateCommand(CanExecuteUserManagementPage),
-                        Glyph = "/Images/nounProfile.png",
-                        Label = "User Management"
-                    });
+                   
                     MenuItems.Add(new HamburgerMenuGlyphItem
                     {
                         Command = new DelegateCommand(CanExecuteReportsPage),

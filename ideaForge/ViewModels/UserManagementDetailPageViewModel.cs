@@ -17,7 +17,7 @@ namespace ideaForge.ViewModels
 {
     public class UserManagementDetailPageViewModel : ViewModelBase
     {
-        public IPilotRequestServices _pilotRequestServices => App.serviceProvider.GetRequiredService<IPilotRequestServices>();
+        public IAdminRequestServices _pilotRequestServices => App.serviceProvider.GetRequiredService<IAdminRequestServices>();
 
         public UserManagementDetailPageViewModel()
         {
