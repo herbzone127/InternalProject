@@ -24,6 +24,6 @@ namespace IdeaForge.Service.IGenericServices
         Task<adminLocationResponse> GetAdminLocations();
         Task<String> AddAdminLocations(addminPilotLocation adminPilot);
         Task<UserFeedbackResponse> GetUserFeedbackByRideId(int rideId);
-        Task<FlightFeedback> GetFlightFeedbackByRideId(int rideId);
+        Task<FlightFeedbackResponse> GetFlightFeedbackByRideId(int rideId);
     }
 }

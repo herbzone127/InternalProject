@@ -268,5 +268,19 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
+        public async Task<FlightFeedbackResponse> GetFlightFeedbackByRideId(int rideId)
+        {
+            try
+            {
+                var url = UrlHelper.PilotFeedbackByRideIdURL + "/" + rideId;
+                var result = await HTTPClientWrapper<FlightFeedbackResponse>.Get(url);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return null;
+        }
     }
 }
