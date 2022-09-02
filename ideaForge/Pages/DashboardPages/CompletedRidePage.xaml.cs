@@ -36,6 +36,7 @@ namespace ideaForge.Pages.DashboardPages
             vModel.UserFeedBack = (string)rideDetails.comments;
             vModel.UAVId = rideDetails.UAVID;
             vModel.GetUserFeedback(rideDetails.id).ConfigureAwait(false);
+            vModel.GetFlightFeedback(rideDetails.id).ConfigureAwait(false);
             _ride =rideDetails;
             //vModel.ControlKey = rideDetails.ControlKey;
             //vModel.SecretKey = rideDetails.SecretKey;
