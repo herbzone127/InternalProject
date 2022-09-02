@@ -244,6 +244,60 @@ namespace ideaForge.ViewModels
         #endregion
 
 
+        #region UserFeedback Star Properties 
+
+        private string _UserFeedback_Image_Rating1;
+        public string UserFeedback_Image_Rating1
+        {
+            get { return _UserFeedback_Image_Rating1; }
+            set
+            {
+                _UserFeedback_Image_Rating1 = value;
+                OnPropertyChanged(nameof(UserFeedback_Image_Rating1));
+            }
+        }
+        private string _UserFeedback_Image_Rating2;
+        public string UserFeedback_Image_Rating2
+        {
+            get { return _UserFeedback_Image_Rating2; }
+            set
+            {
+                _UserFeedback_Image_Rating2 = value;
+                OnPropertyChanged(nameof(UserFeedback_Image_Rating2));
+            }
+        }
+        private string _UserFeedback_Image_Rating3;
+        public string UserFeedback_Image_Rating3
+        {
+            get { return _UserFeedback_Image_Rating3; }
+            set
+            {
+                _UserFeedback_Image_Rating3 = value;
+                OnPropertyChanged(nameof(UserFeedback_Image_Rating3));
+            }
+        }
+        private string _UserFeedback_Image_Rating4;
+        public string UserFeedback_Image_Rating4
+        {
+            get { return _UserFeedback_Image_Rating4; }
+            set
+            {
+                _UserFeedback_Image_Rating4 = value;
+                OnPropertyChanged(nameof(UserFeedback_Image_Rating4));
+            }
+        }
+        private string _UserFeedback_Image_Rating5;
+        public string UserFeedback_Image_Rating5
+        {
+            get { return _UserFeedback_Image_Rating5; }
+            set
+            {
+                _UserFeedback_Image_Rating5 = value;
+                OnPropertyChanged(nameof(UserFeedback_Image_Rating5));
+            }
+        }
+        #endregion
+
         public void TextCopyLatitude_ComandExecut(object obj)
         {
             Latitude = "Test";
@@ -453,6 +507,46 @@ namespace ideaForge.ViewModels
                     var result = request.userData.FirstOrDefault();
                     UserFeedBack = result.Comments;
                     Rating_Num = result.Rating;
+                    if(Rating_Num == 1)
+                    {
+                        UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating2 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating3 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
+                    }
+                    else if(Rating_Num == 2)
+                    {
+                        UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating3 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
+                    }
+                    else if (Rating_Num == 3)
+                    {
+                        UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating3 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
+                    }
+                    else if (Rating_Num == 4)
+                    {
+                        UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating3 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating4 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
+                    }
+                    else
+                    {
+                        UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating3 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating4 = "/Images/FeedBackYellowStar.png";
+                        UserFeedback_Image_Rating5 = "/Images/FeedBackYellowStar.png";
+                    }
                     return result;
                 }
             }
@@ -462,6 +556,8 @@ namespace ideaForge.ViewModels
             }
             return null;
         }
+
+
         #endregion
 
     }
