@@ -41,9 +41,6 @@ namespace IdeaForge.Service.GenericServices
             }
             return true;
         }
-
-    
-
         public async Task<PilotRequestResponse> GetTodaysRequest(string status)
         {
             try
@@ -62,9 +59,7 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-   
-
-       public async Task<PilotRequestResponse> GetAllRequest(string status)
+        public async Task<PilotRequestResponse> GetAllRequest(string status)
         {
             try
             {
@@ -81,8 +76,7 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-       
-        async Task<RideResponse> IPilotRequestServices.GetRideById(int rideId)
+        public async Task<RideResponse> GetRideById(int rideId)
         {
             try
             {
@@ -117,7 +111,6 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-
         public async Task<PilotLocationResponse> GetPilotLocations(int userId)
         {
             try
@@ -206,7 +199,6 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-
         public async Task<FlightFeedbackResponse> AddUpdatePilotFeedback(FlightFeedback pilot)
         {
             try
@@ -258,7 +250,6 @@ namespace IdeaForge.Service.GenericServices
             }
             return "";
         }
-
        public async Task<UserFeedbackResponse> GetUserFeedbackByRideId(int rideId)
         {
             try
