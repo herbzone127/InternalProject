@@ -93,6 +93,10 @@ namespace ideaForge.ViewModels
             if (result.status)
             {
                 MessageBox.ShowSuccess("Ride update ","Successful.");
+                var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                var context = (DashboardViewModel)dashboard.DataContext;
+                context.CurrentPage = new Requests();
+                context.PageName = "Requests";
             }
             else
             {
