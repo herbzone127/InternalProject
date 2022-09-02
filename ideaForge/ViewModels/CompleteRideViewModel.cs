@@ -441,15 +441,15 @@ namespace ideaForge.ViewModels
             }
         }
 
-        private string _flightFeedback;
+        private string _feedbackComments;
 
-        public string FlightFeedback
+        public string feedbackComments
         {
-            get { return _flightFeedback; }
+            get { return _feedbackComments; }
             set
             {
-                _flightFeedback = value;
-                OnPropertyChanged(nameof(FlightFeedback));
+                _feedbackComments = value;
+                OnPropertyChanged(nameof(feedbackComments));
             }
         }
 
@@ -603,18 +603,44 @@ namespace ideaForge.ViewModels
             return null;
         }
 
-        //public async Task<FlightFeedback> GetFlightFeedback(int rideId)
-        //{
-        //    var request = await _pilotRequestServices.GetFlightFeedbackByRideId(rideId);
-        //    if (request.status)
-        //    {
-        //        if(request.FlightFeedback!= null)
-        //        {
-        //            var result = request.FlightFeedback;
-
-        //        }
-        //    }
-        //}
+        public async Task<FlightFeedback> GetFlightFeedback(int rideId)
+        {
+            var request = await _pilotRequestServices.GetFlightFeedbackByRideId(rideId);
+            if (request.status)
+            {
+                if (request.FlightFeedback != null)
+                {
+                    var result = request.FlightFeedback;
+                    feedbackComments = result.feedbackComments;
+                    if(inFlightService == true)
+                    {
+                        inFlightService = result.inFlightService;
+                    }
+                    else
+                    {
+                        inFlightService = result.inFlightService;
+                    }
+                    if(flightControl == true)
+                    {
+                        flightControl = result.flightControl; 
+                    }
+                    else
+                    {
+                        flightControl = result.flightControl;
+                    }
+                    if (communication == true)
+                    {
+                        communication = result.communication;
+                    }
+                    else
+                    {
+                        communication = result.communication;
+                    }
+                    return result;
+                }
+            }
+            return null;
+        }
         #endregion
 
     }
