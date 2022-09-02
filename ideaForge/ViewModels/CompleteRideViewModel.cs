@@ -441,6 +441,17 @@ namespace ideaForge.ViewModels
             }
         }
 
+        private string _flightFeedback;
+
+        public string FlightFeedback
+        {
+            get { return _flightFeedback; }
+            set
+            {
+                _flightFeedback = value;
+                OnPropertyChanged(nameof(FlightFeedback));
+            }
+        }
 
         private string _userFeedBack;
 
@@ -494,6 +505,41 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(SecretKey));
             }
         }
+
+        private bool _inFlightService;
+
+        public bool inFlightService
+        {
+            get { return _inFlightService; }
+            set
+            {
+                _inFlightService = value;
+                OnPropertyChanged(nameof(inFlightService));
+            }
+        }
+        private bool _flightControl;
+
+        public bool flightControl
+        {
+            get { return _flightControl; }
+            set
+            {
+                _flightControl = value;
+                OnPropertyChanged(nameof(flightControl));
+            }
+        }
+        private bool _communication;
+
+        public bool communication
+        {
+            get { return _communication; }
+            set
+            {
+                _communication = value;
+                OnPropertyChanged(nameof(communication));
+            }
+        }
+
         #endregion
 
         #region ApiMethods
