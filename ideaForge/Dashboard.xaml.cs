@@ -314,5 +314,10 @@ namespace ideaForge
             }
            
         }
+
+        private void UpdateDataSearch(object sender, TextCompositionEventArgs e)
+        {
+
+        }
     }
 }
