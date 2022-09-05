@@ -330,6 +330,8 @@ namespace ideaForge
                   await  reportsViewModel.GetReportsByUser();
                     var lst = reportsViewModel.RidesAcceptedByUsers.Where(u =>
                     u.userName.Contains(textbox.Text)
+                    ||
+                    u.id.ToString().Contains(textbox.Text)
                     ).ToList();
                     reportsViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
 
