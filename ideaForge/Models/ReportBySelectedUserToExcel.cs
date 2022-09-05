@@ -10,7 +10,7 @@ namespace ideaForge.Models
     {
         public string missionType { get; set; }
         public double totalrequestedTime { get; set; }
-        public DateTime flightDtae { get; set; }
+        public string flightDtae { get; set; }
         public string flightTime { get; set; }
         public bool pushNotification { get; set; }
         public bool liveVideoStream { get; set; }

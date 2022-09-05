@@ -301,6 +301,21 @@ namespace ideaForge
                     lst.Add(new ReportBySelectedUserToExcel { 
                     missionType=rModel.MissionName,
                     totalrequestedTime = Math.Round((rModel.SelectedRequest.endDate - rModel.SelectedRequest.startDate).TotalHours, 2),
+                    flightDtae = rModel.SelectedRequest.startDate.ToString(),
+                    flightTime = rModel.SelectedRequest.FlightTime,
+                    pushNotification = rModel.SelectedRequest.pushNotification,
+                    liveVideoStream = rModel.liveVideoStream,
+                    statusForUser = rModel.StatusForUser,
+                    currentFlightStatus = rModel.currentFlightStatus,
+                    originLatitude = rModel.Latitude,
+                    originLongitude=rModel.Longitude,
+                    ControlKey = rModel.ControlKey,
+                    SecretKey = rModel.SecretKey,
+                    UAVID = rModel.UAVId,
+                    userRating = rModel.userRating,
+                    userFeedback = rModel.UserFeedBack,
+                    pilotFeedback=rModel.pilotFeedback,
+                    pilotRating=rModel.pilotRating
                     });
                     string fileName = "reports.xlsx";
                     using (XLWorkbook wb = new XLWorkbook())
