@@ -439,6 +439,8 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(SecretKey));
             }
         }
+
+        public Ride SelectedRequest { get;  set; }
         #endregion
 
 

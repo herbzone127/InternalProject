@@ -8,10 +8,10 @@ namespace ideaForge.Models
 {
     public class ReportBySelectedUserToExcel
     {
-        public int missionType { get; set; }
-        public int totalrequestedTime { get; set; }
-        public DateTime requestOn { get; set; }
-        public DateTime flightTime { get; set; }
+        public string missionType { get; set; }
+        public double totalrequestedTime { get; set; }
+        public DateTime flightDtae { get; set; }
+        public string flightTime { get; set; }
         public bool pushNotification { get; set; }
         public bool liveVideoStream { get; set; }
         public string statusForUser { get; set; }
@@ -22,7 +22,7 @@ namespace ideaForge.Models
         public string SecretKey { get; set; }
         public string UAVID { get; set; }
         public int userRating { get; set; }
-        public string userString { get; set; }
+        public string userFeedback { get; set; }
         public int pilotRating { get; set; }
         public string pilotFeedback { get; set; }
     }

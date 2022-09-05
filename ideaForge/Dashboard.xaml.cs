@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -295,29 +296,11 @@ namespace ideaForge
                 {
                     var result = (ReportCompletedPage)vModel.CurrentPage.Content;
                     var rModel = (ReportCompleteViewModel)result.DataContext;
+
                     List<ReportBySelectedUserToExcel> lst = new List<ReportBySelectedUserToExcel>();
-                    rModel.RidesAcceptedByUsers.ToList().ForEach(u => {
-                        var model = new ReportDetailsToExcel
-                        {
-                            BookingId = u.id,
-                            ContactNo = u.contactNo,
-                            UserName = u.userName,
-                            DateTime = u.startDate.ToShortDateString(),
-                            StartTime = u.startDate.ToShortTimeString(),
-                            EndTime = u.endDate.ToShortTimeString(),
-                            IFDock = u.location,
-
-
-                        };
-                        if (u.statusID == 2 || u.statusID == 5)
-                        {
-                            model.Status = "Accepted";
-                        }
-                        else
-                        {
-                            model.Status = "Rejected";
-                        }
-                        lst.Add(model);
+                    lst.Add(new ReportBySelectedUserToExcel { 
+                    missionType=rModel.MissionName,
+                    totalrequestedTime = Math.Round((rModel.SelectedRequest.endDate - rModel.SelectedRequest.startDate).TotalHours, 2),
                     });
                     string fileName = "reports.xlsx";
                     using (XLWorkbook wb = new XLWorkbook())
