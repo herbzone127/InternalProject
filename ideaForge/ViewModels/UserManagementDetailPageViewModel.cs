@@ -21,6 +21,7 @@ namespace ideaForge.ViewModels
 
         public UserManagementDetailPageViewModel()
         {
+            //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
             GetReportsByUser().ConfigureAwait(false);
         }
 
@@ -70,8 +71,8 @@ namespace ideaForge.ViewModels
                 if (requests.status)
                 {
                     //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
-                    var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
-                    requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim() 
+                    //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
+                    requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == SelectedRequest.city?.ToLower()?.Trim()
                     && 
                     u.statusID==StatusID
                     &&
@@ -85,7 +86,7 @@ namespace ideaForge.ViewModels
                             u.TextColor = ConvertColor("#3398D8");
                             u.StatusImage = "/Images/pendingIcon.png";
 
-                            if (Global.IsIFDockStatus && u.city == selectedCity?.city_Name)
+                            if (Global.IsIFDockStatus && u.city == SelectedRequest.city?.ToLower()?.Trim())
                             {
                                 u.IsVisibleButton = Visibility.Visible;
                             }
