@@ -348,7 +348,13 @@ namespace ideaForge
                     var userViewModel = currentPage.DataContext as UserManagementPageViewModel;
                     if(userViewModel != null)
                     {
-
+                        await userViewModel.GetReportsByUser(vModel.SelectedCity?.city_Name?.ToLower()?.Trim());
+                        var lst = userViewModel.RidesAcceptedByUsers.Where(u =>
+                        u.userName.Contains(textbox.Text)
+                        ||
+                        u.id.ToString().Contains(textbox.Text)
+                        ).ToList();
+                        userViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
                     }
                 }
             }
