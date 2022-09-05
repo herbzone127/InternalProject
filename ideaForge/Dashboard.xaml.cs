@@ -302,22 +302,20 @@ namespace ideaForge
                     missionType=rModel.MissionName,
                     totalrequestedTime = Math.Round((rModel.SelectedRequest.endDate - rModel.SelectedRequest.startDate).TotalHours, 2),
                     flightDtae = rModel.SelectedRequest.startDate.ToString(),
-                    flightTime = rModel.SelectedRequest.FlightTime,
+                    flightTime = rModel.SelectedRequest.startDate.ToString("hh:mm:ss tt") + "-" + rModel.SelectedRequest.endDate.ToString("hh:mm:ss tt"),
                     pushNotification = rModel.SelectedRequest.pushNotification,
-                    liveVideoStream = rModel.liveVideoStream,
-                    statusForUser = rModel.StatusForUser,
-                    currentFlightStatus = rModel.currentFlightStatus,
-                    originLatitude = rModel.Latitude,
-                    originLongitude=rModel.Longitude,
-                    ControlKey = rModel.ControlKey,
-                    SecretKey = rModel.SecretKey,
-                    UAVID = rModel.UAVId,
-                    userRating = rModel.userRating,
-                    userFeedback = rModel.UserFeedBack,
-                    pilotFeedback=rModel.pilotFeedback,
-                    pilotRating=rModel.pilotRating
+                    liveVideoStream = rModel.SelectedRequest.liveVideoStream,
+                    statusForUser = rModel.SelectedRequest.status,
+                    currentFlightStatus = "Drone Landed",
+                    originLatitude = rModel.SelectedRequest.originLatitude,
+                    originLongitude=rModel.SelectedRequest.originLongitude,
+                    ControlKey = rModel.SelectedRequest.ControlKey,
+                    SecretKey = rModel.SelectedRequest.SecretKey,
+                    UAVID = rModel.SelectedRequest.UAVID,
+                    userRating = rModel.Rating_Num,
+                    userFeedback = rModel.SelectedRequest.comments,
                     });
-                    string fileName = "reports.xlsx";
+                    string fileName = "reportsData.xlsx";
                     using (XLWorkbook wb = new XLWorkbook())
                     {
                         var dt = IdeaForge.Core.ListtoDataTableConverter.ToDataTable(lst);
