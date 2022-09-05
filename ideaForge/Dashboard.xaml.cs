@@ -153,6 +153,7 @@ namespace ideaForge
                 {
                     vModel.CurrentPage.Content = new ReportsData(selectedRecord._ride);
                     vModel.PageName = "Report Details";
+                    btnExcel.Visibility = Visibility.Visible;
                     backButton.Visibility = Visibility.Visible;
                 }
                 else
