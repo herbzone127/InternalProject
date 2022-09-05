@@ -249,7 +249,7 @@ namespace ideaForge
                         }
                     }
                 }
-                if (pageName == "Report Details")
+                else if (pageName == "Report Details")
                 {
                     var result = (ReportsData)vModel.CurrentPage.Content;
                     var rModel = (ReportsDataViewModel)result.DataContext;
@@ -276,6 +276,48 @@ namespace ideaForge
                             model.Status = "Rejected";
                         }
                         lst.Add(model); 
+                    });
+                    string fileName = "reports.xlsx";
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var dt = IdeaForge.Core.ListtoDataTableConverter.ToDataTable(lst);
+                        wb.Worksheets.Add(dt);
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            wb.SaveAs(stream);
+                            //Return xlsx Excel File  
+                            File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+                            ideaForge.Popups.MessageBox.ShowSuccess("File Download", " Successfully");
+                        }
+                    }
+                }
+                else if (pageName.Contains("Booking"))
+                {
+                    var result = (ReportCompletedPage)vModel.CurrentPage.Content;
+                    var rModel = (ReportCompleteViewModel)result.DataContext;
+                    List<ReportBySelectedUserToExcel> lst = new List<ReportBySelectedUserToExcel>();
+                    rModel.RidesAcceptedByUsers.ToList().ForEach(u => {
+                        var model = new ReportDetailsToExcel
+                        {
+                            BookingId = u.id,
+                            ContactNo = u.contactNo,
+                            UserName = u.userName,
+                            DateTime = u.startDate.ToShortDateString(),
+                            StartTime = u.startDate.ToShortTimeString(),
+                            EndTime = u.endDate.ToShortTimeString(),
+                            IFDock = u.location,
+
+
+                        };
+                        if (u.statusID == 2 || u.statusID == 5)
+                        {
+                            model.Status = "Accepted";
+                        }
+                        else
+                        {
+                            model.Status = "Rejected";
+                        }
+                        lst.Add(model);
                     });
                     string fileName = "reports.xlsx";
                     using (XLWorkbook wb = new XLWorkbook())
