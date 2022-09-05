@@ -224,7 +224,7 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <Image  Source="/Images/SearchIcon.png" Height="15" Margin="5,0,0,0"></Image>
-                                        <TextBox TextInput="UpdateDataSearch"
+                                        <TextBox  TextChanged="UpdateDataSearch"
                                             Tag="Search" BorderThickness="0" Width="370"/>
                                     </StackPanel>
                                     <!--<TextBox Text="Hello ! " BorderThickness="0"/>-->
