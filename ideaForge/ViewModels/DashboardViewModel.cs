@@ -147,6 +147,17 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(SelectedLocationId));
             }
         }
+
+        private string _keyPressUpdateReports;
+
+        public string KeyPressUpdateReports
+        {
+            get { return _keyPressUpdateReports; }
+            set { _keyPressUpdateReports = value;
+                OnPropertyChanged(nameof(KeyPressUpdateReports));
+            }
+        }
+
         #endregion
         #region Observable Collections
         private ObservableCollection<HamburgerMenuGlyphItem> _menuItems;
