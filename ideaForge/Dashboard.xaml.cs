@@ -66,20 +66,9 @@ namespace ideaForge
                 vModel.IsSearchBarVisible = Visibility.Visible;
                 btnExcel.Visibility= Visibility.Visible;
             }
-            else
-            {
-                vModel.IsSearchBarVisible = Visibility.Hidden;
-                btnExcel.Visibility = Visibility.Hidden;
-                //worker.CancelAsync();
-            }
             if (value.Label == "User Management")
             {
                 vModel.IsSearchBarVisible = Visibility.Visible;
-            }
-            else
-            {
-                vModel.IsSearchBarVisible = Visibility.Hidden;
-                //worker.CancelAsync();
             }
 
         }
