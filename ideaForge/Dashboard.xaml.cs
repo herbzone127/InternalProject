@@ -64,17 +64,22 @@ namespace ideaForge
             {
                 vModel.IsSearchBarVisible = Visibility.Visible;
                 btnExcel.Visibility= Visibility.Visible;
-
-
             }
             else
             {
                 vModel.IsSearchBarVisible = Visibility.Hidden;
                 btnExcel.Visibility = Visibility.Hidden;
                 //worker.CancelAsync();
-
             }
-           
+            if (value.Label == "User Management")
+            {
+                vModel.IsSearchBarVisible = Visibility.Visible;
+            }
+            else
+            {
+                vModel.IsSearchBarVisible = Visibility.Hidden;
+                //worker.CancelAsync();
+            }
 
         }
 
@@ -321,23 +326,44 @@ namespace ideaForge
         {
             var textbox = sender as TextBox;
             var vModel = this.DataContext as DashboardViewModel;
-            var currentPage = vModel.CurrentPage.Content as Reports;
-            if (currentPage != null)
+            if(vModel.PageName == "Reports")
             {
-                var reportsViewModel = currentPage.DataContext as ReportsViewModel;
-                if (reportsViewModel != null)
+                var currentPage = vModel.CurrentPage.Content as Reports;
+                if (currentPage != null)
                 {
-                  await  reportsViewModel.GetReportsByUser();
-                    var lst = reportsViewModel.RidesAcceptedByUsers.Where(u =>
-                    u.userName.Contains(textbox.Text)
-                    ||
-                    u.id.ToString().Contains(textbox.Text)
-                    ).ToList();
-                    reportsViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
+                    var reportsViewModel = currentPage.DataContext as ReportsViewModel;
+                    if (reportsViewModel != null)
+                    {
+                        await reportsViewModel.GetReportsByUser();
+                        var lst = reportsViewModel.RidesAcceptedByUsers.Where(u =>
+                        u.userName.Contains(textbox.Text)
+                        ||
+                        u.id.ToString().Contains(textbox.Text)
+                        ).ToList();
+                        reportsViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
 
-                   
+
+                    }
+                }
+            }else if(vModel.PageName == "User Management")
+            {
+                var currentPage = vModel.CurrentPage.Content as UserManagementPage;
+                if(currentPage != null)
+                {
+                    var userViewModel = currentPage.DataContext as UserManagementPageViewModel;
+                    if(userViewModel != null)
+                    {
+                        await userViewModel.GetReportsByUser(vModel.SelectedCity?.city_Name?.ToLower()?.Trim());
+                        var lst = userViewModel.RidesAcceptedByUsers.Where(u =>
+                        u.userName.Contains(textbox.Text)
+                        ||
+                        u.id.ToString().Contains(textbox.Text)
+                        ).ToList();
+                        userViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
+                    }
                 }
             }
+            
         }
     }
 }
