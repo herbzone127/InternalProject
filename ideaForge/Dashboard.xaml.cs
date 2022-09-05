@@ -342,7 +342,15 @@ namespace ideaForge
                 }
             }else if(vModel.PageName == "User Management")
             {
+                var currentPage = vModel.CurrentPage.Content as UserManagementPage;
+                if(currentPage != null)
+                {
+                    var userViewModel = currentPage.DataContext as UserManagementPageViewModel;
+                    if(userViewModel != null)
+                    {
 
+                    }
+                }
             }
             
         }
