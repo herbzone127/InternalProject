@@ -231,20 +231,45 @@ namespace ideaForge.ViewModels
                 }
                 else //Admin Pages 
                 {
+
                     #region MenuItems
                     MenuItems = new ObservableCollection<HamburgerMenuGlyphItem>();
 
                     MenuItems.Add(new HamburgerMenuGlyphItem
                     {
                         Command = new DelegateCommand(CanExecuteIFDockMenu),
-                        Glyph = "/Images/anchor.png",
+                        Glyph = "/Images/iconAdminIFDock.png",
                         Label = "IF Dock"
                     });
                     MenuItems.Add(new HamburgerMenuGlyphItem
                     {
+                        Command = new DelegateCommand(CanExecuteRequestPage),
+                        Glyph = "/Images/request.png",
+                        Label = "Registration"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
                         Command = new DelegateCommand(CanExecuteUserManagementPage),
-                        Glyph = "/Images/nounProfile.png",
+                        Glyph = "/Images/iconAdminRegistration.png",
+                        Label = "Registration"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteUserManagementPage),
+                        Glyph = "/Images/iconAdminUserManagement.png",
                         Label = "User Management"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteUserManagementPage),
+                        Glyph = "/Images/iconAdminReport.png",
+                        Label = "Report"
+                    });
+                    MenuItems.Add(new HamburgerMenuGlyphItem
+                    {
+                        Command = new DelegateCommand(CanExecuteIFProfilePage),
+                        Glyph = "/Images/iconAdminProfile.png",
+                        Label = "Profile"
                     });
                     #endregion
                 }

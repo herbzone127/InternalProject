@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>95</ApplicationRevision>
-    <ApplicationVersion>1.0.0.95</ApplicationVersion>
+    <ApplicationRevision>99</ApplicationRevision>
+    <ApplicationVersion>1.0.0.99</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -498,6 +498,11 @@
     <Resource Include="Images\iconExcel.png" />
     <Resource Include="Images\SuccessfulAdminIcon.png" />
     <Resource Include="Images\SearchIcon.png" />
+    <Resource Include="Images\iconAdminIFDock.png" />
+    <Resource Include="Images\iconAdminProfile.png" />
+    <Resource Include="Images\iconAdminRegistration.png" />
+    <Resource Include="Images\iconAdminReport.png" />
+    <Resource Include="Images\iconAdminUserManagement.png" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

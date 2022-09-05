@@ -11,6 +11,7 @@
       xmlns:vm="clr-namespace:ideaForge.ViewModels"
              mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000">
+
     <UserControl.DataContext>
         <vm:ProfilePageViewModels/>
     </UserControl.DataContext>
@@ -237,6 +238,24 @@
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5" />
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+
+
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="true">
+                            <Setter Property="BorderBrush" Value="Red" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="ToolTip"    
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </Style.Resources>
         </Style>
