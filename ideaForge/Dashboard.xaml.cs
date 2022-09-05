@@ -321,23 +321,30 @@ namespace ideaForge
         {
             var textbox = sender as TextBox;
             var vModel = this.DataContext as DashboardViewModel;
-            var currentPage = vModel.CurrentPage.Content as Reports;
-            if (currentPage != null)
+            if(vModel.PageName == "Reports")
             {
-                var reportsViewModel = currentPage.DataContext as ReportsViewModel;
-                if (reportsViewModel != null)
+                var currentPage = vModel.CurrentPage.Content as Reports;
+                if (currentPage != null)
                 {
-                  await  reportsViewModel.GetReportsByUser();
-                    var lst = reportsViewModel.RidesAcceptedByUsers.Where(u =>
-                    u.userName.Contains(textbox.Text)
-                    ||
-                    u.id.ToString().Contains(textbox.Text)
-                    ).ToList();
-                    reportsViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
+                    var reportsViewModel = currentPage.DataContext as ReportsViewModel;
+                    if (reportsViewModel != null)
+                    {
+                        await reportsViewModel.GetReportsByUser();
+                        var lst = reportsViewModel.RidesAcceptedByUsers.Where(u =>
+                        u.userName.Contains(textbox.Text)
+                        ||
+                        u.id.ToString().Contains(textbox.Text)
+                        ).ToList();
+                        reportsViewModel.RidesAcceptedByUsers = new ObservableCollection<RequestData>(lst);
 
-                   
+
+                    }
                 }
+            }else if(vModel.PageName == "User Management")
+            {
+
             }
+            
         }
     }
 }
