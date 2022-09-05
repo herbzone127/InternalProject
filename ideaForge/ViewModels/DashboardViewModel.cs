@@ -21,6 +21,7 @@ using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using MapControl;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows;
 
 namespace ideaForge.ViewModels
 {
@@ -76,8 +77,6 @@ namespace ideaForge.ViewModels
             OnPropertyChanged(nameof(UserName));
             }
         }
-
-
         private bool _isBusy;
 
         public bool IsBusy
@@ -85,6 +84,15 @@ namespace ideaForge.ViewModels
             get { return _isBusy; }
             set { _isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private Visibility _isSearchBarVisible;
+
+        public Visibility IsSearchBarVisible
+        {
+            get { return _isSearchBarVisible; }
+            set { _isSearchBarVisible = value;
+                OnPropertyChanged(nameof(IsSearchBarVisible));
             }
         }
 

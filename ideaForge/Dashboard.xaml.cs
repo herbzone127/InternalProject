@@ -43,26 +43,33 @@ namespace ideaForge
             {
                 login.Close();
             }
+            var vModel = this.DataContext as DashboardViewModel;
+            if (vModel != null)
+                vModel.IsSearchBarVisible = Visibility.Hidden;
 
-            
         }
    
         private  void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
         {
             statusBorder.Visibility=Visibility.Hidden;
             backButton.Visibility=Visibility.Hidden;
-            var menu = (HamburgerMenu)sender;
+  
+                 var menu = (HamburgerMenu)sender;
             var value =(HamburgerMenuGlyphItem) menu.SelectedItem;
             pg = value.Label;
+            var vModel = this.DataContext as DashboardViewModel;
+            if (vModel != null)
+                vModel.IsSearchBarVisible = Visibility.Hidden;
             if (value.Label== "Report")
             {
-
+                vModel.IsSearchBarVisible = Visibility.Visible;
                 btnExcel.Visibility= Visibility.Visible;
 
 
             }
             else
             {
+                vModel.IsSearchBarVisible = Visibility.Hidden;
                 btnExcel.Visibility = Visibility.Hidden;
                 //worker.CancelAsync();
 

@@ -23,6 +23,34 @@
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
+            <Style TargetType="{x:Type TextBox}">
+
+                <Style.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Grid>
+                                    <!--<Border Background="White" BorderBrush="#A9ABB1" BorderThickness="1"/>-->
+                                    <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                    <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="#A9ABB1" FontFamily="Arial"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                    </MultiTrigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="#A9ABB1"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style.Setters>
+            </Style>
             <!--  This is the template for all menu items. In this sample we use the glyph items.  -->
             <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
                 <DockPanel Height="48" LastChildFill="True">
@@ -162,13 +190,63 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    
+
                     <Border 
                         Grid.Row="0"
                         Margin="-1 15 -1 0"
                         Background="#FFFFFF">
 
-                        <Grid Margin="20,-15 ,25,0" HorizontalAlignment="Right">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0"
+                                        x:Name="searchBarPanel"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                   Visibility="{Binding Path=DataContext.IsSearchBarVisible,Mode=TwoWay,FallbackValue=Hidden}"
+                                        >
+                                <Border BorderThickness="1" 
+                                    BorderBrush="#A9ABB1" 
+                                    CornerRadius="5" 
+                                    Padding="2"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Width="400"
+                                    Height="30"
+                                    >
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image  Source="/Images/SearchIcon.png" Height="15" Margin="5,0,0,0"></Image>
+                                        <TextBox Tag="Search" BorderThickness="0" Width="370"/>
+                                    </StackPanel>
+                                    <!--<TextBox Text="Hello ! " BorderThickness="0"/>-->
+                                </Border>
+                            </StackPanel>
+                            
+                            <!--<Border BorderThickness="1" 
+                                    BorderBrush="#A9ABB1" 
+                                    CornerRadius="5" 
+                                    Padding="2"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Width="400"
+                                    >
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Image  Source="/Images/SearchIcon.png" Height="25" Margin="0"></Image>
+                                    <TextBox Text="Hello ! " BorderThickness="0" />
+                                </StackPanel>
+                                --><!--<TextBox Text="Hello ! " BorderThickness="0"/>--><!--
+                            </Border>-->
+
+                            <Grid Grid.Column="1" Margin="20,-15 ,25,0" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -213,6 +291,54 @@
                             </Grid>
                            
                         </Grid>
+
+                        </Grid>
+
+                        <!--<Grid Margin="20,-15 ,25,0" HorizontalAlignment="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                               
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                
+                            </Grid.RowDefinitions>
+                            <Image  Source="/Images/bell.png" Height="25" Margin="0,10,10,10" Grid.Column="0" ></Image>
+
+
+                         
+                            <Grid Grid.Column="1" Grid.Row="0" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseEnter="TextBlock_MouseEnter" HorizontalAlignment="Right" >
+                                
+                                <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                             <Border Grid.Column="0" 
+                                    Background="#FFFFFF" 
+                                    BorderBrush="Black" CornerRadius="20" 
+                                    Width="30" Height="30" 
+                                    BorderThickness="1">
+                                 
+                                    <Image Source="{Binding Path=DataContext.ProfileImage}"></Image>
+                                    
+                                </Border>
+                            
+                            <Label 
+                                VerticalAlignment="Center" 
+                                Content="{Binding Path=DataContext.UserName}" 
+                                Margin="5"
+                                FontWeight="SemiBold"
+                                FontSize="15"
+                                Grid.Column="1"></Label>
+
+                                <Image  Source="/Images/down-arrow.png"
+                                   Height="20" Grid.Column="2" />
+
+                            </Grid>
+                           
+                        </Grid>-->
 
                         <Border.Effect>
                             <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>

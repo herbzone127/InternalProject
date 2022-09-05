@@ -497,6 +497,7 @@
     <Resource Include="Images\iconCanceled.png" />
     <Resource Include="Images\iconExcel.png" />
     <Resource Include="Images\SuccessfulAdminIcon.png" />
+    <Resource Include="Images\SearchIcon.png" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
