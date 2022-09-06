@@ -25,7 +25,7 @@
             <RowDefinition Height="35"/>
             <!--Text box4-->
             <RowDefinition Height="30"/>
-            <!--Space5-->
+            <!--Error Label5-->
             <RowDefinition Height="40"/>
             <!--Button6-->
             <RowDefinition Height="30"/>
@@ -47,7 +47,9 @@
                  Background="White"  
                  VerticalContentAlignment="Center"
                  Tag="Enter Phone Number / Email ID"
-                 PreviewKeyDown="TextBox_PreviewKeyDown" Grid.ColumnSpan="2">
+                 PreviewKeyDown="TextBox_PreviewKeyDown"
+                 PreviewTextInput="TextBox_PreviewTextInput"
+                 Grid.ColumnSpan="2">
             <TextBox.Resources>
                 <Style TargetType="{x:Type TextBox}">
                     <Style.Setters>
@@ -84,6 +86,13 @@
                 </Style>
             </TextBox.Resources>
         </TextBox>
+        <Label Content="Enter a valid Email / Phone" Grid.Row="5"
+               FontWeight="SemiBold" VerticalAlignment="Center" 
+               HorizontalAlignment="Left" 
+               Margin="5,0,0,0"
+               Grid.Column="2"
+               Foreground="Red"
+               Visibility="Hidden"/>
         <Button  Grid.Row="6" Grid.Column="0" x:Name="Send" BorderThickness="1" Margin="10,0,10,0" 
                    BorderBrush="Transparent"
                 Content="CONTINUE" 

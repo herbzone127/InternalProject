@@ -54,8 +54,8 @@ namespace ideaForge
         {
             statusBorder.Visibility=Visibility.Hidden;
             backButton.Visibility=Visibility.Hidden;
-  
-                 var menu = (HamburgerMenu)sender;
+            btnExcel.Visibility = Visibility.Hidden;
+            var menu = (HamburgerMenu)sender;
             var value =(HamburgerMenuGlyphItem) menu.SelectedItem;
             pg = value.Label;
             var vModel = this.DataContext as DashboardViewModel;

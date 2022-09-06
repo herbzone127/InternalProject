@@ -37,6 +37,10 @@ namespace ideaForge
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+            if (e.Text.Count() < 10)
+            {
+                
+            }
         }
 
         private void CityComboBox_TextChanged(object sender, TextChangedEventArgs e)
