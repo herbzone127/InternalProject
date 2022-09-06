@@ -67,6 +67,7 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
+                             
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding TodayRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -89,7 +90,7 @@
                         
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn  Header="Booking Id" Width="*" CanUserSort="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>
@@ -254,7 +255,7 @@
                         ItemsSource="{Binding AllRequests,Mode=TwoWay}" 
                         
                         AutoGenerateColumns="False"
-                        CanUserSortColumns="True" 
+                        
                         Grid.ColumnSpan="2">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
@@ -270,7 +271,7 @@
 
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*">
+                            <DataGridTemplateColumn  Header="Booking Id" Width="*" CanUserSort="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>

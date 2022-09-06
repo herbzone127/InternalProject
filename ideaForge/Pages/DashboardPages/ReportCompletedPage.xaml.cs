@@ -25,8 +25,10 @@ namespace ideaForge.Pages.DashboardPages
         public ReportCompletedPage(IdeaForge.Domain.Ride rideDetails)
         {
             InitializeComponent();
-            this.DataContext = new  CompleteRideViewModel();
-            var vModel = (CompleteRideViewModel)DataContext;
+            //this.DataContext = new  CompleteRideViewModel();
+            //var vModel = (CompleteRideViewModel)DataContext;
+            this.DataContext = new ReportCompleteViewModel();
+            var vModel=(ReportCompleteViewModel)DataContext;
             vModel.MissionName = rideDetails.MissionName;
             double totalHours = (rideDetails.endDate - rideDetails.startDate).TotalHours;
             vModel.TotalRequestedTime = Math.Round(totalHours, 2); ;
@@ -35,6 +37,8 @@ namespace ideaForge.Pages.DashboardPages
             vModel.StatusForUser = rideDetails.status;
             vModel.UserFeedBack = (string)rideDetails.comments;
             vModel.UAVId = rideDetails.UAVID;
+            vModel.GetUserFeedBack(rideDetails.id).ConfigureAwait(false);
+            vModel.GetPioltFeedBack(rideDetails.id).ConfigureAwait(false);
             _ride = rideDetails;
             //vModel.ControlKey = rideDetails.ControlKey;
             //vModel.SecretKey = rideDetails.SecretKey;

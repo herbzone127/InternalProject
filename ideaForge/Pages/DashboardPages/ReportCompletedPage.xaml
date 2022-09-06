@@ -11,7 +11,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1000">
     <UserControl.DataContext>
-        <vm:CompleteRideViewModel/>
+        <vm:ReportCompleteViewModel/>
     </UserControl.DataContext>
 
     <UserControl.Content>
@@ -21,7 +21,7 @@
             <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
             <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Background="White" Margin="0" >
+        <StackPanel Grid.Row="1" Background="White" Margin="0" IsEnabled="False" >
             <Grid>
                 <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
                     <Grid>
@@ -406,11 +406,11 @@
                                     Background="#F5F5F5"
                                     BorderThickness="1" CornerRadius="5" IsEnabled="False" Margin="10,0,0,0">
                                 <StackPanel Orientation="Horizontal" Margin="5">
-                                    <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
-                                    <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
-                                    <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
-                                    <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
-                                    <Image Source="/Images/FeedBackYellowStar.png" Height="20" Margin="5,0,0,0"/>
+                                    <Image Source="{Binding Image_Rating1}" Height="20" Margin="5,0,0,0"/>
+                                    <Image Source="{Binding Image_Rating2}" Height="20" Margin="5,0,0,0"/>
+                                    <Image Source="{Binding Image_Rating3}" Height="20" Margin="5,0,0,0"/>
+                                    <Image Source="{Binding Image_Rating4}" Height="20" Margin="5,0,0,0"/>
+                                    <Image Source="{Binding Image_Rating5}" Height="20" Margin="5,0,0,0"/>
                                 </StackPanel>
                             </Border>
 
@@ -450,28 +450,28 @@
                                 <StackPanel Orientation="Horizontal" Margin="5">
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating1_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>
-                                            <ImageBrush ImageSource="{Binding Image_Rating1}"/>
+                                                    <ImageBrush ImageSource="{Binding Image_Pilot_Rating1}"/>
                                         </Button.Background>
                                     </Button>
 
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating2_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>
-                                            <ImageBrush ImageSource="{Binding Image_Rating2}"/>
+                                                    <ImageBrush ImageSource="{Binding Image_Pilot_Rating2}"/>
                                         </Button.Background>
                                     </Button>
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating3_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>
-                                            <ImageBrush ImageSource="{Binding Image_Rating3}"/>
+                                                    <ImageBrush ImageSource="{Binding Image_Pilot_Rating3}"/>
                                         </Button.Background>
                                     </Button>
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating4_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>
-                                            <ImageBrush ImageSource="{Binding Image_Rating4}"/>
+                                                    <ImageBrush ImageSource="{Binding Image_Pilot_Rating4}"/>
                                         </Button.Background>
                                     </Button>
                                     <Button  Height="20" Width="22" Margin="5,0,0,0" BorderBrush="Transparent" Command="{Binding Image_Rating5_Comand}" IsEnabled="{Binding ShowSaveBTn}">
                                         <Button.Background>
-                                            <ImageBrush ImageSource="{Binding Image_Rating5}"/>
+                                                    <ImageBrush ImageSource="{Binding Image_Pilot_Rating5}"/>
                                         </Button.Background>
                                     </Button>
                                 </StackPanel>
@@ -499,21 +499,21 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                            <CheckBox IsChecked="{Binding FlightServiceCheck,Mode=TwoWay}"  Height="22"  Foreground="Black" Width="21" />
                                     <Label Content="In-flight service"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                    <CheckBox  IsChecked="{Binding FlightControlCheck,Mode=TwoWay}" Height="22"  Foreground="Black" Width="21"/>
                                     <Label Content="Flight control"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,10,0" Grid.Row="0" Grid.Column="2">
-                                    <CheckBox   Height="22"  Foreground="Black" Width="21"/>
+                                    <CheckBox IsChecked="{Binding CommunicationCheck,Mode=TwoWay}"  Height="22"  Foreground="Black" Width="21"/>
                                     <Label Content="Communication"/>
                                 </StackPanel>
 
 
                             </Grid>
-                            <TextBox SelectedText="Type Feedback" SelectionTextBrush="#A9ABB1" Height="30" Margin="0,10,0,0" Foreground="Black"/>
+                                    <TextBox  Text="{Binding FeedBackComments,Mode=TwoWay}" SelectionTextBrush="#A9ABB1" Height="30" Margin="0,10,0,0" Foreground="Black"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -563,7 +563,8 @@
                
             Foreground="White" 
             Background="#91c84f"
-                         Command="{Binding SaveChanges_Comand}">
+                         Command="{Binding SaveChanges_Comand}"
+                         Visibility="Hidden">
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Style.Resources>

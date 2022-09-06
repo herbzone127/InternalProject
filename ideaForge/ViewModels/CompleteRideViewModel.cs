@@ -551,8 +551,12 @@ namespace ideaForge.ViewModels
                 if (request.userData != null)
                 {
                     var result = request.userData.FirstOrDefault();
-                    UserFeedBack = result.Comments;
-                    Rating_Num = result.Rating;
+                    if (result != null)
+                    {
+                        UserFeedBack = result?.Comments;
+                        Rating_Num = result.Rating;
+                    }
+                
                     if(Rating_Num == 1)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
@@ -608,9 +612,10 @@ namespace ideaForge.ViewModels
             var request = await _pilotRequestServices.GetFlightFeedbackByRideId(rideId);
             if (request.status)
             {
-                if (request.FlightFeedback != null)
+                if (request.userData != null)
                 {
-                    var result = request.FlightFeedback;
+                    var result = request.userData;
+
                     feedbackComments = result.feedbackComments;
                     if(inFlightService == true)
                     {

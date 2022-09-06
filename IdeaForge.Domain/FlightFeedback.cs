@@ -10,7 +10,7 @@ namespace IdeaForge.Domain
     {
         public bool status { get; set; }
         public string message { get; set; }
-        public FlightFeedback FlightFeedback { get; set; }
+        public FlightFeedback userData { get; set; }
     }
     public class FlightFeedback
     {
@@ -21,5 +21,7 @@ namespace IdeaForge.Domain
         public bool flightControl { get; set; }
         public bool communication { get; set; }
         public string feedbackComments { get; set; }
+        
+        public int pioltRating { get; set; }
     }
 }
