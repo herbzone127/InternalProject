@@ -71,5 +71,10 @@ namespace ideaForge
                 }
             }
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
     }
 }

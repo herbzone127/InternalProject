@@ -47,7 +47,9 @@
                  Background="White"  
                  VerticalContentAlignment="Center"
                  Tag="Enter Phone Number / Email ID"
-                 PreviewKeyDown="TextBox_PreviewKeyDown" Grid.ColumnSpan="2">
+                 PreviewKeyDown="TextBox_PreviewKeyDown"
+                 PreviewTextInput="TextBox_PreviewTextInput"
+                 Grid.ColumnSpan="2">
             <TextBox.Resources>
                 <Style TargetType="{x:Type TextBox}">
                     <Style.Setters>
