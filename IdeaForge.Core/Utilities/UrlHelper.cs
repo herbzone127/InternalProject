@@ -9,7 +9,7 @@ namespace IdeaForge.Core.Utilities
     public class UrlHelper
     {
 #if DEBUG
-        public const string baseURL = "https://localhost:7121";
+        public const string baseURL = "https://localhost:44340";
 #else
 public const string baseURL = "http://ifapi.dweb.in";
 #endif
@@ -42,5 +42,6 @@ public const string baseURL = "http://ifapi.dweb.in";
         public const string adminUpdateLocationUrl = baseURL + "/api/Admins/AddLocation";
         public const string UserFeedbackByRideIdURL = baseURL + "/api/pilotRequests/UserFeedbackByRideId";
         public const string PilotFeedbackByRideIdURL = baseURL + "/api/pilotRequests/PilotFeedbackByRideId";
+        
     }
 }
