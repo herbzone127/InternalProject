@@ -29,7 +29,7 @@ namespace IdeaForge.Service.GenericServices
                     var dataProfile = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                    
                     if (dataProfile.roleID == 2)
-                        url = UrlHelper.adminProfileURl;
+                        url = UrlHelper.pilotProfileURl;
                     if (dataProfile.roleID == 3)
                         url = UrlHelper.adminProfileURl;
                 }

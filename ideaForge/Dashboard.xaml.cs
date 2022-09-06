@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,8 +54,8 @@ namespace ideaForge
         {
             statusBorder.Visibility=Visibility.Hidden;
             backButton.Visibility=Visibility.Hidden;
-  
-                 var menu = (HamburgerMenu)sender;
+            btnExcel.Visibility = Visibility.Hidden;
+            var menu = (HamburgerMenu)sender;
             var value =(HamburgerMenuGlyphItem) menu.SelectedItem;
             pg = value.Label;
             var vModel = this.DataContext as DashboardViewModel;
@@ -65,20 +66,9 @@ namespace ideaForge
                 vModel.IsSearchBarVisible = Visibility.Visible;
                 btnExcel.Visibility= Visibility.Visible;
             }
-            else
-            {
-                vModel.IsSearchBarVisible = Visibility.Hidden;
-                btnExcel.Visibility = Visibility.Hidden;
-                //worker.CancelAsync();
-            }
             if (value.Label == "User Management")
             {
                 vModel.IsSearchBarVisible = Visibility.Visible;
-            }
-            else
-            {
-                vModel.IsSearchBarVisible = Visibility.Hidden;
-                //worker.CancelAsync();
             }
 
         }
@@ -153,6 +143,7 @@ namespace ideaForge
                 {
                     vModel.CurrentPage.Content = new ReportsData(selectedRecord._ride);
                     vModel.PageName = "Report Details";
+                    btnExcel.Visibility = Visibility.Visible;
                     backButton.Visibility = Visibility.Visible;
                 }
                 else
@@ -248,7 +239,7 @@ namespace ideaForge
                         }
                     }
                 }
-                if (pageName == "Report Details")
+                else if (pageName == "Report Details")
                 {
                     var result = (ReportsData)vModel.CurrentPage.Content;
                     var rModel = (ReportsDataViewModel)result.DataContext;
@@ -277,6 +268,43 @@ namespace ideaForge
                         lst.Add(model); 
                     });
                     string fileName = "reports.xlsx";
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var dt = IdeaForge.Core.ListtoDataTableConverter.ToDataTable(lst);
+                        wb.Worksheets.Add(dt);
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            wb.SaveAs(stream);
+                            //Return xlsx Excel File  
+                            File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+                            ideaForge.Popups.MessageBox.ShowSuccess("File Download", " Successfully");
+                        }
+                    }
+                }
+                else if (pageName.Contains("Booking"))
+                {
+                    var result = (ReportCompletedPage)vModel.CurrentPage.Content;
+                    var rModel = (ReportCompleteViewModel)result.DataContext;
+
+                    List<ReportBySelectedUserToExcel> lst = new List<ReportBySelectedUserToExcel>();
+                    lst.Add(new ReportBySelectedUserToExcel { 
+                    missionType=rModel.MissionName,
+                    totalrequestedTime = Math.Round((rModel.SelectedRequest.endDate - rModel.SelectedRequest.startDate).TotalHours, 2),
+                    flightDtae = rModel.SelectedRequest.startDate.ToString(),
+                    flightTime = rModel.SelectedRequest.startDate.ToString("hh:mm:ss tt") + "-" + rModel.SelectedRequest.endDate.ToString("hh:mm:ss tt"),
+                    pushNotification = rModel.SelectedRequest.pushNotification,
+                    liveVideoStream = rModel.SelectedRequest.liveVideoStream,
+                    statusForUser = rModel.SelectedRequest.status,
+                    currentFlightStatus = "Drone Landed",
+                    originLatitude = rModel.SelectedRequest.originLatitude,
+                    originLongitude=rModel.SelectedRequest.originLongitude,
+                    ControlKey = rModel.SelectedRequest.ControlKey,
+                    SecretKey = rModel.SelectedRequest.SecretKey,
+                    UAVID = rModel.SelectedRequest.UAVID,
+                    userRating = rModel.Rating_Num,
+                    userFeedback = rModel.SelectedRequest.comments,
+                    });
+                    string fileName = "reportsData.xlsx";
                     using (XLWorkbook wb = new XLWorkbook())
                     {
                         var dt = IdeaForge.Core.ListtoDataTableConverter.ToDataTable(lst);

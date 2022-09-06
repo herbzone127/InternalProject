@@ -489,6 +489,7 @@
                         </StackPanel>
 
                         <Border 
+                            Width="200"
                             Visibility="Hidden"
                             x:FieldModifier="public"
                             x:Name="CityComboBox"
@@ -496,23 +497,26 @@
                             Grid.Column="3"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Right"
-                            BorderBrush="#A9ABB1" BorderThickness="1" CornerRadius="5"
+                            BorderBrush="#A9ABB1" BorderThickness="2" CornerRadius="3"
+                            Padding="2"
                             >
                             <Grid>
-                                <dotNetKitControls:AutoCompleteComboBox Height="auto" Width="150"
-                                SelectedValuePath="city_Name"
-                                DisplayMemberPath="city_Name"
-                                TextSearch.TextPath="city_Name"
-                                ItemsSource="{Binding CityList}"
-                                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
-                                SelectionChanged="cityComboBox_SelectionChanged"
-                                x:Name="cityComboBox"
-                                TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
-                                <TextBlock Margin="5"
-                                       Foreground="#A9ABB1"
-                                       x:Name="cityWaterMark"
-                                       IsHitTestVisible="False"
-                                       Text="Select City" />
+                                <dotNetKitControls:AutoCompleteComboBox 
+                                    Height="auto" Width="180"
+                                    BorderThickness="0"                                
+                                    SelectedValuePath="city_Name"
+                                    DisplayMemberPath="city_Name"
+                                    TextSearch.TextPath="city_Name"
+                                    ItemsSource="{Binding CityList}"
+                                    SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
+                                    SelectionChanged="cityComboBox_SelectionChanged"
+                                    x:Name="cityComboBox"
+                                    TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
+                                    <TextBlock Margin="2"
+                                               Foreground="#A9ABB1"
+                                               x:Name="cityWaterMark"
+                                               IsHitTestVisible="False"
+                                               Text="Select City" />
                             </Grid>
 
                         </Border>

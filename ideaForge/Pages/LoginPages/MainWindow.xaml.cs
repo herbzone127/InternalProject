@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,6 +70,34 @@ namespace ideaForge
                 {
                     loginControl.Margin = new Thickness(40, 0, 40, 0);
                 }
+            }
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            string emailRegex = @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
+            string emailregex = @"^[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
+            string numberRegex = @"^[0-9]{9}$";
+
+            bool isMatchedEmail = Regex.IsMatch(textBox.Text, emailRegex);
+            bool isMatchedemail = Regex.IsMatch(textBox.Text, emailregex);
+            bool isMatchedPhone = Regex.IsMatch(textBox.Text, numberRegex);
+
+            if(isMatchedEmail || isMatchedPhone || isMatchedemail)
+            {
+                var gridPanel = (Grid)textBox.Parent;
+                var label = (Label)gridPanel.Children[4];
+                label.Visibility = System.Windows.Visibility.Hidden;
+                textBox.BorderBrush = Brushes.LightGray;
+            }
+            else
+            {
+                var gridPanel = (Grid)textBox.Parent;
+                var label = (Label)gridPanel.Children[4];
+                label.Visibility = System.Windows.Visibility.Visible;
+                textBox.BorderBrush = Brushes.Red;
             }
         }
     }

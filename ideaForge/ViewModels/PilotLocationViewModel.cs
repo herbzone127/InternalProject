@@ -247,6 +247,12 @@ namespace ideaForge.ViewModels
                                 await GetAdminLocations();
 
                                 MessageBox.ShowSuccess("Save record ", " successfully.");
+
+                                //Clearing Data 
+                                Comments = "";
+                                SelectedReason = new Reason();
+                                await GetReasons();
+                                IsActive = true;
                             }
                             else
                             {
@@ -285,6 +291,12 @@ namespace ideaForge.ViewModels
                                 await GetPilotLocations();
                                 await GetAdminLocations();
                                 MessageBox.ShowSuccess("Save record ", " successfully.");
+
+                                //Clearing Data 
+                                Comments = "";
+                                SelectedReason = new Reason();
+                                await GetReasons();
+                                IsActive = true;
                             }
                             else
                             {

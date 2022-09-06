@@ -1,4 +1,5 @@
-﻿using ideaForge.Pages.DashboardPages;
+﻿using ControlzEx.Standard;
+using ideaForge.Pages.DashboardPages;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
@@ -88,20 +89,35 @@ namespace ideaForge.ViewModels
                 RideById.statusID = 4;
             }
             
-      
-          var result =await  _pilotRequestServices.UpdateRideByPilot(RideById);
-            if (result.status)
+      if(RideStatusId==2 || RideStatusId == 1)
             {
-                MessageBox.ShowSuccess("Ride update ","Successful.");
-                var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-                var context = (DashboardViewModel)dashboard.DataContext;
-                context.CurrentPage = new Requests();
-                context.PageName = "Requests";
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                {
+
+
+
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    RideById.updateBy = user.id.ToString();
+                 }
+                var result = await _pilotRequestServices.UpdateRideByPilot(RideById);
+                if (result.status)
+                {
+                    MessageBox.ShowSuccess("Ride update ", "Successful.");
+                    var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+                    var context = (DashboardViewModel)dashboard.DataContext;
+                    context.CurrentPage = new Requests();
+                    context.PageName = "Requests";
+                }
+                else
+                {
+                    MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, ""); ;
+                }
             }
             else
             {
-                MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");;
+                MessageBox.ShowError("Please accept or reject selected ride "); ;
             }
+        
             IsBusy = false;
         }
        

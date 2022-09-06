@@ -604,6 +604,8 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(SecretKey));
             }
         }
+
+        public Ride SelectedRequest { get;  set; }
         #endregion
 
         public async Task GetUserFeedBack(int rideId)

@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>99</ApplicationRevision>
-    <ApplicationVersion>1.0.0.99</ApplicationVersion>
+    <ApplicationRevision>102</ApplicationRevision>
+    <ApplicationVersion>1.0.0.102</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -297,6 +297,7 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Map\HeadingToVisiblityConverter.cs" />
+    <Compile Include="Models\ReportBySelectedUserToExcel.cs" />
     <Compile Include="Models\ReportDetailsToExcel.cs" />
     <Compile Include="Models\ReportsToExcel.cs" />
     <Compile Include="OutlinedText.cs" />

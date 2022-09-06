@@ -47,6 +47,7 @@ namespace IdeaForge.Domain
         private string _contactNo;
         [Required]
         [Phone]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Contact Number must be 10 Digits")]
         [Display(Name = "Contact Number")]
         public string contactNo
         {
