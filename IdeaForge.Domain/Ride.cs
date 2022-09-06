@@ -22,7 +22,7 @@ namespace IdeaForge.Domain
         public string status { get; set; }
         public string location { get; set; }
         public int  missionType { get; set; }
-        public object comments { get; set; }
+        public string comments { get; set; }
         public DateTime requestOn { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }

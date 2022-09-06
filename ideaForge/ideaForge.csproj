@@ -297,6 +297,7 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Map\HeadingToVisiblityConverter.cs" />
+    <Compile Include="Models\ReportBySelectedUserToExcel.cs" />
     <Compile Include="Models\ReportDetailsToExcel.cs" />
     <Compile Include="Models\ReportsToExcel.cs" />
     <Compile Include="OutlinedText.cs" />

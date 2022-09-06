@@ -48,7 +48,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" >
-                                <Label Content="{Binding userName}" FontWeight="SemiBold">
+                                <Label Content="{Binding pilotName}" FontWeight="SemiBold">
                                 </Label>
                                 <Button Content="Active" Command="{Binding }"  Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
                                     <Button.Resources >

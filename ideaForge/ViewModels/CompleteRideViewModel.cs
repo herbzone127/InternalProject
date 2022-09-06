@@ -540,6 +540,8 @@ namespace ideaForge.ViewModels
             }
         }
 
+        public Ride SelectedRequest { get;  set; }
+
         #endregion
 
         #region ApiMethods

@@ -51,5 +51,6 @@ namespace IdeaForge.Domain
         public int TotalRejectedRidesByUser { get; set; }
         public int TotalServiceByUser { get; set; }
         public int TotalRequestedByUser { get; set; }
+        public string pilotName { get; set; }
     }
 }
