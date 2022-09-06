@@ -14,11 +14,11 @@ namespace IdeaForge.Service.GenericServices
 {
     public class PilotRequest : IPilotRequestServices
     {
-        public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId)
+        public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId,int userId)
         {
             try
             {
-                var url = UrlHelper.StatusChangesURL + "/" + isAccepted + "/" + rideId;
+                var url = UrlHelper.StatusChangesURL + "/" + isAccepted + "/" + rideId+"/"+userId;
               
                 var resultString = await HTTPClientWrapper<StatusChanges>.PostRequest(url, null);
                 if (!resultString.ToLower().Contains("status"))

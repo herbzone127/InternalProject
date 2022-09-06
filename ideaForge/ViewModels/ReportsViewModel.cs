@@ -52,10 +52,10 @@ namespace ideaForge.ViewModels
                     requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).ToList();
                     requests.userData.ForEach(u =>
                     {
-                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && (x.statusID == 2 || x.statusID==5)).Count();
-                        u.TotalRejectedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 4).Count();
+                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && (x.statusID == 2 || x.statusID==5)).Count();
+                        u.TotalRejectedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && x.statusID == 4).Count();
                     });
-                    var distinct = requests.userData.GroupBy(u => u.addedBy).Select(x => x.First());
+                    var distinct = requests.userData.GroupBy(u => u.updateBy).Select(x => x.First());
                     RidesAcceptedByUsers = new ObservableCollection<RequestData>(distinct);
                 }
             }

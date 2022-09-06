@@ -771,7 +771,14 @@ namespace ideaForge.ViewModels
         {
             try
             {
-                var result = await _pilotRequestServices.GetStatusChangesResponse(isAccepted, rideId);
+                bool result = false;
+                var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                if (user != null)
+                {
+                     result = await _pilotRequestServices.GetStatusChangesResponse(isAccepted, rideId,user.id);
+
+                }
+                
 
                 return result;
             }

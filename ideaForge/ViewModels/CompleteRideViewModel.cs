@@ -553,8 +553,12 @@ namespace ideaForge.ViewModels
                 if (request.userData != null)
                 {
                     var result = request.userData.FirstOrDefault();
-                    UserFeedBack = result.Comments;
-                    Rating_Num = result.Rating;
+                    if(result != null)
+                    {
+                        UserFeedBack = result?.Comments;
+                        Rating_Num = result.Rating;
+                    }
+                  
                     if(Rating_Num == 1)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
