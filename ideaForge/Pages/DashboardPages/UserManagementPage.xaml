@@ -136,7 +136,7 @@
                                     CommandParameter="1"   
                                     Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="10,0"
                                     Grid.Column="1"
-                                    HorizontalAlignment="Center"
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     FontSize="10">
                                     <Button.Resources >
@@ -209,6 +209,7 @@
                                     Grid.Column="0" Content="{Binding TotalRejectedRidesByUser}"/>
 
                                 <Button
+                                    HorizontalAlignment="Left"
                                     Width="50"
                                     Height="15"
                                     FontSize="10"
@@ -291,7 +292,7 @@
                                         AncestorType={x:Type UserControl}}, 
                                         Path=DataContext.ViewCommand}"
                                         VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
+                                        HorizontalAlignment="Left"
                                         Grid.Column="1"
                                         Width="50"
                                         Height="15"
@@ -366,6 +367,7 @@
                                     Content="{Binding TotalServiceByUser}"/>
 
                                 <Button Grid.Column="1"
+                                        HorizontalAlignment="Left"
                                     Content="View"   Command="{Binding 
                                     RelativeSource={RelativeSource 
                                     AncestorType={x:Type UserControl}}, 
