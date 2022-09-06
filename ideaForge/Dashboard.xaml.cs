@@ -364,7 +364,7 @@ namespace ideaForge
                     {
                         await reportsViewModel.GetReportsByUser();
                         var lst = reportsViewModel.RidesAcceptedByUsers.Where(u =>
-                        u.userName.Contains(textbox.Text)
+                        u.pilotName.ToLower().Trim().Contains(textbox.Text.ToLower().Trim())
                         ||
                         u.id.ToString().Contains(textbox.Text)
                         ).ToList();
@@ -383,7 +383,7 @@ namespace ideaForge
                     {
                         await userViewModel.GetReportsByUser(vModel.SelectedCity?.city_Name?.ToLower()?.Trim());
                         var lst = userViewModel.RidesAcceptedByUsers.Where(u =>
-                        u.userName.Contains(textbox.Text)
+                        u.pilotName.ToLower().Trim().Contains(textbox.Text.ToLower().Trim())
                         ||
                         u.id.ToString().Contains(textbox.Text)
                         ).ToList();
