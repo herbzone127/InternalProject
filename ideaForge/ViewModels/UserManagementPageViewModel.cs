@@ -80,7 +80,7 @@ namespace ideaForge.ViewModels
         public async Task GetReportsByUser(string selectedCityName)
         {
             IsBusy = true;
-            var requests = await _pilotRequestServices.GetAllRequest("");
+            var requests = await _pilotRequestServices.GetAllRidesByPilotStatus(selectedCityName);
             if (requests != null)
             {
                 if (requests.status)
@@ -88,14 +88,16 @@ namespace ideaForge.ViewModels
                     //var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                  
                     requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCityName).ToList();
+                    
                     requests.userData.ForEach(u =>
+                    
                     {
-                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && (x.statusID == 2 )).Count();
-                        u.TotalRejectedRidesByUser = requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 4).Count();
-                        u.TotalServiceByUser= requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 5).Count();
-                        u.TotalRequestedByUser = requests.userData.Where(x => x.addedBy == u.addedBy && x.statusID == 1).Count();
+                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && (x.statusID == 2 )).Count();
+                        u.TotalRejectedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && x.statusID == 4).Count();
+                        u.TotalServiceByUser= requests.userData.Where(x => x.updateBy == u.updateBy && x.statusID == 5).Count();
+                        u.TotalRequestedByUser = requests.userData.Where(x => x.updateBy == u.addedBy && x.statusID == 1).Count();
                     });
-                    var distinct = requests.userData.GroupBy(u => u.addedBy).Select(x => x.First());
+                    var distinct = requests.userData.GroupBy(u => u.updateBy).Select(x => x.First());
                     RidesAcceptedByUsers = new ObservableCollection<RequestData>(distinct);
                 }
             }

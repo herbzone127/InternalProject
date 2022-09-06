@@ -38,7 +38,24 @@ namespace IdeaForge.Service.GenericServices
             }
             return null;
         }
-       
+        public async Task<PilotRequestResponse> GetAllRidesByPilotStatus(string status)
+        {
+            try
+            {
+                var url = UrlHelper.adminGetAllRidesByPilotStatus + "/" + status;
+
+                var resultString = await HTTPClientWrapper<PilotRequestResponse>.Get(url);
+                return resultString;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return null;
+        }
+
         async Task<RideResponse> IAdminRequestServices.GetRideById(int rideId)
         {
             try
