@@ -123,7 +123,16 @@ namespace ideaForge.Popups
                             loginWindow.Effect = null;
                         loginWindow.Close();
                     }
-                    dashboard.Show();
+
+                    var vModel = this.DataContext as IFDockViewModel;
+                    if (vModel != null)
+                    {
+                        vModel.IsActive = IsActive;
+                        dashboard.Show();
+                    }
+                        
+                    
+
                 }
                 else
                 {
