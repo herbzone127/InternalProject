@@ -290,6 +290,9 @@
                                         RelativeSource={RelativeSource 
                                         AncestorType={x:Type UserControl}}, 
                                         Path=DataContext.ViewCommand}"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Grid.Column="1"
                                         Width="50"
                                         Height="15"
                                         FontSize="10"
