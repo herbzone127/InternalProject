@@ -352,7 +352,48 @@
                 <DataGridTemplateColumn CanUserSort="False" Header="Flights Serviced" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" >
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Grid.Column="0"
+                                    Content="{Binding TotalServiceByUser}"/>
+
+                                <Button Grid.Column="1"
+                                    Content="View"   Command="{Binding 
+                                    RelativeSource={RelativeSource 
+                                    AncestorType={x:Type UserControl}}, 
+                                    Path=DataContext.ViewCommand}"
+                                    CommandParameter="5" Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="10,0"
+                                    Width="50" Height="15" FontSize="10">
+                                    <Button.Resources >
+                                        <Style TargetType="{x:Type Button}">
+
+                                            <Style.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="10" />
+
+
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#5D9115"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+
+                                            </Style.Resources>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                            </Grid>
+                            
+                            <!--<StackPanel Orientation="Horizontal" >
                                 <Label Content="{Binding TotalServiceByUser}"/>
                                 <Button Content="View"   Command="{Binding 
                                         RelativeSource={RelativeSource 
@@ -378,7 +419,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                            </StackPanel>
+                            </StackPanel>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
