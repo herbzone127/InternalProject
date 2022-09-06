@@ -196,7 +196,50 @@
                 <DataGridTemplateColumn CanUserSort="True" Header="Flights rejected" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Grid.Column="0" Content="{Binding TotalRejectedRidesByUser}"/>
+
+                                <Button
+                                    Width="50"
+                                    Height="15"
+                                    FontSize="10"
+                                    Grid.Column="1"
+                                    Content="View"   Command="{Binding 
+                                    RelativeSource={RelativeSource 
+                                    AncestorType={x:Type UserControl}}, 
+                                    Path=DataContext.ViewCommand}"
+                                    CommandParameter="4" Background="#E8F4D9" TextElement.Foreground="#91C84F" BorderThickness="0" Padding="15,0">
+                                    <Button.Resources >
+                                        <Style TargetType="{x:Type Button}">
+
+                                            <Style.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="10" />
+
+
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#5D9115"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+
+                                            </Style.Resources>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                            </Grid>
+                            
+                            <!--<StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding TotalRejectedRidesByUser}"/>
                                 <Button Content="View"   Command="{Binding 
                                         RelativeSource={RelativeSource 
@@ -222,7 +265,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                            </StackPanel>
+                            </StackPanel>-->
 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
