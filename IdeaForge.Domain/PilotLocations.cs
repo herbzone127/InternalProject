@@ -65,4 +65,9 @@ namespace IdeaForge.Domain
 
 
     }
+    public class reportModel
+    {
+        public string date { get; set; }
+        public string city { get; set; }
+    }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -22,18 +23,34 @@ using ideaForge.Converters;
 //using javax.imageio;
 using MonkeyCache.FileStore;
 using log4net;
+using System.ComponentModel;
+using System.Collections;
 
 namespace ideaForge.ViewModels
 {
-    public class ProfilePageViewModels : ViewModelBase
+    public class ProfilePageViewModels : ViewModelBase, INotifyDataErrorInfo
     {
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private readonly PropertyValidateModel _errorsViewModel;
+        public bool CanCreate => !HasErrors;
+        public bool HasErrors => _errorsViewModel.HasErrors;
         public IProfileSerevice _profileService
         => App.serviceProvider.GetRequiredService<IProfileSerevice>();
         public IRegisterService _registerService
          => App.serviceProvider.GetRequiredService<IRegisterService>();
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Commands
-
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         private readonly DelegateCommand _SaveChanges_Comand;
         public ICommand SaveChanges_Comand => _SaveChanges_Comand;
 
@@ -51,7 +68,9 @@ namespace ideaForge.ViewModels
 
         public ProfilePageViewModels()
         {
-       ProfileModel = new UserDataProfile();
+            _errorsViewModel = new PropertyValidateModel();
+            _errorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
+            ProfileModel = new UserDataProfile();
             GetCityList().ConfigureAwait(false);
             _SaveChanges_Comand = new DelegateCommand(SaveChanges_ComandExecut);
             _CancelChanges_Comand = new DelegateCommand(CancelChanges_ComandExecut);
@@ -60,10 +79,23 @@ namespace ideaForge.ViewModels
             ShowEditBTn = "Visible";
             ShowSaveBTn = false;
             ShowSaveBTnbtn = "Hidden";
-
-             GetProfileData().ConfigureAwait(false);
+            if (InternetAvailability.IsInternetAvailable())
+            {
+                GetProfileData().ConfigureAwait(false);
+            }
+            else
+            {
+                //MessageBox.ShowError("No internet connection.");
+            }
+             
          
 
+        }
+      
+        private void ErrorsViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+            OnPropertyChanged(nameof(CanCreate));
         }
         private ObservableCollection<UserDatum> _cityList;
 
@@ -138,6 +170,8 @@ namespace ideaForge.ViewModels
         }
         private UserControl _authenticationPage;
 
+
+
         public UserControl AuthenticationPage
         {
             get { return _authenticationPage; }
@@ -151,7 +185,7 @@ namespace ideaForge.ViewModels
         #region OtherMethods
         public async Task GetProfileData()
         {
-
+            IsBusy = true;
             //ProfilemodelID profil = new ProfilemodelID();
             //profil.id = Global.loginUserId;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
@@ -169,17 +203,16 @@ namespace ideaForge.ViewModels
                         {
                             if (data.userData != null)
                             {
-                                //if (data.userData.addedon is DateTime)
-                                //    data.userData.addedondat = data?.userData?.addedon.ToString("dd/MM/yyyy");
+                                //if (data.userData.AddedOn is DateTime)
+                                //    data.userData.addedondat = data?.userData?.AddedOn.ToString("dd/MM/yyyy");
                               
                                
                                 //data.userData.image = imgpath;
                                 ProfileModel = new UserDataProfile();
                                 ProfileModel = data.userData;
-                                if (!string.IsNullOrEmpty(data.userData.Image))
+                                if (UpdateProfile != null)
                                 {
-                                    string imgpath = UrlHelper.baseURL + data.userData.Image;
-                                    ProfileModel.Image = imgpath;
+                                    UpdateProfile(ProfileModel.Clone(), new EventArgs());
                                 }
 
                                 if (CityList != null)
@@ -187,7 +220,7 @@ namespace ideaForge.ViewModels
                                     SelectedCity = CityList.FirstOrDefault(u => u.city_Name == data?.userData?.city);
                                 }
                             }
-                            //data?.userData?.addedondat = data?.userData?.addedon.ToString("dd/MMMM/yyyy");
+                            //data?.userData?.addedondat = data?.userData?.AddedOn.ToString("dd/MMMM/yyyy");
 
 
                         }
@@ -205,112 +238,131 @@ namespace ideaForge.ViewModels
                     MessageBox.ShowError("User Not Found.");
                 }
             }
+            IsBusy = false;
        
             
 
         }
         #endregion
 
+        public event EventHandler UpdateProfile;
         public async void SaveChanges_ComandExecut(object obj)
         {
-            ProfileModel.token = Global.Token;
-            //if (ProfileModel.Image == null)
-            //{
-            //    //ProfileModel.image = "";
-            //    ProfileModel.Image = Base64Image;
-            //}
-        
+            if (!InternetAvailability.IsInternetAvailable())
+            {
+                MessageBox.ShowError("No internet connection.");
+                return;
+            }
+            //ProfileModel.Validate();
+            if (!ProfileModel.HasErrors)
+            {
+                ProfileModel.token = Global.Token;
+                //if (ProfileModel.Image == null)
+                //{
+                //    //ProfileModel.image = "";
+                //    ProfileModel.Image = Base64Image;
+                //}
 
-            if (string.IsNullOrEmpty(ProfileModel.name))
-            {
-               MessageBox.ShowError("Enter your name.");
-            }
-            else if (string.IsNullOrEmpty(ProfileModel.email))
-            {
-               MessageBox.ShowError("Enter your email.");
-            }
-            else if (string.IsNullOrEmpty(ProfileModel.contactNo))
-            {
-               MessageBox.ShowError("Enter your contact number.");
-            }
-            else if (string.IsNullOrEmpty(ProfileModel.organizationName))
-            {
-               MessageBox.ShowError("Enter your organization name.");
-            }
-            else if (string.IsNullOrEmpty(ProfileModel.departmentName))
-            {
-               MessageBox.ShowError("Enter your department name.");
-            }
-            else if (string.IsNullOrEmpty(ProfileModel.city))
-            {
-               MessageBox.ShowError("Enter your city.");
-            }
-            else 
-            {
-                if (ProfileModel.Image != null)
+
+                if (string.IsNullOrEmpty(ProfileModel.name))
                 {
-                    if (ProfileModel.Image.ToLower().Contains(UrlHelper.baseURL.ToLower()) && 
-                        (ProfileModel.Image.ToLower().Contains("png")||
-                        ProfileModel.Image.ToLower().Contains("jpg")
-                        )
-                        )
-                    {
-                        ProfileModel.Image = ProfileModel.Image; 
-                        //URL url = new URL(ProfileModel.image);
-                        //java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
-                        //URLConnection conn = url.openConnection();
-                        //conn.setRequestProperty("User-Agent", "Firefox");
-                        //java.io.InputStream inputStream = conn.getInputStream();
-                        //int n = 0;
-                        //byte[] buffer = new byte[1024];
-                        //while (-1 != (n = inputStream.read(buffer)))
-                        //{
-                        //    output.write(buffer, 0, n);
-                        //}
-                        //byte[] img = output.toByteArray();
-                        //var base64String = Convert.ToBase64String(img);
-                        //ProfileModel.image = base64String;
-                    }
-                    else
-                    {
-                        ProfileModel.Image = "";
-                        //var imgd = ProfileModel.image;
-                        //var stream = File.ReadAllBytes(imgd);
-                        //var base64String = Convert.ToBase64String(stream);
-                        //ProfileModel.image = base64String;
-
-                        //var imgData = ProfileModel.image;
-                        ProfileModel.Image = Base64Image==null?"":Base64Image;
-                        //ProfileModel.image = "";
-                    }
+                    MessageBox.ShowError("Enter your name.");
                 }
-                try
+                else if (string.IsNullOrEmpty(ProfileModel.email))
                 {
-                    var result = await _profileService.SaveProfile(ProfileModel);
-                    if (result != null)
+                    MessageBox.ShowError("Enter your email.");
+                }
+                else if (string.IsNullOrEmpty(ProfileModel.contactNo))
+                {
+                    MessageBox.ShowError("Enter your contact number.");
+                }
+                else if (string.IsNullOrEmpty(ProfileModel.organizationName))
+                {
+                    MessageBox.ShowError("Enter your organization name.");
+                }
+                else if (string.IsNullOrEmpty(ProfileModel.city))
+                {
+                    MessageBox.ShowError("Enter your city.");
+                }
+                else
+                {
+                    if (ProfileModel.Image != null)
                     {
-                        if (result.status)
+                        if (ProfileModel.Image.ToLower().Contains(UrlHelper.baseURL.ToLower()) &&
+                            (ProfileModel.Image.ToLower().Contains("png") ||
+                            ProfileModel.Image.ToLower().Contains("jpg")
+                            ))
                         {
-                            MessageBox.ShowSuccess(result.message, "");
-                            ShowEditBTn = "Visible";
-                            ShowSaveBTn = false;
-                            ShowSaveBTnbtn = "Hidden";
-                            GetProfileData();
+                            ProfileModel.Image = ProfileModel.Image.StartsWith(UrlHelper.baseURL.ToLower()).ToString();
+                            //ProfileModel.Image = ProfileModel.Image;
+                            //URL url = new URL(ProfileModel.image);
+                            //java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
+                            //URLConnection conn = url.openConnection();
+                            //conn.setRequestProperty("User-Agent", "Firefox");
+                            //java.io.InputStream inputStream = conn.getInputStream();
+                            //int n = 0;
+                            //byte[] buffer = new byte[1024];
+                            //while (-1 != (n = inputStream.read(buffer)))
+                            //{
+                            //    output.write(buffer, 0, n);
+                            //}
+                            //byte[] img = output.toByteArray();
+                            //var base64String = Convert.ToBase64String(img);
+                            //ProfileModel.image = base64String;
+                        }else if (ProfileModel.Image.ToLower().Contains("png"))
+                        {
+                            ProfileModel.Image = ProfileModel.Image;
                         }
                         else
                         {
-                            MessageBox.ShowError("Profile not updated,Please try agin.");
+                            ProfileModel.Image = "";
+                            //var imgd = ProfileModel.image;
+                            //var stream = File.ReadAllBytes(imgd);
+                            //var base64String = Convert.ToBase64String(stream);
+                            //ProfileModel.image = base64String;
+
+                            //var imgData = ProfileModel.image;
+                            ProfileModel.Image = Base64Image == null ? "" : Base64Image;
+                            //ProfileModel.image = "";
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex.Message,ex);
-                    MessageBox.ShowError("Profile not updated,Please try agin.");
+                    try
+                    {
+                        IsBusy = true;
+                        var result = await _profileService.SaveProfile(ProfileModel);
+                        if (result != null)
+                        {
+                            if (result.status)
+                            {
+                                MessageBox.ShowSuccess(result.message, "");
+                                ShowEditBTn = "Visible";
+                                ShowSaveBTn = false;
+                                ShowSaveBTnbtn = "Hidden";
+
+                                GetProfileData();
+
+
+                            }
+                            else
+                            {
+                                MessageBox.ShowError("Profile not updated,Please try agin.");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex.Message, ex);
+                        MessageBox.ShowError("Profile not updated,Please try agin.");
+
+                    }
+                    finally 
+                    {
+                        IsBusy = false;
+                    }
+
+
 
                 }
-           
-              
             }
         }
         public  async void CancelChanges_ComandExecut(object obj)
@@ -328,40 +380,45 @@ namespace ideaForge.ViewModels
             ShowSaveBTnbtn = "Visible";
         }
         public void Photo_UploadExecut(object obj)
-        {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Select a picture";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-              "Portable Network Graphic (*.png)|*.png";
-            if (op.ShowDialog() == true)
             {
-                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                var resourceName = op.FileName;
-                byte[] bytes = null;
-                var stream = File.ReadAllBytes(resourceName);
-                //using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-                //{
-                //    bytes = new byte[stream.Length];
-                //    //stream.Read(bytes, 0, (int)stream.Length);
-                //}
-
-                var Source = new BitmapImage(new Uri(op.FileName));
-              
-                //byte[] byt = System.Text.Encoding.UTF8.GetBytes(Source.);
-                string base64String = Convert.ToBase64String(stream);
-                Base64Image = base64String;
-
-                //byte[] imageBytes = Convert.FromBase64String(base64String);
-                //string path = Path.Combine("C:/Users/Admin/Source/Repos/ideaforgepilotapp/ideaForge/","Images/", GetImageName());
-                //System.IO.File.WriteAllBytes(path, stream);
-                string imge = string.Format("/Images/{0}", GetImageName());
-
-                GetProfileDataimges(resourceName);
-                
+            if (!InternetAvailability.IsInternetAvailable())
+            {
+                MessageBox.ShowError("No internet connection.");
+                return;
             }
-           
-        }
+                OpenFileDialog op = new OpenFileDialog();
+                op.Title = "Select a picture";
+                op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                  "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                  "Portable Network Graphic (*.png)|*.png";
+                if (op.ShowDialog() == true)
+                {
+                    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                    var resourceName = op.FileName;
+                    byte[] bytes = null;
+                    var stream = File.ReadAllBytes(resourceName);
+                    //using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                    //{
+                    //    bytes = new byte[stream.Length];
+                    //    //stream.Read(bytes, 0, (int)stream.Length);
+                    //}
+
+                    var Source = new BitmapImage(new Uri(op.FileName));
+
+                    //byte[] byt = System.Text.Encoding.UTF8.GetBytes(Source.);
+                    string base64String = Convert.ToBase64String(stream);
+                    Base64Image = base64String;
+
+                    //byte[] imageBytes = Convert.FromBase64String(base64String);
+                    //string path = Path.Combine("C:/Users/Admin/Source/Repos/ideaforgepilotapp/ideaForge/","Images/", GetImageName());
+                    //System.IO.File.WriteAllBytes(path, stream);
+                    string imge = string.Format("/Images/{0}", GetImageName());
+
+                    GetProfileDataimges(resourceName);
+
+                }
+            }
+        
         public  string GetImageName()
         {
             string name = DateTime.Now.ToString("ddMMyyyy_hhmm")+".PNG";
@@ -403,6 +460,9 @@ namespace ideaForge.ViewModels
 
         }
 
-
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorsViewModel.GetErrors(propertyName);
+        }
     }
 }

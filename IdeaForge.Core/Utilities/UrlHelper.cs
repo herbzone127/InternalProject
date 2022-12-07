@@ -8,11 +8,13 @@ namespace IdeaForge.Core.Utilities
 {
     public class UrlHelper
     {
-#if DEBUG
-        public const string baseURL = "https://localhost:44340";
-#else
-public const string baseURL = "http://ifapi.dweb.in";
-#endif
+        //#if DEBUG
+        //    public const string baseURL = "https://localhost:44340";
+        //#else
+        public const string baseURL = "http://ifapi.dweb.in";
+        //ideaforgeapi
+        //public const string baseURL = "http://ideaforgeapi.dweb.in";
+        //#endif
         public const string loginURL = baseURL + "/api/login/pilotlogin";
         public const string getCityList = baseURL + "/api/login/getcitylist";
         public const string registerURL = baseURL + "/api/login/pilotsignup";
@@ -27,11 +29,13 @@ public const string baseURL = "http://ifapi.dweb.in";
         //GetAllRidesByPilotStatus
         public const string adminGetAllRidesByPilotStatus = baseURL + "/api/AdminRequest/GetAllRidesByPilotStatus";
         public const string RidesByIdURL = baseURL + "/api/pilotRequests/getridebyid";
+        public const string adminRidesByIdURL = baseURL + "/api/AdminReport/getridebyid";
         public const string StatusChangesURL = baseURL + "/api/pilotRequests/userupdateride";
         public const string pilotLocationUrl = baseURL + "/api/pilotRequests/getpilotlocation";
         public const string ridebyPilot = baseURL + "/api/pilotRequests/updateRideByPilot";
         public const string getAllStatuses = baseURL + "/api/pilotRequests/getAllStatus";
         public const string addUpdatePilotStatus = baseURL + "/api/pilotRequests/addUpdatePilotStatus";
+        public const string updatePilotFeedback = baseURL + "/api/pilotRequests/addUpdatePilotFeedBack";
         public const string getpilotloaction = baseURL + "/api/IFDock/getpilotlocation";
         public const string getReasons = baseURL + "/api/IFDock/getReasons";
         public const string updateloactionbyid = baseURL+ "/api/IFDock/AddUpdatePilotLocation";
@@ -40,8 +44,14 @@ public const string baseURL = "http://ifapi.dweb.in";
         public const string adminSingUpUrl = baseURL + "/api/login/adminsignup";
         public const string adminLocationUrl = baseURL + "/api/Admins/GetLocation";
         public const string adminUpdateLocationUrl = baseURL + "/api/Admins/AddLocation";
+        public const string adminGetAllUserUrl = baseURL + "/api/Admins/getAllUser";
+        public const string adminUserIsactiveUrl = baseURL + "/api/Admins/isAproved";
         public const string UserFeedbackByRideIdURL = baseURL + "/api/pilotRequests/UserFeedbackByRideId";
+        public const string adminReport = baseURL + "/api/AdminReport/getAllReports";
+      
         public const string PilotFeedbackByRideIdURL = baseURL + "/api/pilotRequests/PilotFeedbackByRideId";
-        
+        public const string adminUserFeedbackByRideIdURL = baseURL + "/api/AdminRequest/UserFeedbackByRideId";
+        public const string adminPilotFeedbackByRideIdURL = baseURL + "/api/AdminRequest/PilotFeedbackByRideId";
+
     }
 }

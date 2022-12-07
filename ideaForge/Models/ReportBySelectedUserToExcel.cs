@@ -12,8 +12,8 @@ namespace ideaForge.Models
         public double totalrequestedTime { get; set; }
         public string flightDtae { get; set; }
         public string flightTime { get; set; }
-        public bool pushNotification { get; set; }
-        public bool liveVideoStream { get; set; }
+        public string pushNotification { get; set; }
+        public string liveVideoStream { get; set; }
         public string statusForUser { get; set; }
         public string currentFlightStatus { get; set; }
         public string originLatitude { get; set; }

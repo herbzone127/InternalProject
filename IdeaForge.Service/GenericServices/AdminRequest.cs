@@ -14,14 +14,7 @@ namespace IdeaForge.Service.GenericServices
 {
     public class AdminRequest : IAdminRequestServices
     {
-
-
-    
-
-    
-   
-
-       public async Task<PilotRequestResponse> GetAllRequest(string status)
+        public async Task<PilotRequestResponse> GetAllRequest(string status)
         {
             try
             {
@@ -60,7 +53,7 @@ namespace IdeaForge.Service.GenericServices
         {
             try
             {
-                var url = UrlHelper.RidesByIdURL + "/" + rideId;
+                var url = UrlHelper.adminRidesByIdURL + "/" + rideId;
 
                 var result = await HTTPClientWrapper<RideResponse>.Get(url);
 
@@ -161,6 +154,47 @@ namespace IdeaForge.Service.GenericServices
 
             }
             return "";
+        }
+        public async Task<PilotRequestResponse> GetAllridereport(string date)
+        {
+            PilotRequestResponse response = new PilotRequestResponse();
+            try
+            {
+                var url = UrlHelper.adminReport;
+                reportModel data = new reportModel
+                {
+                    date = date
+                };
+                var resultString = await HTTPClientWrapper<reportModel>.PostRequest(url, data);
+                var result = JsonConvert.DeserializeObject<PilotRequestResponse>(resultString);
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return response;
+        }
+        public async Task<Repotresponse> GetAllridereport(string city, string date)
+        {
+            Repotresponse response = new Repotresponse();
+            try
+            {
+                var url = UrlHelper.adminReport + "/" + city + "/" + date;
+
+                response = await HTTPClientWrapper<Repotresponse>.Get(url);
+                //var result = resultString;
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            return response;
         }
     }
 }

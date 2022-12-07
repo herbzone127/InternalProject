@@ -5,21 +5,68 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ideaForge"
-            
+            xmlns:custom="clr-namespace:ideaForge.Usercontrols"
              xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:converters="clr-namespace:ideaForge.Converters"
              xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
       xmlns:vm="clr-namespace:ideaForge.ViewModels"
         mc:Ignorable="d"
-        SizeChanged="UserControl_SizeChanged" 
-     
-       >
+        SizeChanged="UserControl_SizeChanged">
+    <!--<UserControl.InputBindings>
+        <KeyBinding Key="Return" />
+    </UserControl.InputBindings>-->
     <UserControl.Resources>
+        <Style TargetType="{x:Type custom:CustomTexBox}">
 
+            <Style.Setters>
+
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Border BorderThickness="0" BorderBrush="Transparent">
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" Foreground="Red" FontWeight="Bold" FontSize="9" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+               
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="15,5,15,15"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="HasError" Value="True"/>
+                    <Setter Property="ToolTip"  
+                            
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                    
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="{x:Type TextBox}">
 
             <Style.Setters>
-                <Setter Property="Template">
+                <!--<Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Grid>
@@ -41,24 +88,24 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
-                </Setter>
+                </Setter>-->
                 <Setter Property="Validation.ErrorTemplate">
                     <Setter.Value>
                         <ControlTemplate>
                             <StackPanel>
-                                <Border BorderThickness="2" BorderBrush="Red">
+                                <Border BorderThickness="0" BorderBrush="Transparent">
                                     <StackPanel>
                                         <AdornedElementPlaceholder    
                                 x:Name="errorControl" />
                                     </StackPanel>
                                 </Border>
                                 <TextBlock Text="{Binding AdornedElement.ToolTip    
-                        , ElementName=errorControl}" Foreground="Red" FontSize="9" />
+                        , ElementName=errorControl}" Foreground="Red" FontWeight="Bold" FontSize="9" />
                             </StackPanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <!--<Setter Property="Validation.ErrorTemplate">
+                <Setter Property="Validation.ErrorTemplate">
                     <Setter.Value>
                         <ControlTemplate>
                             <StackPanel>
@@ -70,18 +117,18 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Foreground="Red" Text="{Binding AdornedElement.ToolTip    
-                        , ElementName=errorControl}" />
+                        , ElementName=errorControl}" Margin="10,0,0,0" />
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </StackPanel>
                         </ControlTemplate>
                     </Setter.Value>
-                </Setter>-->
-                <Setter Property="BorderThickness" Value="1"/>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Height" Value="40"/>
-                <Setter Property="BorderBrush" Value="#A9ABB1"/>
-                <Setter Property="Margin" Value="15,5,15,15"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="5,5,15,15"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="5,0,0,0"/>
@@ -93,8 +140,8 @@
             </Style.Resources>
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="BorderBrush" Value="Red" />
-                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
                     <Setter Property="ToolTip"    
                 Value="{Binding RelativeSource={RelativeSource Self}    
                     , Path=(Validation.Errors)[0].ErrorContent}" />
@@ -111,196 +158,182 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="5,0,0,0"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel >
+                                <Border BorderThickness="2" BorderBrush="Transparent">
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl,Mode=TwoWay}" Foreground="Red" FontWeight="Bold" FontSize="9" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style.Setters>
-
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="ToolTip"    
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid x:Name="loginControl" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="auto"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="*"/>
-                <RowDefinition  Height="40" />
-                <RowDefinition  Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+
+
             <!--<StackPanel Orientation="Horizontal">
                 <Button Background="Transparent" BorderThickness="0" Command="{Binding Path=SignupBackButtonCommand}" >
                     <Image Source="/Images/backArrow.png"/>
                 </Button>
                 <Label Content="Signup" Margin="146,0,146,0" FontSize="34" FontFamily="Segoe UI" FontWeight="SemiBold"/>
             </StackPanel>-->
-            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Vertical">
-                <Label Content="Sign up" Margin="10,0,0,15" Foreground="Black"  FontWeight="SemiBold" FontSize="28"/>
-                <StackPanel Orientation="Horizontal" Margin="15,0,0,15">
-                    <RadioButton IsChecked="{Binding PilotCheck}" Margin="0,9,0,0" Background="Transparent">
+                <Label Content="Sign up" Margin="10,0,0,15" Grid.Row="1" Foreground="Black"  FontWeight="SemiBold" FontSize="28"/>
+                <StackPanel Orientation="Horizontal" Margin="15,0,0,15" Grid.Row="2" VerticalAlignment="Top">
+                    <RadioButton IsChecked="{Binding PilotCheck}" Checked="RadioButton_Checked"  Margin="0,9,0,0" Background="Transparent">
                         <RadioButton.Resources>
-                            <Style TargetType="RadioButton">
-
-                            </Style>
-                        </RadioButton.Resources>
-                    </RadioButton>
-                    <Label Content="Pilot Login" VerticalContentAlignment="Center" Foreground="Black"  FontWeight="SemiBold" FontSize="16"/>
-                    <RadioButton IsChecked="{Binding adminCheck}" Margin="50,9,0,0"  HorizontalAlignment="Right" Background="Transparent">
-                        <RadioButton.Resources>
-                            <Style TargetType="RadioButton">
-
-                            </Style>
-                        </RadioButton.Resources>
-                    </RadioButton>
-                    <Label Content="Admin Login" VerticalContentAlignment="Center" Foreground="Black"  FontWeight="SemiBold" FontSize="16"/>
-                </StackPanel>
-
-                <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
-                    <Label.Template>
-                        <ControlTemplate>
-                            <TextBlock>
-                            <Run Text="Name"/>
-                            <Run Text="*" Foreground="red"/>
-                            </TextBlock>
-                        </ControlTemplate>
-                    </Label.Template>
-                </Label>
-                <TextBox MaxLength="30" 
-                        Tag="Enter Name"
-                         Text="{Binding RegisterModel.name,
-                    UpdateSourceTrigger=PropertyChanged,
-                    NotifyOnValidationError=True, 
-                    ValidatesOnDataErrors=True
-                    }" x:Name="txtName"  
-                         PreviewTextInput="txtName_PreviewTextInput"
-                         PreviewKeyDown="NoSpace_PreviewKeyDown1">
-
-                </TextBox>
-                <!--<Label Margin="15,0,0,0" x:Name="lblName" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>-->
+                        <Style TargetType="RadioButton"/>
+                    </RadioButton.Resources>
+                    <RadioButton.RenderTransform>
+                        <ScaleTransform ScaleX="1.7" ScaleY="1.7"/>
+                    </RadioButton.RenderTransform>
+                </RadioButton>
+                <Label Content="Pilot" VerticalContentAlignment="Center" x:Name="rbtnpilot" Foreground="Black" Margin="10,5" FontWeight="SemiBold" FontSize="16"/>
+                <RadioButton IsChecked="{Binding adminCheck}" Margin="50,9,0,0" Checked="RadioButton_Checked_1"  HorizontalAlignment="Right" Background="Transparent" >
+                    <RadioButton.Resources>
+                        <Style TargetType="RadioButton"/>
+                    </RadioButton.Resources>
+                    <RadioButton.RenderTransform>
+                        <ScaleTransform ScaleX="1.7" ScaleY="1.7"/>
+                    </RadioButton.RenderTransform>
+                </RadioButton>
+                <Label Content="Admin" VerticalContentAlignment="Center" x:Name="rbtnadmin" Foreground="Gray" Margin="10,5"  FontWeight="SemiBold" FontSize="16"/>
             </StackPanel>
-
-            <StackPanel Grid.Row="2"  Orientation="Vertical">
-                <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
-                    <Label.Template>
-                        <ControlTemplate>
-                            <TextBlock>
-                            <Run Text="Language"/>
-                            <!--<Run Text="*" Foreground="red"/>-->
-                            </TextBlock>
-                        </ControlTemplate>
-                    </Label.Template>
-                </Label>
-                <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                    <Grid>
-                        <dotNetKitControls:AutoCompleteComboBox Height="35"
-                                SelectedValuePath="Name"
-                                DisplayMemberPath="Name"
-                                TextSearch.TextPath="Name"
-                                ItemsSource="{Binding Languages}"
-                                SelectedValue="{Binding Language.Name}"  
-                                SelectedItem="{Binding SelectedLanguage}"
-                                TextBoxBase.TextChanged="LanguageComboBox_TextChanged" 
-                                x:Name="languageCombobox"/>
-                        <TextBlock Margin="8 10"
-                                       Foreground="#A9ABB1"
-                                       x:Name="languageWaterMark"
-                                       IsHitTestVisible="False"
-                                       Text="Select Language" />
-                    </Grid>
-
-                </Border>
-                <!--<ComboBox   />-->
-            </StackPanel>
-
-
-            <StackPanel Grid.Row="2" Grid.Column="1"  Orientation="Vertical">
-                <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
-                    <Label.Template>
-                        <ControlTemplate>
-                            <TextBlock>
-                            <Run Text="Email"/>
-                            <Run Text="*" Foreground="red"/>
-                            </TextBlock>
-                        </ControlTemplate>
-                    </Label.Template>
-                </Label>
-                <TextBox  Text="{Binding RegisterModel.email,
-                    
-                    UpdateSourceTrigger=PropertyChanged ,
-                    NotifyOnValidationError=True, 
-                    ValidatesOnDataErrors=True}"
-                          MaxLength="30" 
-                          Tag="Enter Email"
-                          PreviewKeyDown="TextBox_PreviewKeyDown_1"
-                          >
-                    <!--<e:Interaction.Behaviors>
-                        <behavior:EmailEntryBehaviors />
-                    </e:Interaction.Behaviors>-->
-                </TextBox>
-                <Label Margin="15,0,0,0" Padding="0" Height="0"  Content="Please Enter a Valid Email" Foreground="Red" Visibility="Hidden"/>
-            </StackPanel>
-            <StackPanel Grid.Row="3" Grid.Column="0"  Orientation="Vertical">
-                <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
-                    <Label.Template>
-                        <ControlTemplate>
-                            <TextBlock>
-                            <Run Text="Mobile Number"/>
-                            <Run Text="*" Foreground="red"/>
-                            </TextBlock>
-                        </ControlTemplate>
-                    </Label.Template>
-                </Label>
-
-                <TextBox MaxLength="10" 
-                         Tag="Enter Mobile Number"
-                         Text="{Binding RegisterModel.contactNo,
+            <custom:CustomTexBox KeyUp="Key_Up_Pressed" x:Name="tbname" Text="{Binding RegisterModel.name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" 
+                                      PreviewTextInput="txtName_PreviewTextInput" PreviewKeyUp="NoSpace_PreviewKeyDown1" Margin="0" TextChanged="CustomTexBox_TextChanged"
+                                 Placeholder="Name *"  Grid.Row="3"/>
+            <custom:CustomTexBox KeyUp="Key_Up_Pressed"  Text="{Binding RegisterModel.contactNo, Mode=TwoWay,
                     UpdateSourceTrigger=PropertyChanged,
                     NotifyOnValidationError=True, 
                     ValidatesOnDataErrors=True
                     }" PreviewTextInput="TextBox_PreviewTextInput"
-                         PreviewKeyDown="TextBox_PreviewKeyDown_1">
+                         PreviewKeyDown="TextBox_PreviewKeyDown_1"
+                                 Margin="0,10,0,0"
+                                 Placeholder="Mobile Number *" Grid.Row="4"/>
 
-                    <!--<e:Interaction.Behaviors>
-                        <behavior:PhoneNumberEntryBehaviors />
-                    </e:Interaction.Behaviors>-->
-
-                </TextBox>
-                <!--<Label Margin="15,0,0,0" Padding="0"  Content="Please Enter a Valid Contact Number" Foreground="Red"  Visibility="Hidden"/>-->
-            </StackPanel>
-            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
-                <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
-                    <Label.Template>
-                        <ControlTemplate>
-                            <TextBlock>
-                            <Run Text="Organization Name"/>
-                            <Run Text="*" Foreground="red"/>
-                            </TextBlock>
-                        </ControlTemplate>
-                    </Label.Template>
-                </Label>
-
-                <TextBox 
-                    Tag="Enter Organization Name"
-                    MaxLength="30" 
-                    Text="{Binding RegisterModel.organizationName,
+            <custom:CustomTexBox KeyUp="Key_Up_Pressed"  Text="{Binding RegisterModel.email, Mode=TwoWay,                    
                     UpdateSourceTrigger=PropertyChanged ,
                     NotifyOnValidationError=True, 
-                    ValidatesOnDataErrors=True}" x:Name="TxtOrganization" 
-                    PreviewKeyDown="NoSpace_PreviewKeyDown2"/>
-                <!--<Label Margin="15,0,0,0" Padding="0" x:Name="lblOrganization"  Content="Please Enter a Valid Organization Name" Foreground="Red" Visibility="Hidden"/>-->
-            </StackPanel>
+                    ValidatesOnDataErrors=True}" MaxLength="320"
+                   PreviewKeyDown="TextBox_PreviewKeyDown_1" x:Name="tbEmail"
+                                 Margin="0,10,0,0" TextChanged="TextBox_TextChanged"
+                                 Placeholder="Email *" Grid.Row="5"/>
+
+            <custom:CustomTexBox KeyUp="Key_Up_Pressed"  Text="{Binding RegisterModel.organizationName, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" x:Name="TxtOrganization"
+                                 Margin="0,10,0,0" PreviewKeyDown="NoSpace_PreviewKeyDown2"
+                                 Placeholder="Organization Name *" Grid.Row="6"/>
+
+            <custom:CustomTexBox KeyUp="Key_Up_Pressed"   Text="{Binding RegisterModel.departmentName, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" x:Name="DepartmentNameTxt"
+                           PreviewKeyDown="NoSpace_PreviewKeyDown3"
+                                 Margin="0,10,0,0"
+                                 Placeholder="Department Name" Grid.Row="7"/>
+            <Border Grid.Row="8" Margin="5,0,0,0" BorderThickness="1" Height="35" CornerRadius="5" Padding="0">
+
+                <Grid Margin="5,0">
+               <dotNetKitControls:AutoCompleteComboBox Height="35"
+                                                       KeyUp="Key_Up_Pressed" 
+                    SelectedValuePath="city_Name"
+                    DisplayMemberPath="city_Name"
+                    TextSearch.TextPath="city_Name"
+                    BorderBrush="Transparent" BorderThickness="0"
+                    ItemsSource="{Binding CityList}"
+                     SelectedValue="{Binding RegisterModel.city,
+                    UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}"   
+                        SelectionChanged="AutoCompleteComboBox_SelectionChanged"
+                        x:Name="cityComboBox"
+                         TextBoxBase.TextChanged="CityComboBox_TextChanged" />
+                    <TextBlock
+                            Margin="8"
+                            Foreground="#A9ABB1"  x:Name="cityWaterMark" IsHitTestVisible="False"  Text="Select City *" />
+                </Grid>
+
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="#A9ABB1" />
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=cityComboBox}" Value="true" >
+                                <Setter Property="BorderBrush" Value="Red" />
+                                <Setter Property="BorderThickness" Value="1" />                            
+                            </DataTrigger>
+                           
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+            <Border BorderBrush="#A9ABB1" Margin="5,0,0,0" Height="35" BorderThickness="1" CornerRadius="5" Grid.Row="9">
+                <Grid>
+                    <dotNetKitControls:AutoCompleteComboBox Height="35"
+                                                            KeyUp="Key_Up_Pressed" 
+                                SelectedValuePath="Name" BorderBrush="Transparent"
+                                DisplayMemberPath="Name"
+                                TextSearch.TextPath="Name"
+                                ItemsSource="{Binding Languages}"
+                                SelectedValue="{Binding Language.Name}"  
+                                SelectedItem="{Binding SelectedLanguage,UpdateSourceTrigger=PropertyChanged ,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}"
+                                                            
+                                TextBoxBase.TextChanged="LanguageComboBox_TextChanged" 
+                                x:Name="languageCombobox"/>
+                    <TextBlock Margin="8"
+                                       Foreground="#A9ABB1"
+                                       x:Name="languageWaterMark"
+                                       IsHitTestVisible="False"
+                                       Text="Select Language" />
+                </Grid>
+                
+            </Border>
+            <!--
+           
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Vertical">
                 <Label HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
                     <Label.Template>
                         <ControlTemplate>
                             <TextBlock>
                             <Run Text="Department Name"/>
-                            <!--<Run Text="*" Foreground="red"/>-->
+                            <Run Text="*" Foreground="red"/>
                             </TextBlock>
                         </ControlTemplate>
                     </Label.Template>
@@ -311,24 +344,24 @@
                     Text="{Binding RegisterModel.departmentName}"  
                     PreviewKeyDown="NoSpace_PreviewKeyDown3"
                     x:Name="DepartmentNameTxt"/>
-            </StackPanel>
-            <StackPanel  Grid.Row="4" Grid.Column="1" Orientation="Vertical">
-                <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
-                    <Label.Template>
-                        <ControlTemplate>
-                            <TextBlock>
+
+                <StackPanel  Grid.Row="4" Grid.Column="1" Orientation="Vertical">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock>
                             <Run Text="City"/>
                             <Run Text="*" Foreground="red"/>
-                            </TextBlock>
-                        </ControlTemplate>
-                    </Label.Template>
-                </Label>
+                                </TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
 
-                <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
-                    <Grid>
+                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
+                        <Grid>
 
 
-                        <dotNetKitControls:AutoCompleteComboBox Height="35"
+                            <dotNetKitControls:AutoCompleteComboBox Height="35"
                     SelectedValuePath="city_Name"
                     DisplayMemberPath="city_Name"
                     TextSearch.TextPath="city_Name"
@@ -341,7 +374,7 @@
                         x:Name="cityComboBox"
                          TextBoxBase.TextChanged="CityComboBox_TextChanged"
    />
-                        <TextBlock
+                            <TextBlock
                             Margin="8 10"
                             Foreground="#A9ABB1"
       x:Name="cityWaterMark"
@@ -350,19 +383,48 @@
 
 
 
-                    </Grid>
+                        </Grid>
 
-                </Border>
+                    </Border>
 
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock>
+                            <Run Text="Language"/>
+                            --><!--<Run Text="*" Foreground="red"/>--><!--
+                                </TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                    <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
+                        <Grid>
+                            <dotNetKitControls:AutoCompleteComboBox Height="35"
+                                SelectedValuePath="Name"
+                                DisplayMemberPath="Name"
+                                TextSearch.TextPath="Name"
+                                ItemsSource="{Binding Languages}"
+                                SelectedValue="{Binding Language.Name}"  
+                                SelectedItem="{Binding SelectedLanguage}"
+                                TextBoxBase.TextChanged="LanguageComboBox_TextChanged" 
+                                x:Name="languageCombobox"/>
+                            <TextBlock Margin="8 10"
+                                       Foreground="#A9ABB1"
+                                       x:Name="languageWaterMark"
+                                       IsHitTestVisible="False"
+                                       Text="Select Language" />
+                        </Grid>
 
-            </StackPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>-->
+         
             <Button 
-            Grid.Row="8" Grid.ColumnSpan="2"
-                
+            Grid.Row="10" Grid.ColumnSpan="2"                
             x:Name="Send" 
-            BorderThickness="1" Margin="10,0,10,0"
+            BorderThickness="1" Margin="0,10,0,10"
               BorderBrush="Transparent"
-                Content="CONTINUE" 
+                Content="Continue" 
             Foreground="White" 
             Background="#91c84f"
                 IsEnabled="{Binding CanCreate}"
@@ -383,7 +445,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <StackPanel Grid.Row="9" Grid.ColumnSpan="2"
+            <StackPanel Grid.Row="11" Grid.ColumnSpan="2"
                 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center">
@@ -393,10 +455,10 @@
                      Background="Transparent"
                      BorderThickness="0"
                      Foreground="#91c84f"
-                     Content="Sign In"  
-                   
                      Command="{Binding SignupBackButtonCommand}">
-
+                    <Button.Content>
+                        <TextBlock Text="Sign In" FontSize="11" Padding="0" Margin="-5,-2"/>
+                    </Button.Content>
 
 
                 </Button>

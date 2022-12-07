@@ -37,9 +37,18 @@ namespace ideaForge
         BackgroundWorker worker;
         public ILoginService _loginService
         => App.serviceProvider.GetRequiredService<ILoginService>();
-        public OtpVerification()
+        public OtpVerification(string contactdetail, bool isemail)
         {
             InitializeComponent();
+
+            if (isemail)
+            {
+                tbmsg.Text += " email address  " + maskmail(contactdetail);
+            }
+            else
+            {
+                tbmsg.Text += " mobile number  " + Masked(contactdetail,0,6);
+            }
             lblResendOTP.Visibility = Visibility.Hidden;
             lbl120sec.Visibility = Visibility.Hidden;
             progreshbar.IsActive = false;
@@ -52,6 +61,20 @@ namespace ideaForge
             worker.WorkerSupportsCancellation = true;
             if (!worker.IsBusy)
                 worker.RunWorkerAsync();
+        }
+
+        string maskmail(string emailid)
+        {
+            string pattern = @"(?<=[\w]{1})[\w-\._\+%]*(?=[\w]{1}@)";
+            string result = Regex.Replace(emailid, pattern, m => new string('*', m.Length));
+            return result;
+        }
+        string Masked(string source, int start, int count)
+        {
+            var fistpart = source.Substring(0, start);
+            var lastpart = source.Substring(start + count);
+            var middlepart = new string('*', count);
+            return fistpart + middlepart + lastpart;
         }
         private  void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -80,18 +103,100 @@ namespace ideaForge
 
             
         }
-        private void BtnOtpVerification(object sender, RoutedEventArgs e)
+        private async void BtnOtpVerification(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new Homepage());
+            var model = DataContext as LoginPageViewModel;
+            bool isAdmin = model.adminCheck;
+            if (isAdmin == false)
+            {
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                {
+
+                    var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (userOTP != null && userOTP?.id != 0)
+                    {
+                        Global.RoleID = userOTP.roleID;
+                        Global.inactive = userOTP.isActive;
+                        if (userOTP.isActive)
+                        {
+                            DockAreaPopup.Show();
+                        }
+                        else
+                        {
+                            var cPage = new Dashboard();
+                            cPage.Show();
+                        }
+
+                    }
+                    else
+                    {
+                        await GetOTP(isAdmin);
+                    }
+                }
+                else
+                {
+                    await GetOTP(isAdmin);
+                }
+                progreshbar.IsActive = false;
+            }
+            else
+            {
+                if (!Barrel.Current.IsExpired(UrlHelper.adminOTPUrl))
+                {
+                    //Barrel.Current.EmptyAll();
+                    var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.adminOTPUrl);
+                    if (userOTP != null && userOTP?.id != 0)
+                    {
+                        Global.RoleID = userOTP.roleID;
+                        Global.inactive = userOTP.isActive;
+                        if (userOTP.isActive)
+                        {
+                            DockAreaPopup.Show();
+                        }
+                        else
+                        {
+                            var cPage = new Dashboard();
+                            cPage.Show();
+                        }
+                    }
+                    else
+                    {
+                        await GetOTP(isAdmin);
+                    }
+                }
+                else
+                {
+                    await GetOTP(isAdmin);
+                }
+                progreshbar.IsActive = false;
+            }
         }
 
+        bool MessageSend = false;
         private async void Label_ResendOTPBTN(object sender, MouseButtonEventArgs e)
         {
             //progreshbar.IsActive = true;
+            lblOTPError.Visibility = Visibility.Hidden;
             var vModel = (LoginPageViewModel)this.DataContext;
            await vModel.ResendOTP().ContinueWith((task) => {
                if (task.IsCompleted)
                {
+                   if (MessageSend == false)
+                   {
+                       MessageSend = true;
+                       Dispatcher.BeginInvoke(new Action(() =>
+                       {
+                           vModel.OTP1 = "";
+                           vModel.OTP2 = "";
+                           vModel.OTP3 = "";
+                           vModel.OTP4 = "";
+                           vModel.OTP5 = "";
+                           vModel.OTP6 = "";
+                          
+                           MessageBox.Show("OTP send successfully", CMessageTitle.Successful, CMessageButton.Ok, "");
+                           MessageSend = false;
+                       }), System.Windows.Threading.DispatcherPriority.ContextIdle);
+                   }
                    if (!worker.IsBusy)
                        worker.RunWorkerAsync();
                }
@@ -105,9 +210,9 @@ namespace ideaForge
             var model = DataContext as LoginPageViewModel;
             bool isAdmin = model.adminCheck;
             var text = (TextBox)sender;
-
+            lblOTPError.Visibility = Visibility.Hidden;
             Regex regex = new Regex("[^0-9]+");
-
+            
             //e.Handled = regex.IsMatch(text.Text);
             if (regex.IsMatch(text.Text))
             {
@@ -171,52 +276,16 @@ namespace ideaForge
                 if (!string.IsNullOrEmpty(txtOTP5.Text))
                 {
                     txtOTP6.Focus();
-                    if (isAdmin == false)
-                    {
-                        if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
-                        {
-
-                            var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
-                            if (userOTP != null && userOTP?.id != 0)
-                            {
-                                DockAreaPopup.Show();
-                            }
-                            else
-                            {
-                                await GetOTP(isAdmin);
-                            }
-                        }
-                        else
-                        {
-                            await GetOTP(isAdmin);
-                        }
-                        progreshbar.IsActive = false;
-                    }
-                    else
-                    {
-                        if (!Barrel.Current.IsExpired(UrlHelper.adminOTPUrl))
-                        {
-                            //Barrel.Current.EmptyAll();
-                            var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.adminOTPUrl);
-                            if (userOTP != null && userOTP?.id != 0)
-                            {
-                                DockAreaPopup.Show();
-                            }
-                            else
-                            {
-                                await GetOTP(isAdmin);
-                            }
-                        }
-                        else
-                        {
-                            await GetOTP(isAdmin);
-                        }
-                        progreshbar.IsActive = false;
-                    }
+                
 
                 }
                 if (string.IsNullOrEmpty(txtOTP1.Text))
                     txtOTP1.Focus();
+            }
+            string notp = txtOTP1.Text + txtOTP2.Text + txtOTP3.Text + txtOTP4.Text + txtOTP5.Text + txtOTP6.Text;
+            if (notp.Length == 6 && e.Key== Key.Enter)
+            {
+                BtnOtpVerification(sender, e);
             }
         }
         private async Task GetOTP(bool isAdmin)
@@ -238,6 +307,7 @@ namespace ideaForge
                             Global.Token = result.userData.token;
                             Global.contactNo = result.userData.contactNo;
                             Global.RoleID = result.userData.roleID;
+                            Global.inactive = result.userData.isActive;
                             worker.CancelAsync();
                             Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
                             if (result.userData.roleID == 2)
@@ -253,15 +323,22 @@ namespace ideaForge
                         }
                         else
                         {
-
-                            var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                            lblOTPError.Content = result.message;
+                            lblOTPError.Visibility = Visibility.Visible;
+                            //var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
                         }
                     }
                     else
                     {
-
-                        var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
+                        lblOTPError.Content = "Please enter a valid OTP Number";
+                        lblOTPError.Visibility = Visibility.Visible;
+                        //var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
                     }
+                }
+                else
+                {
+                    lblOTPError.Content = "Please enter a valid OTP Number";
+                    lblOTPError.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -280,6 +357,8 @@ namespace ideaForge
                             Global.email_PhoneNo = result.userData.email;
                             Global.Token = result.userData.token;
                             Global.contactNo = result.userData.contactNo;
+                            Global.RoleID = result.userData.roleID;
+                            Global.inactive = result.userData.isActive;
                             worker.CancelAsync();
                             Barrel.Current.Add(UrlHelper.adminOTPUrl, result.userData, TimeSpan.FromHours(5));
                             ShowDashboard();
@@ -287,15 +366,22 @@ namespace ideaForge
                         }
                         else
                         {
-
-                            var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
+                            lblOTPError.Content = result.message;
+                            lblOTPError.Visibility = Visibility.Visible;
+                            //var msg = MessageBox.Show(result.message, CMessageTitle.Error, CMessageButton.Ok, "");
                         }
                     }
                     else
                     {
-
-                        var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
+                        lblOTPError.Content = "Please enter a valid OTP Number";
+                        lblOTPError.Visibility = Visibility.Visible;
+                        //var msg = MessageBox.Show("Please enter a valid OTP Number", CMessageTitle.Error, CMessageButton.Ok, "");
                     }
+                }
+                else
+                {
+                    lblOTPError.Content = "Please enter a valid OTP Number";
+                    lblOTPError.Visibility = Visibility.Visible;
                 }
             }
 
@@ -367,7 +453,17 @@ namespace ideaForge
                         var userOTP = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                         if (userOTP != null && userOTP?.id!=0)
                         {
-                            DockAreaPopup.Show();
+                            Global.RoleID = userOTP.roleID;
+                            Global.inactive = userOTP.isActive;
+                            if (userOTP.isActive)
+                            {
+                                DockAreaPopup.Show();
+                            }
+                            else
+                            {
+                                var cPage = new Dashboard();
+                                cPage.Show();
+                            }
                         }
                     }
                     else
@@ -386,7 +482,17 @@ namespace ideaForge
                                     Global.email_PhoneNo = result.userData.email;
                                     Global.Token = result.userData.token;
                                     Global.contactNo = result.userData.contactNo;
-                                    DockAreaPopup.Show();
+                                    Global.RoleID = result.userData.roleID;
+                                    Global.inactive = result.userData.isActive;
+                                    if (result.userData.isActive)
+                                    {
+                                        DockAreaPopup.Show();
+                                    }
+                                    else
+                                    {
+                                        var cPage = new Dashboard();
+                                        cPage.Show();
+                                    }
                                     Barrel.Current.Add(UrlHelper.pilotOTPURl, result.userData, TimeSpan.FromHours(5));
                                 }
                                 else
@@ -410,7 +516,20 @@ namespace ideaForge
         }
         public void ShowDashboard()
         {
-            var dialogYes = DockAreaPopup.Show();
+            if (Global.inactive)
+            {
+                LoginPageViewModel vm = this.DataContext as LoginPageViewModel;
+                vm.AuthenticationPage = new DockAreaPopup();
+                vm.ImageUrl = "/Images/ifdockimg.png";
+                //var dialogYes = DockAreaPopup.Show();
+            }
+            else
+            {
+                var cPage = new Dashboard();
+                cPage.Show();
+
+            }
+            
             //if (dialogYes == System.Windows.Forms.DialogResult.Yes)
             //{
 

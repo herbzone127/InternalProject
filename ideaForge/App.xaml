@@ -11,6 +11,16 @@
 
         <Color x:Key="AccentBaseColor">#FFD80073</Color>-->
         <ResourceDictionary>
+            <Style TargetType="TextBlock" x:Key="tbPlaceholderup">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Margin" Value="10,-10,0,5"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Padding" Value="5,0"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="#A9ABB1"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

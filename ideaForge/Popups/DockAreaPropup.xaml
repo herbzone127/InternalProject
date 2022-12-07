@@ -1,4 +1,4 @@
-﻿<Window x:Class="ideaForge.Popups.DockAreaPopup"
+﻿<UserControl x:Class="ideaForge.Popups.DockAreaPopup"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,23 +6,17 @@
         xmlns:local="clr-namespace:ideaForge.Popups"
         xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
         mc:Ignorable="d"
-       WindowStyle="None"
+       
         WindowChrome.ResizeGripDirection="None"
-        WindowState="Normal"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-        ShowInTaskbar="False"
-       ShowActivated="True"
-      Topmost="True"
-        Title="DockAreaPropup" Height="200" Width="300"
+       Height="225" Width="310"
         Background="Transparent"
-        AllowsTransparency="True"
+       
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
-        Closing="Window_Closing"
+ 
         >
-    <Window.DataContext>
+    <UserControl.DataContext>
         <vm:IFDockViewModel/>
-    </Window.DataContext>
+    </UserControl.DataContext>
     <Grid Background="Transparent" Opacity="100">
 
         <Grid Grid.Row="0"
@@ -32,55 +26,70 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.1*"/>
+                <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
             <Label 
                 Grid.Row="0" 
                 FontSize="18" 
                 FontWeight="SemiBold" 
                 FontFamily="Segoe UI" 
-                Content="IF Docks Area" 
-                Margin="50,-10,0,0" />
-            <Label 
+                Content="iF Docks Area" 
+                Margin="0,0,0,0" />
+            <TextBlock VerticalAlignment="Bottom"
                 Grid.Row="1" 
-                FontSize="12" 
-                FontWeight="Normal" 
+                FontSize="11" FontWeight="Bold"
                 FontFamily="Segoe UI" 
-                Content="Please select IF Docks location" 
-                Margin="10,0,0,0" />
+                   Foreground="Black"
+                Text="Please select iF Docks location" 
+                Margin="0,0,0,10" />
             <StackPanel Orientation="Vertical" Grid.Row="2">
-                <dotNetKitControls:AutoCompleteComboBox
-                
-                Margin="10,0,10,0"
+                <Grid >
+                    <dotNetKitControls:AutoCompleteComboBox
+                Height="30"
+                Margin="0,0,5,0"
                 x:Name="cLocation"
                 SelectedValuePath="id"
                 DisplayMemberPath="city_Name"
                 TextSearch.TextPath="city_Name"
+                    VerticalContentAlignment="Center"
                 ItemsSource="{Binding CityList}"
                 SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
                 SelectedValue="{Binding SelectedLocationId}"   
                 VerticalAlignment="Center"
+                        PreviewKeyDown="cLocation_PreviewKeyDown"
                     SelectionChanged="cLocation_SelectionChanged"
+                        TextBoxBase.TextChanged="cLocation_TextChanged" 
+                        
    />
-                <Label
-            Margin="5,-5,0,0"
+                    <TextBlock
+                            Margin="8"
+                            Foreground="#A9ABB1"  x:Name="cityWaterMark" IsHitTestVisible="False"  Text="Select Location" />
+                </Grid>
+                <TextBlock
+            Margin="0,-3,0,0"
                     x:Name="lblError"
                     Visibility="Hidden"
-                Content="Please select one city first"
+                Text="Please select one city first"
                     Foreground="Red"
                 />
             </StackPanel>
-           
-            <Button
+
+            <Border CornerRadius="10"  VerticalAlignment="Bottom" Grid.Row="3">
+                <Button 
                 x:Name="btnContinue"
-                Grid.Row="3"
-                Content="Continue"
-                Background="#91C84F"
+              Height="35" Margin="0,0,5,0"
+         Foreground="White"
+                Background="#91C84F" FontSize="14"
                 Click="btnContinue_Click"
-                />
+                >
+                    <Button.Content>
+                        <TextBlock Text="Continue" FontWeight="SemiBold"/>
+                    </Button.Content>
+                </Button>
+            </Border>
         </Grid>
-        <Button Click="btnPopupClose_Click">
+        <Button Click="btnPopupClose_Click" Visibility="Hidden">
             <Button.Template>
                 <ControlTemplate>
                     <Border Background="White" 
@@ -105,8 +114,6 @@
             </Button.Template>
         </Button>
 
-        <Image Source="/Images/PopupLocationIcon.png" HorizontalAlignment="left" VerticalAlignment="Top"
-               Width="50"/>
 
     </Grid>
-</Window>
+</UserControl>

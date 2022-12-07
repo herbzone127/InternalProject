@@ -1,5 +1,9 @@
-﻿using ideaForge.ViewModels;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using ideaForge.ViewModels;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
+using IdeaForge.Service.IGenericServices;
 using MahApps.Metro.Controls;
 using MapControl;
 using MapControl.Caching;
@@ -20,7 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using MessageBox = ideaForge.Popups.MessageBox;
 namespace ideaForge.Pages.DashboardPages
 {
     /// <summary>
@@ -209,6 +213,11 @@ namespace ideaForge.Pages.DashboardPages
                     {
                         statusPanel1.IsEnabled = false;
                         statusPanel2.IsEnabled = false;
+                        var vModel = DataContext as IFDockViewModel;
+                        vModel.ReasonId = null;
+
+
+                        drp_Desp.Text = "";
                         //statusPanel3.IsEnabled = false;
                     }
                   
@@ -231,6 +240,47 @@ namespace ideaForge.Pages.DashboardPages
             //    vModel.UserSelectedCity(comboBox);
             //}
 
+        }
+
+      
+
+        private async void ToggleSwitch_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+            var s = (MahApps.Metro.Controls.ToggleSwitch)sender;
+            bool isActive = !s.IsOn;
+            var vModel = (IFDockViewModel)DataContext;
+            vModel.IsActive = isActive;
+            var selectedRecord = vModel.SelectedLocationGrid;
+            if (Global.RoleID == 2)
+            {
+
+                var result = await vModel._pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
+                {
+                    cityId = vModel.SelectedLocationGrid.cityId,
+                    comments = vModel.SelectedLocationGrid.comments,
+                    city_Name = vModel.SelectedLocationGrid.city_Name,
+                    id = vModel.SelectedLocationGrid.id,
+                    locationName = vModel.SelectedLocationGrid.city_Name,
+                    reasonDescription = vModel.SelectedLocationGrid.comments,
+                    reasonId = vModel.SelectedLocationGrid.reasonId,
+                    userId = Global.loginUserId,
+                    isActive = isActive,
+
+                });
+                vModel.IsActive = isActive;
+            }
+        }
+
+        private void AutoCompleteComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+            e.Handled = e.Key == Key.Space;
         }
     }
 }

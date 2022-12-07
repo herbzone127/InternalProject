@@ -202,17 +202,18 @@ namespace ideaForge.Pages.AdminDashboardPages
             ToggleSwitch toggleSwitch = sender as ToggleSwitch;
             adminPilotLocation selectmodel = toggleSwitch.DataContext as adminPilotLocation;
             
-            var model = (ideaForge.ViewModels.IFDockViewModel)this.DataContext;
+            var model = (ideaForge.ViewModels.AdminIFDockViewModel)this.DataContext;
             var list = model.AdminLocationsGrid;
             if (toggleSwitch != null)
             {
                 if (toggleSwitch.IsOn == true)
                 {
-                    
-                    
-                    
-                   
-                    
+
+
+
+                    desp_Drp.Text = "";
+
+
                         if (statusPanel1 != null)
                         {
                         statusPanel1.IsEnabled = false;
@@ -262,10 +263,23 @@ namespace ideaForge.Pages.AdminDashboardPages
 
         private void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var list = ((System.Windows.Controls.Primitives.Selector)sender).SelectedItem as UserDatum;
             //var comboBox = cLocation.SelectedItem as UserDatum;
             //if(comboBox != null)
             //{
-            //    var vModel = DataContext as IFDockViewModel;
+            var vModel = DataContext as AdminIFDockViewModel;
+            if (vModel.IsActive == false)
+            {
+                statusPanel1.IsEnabled = true;
+                statusPanel2.IsEnabled = true;
+            }
+            else
+            {
+                statusPanel1.IsEnabled = false;
+                statusPanel2.IsEnabled = false;
+            }
+            if(list!=null)
+            vModel.IsActive = list.inactive;
             //    vModel.UserSelectedCity(comboBox);
             //}
 
@@ -283,86 +297,124 @@ namespace ideaForge.Pages.AdminDashboardPages
 
         private async void ToggleSwitch_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
-            adminPilotLocation selectmodel = toggleSwitch.DataContext as adminPilotLocation;
-            var model = (ideaForge.ViewModels.IFDockViewModel)this.DataContext;
-            var list = model.AdminLocationsGrid;
-            if (toggleSwitch != null)
+            //ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            //adminPilotLocation selectmodel = toggleSwitch.DataContext as adminPilotLocation;
+            //var model = (ideaForge.ViewModels.AdminIFDockViewModel)this.DataContext;
+            //var list = model.AdminLocationsGrid;
+            //if (toggleSwitch != null)
+            //{
+            //    if (toggleSwitch.IsOn == true)
+            //    {
+
+                    
+            //            if (statusPanel1 != null)
+            //            {
+            //                addminPilotLocation data = new addminPilotLocation
+            //                {
+            //                    id = selectmodel.id,
+            //                    locationName = selectmodel.locationName,
+            //                    isActive = false,
+            //                    update_By = 0,
+            //                    cityId = selectmodel.cityId,
+            //                    reasonId = 2,
+            //                    comments = "none"
+            //                };
+            //                await model.AddAdminLocations(data);
+            //            }
+                    
+                    
+            //            MessageBox.ShowSuccessful(selectmodel.locationName + " Serviceable area disable successfully.", "");
+                    
+            //        //    List<adminPilotLocation> adminList = new List<adminPilotLocation>();
+            //        //    foreach (var item in list)
+            //        //    {
+            //        //    adminPilotLocation admin = new adminPilotLocation();
+            //        //    if (selectmodel.id == item.id) 
+            //        //    {
+            //        //        item.isActive = true;
+            //        //    }
+
+            //        //        if (item.isActive)
+            //        //            admin.StringStatus = "Active";
+            //        //        else
+            //        //            admin.StringStatus = "InActive";
+
+
+            //        //        admin.id = item.id;
+            //        //        admin.locationName = item.locationName;
+            //        //        admin.reasonDescription = item.reasonDescription;
+
+            //        //        admin.reasonId = item.reasonId;
+            //        //        admin.userId = item.userId;
+            //        //        admin.cityId = item.cityId;
+            //        //        admin.city_Name = item.city_Name;
+            //        //        admin.comments = item.comments;
+            //        //        adminList.Add(admin);
+            //        //    }
+
+            //        //model.AdminLocationsGrid = new ObservableCollection<adminPilotLocation>(adminList);
+            //        //statusPanel3.IsEnabled = false;
+
+
+            //    }
+            //    else
+            //    {
+            //        if (statusPanel1 != null)
+            //        {
+            //            addminPilotLocation data = new addminPilotLocation
+            //            {
+            //                id = selectmodel.id,
+            //                locationName = selectmodel.locationName,
+            //                isActive = true,
+            //                update_By = 0,
+            //                cityId = selectmodel.cityId,
+            //                reasonId = 2,
+            //                comments = "none"
+            //            };
+            //            await model.AddAdminLocations(data);
+            //        }
+            //        MessageBox.ShowSuccessful(selectmodel.locationName + " Serviceable area enable successfully.", "");
+            //        //statusPanel3.IsEnabled = true;
+            //    }
+            //}
+        }
+
+        private void AutoCompleteComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+
+        private void map_Loaded(object sender, RoutedEventArgs e)
+        {
+            var vModel = DataContext as AdminIFDockViewModel;
+            if (vModel.SelectedCity == null)
             {
-                if (toggleSwitch.IsOn == true)
-                {
-
-                    
-                        if (statusPanel1 != null)
-                        {
-                            addminPilotLocation data = new addminPilotLocation
-                            {
-                                id = selectmodel.id,
-                                locationName = selectmodel.locationName,
-                                isActive = false,
-                                update_By = 0,
-                                cityId = selectmodel.cityId,
-                                reasonId = 2,
-                                comments = "none"
-                            };
-                            await model.AddAdminLocations(data);
-                        }
-                    
-                    
-                        MessageBox.ShowSuccessful(selectmodel.locationName + " Serviceable area disable successfully.", "");
-                    
-                    //    List<adminPilotLocation> adminList = new List<adminPilotLocation>();
-                    //    foreach (var item in list)
-                    //    {
-                    //    adminPilotLocation admin = new adminPilotLocation();
-                    //    if (selectmodel.id == item.id) 
-                    //    {
-                    //        item.isActive = true;
-                    //    }
-
-                    //        if (item.isActive)
-                    //            admin.StringStatus = "Active";
-                    //        else
-                    //            admin.StringStatus = "InActive";
-
-
-                    //        admin.id = item.id;
-                    //        admin.locationName = item.locationName;
-                    //        admin.reasonDescription = item.reasonDescription;
-
-                    //        admin.reasonId = item.reasonId;
-                    //        admin.userId = item.userId;
-                    //        admin.cityId = item.cityId;
-                    //        admin.city_Name = item.city_Name;
-                    //        admin.comments = item.comments;
-                    //        adminList.Add(admin);
-                    //    }
-
-                    //model.AdminLocationsGrid = new ObservableCollection<adminPilotLocation>(adminList);
-                    //statusPanel3.IsEnabled = false;
-
-
-                }
-                else
-                {
-                    if (statusPanel1 != null)
-                    {
-                        addminPilotLocation data = new addminPilotLocation
-                        {
-                            id = selectmodel.id,
-                            locationName = selectmodel.locationName,
-                            isActive = true,
-                            update_By = 0,
-                            cityId = selectmodel.cityId,
-                            reasonId = 2,
-                            comments = "none"
-                        };
-                        await model.AddAdminLocations(data);
-                    }
-                    MessageBox.ShowSuccessful(selectmodel.locationName + " Serviceable area enable successfully.", "");
-                    //statusPanel3.IsEnabled = true;
-                }
+              
             }
+            else
+            {
+                map.Center = new Location(20.5937, 78.9629);
+                map.ZoomLevel = 5;
+                //vModel.SelectedCity.Latitude = "20.5937";
+                //vModel.SelectedCity.Latitude = "78.9629";
+                //vModel.SelectedCity.city_Name = "India";
+                //vModel.SelectedCity.position= new Location(78.9629, 20.5937);
+            }
+        }
+
+        private void cmbCountryList_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+
+        private void AutoCompleteComboBox_PreviewKeyDown_1(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
     }
 }

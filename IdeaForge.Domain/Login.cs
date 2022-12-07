@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace IdeaForge.Domain
 {
@@ -36,5 +37,34 @@ namespace IdeaForge.Domain
         public string image { get; set; }
     }
 
+    public class AllUserData
+    {
+        public string message { get; set; }
+        public bool status { get; set; }
+        public List<UserGetdata> userData { get; set; }
+    }
+
+    public class UserGetdata
+    {
+        public int ID { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public int? LanguageID { get; set; }
+        public string ContactNo { get; set; }
+        public string OrganizationName { get; set; }
+        public string DepartmentName { get; set; }
+        public string City { get; set; }
+        public DateTime Addedon { get; set; }
+        public string Addedondate { get; set; }
+        public string Addedontime { get; set; }
+        public string Token { get; set; }
+        public int RoleID { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsApproved { get; set; }
+        public string Image { get; set; }
+        public Visibility IsVisibleButton { get; set; }
+        public Visibility ViewButtonVisible { get; set; }
+        public int SRNO { get; set; }
+    }
 
 }

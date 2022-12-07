@@ -20,6 +20,7 @@ namespace IdeaForge.Domain
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string state { get; set; }
+        public bool inactive { get; set; }
         public Location position { get; set; }
     }
    

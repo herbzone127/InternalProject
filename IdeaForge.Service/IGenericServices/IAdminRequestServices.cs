@@ -10,7 +10,7 @@ namespace IdeaForge.Service.IGenericServices
 {
     public interface IAdminRequestServices
     {
-      
+        
         Task<PilotRequestResponse> GetAllRequest(string status);
         Task<RideResponse> GetRideById(int rideId);
 
@@ -20,5 +20,6 @@ namespace IdeaForge.Service.IGenericServices
         Task<adminLocationResponse> GetAdminLocations();
         Task<String> AddAdminLocations(addminPilotLocation adminPilot);
         Task<PilotRequestResponse> GetAllRidesByPilotStatus(string status);
+        Task<Repotresponse> GetAllridereport(string city, string date);
     }
 }

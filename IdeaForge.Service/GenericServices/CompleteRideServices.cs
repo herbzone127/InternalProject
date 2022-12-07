@@ -18,7 +18,7 @@ namespace IdeaForge.Service.GenericServices
             string token = compRideId.token;
             try
             {
-                var url = UrlHelper.pilotCompletedRideURl;
+                var url = UrlHelper.pilotSaveProfileURl;//pilotCompletedRideURl;
 
                 var serializeJson = JsonConvert.SerializeObject(compRideId);
                 var resultString = await HTTPClientWrapper<CompleteRideModelRideId>.PostRequestToken(url, compRideId, token);
@@ -29,7 +29,6 @@ namespace IdeaForge.Service.GenericServices
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }

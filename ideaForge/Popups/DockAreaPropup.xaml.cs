@@ -28,7 +28,7 @@ namespace ideaForge.Popups
     /// <summary>
     /// Interaction logic for DockAreaPropup.xaml
     /// </summary>
-    public partial class DockAreaPopup : Window
+    public partial class DockAreaPopup : System.Windows.Controls.UserControl
     {
         public DockAreaPopup()
         {
@@ -68,7 +68,7 @@ namespace ideaForge.Popups
                     loginWindow.Effect = new BlurEffect() { RenderingBias = RenderingBias.Quality, KernelType = KernelType.Gaussian, Radius = 10 };
                 }
 
-                cDockAreaPopup.ShowDialog();
+                //cDockAreaPopup.ShowDialog();
                
             }
             catch (Exception)
@@ -81,7 +81,7 @@ namespace ideaForge.Popups
 
         public void btnPopupClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
             var loginWindow = Application.Current.Windows.OfType<Login>().FirstOrDefault();
             if(loginWindow != null)
             {
@@ -98,7 +98,7 @@ namespace ideaForge.Popups
                 login.Show();
             }
            //Application.Current.Shutdown();
-            //this.Close();
+          //this.Close();
         }
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
@@ -115,7 +115,7 @@ namespace ideaForge.Popups
                     result = System.Windows.Forms.DialogResult.Yes;
                     var dashboard = new Dashboard();
 
-                    cDockAreaPopup.Close();
+                    //cDockAreaPopup.Close();
                     var loginWindow = App.Current.Windows.OfType<Login>().FirstOrDefault();
                     if (loginWindow is Login)
                     {
@@ -127,7 +127,7 @@ namespace ideaForge.Popups
                     var vModel = this.DataContext as IFDockViewModel;
                     if (vModel != null)
                     {
-                        vModel.IsActive = IsActive;
+                        //vModel.IsActive = IsActive;
                         dashboard.Show();
                     }
                         
@@ -158,6 +158,30 @@ namespace ideaForge.Popups
         private void cLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lblError.Visibility = Visibility.Hidden;
+        }
+
+        private void cLocation_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(cLocation.Text))
+            {
+                cLocation.Text = "";
+            }
+            if (string.IsNullOrEmpty(cLocation.Text))
+            {
+                cityWaterMark.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                cityWaterMark.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void cLocation_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key== Key.Enter)
+            {
+                btnContinue_Click(sender, e);
+            }
         }
     }
 }

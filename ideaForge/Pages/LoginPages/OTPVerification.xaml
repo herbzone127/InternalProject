@@ -8,7 +8,7 @@
              >
     <Grid x:Name="loginControl" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="40,50,40,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="0"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -21,7 +21,6 @@
                           x:Name="progreshbar"
                           Grid.Column="1" Grid.RowSpan="5"/>
 
-        <Image Source="/Images/flightLogo.png" Height="60" VerticalAlignment="Bottom"/>
         <Label 
             
             FontSize="24" 
@@ -29,32 +28,36 @@
             FontWeight="SemiBold" 
             Grid.Row="1"
             Content="OTP Verification" HorizontalAlignment="Left" Width="315" Height="55" Margin="5,40,0,0" VerticalAlignment="Bottom"/>
-        <Label 
-            Grid.Row="2" 
-            Margin="15,0,0,5" 
-             HorizontalAlignment="Left" Width="auto" Height="32" VerticalAlignment="Bottom" >
-            <Label.Template>
-                <ControlTemplate>
-                    <TextBlock  TextWrapping="Wrap"><Run Text="Enter the verification code we just sent on your registered mobile number:"/><Run Text=" "/><Run Text="{Binding OtpSender}"/></TextBlock>
 
-                </ControlTemplate>
-            </Label.Template>
-        </Label>
-        <StackPanel Grid.Row="4" 
-                    Orientation="Horizontal" 
-                  
-                    Margin="7,0,0,2" Height="35" VerticalAlignment="Bottom">
-            <TextBox x:Name="txtOTP1" Text="{Binding OTP1}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP2" Text="{Binding OTP2}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP3" Text="{Binding OTP3}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP4" Text="{Binding OTP4}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP5" Text="{Binding OTP5}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-            <TextBox x:Name="txtOTP6" Text="{Binding OTP6}" KeyUp="OTP_Key_Up"  Width="35" Height="35" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
-        </StackPanel>
+        <TextBlock x:Name="tbmsg"  Grid.Row="2" 
+            Width="310" Text="Enter the verification code we just sent on your registered"
+             HorizontalAlignment="Left" Height="32" VerticalAlignment="Bottom"  TextWrapping="Wrap"/>
+
+        <Grid Grid.Row="4"  Margin="0,20" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="0" 
+                    Orientation="Horizontal" >
+                <TextBox x:Name="txtOTP1" Text="{Binding OTP1}" KeyUp="OTP_Key_Up"  Width="47" Height="40" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+                <TextBox x:Name="txtOTP2" Text="{Binding OTP2}" KeyUp="OTP_Key_Up"  Width="47" Height="40" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+                <TextBox x:Name="txtOTP3" Text="{Binding OTP3}" KeyUp="OTP_Key_Up"  Width="47" Height="40" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+                <TextBox x:Name="txtOTP4" Text="{Binding OTP4}" KeyUp="OTP_Key_Up"  Width="47" Height="40" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+                <TextBox x:Name="txtOTP5" Text="{Binding OTP5}" KeyUp="OTP_Key_Up"  Width="47" Height="40" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+                <TextBox x:Name="txtOTP6" Text="{Binding OTP6}" KeyUp="OTP_Key_Up"  Width="47" Height="40" BorderThickness="1" BorderBrush="#A9ABB1"  Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="1" Margin="10,0,0,0"></TextBox>
+              
+            </StackPanel>
+            <StackPanel Margin="8,0,0,0" Grid.Row="1" Orientation="Vertical">
+                <Label Foreground="Red" x:Name="lblOTPError" Content="{Binding ErrorMessage}" Visibility="Hidden"/>
+            </StackPanel>
+        </Grid>
+      
         <StackPanel
             Grid.Row="5" 
              Orientation="Horizontal"
-            Margin="13,0,0,5" Height="26" VerticalAlignment="Bottom">
+            Margin="13,10,0,5" Height="26" VerticalAlignment="Bottom">
             <Label  Content="Didn't receive OTP?" Foreground="DimGray"/>
             <Grid>
                 <Label x:Name="lblResendOTP"  Cursor="Hand"  MouseLeftButtonDown="Label_ResendOTPBTN" Foreground="#91c84f" MouseLeftButtonUp="Label_ResendOTPBTN" FontWeight="Bold">Resend OTP</Label>
@@ -62,17 +65,17 @@
             </Grid>
            
         </StackPanel>
-        <!--<Button Grid.Row="6" 
+        <Button Grid.Row="6" 
                 Height="35"
                 x:Name="Send" BorderThickness="1" 
-                Margin="15,0,15,5"
-                BorderBrush="Black" 
+                Margin="15,10,15,5"
+                BorderBrush="Transparent" 
                 Click="BtnOtpVerification"
-                Content="CONTINUE" 
+                Content="Continue" 
                 Foreground="White" 
                 Background="#91c84f" VerticalAlignment="Bottom" 
-                Command="{Binding PilotoptCommand}"
-                />-->
+                
+                />
 
     </Grid>
     <UserControl.Resources>

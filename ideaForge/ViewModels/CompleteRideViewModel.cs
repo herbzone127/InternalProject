@@ -105,7 +105,7 @@ namespace ideaForge.ViewModels
             Global.isStoped = true;
 
             var result = RideById;
-            _TextCopyLatitude_Comand = new DelegateCommand(TextCopyLatitude_ComandExecut);
+            //_TextCopyLatitude_Comand = new DelegateCommand(TextCopyLatitude_ComandExecut);
             _TextCopyLONGITUDE_Comand = new DelegateCommand(TextCopyLONGITUDE_ComandExecut);
             _TextCopyUAV_ID_Comand = new DelegateCommand(TextCopyUAV_ID_ComandExecut);
             _TextCopyCONTROL_KEY_Comand = new DelegateCommand(TextCopyCONTROL_KEY_ComandExecut);
@@ -132,7 +132,14 @@ namespace ideaForge.ViewModels
             IsBusy = true;
 
 
-            var result =await _pilotRequestServices.AddUpdatePilotFeedback(new FlightFeedback { });
+            var result = await _pilotRequestServices.AddUpdatePilotFeedback(new FlightFeedback
+            {
+                pioltRating = Rating_Num,
+                rideId = RideById.id,
+                userId = RideById.userID,
+                feedbackComments = ""
+
+            }) ;
             if (result.status)
             {
                 MessageBox.ShowSuccess("Ride update","Successful.");
@@ -149,12 +156,13 @@ namespace ideaForge.ViewModels
         {
             var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
             Global.isStoped = false;
-            dashboard.statusBorder.Visibility = Visibility.Hidden;
-            dashboard.backButton.Visibility = Visibility.Hidden;
-
+         
             var context = (DashboardViewModel)dashboard.DataContext;
             context.CurrentPage = new Requests();
             context.PageName = "Requests";
+            context.statusBorder = Visibility.Hidden;
+            context.BackButtonVisibility = Visibility.Hidden;
+
         }
 
         #region properties2
@@ -300,7 +308,7 @@ namespace ideaForge.ViewModels
 
         public void TextCopyLatitude_ComandExecut(object obj)
         {
-            Latitude = "Test";
+           
             Clipboard.SetDataObject(Latitude);
         }
         public void TextCopyLONGITUDE_ComandExecut(object obj)
@@ -321,7 +329,7 @@ namespace ideaForge.ViewModels
         }
         public void SaveChanges_ComandExecut(object obj)
         {
-
+            CanExecuteSaveChanges(obj);
         }
         public void CancelChanges_ComandExecut(object obj)
         {
@@ -360,7 +368,7 @@ namespace ideaForge.ViewModels
             Image_Rating2 = "/Images/FeedBackYellowStar.png";
             Image_Rating3 = "/Images/FeedBackYellowStar.png";
             Image_Rating4 = "/Images/FeedBackYellowStar.png";
-            Image_Rating5 = "/Images/StarFealedBackplain.png";
+            Image_Rating5 = "/Images/StarFealedBackplain.png"; 
             Rating_Num = 4;
         }
         public void Image_Rating5_ComandExecut(object obj)
@@ -379,6 +387,7 @@ namespace ideaForge.ViewModels
             Image_Rating3 = "/Images/StarFealedBackplain.png";
             Image_Rating4 = "/Images/StarFealedBackplain.png";
             Image_Rating5 = "/Images/StarFealedBackplain.png";
+            Rating_Num = 0;
         }
 
         #region properties
@@ -541,10 +550,43 @@ namespace ideaForge.ViewModels
         }
 
         public Ride SelectedRequest { get;  set; }
+        public string Longitude { get;  set; }
 
         #endregion
 
         #region ApiMethods
+
+        public async Task<FlightFeedback> GetPilotFeeback(int rideId)
+        {
+            var request = await _pilotRequestServices.GetPilotFeeback(rideId);
+            if (request.status)
+            {
+                if (request.userData != null)
+                {
+                    switch (request.userData.pioltRating)
+                    {
+                        case 1:
+                            Image_Rating1_Comand.Execute(new object());
+                            break;
+                        case 2:
+                            Image_Rating2_Comand.Execute(new object());
+                            break;
+                        case 3:
+                            Image_Rating3_Comand.Execute(new object());
+                            break;
+                        case 4:
+                            Image_Rating4_Comand.Execute(new object());
+                            break;
+                        case 5:
+                            Image_Rating5_Comand.Execute(new object());
+                            break;
+                    }
+                   // RideById = request.userData;
+                }
+            }
+            return null;
+        }
+
         public async Task<UserFeedback> GetUserFeedback(int rideId)
         {
             var request = await _pilotRequestServices.GetUserFeedbackByRideId(rideId);
@@ -553,13 +595,13 @@ namespace ideaForge.ViewModels
                 if (request.userData != null)
                 {
                     var result = request.userData.FirstOrDefault();
+                    int ratinguser = 0;
                     if (result != null)
                     {
                         UserFeedBack = result?.Comments;
-                        Rating_Num = result.Rating;
+                        ratinguser = result.Rating;
                     }
-                
-                    if(Rating_Num == 1)
+                    if (ratinguser == 1)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating2 = "/Images/StarFealedBackplain.png";
@@ -567,7 +609,7 @@ namespace ideaForge.ViewModels
                         UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
                         UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
                     }
-                    else if(Rating_Num == 2)
+                    else if (ratinguser == 2)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
@@ -575,7 +617,7 @@ namespace ideaForge.ViewModels
                         UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
                         UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
                     }
-                    else if (Rating_Num == 3)
+                    else if (ratinguser == 3)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
@@ -583,7 +625,7 @@ namespace ideaForge.ViewModels
                         UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
                         UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
                     }
-                    else if (Rating_Num == 4)
+                    else if (ratinguser == 4)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
@@ -591,13 +633,21 @@ namespace ideaForge.ViewModels
                         UserFeedback_Image_Rating4 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
                     }
-                    else
+                    else if (ratinguser == 5)
                     {
                         UserFeedback_Image_Rating1 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating2 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating3 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating4 = "/Images/FeedBackYellowStar.png";
                         UserFeedback_Image_Rating5 = "/Images/FeedBackYellowStar.png";
+                    }
+                    else
+                    {
+                        UserFeedback_Image_Rating1 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating2 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating3 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating4 = "/Images/StarFealedBackplain.png";
+                        UserFeedback_Image_Rating5 = "/Images/StarFealedBackplain.png";
                     }
                     return result;
                 }
@@ -612,40 +662,44 @@ namespace ideaForge.ViewModels
         public async Task<FlightFeedback> GetFlightFeedback(int rideId)
         {
             var request = await _pilotRequestServices.GetFlightFeedbackByRideId(rideId);
-            if (request.status)
+            if (request != null)
             {
-                if (request.userData != null)
+                if (request.status)
                 {
-                    var result = request.userData;
+                    if (request.userData != null)
+                    {
+                        var result = request.userData;
 
-                    feedbackComments = result.feedbackComments;
-                    if(inFlightService == true)
-                    {
-                        inFlightService = result.inFlightService;
+                        feedbackComments = result.feedbackComments;
+                        if (inFlightService == true)
+                        {
+                            inFlightService = result.inFlightService;
+                        }
+                        else
+                        {
+                            inFlightService = result.inFlightService;
+                        }
+                        if (flightControl == true)
+                        {
+                            flightControl = result.flightControl;
+                        }
+                        else
+                        {
+                            flightControl = result.flightControl;
+                        }
+                        if (communication == true)
+                        {
+                            communication = result.communication;
+                        }
+                        else
+                        {
+                            communication = result.communication;
+                        }
+                        return result;
                     }
-                    else
-                    {
-                        inFlightService = result.inFlightService;
-                    }
-                    if(flightControl == true)
-                    {
-                        flightControl = result.flightControl; 
-                    }
-                    else
-                    {
-                        flightControl = result.flightControl;
-                    }
-                    if (communication == true)
-                    {
-                        communication = result.communication;
-                    }
-                    else
-                    {
-                        communication = result.communication;
-                    }
-                    return result;
                 }
             }
+      
             return null;
         }
         #endregion

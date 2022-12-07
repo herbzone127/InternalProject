@@ -14,7 +14,8 @@ namespace IdeaForge.Domain
         //public string email { get; set; }
         private string _email;
         [Required]
-        [EmailAddress]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage ="Please enter a valid email id")]
         [Display(Name ="Email")]
         public string email
         {
@@ -40,14 +41,24 @@ namespace IdeaForge.Domain
             }
         }
 
+        
+        private string _languageID;
+       
+        public string LanguageID
+        {
+            get { return _languageID; }
+            set { _languageID = value;
+                OnPropertyChanged(LanguageID);
+                ValidateProperty(value);
+            }
+        }
 
-        public string languageID { get; set; }
         //[Required]
         //public string contactNo { get; set; }
         private string _contactNo;
         [Required]
         [Phone]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Contact Number must be 10 Digits")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Contact number must be 10 digits")]
         [Display(Name = "Contact Number")]
         public string contactNo
         {

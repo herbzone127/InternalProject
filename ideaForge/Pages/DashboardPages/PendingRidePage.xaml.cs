@@ -3,6 +3,7 @@ using IdeaForge.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,7 +33,7 @@ namespace ideaForge.Pages.DashboardPages
             double totalHours = (ride.endDate - ride.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;
             vModel.FlightDate1 = ride.startDate.ToString("dd/MM/yyyy");
-            vModel.FlightTime1 = ride.startDate.ToString("hh:mm:ss tt") + "-" + ride.endDate.ToString("hh:mm:ss tt");//For Time
+            vModel.FlightTime1 = ride.startDate.ToString("hh:mm tt") + "-" + ride.endDate.ToString("hh:mm tt");//For Time
             vModel.Status1 = ride.status;
             vModel.StatusForUser1 = ride.status;
             vModel.Latitude1 = ride.originLatitude;
@@ -42,6 +43,28 @@ namespace ideaForge.Pages.DashboardPages
         private void AutoCompleteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void btnLongitude_Click(object sender, RoutedEventArgs e)
+        {
+            var obj = sender as Button;
+            Clipboard.SetText(txtLongitude.Text);
+            obj.Background = new ImageBrush(GetImage("acceptIcon"));
+            ///Images/CopyTextIcon.png
+            btnLatitude.Background = new ImageBrush(GetImage("CopyTextIcon"));
+        }
+
+        private void btnLatitude_Click(object sender, RoutedEventArgs e)
+        {
+            var obj = sender as Button;
+            Clipboard.SetText(txtLatitude.Text);
+            obj.Background = new ImageBrush(GetImage("acceptIcon"));
+            btnLongitude.Background = new ImageBrush(GetImage("CopyTextIcon"));
+        }
+        BitmapImage GetImage(string path)
+        {
+            BitmapImage bit = new BitmapImage(new Uri(string.Format("pack://application:,,,/{0};component/Images/" + path + ".png", Assembly.GetExecutingAssembly().GetName().Name)));
+            return bit;
         }
     }
 }

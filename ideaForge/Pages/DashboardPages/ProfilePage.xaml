@@ -4,44 +4,225 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ideaForge" 
-             
+             xmlns:converters="clr-namespace:ideaForge.Converters"
              xmlns:behavior="clr-namespace:ideaForge.Behaviors"
+           
              xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
-      xmlns:vm="clr-namespace:ideaForge.ViewModels"
+      xmlns:vm="clr-namespace:ideaForge.ViewModels" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:custom="clr-namespace:ideaForge.Usercontrols"
              mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type custom:CustomTexBox}">
 
+            <Style.Setters>
+
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Border BorderThickness="0" BorderBrush="Transparent">
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" Foreground="Red" FontWeight="Bold" FontSize="9" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="15,5,15,15"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="HasError" Value="True"/>
+                    <Setter Property="ToolTip"  
+                            
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+
+            <Style.Setters>
+                <!--<Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Grid>
+                                <Border Background="White" BorderBrush="#A9ABB1" BorderThickness="1"/>
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="#A9ABB1" FontFamily="Arial"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Text" Value=""/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="#A9ABB1"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>-->
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Border BorderThickness="0" BorderBrush="Transparent">
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" Foreground="Red" FontWeight="Bold" FontSize="9" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <ItemsControl
+                                            Margin="0 5 0 0"
+                                            FontSize="12"
+                                            ItemsSource="{Binding}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="Red" Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" Margin="10,0,0,0" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="5,5,15,15"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="ToolTip"    
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type dotNetKitControls:AutoCompleteComboBox}">
+            <Style.Setters>
+
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel >
+                                <Border BorderThickness="2" BorderBrush="Transparent">
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl,Mode=TwoWay}" Foreground="Red" FontWeight="Bold" FontSize="9" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="ToolTip"    
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:BitmapImageConverter x:Key="BitmapImageConverter"/>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <vm:ProfilePageViewModels/>
     </UserControl.DataContext>
-    <Grid Background="#FFFFFF" >
+    <Grid Background="#FFFFFF">
+    <Grid Margin="15">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Ellipse Height="100" Width="100"
+        <Ellipse Height="140" Width="140" Grid.RowSpan="3"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Margin="30,0,0,0">
+                         VerticalAlignment="Top"
+               
+                         Margin="15,20,0,0">
             <Ellipse.Fill>
-                <ImageBrush ImageSource="{Binding ProfileModel.Image}"/>
+                <ImageBrush ImageSource="{Binding ProfileModel.Image,Converter={StaticResource BitmapImageConverter}}"/>
             </Ellipse.Fill>
+
         </Ellipse>
 
-
-        <Button  Height="18" Width="20"  BorderBrush="Transparent" 
-                     Margin="103,99,0,0"
+        <!--<Image Source="{Binding ProfileModel.Image,Converter={StaticResource BitmapImageConverter }}" Width="128" Height="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 10 0 0">
+                <Image.Clip>
+                    <EllipseGeometry Center="65,62" RadiusX="60" RadiusY="60" />
+                </Image.Clip>
+            </Image>-->
+     
+       
+        <Button  Height="20" Width="25"  BorderBrush="Transparent" 
+                     Margin="103,140,0,0" Grid.RowSpan="3"
                      VerticalAlignment="Top" HorizontalAlignment="Left"
                          Command="{Binding Photo_Upload}" 
                          IsEnabled="{Binding ShowSaveBTn}">
@@ -49,144 +230,81 @@
                 <ImageBrush ImageSource="/Images/CameraUpload.png"/>
             </Button.Background>
         </Button>
+        <custom:CustomTexBox  Text="{Binding ProfileModel.name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" 
+                        PreviewKeyDown="NoSpace_PreviewKeyDown1" VerticalAlignment="Center"
+                                 Margin="0,10,10,0" IsEnabled="{Binding ShowSaveBTn}"  x:Name="txtName"
+                                 Placeholder="User Name" Grid.Column="1"/>
+
+        <custom:CustomTexBox  Text="{Binding ProfileModel.email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" Grid.Column="2"
+                        TextChanged="TextBox_TextChanged" MaxLength="320"
+                              PreviewKeyDown="TextBox_PreviewKeyDown" VerticalAlignment="Center"
+                                 Margin="0,10,10,0" IsEnabled="{Binding ShowSaveBTn}" 
+                                 Placeholder="Email"/>
 
 
-        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding ShowSaveBTn}">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="USER NAME"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
-            <TextBox  Text="{Binding ProfileModel.name}" Height="35" x:Name="txtName" Foreground="Black"
-                      MaxLength="30" 
-                      PreviewKeyDown="NoSpace_PreviewKeyDown1">
-            </TextBox>
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel  Orientation="Vertical" Margin="0,30,10,0"  Grid.Row="0" Grid.Column="2" IsEnabled="{Binding ShowSaveBTn}">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="EMAIL"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
-            <TextBox  Text="{Binding ProfileModel.email}" Height="35" MinWidth="120" Foreground="Black"
-                              PreviewKeyDown="TextBox_PreviewKeyDown">
-            </TextBox>
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel  Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" IsEnabled="{Binding ShowSaveBTn}">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="CONTACT NUMBER"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
-            <TextBox  Text="{Binding ProfileModel.contactNo}" Height="35" Foreground="Black"
-                              PreviewTextInput="TextBox_PreviewTextInput"
-                              PreviewKeyDown="TextBox_PreviewKeyDown_1"
-                              MaxLength="10" >
-            </TextBox>
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel  Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="4" IsEnabled="{Binding ShowSaveBTn}">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="ORGANIZATION NAME"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
-            <TextBox  Text="{Binding ProfileModel.organizationName}" Height="35" x:Name="TxtOrganization" Foreground="Black"
-                      PreviewKeyDown="NoSpace_PreviewKeyDown2"
-                      MaxLength="30" >
-            </TextBox>
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="DEPARTMENT NAME"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
-            <TextBox  Text="{Binding ProfileModel.departmentName}"  Height="35"
-                      PreviewKeyDown="NoSpace_PreviewKeyDown3"
-                      x:Name="DepartmentNameTxt"
-                      MaxLength="30" 
-                      Foreground="Black">
-            </TextBox>
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="{Binding ShowSaveBTn}">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="CITY"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
+        <custom:CustomTexBox  Text="{Binding ProfileModel.contactNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" Grid.Column="3"
+                      PreviewTextInput="TextBox_PreviewTextInput"
+                              PreviewKeyDown="TextBox_PreviewKeyDown_1" VerticalAlignment="Center"
+                                 Margin="0,10,0,0" IsEnabled="{Binding ShowSaveBTn}" 
+                                 Placeholder="Contact Number"/>
 
-            <Border BorderBrush="#d3d4d7" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5">
+        <custom:CustomTexBox  Text="{Binding ProfileModel.organizationName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" Grid.Column="2" Grid.Row="1" x:Name="TxtOrganization"
+                                     MaxLength="30"    PreviewKeyDown="NoSpace_PreviewKeyDown2" VerticalAlignment="Center"
+                                 Margin="0,10,10,0" IsEnabled="{Binding ShowSaveBTn}" 
+                                 Placeholder="Organization Name"/>
+
+        <custom:CustomTexBox  Text="{Binding ProfileModel.departmentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" x:Name="DepartmentNameTxt"
+                                     MaxLength="30"  PreviewKeyDown="NoSpace_PreviewKeyDown3" VerticalAlignment="Center"
+                                 Margin="0,10,10,0" IsEnabled="{Binding ShowSaveBTn}" 
+                                 Placeholder="Department Name"/>
+
+       
+
+
+        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Margin="7,27,0,0" IsEnabled="{Binding ShowSaveBTn}">
+                <Grid>
+                    <Border BorderBrush="#A9ABB1" Margin="0,0,0,0" BorderThickness="1" CornerRadius="5">
                 <dotNetKitControls:AutoCompleteComboBox
-    SelectedValuePath="city_Name"
+    SelectedValuePath="city_Name" BorderBrush="Transparent" BorderThickness="0"
                         DisplayMemberPath="city_Name"
     TextSearch.TextPath="city_Name"
     ItemsSource="{Binding CityList}"
      SelectedValue="{Binding ProfileModel.city}"   
-                        Height="30"
-                        SelectedItem="{Binding SelectedCity}"
+                        Height="33"
+                        SelectedItem="{Binding SelectedCity, UpdateSourceTrigger=PropertyChanged,
+                    NotifyOnValidationError=True, 
+                    ValidatesOnDataErrors=True}"
    />
+                    
             </Border>
             <!--<TextBox  Text="{Binding ProfileModel.city}" Height="35" Foreground="Black">
                         </TextBox>-->
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
+                    <Label Content="City" VerticalAlignment="Top" Padding="5,0" Margin="5,-10,0,0" Foreground="#A9ABB1" HorizontalAlignment="Left" Background="White"/>
+        </Grid>                
+            <!--<Label Margin="0,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Visible"/>-->
+
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Margin="0,0,10,0" IsEnabled="False">
-            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                <Label.Template>
-                    <ControlTemplate>
-                        <TextBlock>
-                            <Run Text="ACCOUNT CREATED DATE"/>
-                            <Run Text="*" Foreground="red"/>
-                        </TextBlock>
-                    </ControlTemplate>
-                </Label.Template>
-            </Label>
-            <TextBox  Text="{Binding ProfileModel.addedondat}" Height="35"  Foreground="Black">
-            </TextBox>
-            <Label Margin="15,0,0,0" Padding="0" Content="Please Enter a Valid Name" Foreground="Red" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,84,10,126" Grid.ColumnSpan="2"  Visibility="{Binding ShowSaveBTnbtn}"  Grid.RowSpan="2">
-            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  Content="CANCEL" Command="{Binding CancelChanges_Comand}"
-                      BorderBrush="Transparent"
+            <custom:CustomTexBox  Text="{Binding ProfileModel.addedon, Mode=TwoWay, StringFormat={}{0:dd MMMM yyyy}}" Grid.Column="1" Grid.Row="2" 
+                                     MaxLength="30"  PreviewKeyDown="NoSpace_PreviewKeyDown3" VerticalAlignment="Center"
+                                 Margin="0,10,10,0" IsEnabled="False" 
+                                 Placeholder="Account Created Date"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="20" Grid.ColumnSpan="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right"  Visibility="{Binding ShowSaveBTnbtn}"  Grid.RowSpan="2">
+            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  Content="Cancel" Command="{Binding CancelChanges_Comand}"
+                      BorderBrush="DarkGray"
                
             Foreground="Black" 
                        
-            Background="#E9E9E9"
+            Background="White"
                      >
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
@@ -198,7 +316,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Transparent" Content="SAVE CHANGES" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
+            <Button  BorderThickness="1" Height="35" Width="130"  BorderBrush="Transparent" Content="Save Changes" Foreground="White" Background="#91c84f" Command="{Binding SaveChanges_Comand}">
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Style.Resources>
@@ -210,8 +328,8 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,84,10,126" Grid.ColumnSpan="2"  Visibility="{Binding ShowEditBTn}" Grid.RowSpan="2">
-            <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  BorderBrush="Transparent" Content="EDIT" Command="{Binding Editable_Comand}" Foreground="White" Background="#A9ABB1" >
+        <StackPanel Orientation="Horizontal" Grid.Row="3"  Grid.ColumnSpan="2" Margin="20" Grid.Column="2" VerticalAlignment="Bottom" Visibility="{Binding ShowEditBTn}" HorizontalAlignment="Right">
+            <Button  BorderThickness="1"  Margin="0,0,0,0" Height="35" Width="130"  BorderBrush="Transparent" Content="Edit" Command="{Binding Editable_Comand}" Foreground="White" Background="#A9ABB1" >
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Style.Resources>
@@ -223,53 +341,10 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
+        <mah:ProgressRing Grid.RowSpan="3" Grid.ColumnSpan="5"
+                    IsActive="{Binding IsBusy}" 
+                    Foreground="#91C84F" 
+                    />
     </Grid>
-    <UserControl.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Style.Setters>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="Height" Value="40"/>
-                <Setter Property="BorderBrush" Value="#A9ABB1"/>
-                <Setter Property="Margin" Value="15,0,15,0"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Padding" Value="5,0,0,0"/>
-            </Style.Setters>
-            <Style.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
-                <Style TargetType="{x:Type TextBox}">
-
-
-                    <Style.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="5" />
-                        </Style>
-                    </Style.Resources>
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="true">
-                            <Setter Property="BorderBrush" Value="Red" />
-                            <Setter Property="BorderThickness" Value="1" />
-                            <Setter Property="ToolTip"    
-                Value="{Binding RelativeSource={RelativeSource Self}    
-                    , Path=(Validation.Errors)[0].ErrorContent}" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Style.Resources>
-        </Style>
-        <Style TargetType="{x:Type dotNetKitControls:AutoCompleteComboBox}">
-            <Style.Setters>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Height" Value="40"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Margin" Value="1"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Padding" Value="5,0,0,0"/>
-            </Style.Setters>
-
-        </Style>
-    </UserControl.Resources>
+    </Grid>
 </UserControl>

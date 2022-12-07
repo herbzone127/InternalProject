@@ -24,7 +24,7 @@ namespace IdeaForge.Service.GenericServices
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message);
+               return new CityData();
             }
         }
 
@@ -40,7 +40,7 @@ namespace IdeaForge.Service.GenericServices
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message);
+              return null;
             }
            
         }

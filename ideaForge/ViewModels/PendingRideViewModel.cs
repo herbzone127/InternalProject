@@ -1,5 +1,6 @@
 ﻿using ControlzEx.Standard;
 using ideaForge.Pages.DashboardPages;
+using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
@@ -63,13 +64,14 @@ namespace ideaForge.ViewModels
 
         private async void CanExecuteSaveChanges(object obj)
         {
-            IsBusy = true;
+           
             
             if (RideStatusId == 1)
             {
+                IsBusy = true;
                 var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                 var requests =await _pilotRequestServices.GetTodaysRequest("");
-                int count = requests.userData.Where(u => u.statusID == 2 &&  u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).Count();
+                int count = requests.userData.Where(u => (u.statusID == 2 || u.statusID==3) &&  u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()).Count();
                 if (count > 0)
                 {
                     MessageBox.ShowError("Only one flight can be in Ongoing status at a time");
@@ -84,21 +86,31 @@ namespace ideaForge.ViewModels
                 }
                   
             }
-            if(RideStatusId == 2)
+            if (RideStatusId == 2)
             {
-                RideById.statusID = 4;
+                var dialogYes = rejectPopupPage.Show(RideById.id, true);
+
+                if (dialogYes == System.Windows.Forms.DialogResult.Yes)
+                {
+                    RideById.RejectReason = rejectPopupPage.RejectReason;
+
+                    RideById.statusID = 4;
+                }
+                else
+                {
+                    IsBusy = false;
+                    return;
+                }
+                IsBusy = true;
             }
             
-      if(RideStatusId==2 || RideStatusId == 1)
+            if(RideStatusId==2 || RideStatusId == 1)
             {
                 if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
                 {
-
-
-
                     var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                     RideById.updateBy = user.id.ToString();
-                 }
+                }
                 var result = await _pilotRequestServices.UpdateRideByPilot(RideById);
                 if (result.status)
                 {
@@ -125,9 +137,9 @@ namespace ideaForge.ViewModels
         private void CanExecuteCancelChanges(object obj)
         {
             var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-
-            dashboard.statusBorder.Visibility = Visibility.Hidden;
-            dashboard.backButton.Visibility = Visibility.Hidden;
+            DashboardViewModel vm = (DashboardViewModel)dashboard.DataContext;
+            vm.statusBorder = Visibility.Hidden;
+            vm.BackButtonVisibility = Visibility.Hidden;
             Global.isStoped = false;
             var context = (DashboardViewModel)dashboard.DataContext;
             context.CurrentPage = new Requests();

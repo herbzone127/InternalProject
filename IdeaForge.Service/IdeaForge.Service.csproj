@@ -50,8 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericServices\AdminRequestService.cs" />
+    <Compile Include="GenericServices\CompleteRideServices.cs" />
     <Compile Include="GenericServices\GoogleMapsApiService.cs" />
     <Compile Include="GenericServices\AdminRequest.cs" />
+    <Compile Include="IGenericServices\IAdminRequestPage.cs" />
+    <Compile Include="IGenericServices\ICompleteRideServices.cs" />
     <Compile Include="IGenericServices\IGoogleMapsApiService.cs" />
     <Compile Include="GenericServices\PilotRequest.cs" />
     <Compile Include="GenericServices\ProfileService.cs" />

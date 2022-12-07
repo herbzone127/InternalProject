@@ -1,0 +1,181 @@
+﻿<UserControl x:Class="ideaForge.Pages.AdminDashboardPages.userListViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ideaForge.Pages.DashboardPages"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+      xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+      xmlns:vm="clr-namespace:ideaForge.ViewModels"
+              
+      mc:Ignorable="d" Background="White"
+      >
+    <UserControl.DataContext>
+        <vm:AdminUserListViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="False">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock><Run Text="USER NAME"/></TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                    <TextBox 
+                                Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                Text="{Binding getUserData.Name}" Height="35" Foreground="Black"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="1" IsEnabled="False">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock><Run Text="EMAIL"/></TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                    <TextBox 
+                                Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                Text="{Binding getUserData.Email}" Height="35"  Foreground="Black"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="2" IsEnabled="False">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock><Run Text="CONTACT"/></TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                    <TextBox 
+                                Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                Text="{Binding getUserData.ContactNo}" Height="35"  Foreground="Black"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="3" IsEnabled="False">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock><Run Text="CITY"/></TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                    <TextBox 
+                                Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                Text="{Binding getUserData.City}" Height="35"  Foreground="Black"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,10,0" Grid.Row="1" Grid.Column="0" IsEnabled="False">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock><Run Text="REQUEST DATE"/></TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                <TextBox 
+                                Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                Text="{Binding requestDate}" Height="35"  Foreground="Black"/>
+                <Label VerticalContentAlignment="Center" Height="50" FontWeight="Regular" 
+                                                   Foreground="Black">
+                    <Label.Content>
+                        <TextBlock>
+                                                        <Run Text="{Binding  AddedOn,StringFormat='{}{0:dd MMMM yyyy}'}"/>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+            </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" IsEnabled="False">
+                    <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
+                        <Label.Template>
+                            <ControlTemplate>
+                                <TextBlock><Run Text="REQUEST TIME"/></TextBlock>
+                            </ControlTemplate>
+                        </Label.Template>
+                    </Label>
+                    <TextBox 
+                                Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"
+                                Text="{Binding requestTime}" Height="35"  Foreground="Black"/>
+                </StackPanel>
+            <StackPanel Grid.Row="1" Margin="15,50,0,0" Orientation="Horizontal" Grid.ColumnSpan="4" >
+                <Button   BorderThickness="1" Height="35" Width="110"
+                          Margin="0,0,10,0" 
+                          Content="REJECT" Command="{Binding CancelChanges_Command}" 
+                          BorderBrush="Transparent"
+                          Foreground="#FFFFFF" 
+                          Background="#A9ABB1">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button BorderThickness="1" Height="35" Width="110"
+                        Content="ACCEPT"
+                        BorderBrush="Transparent"
+                        Foreground="White" 
+                        Background="#91c84f"
+                        Command="{Binding SaveChanges_Command}">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </UserControl.Content>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Setters>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="#A9ABB1"/>
+                <Setter Property="Margin" Value="15,0,15,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type dotNetKitControls:AutoCompleteComboBox}">
+            <Style.Setters>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+
+</UserControl>

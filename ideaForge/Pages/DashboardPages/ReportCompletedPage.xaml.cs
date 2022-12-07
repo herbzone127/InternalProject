@@ -40,6 +40,9 @@ namespace ideaForge.Pages.DashboardPages
             vModel.GetUserFeedBack(rideDetails.id).ConfigureAwait(false);
             vModel.GetPioltFeedBack(rideDetails.id).ConfigureAwait(false);
             _ride = rideDetails;
+            vModel.SelectedRequest = rideDetails;
+            vModel.PushNotification = rideDetails.pushNotification == true ? "On" : "OFF";
+            vModel.LiveVideoStream = rideDetails.liveVideoStream == true ? "Yes" : "No";
             //vModel.ControlKey = rideDetails.ControlKey;
             //vModel.SecretKey = rideDetails.SecretKey;
         }

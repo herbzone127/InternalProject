@@ -109,7 +109,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <vm:IFDockViewModel />
+        <vm:AdminIFDockViewModel />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -123,6 +123,7 @@
                  MouseLeftButtonDown="MapMouseLeftButtonDown"
                  MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave="MapMouseLeave"
+                     Loaded="map_Loaded"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting">
 
                 <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
@@ -166,6 +167,7 @@
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6" Width="50">
                 <tools:MapLayersMenuButton x:Name="mapLayersMenuButton"
                 Margin="2" ToolTip="Map Layers and Overlays"
+                                           Visibility="Hidden"
                 Map="{Binding ElementName=map}">
 
                     <tools:MapLayerItem  Text="OpenStreetMap" Layer="{StaticResource OpenStreetMap}"/>
@@ -200,6 +202,7 @@
 
                 <tools:MapProjectionsMenuButton x:Name="mapProjectionsMenuButton"
                 Margin="2" ToolTip="Map Projections"
+                                                Visibility="Hidden"
                 Map="{Binding ElementName=map}">
                     <tools:MapProjectionItem Text="Web Mercator" Projection="EPSG:3857"/>
                     <tools:MapProjectionItem Text="Equirectangular" Projection="EPSG:4326"/>
@@ -289,7 +292,8 @@
                        SelectionChanged="AutoCompleteComboBox_SelectionChanged"
                 VerticalAlignment="Center"
    />-->
-                        <ComboBox x:Name="cmbCountryList"    ItemsSource="{Binding CityList}"
+                        <ComboBox x:Name="cmbCountryList"    
+                                  ItemsSource="{Binding CityList}"
                                     FontSize="12"    
                                     BorderThickness="0"  
                                     VerticalContentAlignment="Center"  
@@ -302,8 +306,9 @@
                                     DisplayMemberPath="city_Name"
                                     TextSearch.TextPath="city_Name"
                                     SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
-                                    SelectedValue="{Binding SelectedLocationId}"   
+                                    PreviewKeyDown="cmbCountryList_PreviewKeyDown"
                                     VerticalAlignment="Center"
+                                    SelectionChanged="AutoCompleteComboBox_SelectionChanged"
                                     
                                   />
                         <!--<TextBox Margin="2" BorderBrush="Transparent" BorderThickness="0" Text="{Binding CityName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True"/>-->
@@ -346,12 +351,14 @@
                             VerticalContentAlignment="Center"
                             VerticalAlignment="Center"
                             BorderBrush="Transparent"
+                          x:Name="desp_Drp"
                             Margin="2"
     SelectedValuePath="id"
                         DisplayMemberPath="reasonDescription"
     TextSearch.TextPath="reasonDescription"
     ItemsSource="{Binding Reasons}"
-     SelectedValue="{Binding ReasonId}"  
+                            SelectedItem="{Binding SelectedReason,Mode=TwoWay}"
+    PreviewKeyDown="AutoCompleteComboBox_PreviewKeyDown"
                             
                             Height="22"
                         
@@ -371,6 +378,7 @@
                             Margin="2"
                              BorderThickness="0"
                             BorderBrush="Transparent"
+                                PreviewKeyDown="TextBox_PreviewKeyDown"
                             Text="{Binding Comments}"
                             />
                         </Border>
@@ -452,6 +460,8 @@
         </Border>
         <Grid Grid.Row="1" Background="White">
             <DataGrid x:Name="ListOfDock" ItemsSource="{Binding Path=AdminLocationsGrid}" 
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
                     SelectedItem="{Binding SelectedLocationGrid}"  GridLinesVisibility="Horizontal" 
           AutoGenerateColumns="False">
                 <DataGrid.RowStyle>
@@ -483,11 +493,16 @@
                     <DataGridTemplateColumn  Header="Status Description" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock FontWeight="Regular" FontSize="14" Height="50">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding reasonDescription}"/>
+                                    <Label Content=" - "/>
+                                    <Label Content="{Binding comments}"/>
+                                </StackPanel>
+                                <!--<TextBlock FontWeight="Regular" FontSize="14" Height="50">
                                     <Run Text="{Binding reasonDescription}"/>
                                     <Run Text=" - "/>
                                     <Run Text="{Binding comments}"/>
-                                </TextBlock>
+                                </TextBlock>-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -498,10 +513,10 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn  Header="Action" Width="*">
+                    <DataGridTemplateColumn  Header="Action"   Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <mah:ToggleSwitch PreviewMouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown" IsOn="{Binding isActive}"  Visibility="{Binding IsVisible,FallbackValue=Hidden}">
+                                <mah:ToggleSwitch IsEnabled="False"  PreviewMouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown" IsOn="{Binding isActive}"  Visibility="{Binding IsVisible,FallbackValue=Hidden}">
                                     
                                         
                                 </mah:ToggleSwitch>

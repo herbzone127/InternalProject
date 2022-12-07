@@ -35,7 +35,18 @@
 
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn  Header="Booking ID" Width="*">
+                <DataGridTemplateColumn  Header="UserId" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding addedBy}" FontWeight="SemiBold">
+                                </Label>
+                              
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
@@ -56,21 +67,14 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn CanUserSort="True" Header="Date" Width="*">
+              
+                <DataGridTemplateColumn CanUserSort="True" Header="Time Duration" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
                                 <Label FontWeight="SemiBold" Content="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}">
 
                                 </Label>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn CanUserSort="True" Header="Time Duration" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical">
                                 <Label>
                                     <Label.Content>
                                         <TextBlock>
@@ -114,7 +118,31 @@
                     </DataGridTemplateColumn.CellTemplate>
 
                 </DataGridTemplateColumn>
-
+                <DataGridTemplateColumn CanUserSort="False" Header="Action" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"  >
+                                <Button
+                                                Margin="5,0"
+                                                Width="32"
+                                                BorderBrush="#E9E9E9" 
+                                                    Visibility="{Binding ViewButtonVisible, FallbackValue=Hidden}"
+                                                    BorderThickness="1"
+                                                    Background="White"
+                                                    Command="{Binding 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type UserControl}}, 
+                                                Path=DataContext.ViewCommand}"
+                                                    CommandParameter="{Binding .}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="8" Source="/Images/viewButtonIcon.png" />
+                                        <!--<TextBlock Margin="5,0">View</TextBlock>-->
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

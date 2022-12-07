@@ -6,6 +6,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
 namespace IdeaForge.Domain
@@ -18,12 +21,16 @@ namespace IdeaForge.Domain
     }
     public class UserDataProfile: PropertyValidateModel
     {
+        public UserDataProfile Clone()
+        {
+            return (UserDataProfile)base.MemberwiseClone();
+        }
         public int id { get; set; }
 
         //public string email { get; set; }
         private string _email;
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Please enter a valid email id")]
         [Display(Name = "Email")]
         public string email
         {
@@ -60,7 +67,9 @@ namespace IdeaForge.Domain
         private string _contactNo;
         [Required]
         [Phone]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Contact Number must be 10 Digits")]
         [Display(Name = "Contact Number")]
+        
         public string contactNo
         {
             get { return _contactNo; }
@@ -119,8 +128,19 @@ namespace IdeaForge.Domain
             get { return _image; }
             set { _image = value;
             OnPropertyChanged(nameof(Image));
+
             }
         }
+        private ImageSource _eImage;
+
+        public ImageSource EImage
+        {
+            get { return _eImage; }
+            set { _eImage = value; 
+            OnPropertyChanged(nameof(EImage));
+            }
+        }
+
 
         public DateTime addedon { get; set; }
         public string addedondat { get; set; }

@@ -147,9 +147,10 @@ namespace ideaForge.ViewModels
         private void CanExecuteCancelChanges(object obj)
         {
             var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
+            DashboardViewModel vm = (DashboardViewModel)dashboard.DataContext;
             Global.isStoped = false;
-            dashboard.statusBorder.Visibility = Visibility.Hidden;
-            dashboard.backButton.Visibility = Visibility.Hidden;
+            vm.statusBorder = Visibility.Hidden;
+            vm.BackButtonVisibility = Visibility.Hidden;
 
             var context = (DashboardViewModel)dashboard.DataContext;
             context.CurrentPage = new Requests();
@@ -606,91 +607,125 @@ namespace ideaForge.ViewModels
         }
 
         public Ride SelectedRequest { get;  set; }
+        //public string PushNotification { get;  set; }
+        //public string LiveVideoStream { get;  set; }
+        private string _pushNotification;
+
+        public string PushNotification
+        {
+            get { return _pushNotification; }
+            set { _pushNotification = value;
+                OnPropertyChanged(nameof(PushNotification));
+            }
+        }
+        private string _liveVideoStream;
+
+        public string LiveVideoStream
+        {
+            get { return _liveVideoStream; }
+            set { _liveVideoStream = value;
+                OnPropertyChanged(nameof(LiveVideoStream));
+            }
+        }
+
+
         #endregion
 
         public async Task GetUserFeedBack(int rideId)
         {
             var request = await _pilotRequestServices.GetUserFeedbackByRideId(rideId);
-            if (request.status)
+            if (request != null)
             {
-                if (request.userData != null)
+                if (request.status)
                 {
-                    var result = request.userData.FirstOrDefault();
-                    UserFeedBack = result?.Comments;
-                    Rating_Num = result.Rating;
-                }
-                if (Rating_Num == 1)
-                {
-                    Image_Rating1_ComandExecut(1);
-                }
-                else if (Rating_Num == 2)
-                {
-                    Image_Rating2_ComandExecut(2);
-                }
-                else if (Rating_Num == 3)
-                {
-                    Image_Rating3_ComandExecut(3);
-                }
-                else if (Rating_Num == 4)
-                {
-                    Image_Rating4_ComandExecut(4);
+                    if (request.userData != null)
+                    {
+                        var result = request.userData.FirstOrDefault();
+                        if (result != null)
+                        {
+                            UserFeedBack = result?.Comments;
+                            Rating_Num = result.Rating;
+                        }
+
+                    }
+                    if (Rating_Num == 1)
+                    {
+                        Image_Rating1_ComandExecut(1);
+                    }
+                    else if (Rating_Num == 2)
+                    {
+                        Image_Rating2_ComandExecut(2);
+                    }
+                    else if (Rating_Num == 3)
+                    {
+                        Image_Rating3_ComandExecut(3);
+                    }
+                    else if (Rating_Num == 4)
+                    {
+                        Image_Rating4_ComandExecut(4);
+
+                    }
+                    else if (Rating_Num == 5)
+                    {
+                        Image_Rating5_ComandExecut(5);
+                    }
+                    else
+                    {
+                        RestStarRating();
+                    }
 
                 }
-                else if (Rating_Num == 5)
-                {
-                    Image_Rating5_ComandExecut(5);
-                }
-                else
-                {
-                    RestStarRating();
-                }
-
             }
+         
         }
 
         public async Task GetPioltFeedBack(int rideId)
         {
             var request = await _pilotRequestServices.GetFlightFeedbackByRideId(rideId);
-            if (request.status)
+            if (request != null)
             {
-                if (request.userData != null)
+                if (request.status)
                 {
-                    var result = request.userData;
-                    PilotRating = result.pioltRating;
-                    FlightControlCheck = result.flightControl;
-                    FlightServiceCheck = result.inFlightService;
-                    CommunicationCheck = result.communication;
-                    FeedBackComments=result.feedbackComments;
-                   
-                }
-               
-                if (PilotRating == 1)
-                {
-                    Image_Piolt_Rating1_ComandExecut(1);
-                }
-                else if (PilotRating == 2)
-                {
-                    Image_Piolt_Rating2_ComandExecut(2);
-                }
-                else if (PilotRating == 3)
-                {
-                    Image_Piolt_Rating3_ComandExecut(3);
-                }
-                else if (PilotRating == 4)
-                {
-                    Image_Piolt_Rating4_ComandExecut(4);
+                    if (request.userData != null)
+                    {
+                        var result = request.userData;
+                        PilotRating = result.pioltRating;
+                        FlightControlCheck = result.flightControl;
+                        FlightServiceCheck = result.inFlightService;
+                        CommunicationCheck = result.communication;
+                        FeedBackComments = result.feedbackComments;
+
+                    }
+
+                    if (PilotRating == 1)
+                    {
+                        Image_Piolt_Rating1_ComandExecut(1);
+                    }
+                    else if (PilotRating == 2)
+                    {
+                        Image_Piolt_Rating2_ComandExecut(2);
+                    }
+                    else if (PilotRating == 3)
+                    {
+                        Image_Piolt_Rating3_ComandExecut(3);
+                    }
+                    else if (PilotRating == 4)
+                    {
+                        Image_Piolt_Rating4_ComandExecut(4);
+
+                    }
+                    else if (PilotRating == 5)
+                    {
+                        Image_Piolt_Rating5_ComandExecut(5);
+                    }
+                    else
+                    {
+                        Rest_Star_Piolt_Rating();
+                    }
 
                 }
-                else if (PilotRating == 5)
-                {
-                    Image_Piolt_Rating5_ComandExecut(5);
-                }
-                else
-                {
-                    Rest_Star_Piolt_Rating();
-                }
-
             }
+      
         }
     }
 }

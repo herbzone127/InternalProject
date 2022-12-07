@@ -126,7 +126,12 @@ namespace ideaForge.Popups
 
                     break;
             }
-            cMessageBox.ShowDialog();
+            if (Global.isPopupShown==0)
+            {
+                Global.isPopupShown = 1;
+                cMessageBox.ShowDialog();
+            }
+          
             return result;
         }
         public static DialogResult ShowError(string message)
@@ -162,7 +167,12 @@ namespace ideaForge.Popups
             cMessageBox.txtTitle.Text = cMessageBox.GetTitle(CMessageTitle.Error);
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/ErrorBack.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
-            cMessageBox.ShowDialog();
+            if (Global.isPopupShown == 0)
+            {
+                Global.isPopupShown = 1;
+                cMessageBox.ShowDialog();
+            }
+
             return result;
         }
         public static DialogResult ShowSuccess(string message, string coloredMessage)
@@ -193,7 +203,11 @@ namespace ideaForge.Popups
             cMessageBox.lblColorMessage.Text = coloredMessage;
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/SuccessBack.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
-            cMessageBox.ShowDialog();
+            if (Global.isPopupShown == 0)
+            {
+                Global.isPopupShown = 1;
+                cMessageBox.ShowDialog();
+            }
             return result;
         }
 
@@ -225,7 +239,11 @@ namespace ideaForge.Popups
             cMessageBox.lblColorMessage.Text = coloredMessage;
             cMessageBox.msgLogo.Source = new BitmapImage(new Uri(@"/Images/SuccessfulAdminIcon.png", UriKind.Relative));
             cMessageBox.btnOk.Background = ConvertColor("#91C84F");
-            cMessageBox.ShowDialog();
+            if (Global.isPopupShown == 0)
+            {
+                Global.isPopupShown = 1;
+                cMessageBox.ShowDialog();
+            }
             return result;
         }
         private void BntOk_Click(object sender, RoutedEventArgs e)
@@ -267,6 +285,7 @@ namespace ideaForge.Popups
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             BackgroundClear();
+            Global.isPopupShown = 0;
             Global.isStoped = false;
             //LoginPage.AllowsTransparency = false;
             Closing -= Window_Closing;
@@ -293,6 +312,7 @@ namespace ideaForge.Popups
         private void GrowAnimation_Completed(object sender, EventArgs e)
         {
             this.Close();
+            Global.isPopupShown = 0;
         }
         private static Brush ConvertColor(string color)
         {
@@ -337,6 +357,7 @@ namespace ideaForge.Popups
         }
         private void btnPopupClose_Click(object sender, RoutedEventArgs e)
         {
+            Global.isPopupShown = 0;
             this.Close();
         }
     }

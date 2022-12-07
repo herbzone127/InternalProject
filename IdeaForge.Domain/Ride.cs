@@ -41,6 +41,7 @@ namespace IdeaForge.Domain
         public string SecretKey { get; set; }
         public string UAVID { get; set; }
         public int userID { get; set; }
+        public string RejectReason { get; set; }
 
     }
 

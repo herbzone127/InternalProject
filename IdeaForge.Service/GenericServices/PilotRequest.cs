@@ -2,6 +2,7 @@
 using IdeaForge.Data;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace IdeaForge.Service.GenericServices
 {
     public class PilotRequest : IPilotRequestServices
     {
-        public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId,int userId)
+        public async Task<bool> GetStatusChangesResponse(bool isAccepted, int rideId,int userId, string reason="")
         {
             try
             {
-                var url = UrlHelper.StatusChangesURL + "/" + isAccepted + "/" + rideId+"/"+userId;
+                var url = UrlHelper.StatusChangesURL + "/" + isAccepted + "/" + rideId+"/"+userId+"/"+reason;
               
                 var resultString = await HTTPClientWrapper<StatusChanges>.PostRequest(url, null);
                 if (!resultString.ToLower().Contains("status"))
@@ -203,7 +204,7 @@ namespace IdeaForge.Service.GenericServices
         {
             try
             {
-                var url = UrlHelper.addUpdatePilotStatus;
+                var url = UrlHelper.updatePilotFeedback;
                 var resultString = await HTTPClientWrapper<FlightFeedback>.PostRequest(url, pilot);
                 var result = JsonConvert.DeserializeObject<FlightFeedbackResponse>(resultString);
 
@@ -254,9 +255,19 @@ namespace IdeaForge.Service.GenericServices
         {
             try
             {
-                var url = UrlHelper.UserFeedbackByRideIdURL + "/" + rideId;
+                string url = string.Empty;
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                {
 
-                var result = await HTTPClientWrapper<UserFeedbackResponse>.Get(url);
+
+
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (user.roleID == 2)
+                        url = UrlHelper.UserFeedbackByRideIdURL + "/" + rideId;
+                    if (user.roleID == 3)
+                        url = UrlHelper.adminUserFeedbackByRideIdURL + "/" + rideId;
+                }
+                    var result = await HTTPClientWrapper<UserFeedbackResponse>.Get(url);
 
                 return result;
 
@@ -272,7 +283,44 @@ namespace IdeaForge.Service.GenericServices
         {
             try
             {
-                var url = UrlHelper.PilotFeedbackByRideIdURL + "/" + rideId;
+                string url = string.Empty;
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                {
+
+
+
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (user.roleID == 2)
+                        url = UrlHelper.adminPilotFeedbackByRideIdURL + "/" + rideId;
+                    if (user.roleID == 3)
+                        url = UrlHelper.adminPilotFeedbackByRideIdURL + "/" + rideId;
+                }
+                var result = await HTTPClientWrapper<FlightFeedbackResponse>.Get(url);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<FlightFeedbackResponse> GetPilotFeeback(int rideId)
+        {
+            try
+            {
+                string url = string.Empty;
+                if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
+                {
+
+
+
+                    var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
+                    if (user.roleID == 2)
+                        url = UrlHelper.PilotFeedbackByRideIdURL + "/" + rideId;
+                    if (user.roleID == 3)
+                        url = UrlHelper.adminPilotFeedbackByRideIdURL + "/" + rideId;
+                }
                 var result = await HTTPClientWrapper<FlightFeedbackResponse>.Get(url);
                 return result;
             }

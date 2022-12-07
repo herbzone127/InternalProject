@@ -51,7 +51,7 @@ namespace ideaForge.ViewModels
         private int _Id;
         private string _locationName;
         private string _ReasonDescription;
-        private int _reasonId;
+        private Reason _reasonId;
         private bool _isActive;
 
         public int CityId { get { return _cityId; } set { _cityId = value; OnPropertyChanged(nameof(CityId)); } }
@@ -60,7 +60,7 @@ namespace ideaForge.ViewModels
         public int Id { get { return _Id; } set { _Id = value; OnPropertyChanged(nameof(Id)); } }
         public string LocationName { get { return _locationName; } set { _locationName = value; OnPropertyChanged(nameof(LocationName)); } }
         public string ReasonDescription { get { return _ReasonDescription; } set { _ReasonDescription = value; OnPropertyChanged(nameof(ReasonDescription)); } }
-        public int ReasonId { get { return _reasonId; } set { _reasonId = value; OnPropertyChanged(nameof(ReasonId)); } }
+        public Reason ReasonId { get { return _reasonId; } set { _reasonId = value; OnPropertyChanged(nameof(ReasonId)); } }
         public bool IsActive { get { return _isActive; } set { _isActive = value; OnPropertyChanged(nameof(IsActive)); } }
         ObservableCollection<PilotLocation> _pilotLocations;
 
@@ -132,8 +132,11 @@ namespace ideaForge.ViewModels
             get { return _SelectedLocationGrid; }
             set
             {
-                _SelectedLocationGrid = value;
-                OnPropertyChanged(nameof(SelectedLocationGrid));
+                if (value != null)
+                {
+                    _SelectedLocationGrid = value;
+                    OnPropertyChanged(nameof(SelectedLocationGrid));
+                }
             }
         }
         ObservableCollection<adminPilotLocation> _adminLocationsGrid;
@@ -218,21 +221,51 @@ namespace ideaForge.ViewModels
 
         }
 
-        async void CanExecuteSaveChanges(object obj)
+       public async void CanExecuteSaveChanges(object obj)
         {
             if (Global.RoleID == 2)
             {
-                if (!string.IsNullOrEmpty(Comments) && ReasonId > 0)
+                if (!IsActive)
+                {
+                    if (ReasonId != null)
+                    {
+                        if (ReasonId.id <= 0)
+                        {
+                            MessageBox.ShowError("Select reason");
+                            IsActive = true;
+                            return;
+                        }
+                        if (string.IsNullOrEmpty(Comments) && ReasonId?.id==7)
+                        {
+                            MessageBox.ShowError("Enter comments");
+                            IsActive = true;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.ShowError("Enter reason description");
+                        IsActive = true;
+                        return;
+                    }
+              
+               
+                }
+
+                
+
+                if ( ReasonId?.id > 0)
                 {
                     var result = await _pilotRequestServices.AddUpdatePilotLocations(new PilotLocation
                     {
                         cityId = SelectedCity.id,
-                        comments = Comments,
+                        
+                        comments = Comments==null?"":Comments,
                         city_Name = SelectedCity.city_Name,
                         id = 0,
                         locationName = SelectedCity.city_Name,
                         reasonDescription = Comments,
-                        reasonId = ReasonId,
+                        reasonId = ReasonId.id,
                         userId = Global.loginUserId,
                         isActive = IsActive,
 
@@ -245,14 +278,16 @@ namespace ideaForge.ViewModels
                             {
                                 await GetPilotLocations();
                                 await GetAdminLocations();
-
+                                if(IsActive)
+                                Global.IsIFDockStatus = true;
+                                else Global.IsIFDockStatus = false;
                                 MessageBox.ShowSuccess("Save record ", " successfully.");
 
                                 //Clearing Data 
                                 Comments = "";
-                                SelectedReason = new Reason();
+                                //SelectedReason = new Reason();
                                 await GetReasons();
-                                IsActive = true;
+                                //IsActive = true;
                             }
                             else
                             {
@@ -290,11 +325,14 @@ namespace ideaForge.ViewModels
                             {
                                 await GetPilotLocations();
                                 await GetAdminLocations();
+                                if (IsActive)
+                                    Global.IsIFDockStatus = true;
+                                else Global.IsIFDockStatus = false;
                                 MessageBox.ShowSuccess("Save record ", " successfully.");
 
                                 //Clearing Data 
-                                Comments = "";
-                                SelectedReason = new Reason();
+                                //Comments = "";
+                                //SelectedReason = new Reason();
                                 await GetReasons();
                                 IsActive = true;
                             }
@@ -317,9 +355,9 @@ namespace ideaForge.ViewModels
                 try
                 {
                     var item = AdminLocationsGrid.Where(x => x.cityId == _selectedCity.id).FirstOrDefault();
-                    if (ReasonId == 0)
+                    if (ReasonId.id == 0)
                     {
-                        ReasonId = 2;
+                        ReasonId = Reasons.FirstOrDefault(x=> x.id == 2);
                     }
                     if (item.isActive == true)
                     {
@@ -337,17 +375,23 @@ namespace ideaForge.ViewModels
                         isActive = item.isActive,
                         update_By = 328,
                         cityId = item.cityId,
-                        reasonId = ReasonId,
+                        reasonId = ReasonId.id,
                         comments = string.IsNullOrEmpty(Comments) ? "" : Comments
                     };
                     await AddAdminLocations(data);
                     GetAdminLocations();
                     if (item.isActive == true)
                     {
+                        if (item.isActive)
+                            Global.IsIFDockStatus = true;
+                        else Global.IsIFDockStatus = false;
                         MessageBox.ShowSuccessful(item.locationName + " Serviceable area enable successfully.", "");
                     }
                     else
                     {
+                        if (item.isActive)
+                            Global.IsIFDockStatus = true;
+                        else Global.IsIFDockStatus = false;
                         MessageBox.ShowSuccessful(item.locationName + " Serviceable area disable successfully.", "");
                     }
                 }
@@ -485,9 +529,12 @@ namespace ideaForge.ViewModels
         {
             Comments = "";
             SelectedReason = new Reason();
+            SelectedReason= new Reason() {isActive=true,id=2,reasonDescription="None" };
             await GetReasons();
-            IsActive = true;
-            ReasonId = 0;
+            
+                IsActive = PilotLocationsGrid.FirstOrDefault().isActive;
+        
+            ReasonId = Reasons.FirstOrDefault(u=>u.id==2);
         }
         #endregion
         #region ApiMethods
@@ -564,8 +611,9 @@ namespace ideaForge.ViewModels
             try
             {
                 var userDatumCities = await _registerService.GetCityList();
-                userDatumCities.userData.ForEach(u => u.position = new Location(Convert.ToDouble(u.Latitude), Convert.ToDouble(u.Longitude)));
-                CityList = new ObservableCollection<UserDatum>(userDatumCities.userData);
+                var Inactivelist = userDatumCities.userData.Where(x => x.inactive == true ).ToList();
+                Inactivelist.ForEach(u => u.position = new Location(Convert.ToDouble(u.Latitude), Convert.ToDouble(u.Longitude)));
+                CityList = new ObservableCollection<UserDatum>(Inactivelist);
                 var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                 if (selectedCity==null)
                 {

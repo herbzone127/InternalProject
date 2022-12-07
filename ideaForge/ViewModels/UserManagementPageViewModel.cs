@@ -54,12 +54,13 @@ namespace ideaForge.ViewModels
             var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
 
             var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-          
+            DashboardViewModel vm = (DashboardViewModel)dashboard.DataContext;
+
             if (dashboard != null)
             {
-                var cityData = dashboard.cityComboBox.ItemsSource as ObservableCollection<UserDatum>;
-                var index = cityData.IndexOf(cityData.FirstOrDefault(u => u.id == selectedCity.id));
-                dashboard.cityComboBox.SelectedIndex=index;
+                var cityData = vm.CityList;
+                var index = cityData.FirstOrDefault(u => u.id == selectedCity.id);
+                vm.SelectedCity = index;
             }
             GetReportsByUser(selectedCity?.city_Name?.ToLower()?.Trim()).ConfigureAwait(false);
 
@@ -92,9 +93,9 @@ namespace ideaForge.ViewModels
                     requests.userData.ForEach(u =>
                     
                     {
-                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && (x.statusID == 2 )).Count();
+                        u.TotalAcceptedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && (x.statusID == 2 || x.statusID== 5 || x.statusID==7)).Count();
                         u.TotalRejectedRidesByUser = requests.userData.Where(x => x.updateBy == u.updateBy && x.statusID == 4).Count();
-                        u.TotalServiceByUser= requests.userData.Where(x => x.updateBy == u.updateBy && x.statusID == 5).Count();
+                        u.TotalServiceByUser= requests.userData.Where(x => x.updateBy == u.updateBy && x.statusID == 5 || x.statusID==7).Count();
                         u.TotalRequestedByUser = requests.userData.Where(x => x.updateBy == u.addedBy && x.statusID == 1).Count();
                     });
                     var distinct = requests.userData.GroupBy(u => u.updateBy).Select(x => x.First());
@@ -125,13 +126,13 @@ namespace ideaForge.ViewModels
             {
              var context = (DashboardViewModel)dashboard.DataContext;
              context.PageName = "User Management Detail";
-             dashboard.btnExcel.Visibility = System.Windows.Visibility.Visible;
+                context.btnExcel = System.Windows.Visibility.Visible;
              var detailPage= new UserManagementDetailPage();
              var vModel= detailPage.DataContext as UserManagementDetailPageViewModel;
              vModel.SelectedRequest = selectedRecord;
              vModel.StatusID = statusID;
              context.CurrentPage.Content = detailPage;
-                dashboard.backButton.Visibility = Visibility.Visible;
+                context.BackButtonVisibility = Visibility.Visible;
                   
             }
                     

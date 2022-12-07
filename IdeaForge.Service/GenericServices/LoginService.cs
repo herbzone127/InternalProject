@@ -28,8 +28,8 @@ namespace IdeaForge.Service.GenericServices
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                return new LoginResponse();
+                
             }
            
         }
@@ -45,8 +45,8 @@ namespace IdeaForge.Service.GenericServices
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                return new OTPResponse();
+                
             }
 
         }
@@ -65,8 +65,8 @@ namespace IdeaForge.Service.GenericServices
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+             return   new LoginResponse();
+                
             }
 
         }
@@ -83,7 +83,7 @@ namespace IdeaForge.Service.GenericServices
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message);
+                return new OTPResponse();
             }
 
         }

@@ -145,10 +145,10 @@ namespace ideaForge.ViewModels
         private void CanExecuteCancelChanges(object obj)
         {
             var dashboard = Application.Current.Windows.OfType<Dashboard>().FirstOrDefault();
-
+            DashboardViewModel vm = (DashboardViewModel)dashboard.DataContext;
             Global.isStoped = false;
-            dashboard.statusBorder.Visibility = Visibility.Hidden;
-            dashboard.backButton.Visibility = Visibility.Hidden;
+            vm.statusBorder = Visibility.Hidden;
+            vm.BackButtonVisibility = Visibility.Hidden;
             var context = (DashboardViewModel)dashboard.DataContext;
            
             context.CurrentPage = new Requests();

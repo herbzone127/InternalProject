@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="ideaForge.Usercontrols.CustomTexBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Background="Transparent"
+             x:Name="customtextbox"
+             >
+    <StackPanel>
+        <Border CornerRadius="5" BorderThickness="1" x:Name="border" Background="White" BorderBrush="#A9ABB1" Padding="2" Margin="0" Height="35">
+        <Grid Background="Transparent" >
+                <TextBlock Foreground="{Binding Path=BorderBrush, ElementName=border}" x:Name="placeholderText" Background="White"
+                   HorizontalAlignment="Left" Padding="3,0" Margin="5,0,0,0"
+                  VerticalAlignment="Center" />
+                <TextBox x:Name="tbtext" Background="Transparent" PreviewTextInput="tbtext_PreviewTextInput" BorderBrush="Transparent" BorderThickness="0"
+                 LostFocus="tbtext_LostFocus"  HorizontalContentAlignment="Left"  Margin="0" GotFocus="tbtext_GotFocus" TextChanged="tbtext_TextChanged_1"/>
+
+            </Grid>
+        </Border>
+        <Label Padding="0" Foreground="Red" Visibility="Hidden" FontSize="10" Margin="5,0,0,0" x:Name="errorlabel"/>
+    </StackPanel>
+</UserControl>

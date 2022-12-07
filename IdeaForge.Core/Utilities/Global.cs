@@ -22,5 +22,7 @@ namespace IdeaForge.Core.Utilities
         public static UserDatum SelectedLocation { get; set; }
         public static bool isStoped { get; set; }
         public static int RoleID { get; set; }
+        public static bool inactive { get; set; }
+        public static int isPopupShown { get; set; }
     }
 }

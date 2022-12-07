@@ -10,7 +10,7 @@
                  AllowsTransparency="False"
                  Background="White"
         mc:Ignorable="d"
-      x:Name="loginWindow"
+      x:Name="loginWindow" MouseMove="loginWindow_MouseMove"
                  SizeChanged="loginWindow_SizeChanged"
         Height="600" Width="1000">
     <Window.DataContext>
@@ -22,7 +22,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Background="#f8f8f9">
-            <Image x:Name="loginImage" Margin="0,60,0,60"  Source="{Binding ImageUrl}"/>
+            <Image x:Name="loginImage" Margin="0,0,0,0"  Source="{Binding ImageUrl}" Stretch="Fill"/>
         </Grid>
       
         <Grid Grid.Column="1">
@@ -30,10 +30,12 @@
                 <RowDefinition  Height="auto"/>
                 <RowDefinition  Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Visibility="{Binding BackButtonVisiblity,Mode=TwoWay}">
-                <Button Background="Transparent" BorderThickness="0" Command="{Binding Path=SignupBackButtonCommand}" >
-                    <Image Source="/Images/backArrow.png"/>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Visibility="{Binding BackButtonVisiblity,Mode=TwoWay}" MouseMove="StackPanel_MouseMove">
+                
+                <Button Background="Transparent" x:Name="btnBack" BorderThickness="0" Height="20" Command="{Binding Path=SignupBackButtonCommand}" VerticalAlignment="Center">
+                    <Image Source="/Images/graypng.png" x:Name="btnBackImage"/>
                 </Button>
+                <TextBlock Text="Back" VerticalAlignment="Center" Foreground="DarkGray" x:Name="tbback"/>
                 <Label Content="{Binding PageName,Mode=TwoWay}" Margin="146,0,146,0" FontSize="34" FontFamily="Segoe UI" FontWeight="SemiBold"/>
             </StackPanel>
             <ContentControl Grid.Row="1" 
@@ -41,7 +43,7 @@
                         VerticalContentAlignment="Center"
                         DataContext="{Binding}"
                         Focusable="True"
-              Content="{Binding AuthenticationPage}" Margin="5,10,5,34"/>
+                        Content="{Binding AuthenticationPage}" Margin="5,10,5,34"/>
         </Grid>
        
 

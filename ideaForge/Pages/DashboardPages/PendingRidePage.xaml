@@ -6,9 +6,8 @@
       xmlns:local="clr-namespace:ideaForge.Pages.DashboardPages"
 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
       xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
-      xmlns:vm="clr-namespace:ideaForge.ViewModels"
-              
-      mc:Ignorable="d" 
+      xmlns:vm="clr-namespace:ideaForge.ViewModels" xmlns:custom="clr-namespace:ideaForge.Usercontrols"
+             mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1000">
     <UserControl.DataContext>
         <vm:PendingRideViewModel/>
@@ -17,14 +16,81 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 
     <UserControl.Content>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid Background="#EEEEEF">
+            <Grid Background="Transparent">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
                     <Image Source="/Images/LocationIcon.png" Height="14" Width="14"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Background="White" Margin="0" Visibility="Visible" >
-                    <Grid>
-                        <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
+                <StackPanel Grid.Row="1" Background="Transparent" Margin="0" Visibility="Visible" >
+                    <TextBlock Margin="10,5" Grid.Column="1" Background="Transparent"
+                               FontWeight="Bold" HorizontalAlignment="Left"
+                               Foreground="Black" Text="Flight Information" />
+
+                    <Grid Margin="10,0">
+                        <Grid Background="White">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Margin="10,20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <custom:CustomTexBox  Text="{Binding MissionName,Mode=TwoWay}"
+                                     VerticalAlignment="Center"
+                                         Margin="10,0"  IsEnabled="False"
+                                         Placeholder="Mission Type" Grid.ColumnSpan="2"/>
+                                <Grid  Grid.Row="1" Margin="10,0">
+                                    <custom:CustomTexBox  Text="{Binding TotalRequestedTime1,Mode=TwoWay,StringFormat={}{0} Hr}"
+                                     VerticalAlignment="Center"
+                                           IsEnabled="False"
+                                                           Placeholder="Total Requested Time"
+                                        />
+                                  
+                                </Grid>
+                                <custom:CustomTexBox  Text="{Binding FlightDate1,Mode=TwoWay}"
+                                     VerticalAlignment="Center" Grid.Row="1"
+                                         Margin="10,0"  Grid.Column="1" IsEnabled="False"
+                                         Placeholder="Flight Date"/>
+                                <!--<custom:CustomTexBox  Text="{Binding StatusForUser1,Mode=TwoWay}"
+                                     VerticalAlignment="Center" Grid.Row="2"
+                                         Margin="10,0"  IsEnabled="False"
+                                         Placeholder="Status For User"/>-->
+                                <custom:CustomTexBox  Text="{Binding FlightTime1,Mode=TwoWay}"
+                                     VerticalAlignment="Center" Grid.Row="2"
+                                         Margin="10,0" IsEnabled="False"
+                                         Placeholder="Flight Time"/>
+
+                                <Grid Grid.Row="3" Grid.Column="0" Margin="10,0" IsEnabled="False" VerticalAlignment="Center">
+                                    <mah:ToggleSwitch VerticalAlignment="Center"
+                                        Content="Push notification"
+                                        Margin="0,0,0,0" IsOn="True"/>
+                                </Grid>
+                                <Grid Grid.Row="3" Grid.Column="1" Margin="10,0" IsEnabled="False" VerticalAlignment="Center">
+                                    <mah:ToggleSwitch VerticalAlignment="Center"
+                                        Content="Live Video Stream Request"
+                                        Margin="0,0,0,0" IsOn="True"/>
+                                </Grid>
+
+
+                            </Grid>
+
+                            <StackPanel Orientation="Vertical"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" 
+                                    Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" IsEnabled="False" Margin="20">
+                                <Image Source="/Images/10_535_330.jpg" Margin="0,0,10,0" Stretch="Fill"/>
+
+                            </StackPanel>
+                        </Grid>
+
+                        <!--<Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto" MinHeight="99"/>
@@ -121,9 +187,9 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                         </Label.Template>
                                     </Label>
                                     <mah:ToggleSwitch IsOn="True"  Margin="15,0,10,0" />
-                                    <!--<ToggleButton  IsChecked="True"  Margin="15,0,10,0"/>-->
+                                    --><!--<ToggleButton  IsChecked="True"  Margin="15,0,10,0"/>-->
                                     <!--<TextBox Background="#F5F5F5"
-                                        BorderBrush="#A9ABB1" Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0"/>-->
+                                        BorderBrush="#A9ABB1" Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0"/>--><!--
                                 </StackPanel>
 
 
@@ -136,8 +202,8 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                         </Label.Template>
                                     </Label>
                                     <mah:ToggleSwitch IsOn="True"  Margin="15,0,10,0" />
-                                    <!--<TextBox Background="#F5F5F5"
-                                        BorderBrush="#A9ABB1" Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0"/>-->
+                                    --><!--<TextBox Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1" Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0"/>--><!--
                                 </StackPanel>
 
 
@@ -145,7 +211,7 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 
 
                             </Grid>
-                        </Border>
+                        </Border>-->
                         <Grid Margin="0,0,0,204">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Border}">
@@ -165,7 +231,6 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0" VerticalAlignment="Center"  />
-                            <TextBlock Margin="0,1,0,0" Grid.Column="1" Background="White" Foreground="Black" Text="FLIGHT INFORMATION" />
 
                         </Grid>
                     </Grid>
@@ -190,193 +255,116 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0"  />
 
 
                     </Grid>
-                    <StackPanel Orientation="Horizontal" >
-                        <Grid Height="140" HorizontalAlignment="Left" >
+                    <TextBlock Background="Transparent" Margin="10,5" FontWeight="Bold" Foreground="Black" Text="FLIGHT STATUS" />
 
-                            <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,0,10" HorizontalAlignment="Left" Width="343">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" MinHeight="99"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="250" MinWidth="192"/>
-                                        <ColumnDefinition Width="*" MinWidth="192"/>
+                    <Border Background="White" Grid.Row="0" BorderThickness="1" Margin="10,0,10,0" HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" MinHeight="99"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="300" />
+                            </Grid.ColumnDefinitions>
 
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,-1,0" Grid.ColumnSpan="2" >
+                            <Grid VerticalAlignment="Center"  Margin="15,0,15,0" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowSaveBTn}">
 
-                                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowSaveBTn}">
-                                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                                <Label.Template>
-                                                    <ControlTemplate>
-                                                        <TextBlock><Run Text="STATUS FOR USER"/></TextBlock>
-                                                    </ControlTemplate>
-                                                </Label.Template>
-                                            </Label>
-                                            <Border
+                                <Border
                                         Background="#F5F5F5"
-                                        BorderBrush="#A9ABB1" Margin="15,0,15,15" Height="35" Width="130" BorderThickness="1" CornerRadius="5">
-                                                <dotNetKitControls:AutoCompleteComboBox
-    SelectedValuePath="statusId"
-                        DisplayMemberPath="name"
-    TextSearch.TextPath="name"
-    ItemsSource="{Binding RideStatuses}"
-     SelectedValue="{Binding RideStatusId,Mode=TwoWay}"   
-                        SelectionChanged="AutoCompleteComboBox_SelectionChanged"
-                        x:Name="ItemComboBox"
-   />
-                                            </Border>
+                                        BorderBrush="#A9ABB1" Height="35" BorderThickness="1" CornerRadius="5">
+                                    <dotNetKitControls:AutoCompleteComboBox
+                                            SelectedValuePath="statusId"
+                                            DisplayMemberPath="name"
+                                            TextSearch.TextPath="name"
+                                            ItemsSource="{Binding RideStatuses}"
+                                             SelectedValue="{Binding RideStatusId,Mode=TwoWay}"   
+                                            SelectionChanged="AutoCompleteComboBox_SelectionChanged"
+                                            x:Name="ItemComboBox"/>
+                                </Border>
 
+                                <TextBlock Style="{StaticResource tbPlaceholderup}" Text="Status For User" Background="White"/>
 
-
-                                        </StackPanel>
-
-
-                                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="False">
-                                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                                <Label.Template>
-                                                    <ControlTemplate>
-                                                        <TextBlock><Run Text="CURRENT FLIGHT STATUS"/></TextBlock>
-                                                    </ControlTemplate>
-                                                </Label.Template>
-                                            </Label>
-                                            <TextBox Background="#F5F5F5"
-                                        BorderBrush="#A9ABB1" Width="130"  Text="{Binding Status1}" Height="35"  Foreground="Black"/>
-                                        </StackPanel>
-
-
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                            <Grid VerticalAlignment="Top">
-                                <Grid.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="VerticalAlignment" Value="Top" />
-                                        <Setter Property="BorderThickness" Value="0,5,0,0" />
-                                        <Setter Property="BorderBrush" Value="white" />
-                                        <Setter Property="Margin" Value="0,-2,0,0" />
-                                    </Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Margin" Value="10,-2,10,0" />
-                                        <Setter Property="FontSize" Value="20" />
-                                    </Style>
-                                </Grid.Resources>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0"  />
-                                <TextBlock Grid.Column="1" Background="White"  Foreground="Black" Text="FLIGHT STATUS" />
-                                <Border Grid.Column="2" />
                             </Grid>
-                        </Grid>
-                        <Grid Height="140" Width="629" >
 
-                            <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,0,10" HorizontalAlignment="Left" Width="358">
-                                <Grid Margin="0,0,-34,0">
+                            <Grid Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" IsEnabled="False" VerticalAlignment="Center">
+                                    
+                                    <TextBox Background="#F5F5F5"
+                                        BorderBrush="#A9ABB1"  Text="{Binding Status1}" Height="35"  Foreground="Black"/>
+                                <TextBlock Style="{StaticResource tbPlaceholderup}" Margin="22,-10,0,0" Text="Current Flight Status" Background="White"/>
+
+                            </Grid>
+
+
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Column="1" Background="Transparent" Margin="10,5" FontWeight="Bold" Foreground="Black" Text="Additional Information" />
+
+                    <StackPanel  >
+                        
+                     
+                            <Border BorderBrush="White" Grid.Row="0" BorderThickness="1" Height="150" Margin="10,0,0,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <Grid Margin="0,0,0,0" Background="White" VerticalAlignment="Stretch">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" MinHeight="99"/>
-                                    </Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" MinWidth="192"/>
-                                        <ColumnDefinition Width="*" MinWidth="192"/>
-
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal"  Margin="0,0,4,0" Grid.ColumnSpan="2">
-
-                                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowSaveBTn}">
-                                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                                <Label.Template>
-                                                    <ControlTemplate>
-                                                        <TextBlock><Run Text="LATITUDE"/></TextBlock>
-                                                    </ControlTemplate>
-                                                </Label.Template>
-                                            </Label>
-                                            <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                                <Grid Background="#F5F5F5">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="auto"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                                        <ColumnDefinition Width="auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBox BorderThickness="0" Text="{Binding Latitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
-                                                    <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
-                                                        </Button.Background>
-                                                    </Button>
-                                                </Grid>
-                                            </Border>
-
-
-                                        </StackPanel>
-
-
-                                        <StackPanel Orientation="Vertical" Margin="0,30,10,0" Grid.Row="0" Grid.Column="0" IsEnabled="False">
-                                            <Label HorizontalAlignment="Left" Margin="15,0,0,5" FontSize="10" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="#545864">
-                                                <Label.Template>
-                                                    <ControlTemplate>
-                                                        <TextBlock><Run Text="LONGITUDE"/></TextBlock>
-                                                    </ControlTemplate>
-                                                </Label.Template>
-                                            </Label>
-                                            <Border CornerRadius="5" BorderBrush="#A9ABB1" BorderThickness="1" Margin="10,0,0,0">
-                                                <Grid Background="#F5F5F5">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="auto"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" MinWidth="120"/>
-                                                        <ColumnDefinition Width="auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBox BorderThickness="0" Text="{Binding Longitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
-                                                    <Button  Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
-                                                        </Button.Background>
-                                                    </Button>
-                                                </Grid>
-                                            </Border>
-                                        </StackPanel>
-
-
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                            <Grid VerticalAlignment="Top">
-                                <Grid.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="VerticalAlignment" Value="Top" />
-                                        <Setter Property="BorderThickness" Value="0,5,0,0" />
-                                        <Setter Property="BorderBrush" Value="white" />
-                                        <Setter Property="Margin" Value="0,-2,0,0" />
-                                    </Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Margin" Value="10,-2,10,0" />
-                                        <Setter Property="FontSize" Value="20" />
-                                    </Style>
-                                </Grid.Resources>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="300" />
+                                    <ColumnDefinition Width="300" />
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0"  />
-                                <TextBlock Grid.Column="1" Background="White"  Foreground="Black" Text="ADDITIONAL INFORMATION" />
-                                <Border Grid.Column="2" />
-                            </Grid>
-                        </Grid>
-                    </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                        <Button   BorderThickness="1"  
+                                             
+                                    <Border CornerRadius="5" BorderBrush="#A9ABB1" Padding="2,0" VerticalAlignment="Center" BorderThickness="1" Margin="15,0,15,0" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowSaveBTn}">
+                                                <Grid Background="#F5F5F5">
+                                                 
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" MinWidth="120"/>
+                                                        <ColumnDefinition Width="auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="txtLatitude" BorderThickness="0" Text="{Binding Latitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
+                                                    <Button  x:Name="btnLatitude" Click="btnLatitude_Click" Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                                        </Button.Background>
+                                            </Button>
+                                            <TextBlock Style="{StaticResource tbPlaceholderup}" Text="Latitude" Background="White"/>
+
+                                        </Grid>
+                                            </Border>
+
+
+
+
+                                       
+
+                                    <Border CornerRadius="5" BorderBrush="#A9ABB1" Padding="2,0" VerticalAlignment="Center" BorderThickness="1" Margin="10,0,10,0" Grid.Row="0" Grid.Column="1">
+                                                <Grid Background="#F5F5F5">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" MinWidth="120"/>
+                                                        <ColumnDefinition Width="auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox x:Name="txtLongitude" BorderThickness="0" Text="{Binding Longitude1}" Height="35" Grid.Column="0" IsEnabled="False" Foreground="Black" Margin="0,0,5,0"/>
+                                        <Button x:Name="btnLongitude"
+                                                Click="btnLongitude_Click" 
+                                                Height="10" Width="15"  BorderBrush="Transparent" Command="{Binding TextCopyCONTROL_KEY_Comand}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Images/CopyTextIcon.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                        <TextBlock Style="{StaticResource tbPlaceholderup}" Text="Longitude" Background="White"/>
+                                    </Grid>
+                                            </Border>
+                                <StackPanel Orientation="Horizontal"  Grid.Row="1"
+                                            VerticalAlignment="Bottom" Margin="10"
+                                            Grid.Column="2" HorizontalAlignment="Right">
+                                    <Button   BorderThickness="1"  
                           Margin="0,0,10,0" 
                           Height="35" Width="130" 
                          
@@ -387,17 +375,17 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                        
             Background="#E9E9E9"
                                   >
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Button}">
-                                    <Style.Resources>
-                                        <Style TargetType="{x:Type Border}">
-                                            <Setter Property="CornerRadius" Value="5" />
-                                        </Style>
-                                    </Style.Resources>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                        <Button   
+                                        <Button.Resources>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Style.Resources>
+                                                    <Style TargetType="{x:Type Border}">
+                                                        <Setter Property="CornerRadius" Value="5" />
+                                                    </Style>
+                                                </Style.Resources>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                    <Button   
                           BorderThickness="1" Height="35"
                           Width="130" 
                           Content="SAVE CHANGES"
@@ -406,17 +394,26 @@ xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
             Foreground="White" 
             Background="#91c84f"
                           Command="{Binding SaveChanges_Command}">
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Button}">
-                                    <Style.Resources>
-                                        <Style TargetType="{x:Type Border}">
-                                            <Setter Property="CornerRadius" Value="5" />
-                                        </Style>
-                                    </Style.Resources>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+                                        <Button.Resources>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Style.Resources>
+                                                    <Style TargetType="{x:Type Border}">
+                                                        <Setter Property="CornerRadius" Value="5" />
+                                                    </Style>
+                                                </Style.Resources>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </StackPanel>
+
+                            </Grid>
+                            </Border>
+                           
+
                     </StackPanel>
+                    
+
+             
                 </StackPanel>
                 <mah:ProgressRing
                     IsActive="{Binding IsBusy}" 

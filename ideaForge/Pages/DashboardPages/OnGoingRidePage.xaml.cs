@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,9 +32,9 @@ namespace ideaForge.Pages.DashboardPages
             vModel.MissionName = userData.MissionName;
             double totalHours = (userData.endDate - userData.startDate).TotalHours;
             vModel.TotalRequestedTime1 = Math.Round(totalHours, 2); ;
-            vModel.FlightDate1 = userData.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
+            vModel.FlightDate1 = userData.startDate.ToString("dd/MM/yyyy");
            
-            vModel.FlightTime1 = userData.startDate.ToString("hh:mm:ss tt")+"-"+userData.endDate.ToString("hh:mm:ss tt");//For Time
+            vModel.FlightTime1 = userData.startDate.ToString("hh:mm tt")+" - "+userData.endDate.ToString("hh:mm tt");//For Time
             vModel.StatusForUser1 = userData.status;
             vModel.Latitude1 = userData.originLatitude;
             vModel.Longtitude1 = userData.originLongitude;
@@ -42,6 +43,30 @@ namespace ideaForge.Pages.DashboardPages
             vModel.SecretKey1 = userData.SecretKey;
 
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var obj = sender as Button;
+            Clipboard.SetText(txt_Lattitude1.Text);
+            //obj.Background = new ImageBrush(new BitmapImage(new Uri(@"/Images/acceptIcon.png", UriKind.Relative)));
+            obj.Background = new ImageBrush(GEtIamge("acceptIcon"));
+            //btnLongitude.Background = new ImageBrush(new BitmapImage(new Uri(@"/Images/CopyTextIcon.png", UriKind.Relative)));
+            btnLongitude.Background = new ImageBrush(GEtIamge("CopyTextIcon"));
+        }
+
+        private void btnLongitude_Click(object sender, RoutedEventArgs e)
+        {
+            var obj = sender as Button;
+            Clipboard.SetText(txtLongitude.Text);
+            obj.Background = new ImageBrush(GEtIamge("acceptIcon"));
+            ///Images/CopyTextIcon.png
+             btnLatitude.Background = new ImageBrush(GEtIamge("CopyTextIcon"));
+        }
+        BitmapImage GEtIamge(string path)
+        {
+            BitmapImage bit = new BitmapImage(new Uri(string.Format("pack://application:,,,/{0};component/Images/" + path + ".png", Assembly.GetExecutingAssembly().GetName().Name)));
+            return bit;
         }
     }
 }

@@ -14,6 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Management.Instrumentation;
+
+using System.Threading;
+
+using System.Security.Cryptography;
+using ideaForge.ViewModels;
+
 namespace ideaForge.Pages
 {
     /// <summary>
@@ -24,6 +31,7 @@ namespace ideaForge.Pages
         public ProfilePage()
         {
             InitializeComponent();
+
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -64,6 +72,25 @@ namespace ideaForge.Pages
             {
                 e.Handled = e.Key == Key.Space;
             }
+        }
+
+       
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+            string pattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            var vModel = DataContext as ProfilePageViewModels;
+           
+            if (vModel?.ProfileModel?.email != null)
+                if (!Regex.IsMatch(vModel.ProfileModel?.email, pattern))
+                {
+                    vModel.ProfileModel.AddError(nameof(vModel.ProfileModel.email), "Please enter a valid e-mail address.");
+
+                }
+                else
+                {
+                    vModel.ProfileModel.ClearErrors(nameof(vModel.ProfileModel.email));
+                }
         }
     }
 }

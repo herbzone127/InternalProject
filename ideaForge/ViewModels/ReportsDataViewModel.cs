@@ -1,4 +1,5 @@
 ﻿using ideaForge.Pages.DashboardPages;
+using IdeaForge.Core.Utilities;
 using IdeaForge.Domain;
 using IdeaForge.Service.IGenericServices;
 using log4net;
@@ -52,21 +53,51 @@ namespace ideaForge.ViewModels
                 {
                     var selectedCity = Barrel.Current.Get<UserDatum>("SelectedLocation");
                     requests.userData = requests.userData.Where(u => u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim()
-                    && u.addedBy == recordsByUserId
-                    && (u.statusID==2 || u.statusID==4 || u.statusID==5)
+                    && u.updateBy == recordsByUserId
+                   
                     ).ToList();
-                    requests.userData.ForEach(u => {
+                    requests.userData.ForEach(async u => {
 
+                        u.startDate.ToString("dd/MM/yyyy hh:mm:ss tt");
+                       
+
+
+                        if (u.statusID == 1)
+                        {
+                            //Pending
+                            u.color = ConvertColor("#DEECFF");
+                            u.TextColor = ConvertColor("#3398D8");
+                            u.StatusImage = "/Images/pendingIcon.png";
+
+                            if (Global.IsIFDockStatus && u.city?.ToLower()?.Trim() == selectedCity?.city_Name?.ToLower()?.Trim())
+                            {
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+                            else
+                            {
+                                u.IsVisibleButton = Visibility.Hidden;
+                            }
+
+                            u.ViewButtonVisible = Visibility.Hidden;
+                        }
                         if (u.statusID == 2)
                         {
                             //OnGoing
-                            u.status = "Accepted";
-                            u.color = ConvertColor("#E8F4D9");
-                            u.TextColor = ConvertColor("#91C84F");
-                            u.StatusImage = "/Images/completedIcon.png";
+                            u.color = ConvertColor("#FFF3D9");
+                            u.TextColor = ConvertColor("#F98926");
+                            u.StatusImage = "/Images/ongoingIcon.png";
                             u.IsVisibleButton = Visibility.Hidden;
-                            u.ViewButtonVisible = Visibility.Visible;
+                            u.ViewButtonVisible = Visibility.Hidden;
 
+                        }
+                        if (u.statusID == 3)
+                        {
+                            //UpComming
+                            u.color = ConvertColor("#EEE2FF");
+                            u.TextColor = ConvertColor("#9F52FF");
+                            u.StatusImage = "/Images/upcomingIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
+                            u.ViewButtonVisible = Visibility.Hidden;
                         }
                         if (u.statusID == 4)
                         {
@@ -75,11 +106,10 @@ namespace ideaForge.ViewModels
                             u.TextColor = ConvertColor("#D42424");
                             u.StatusImage = "/Images/rejectedIcon.png";
                             u.IsVisibleButton = Visibility.Hidden;
-                            u.ViewButtonVisible = Visibility.Visible;
+                            u.ViewButtonVisible = Visibility.Hidden;
                         }
                         if (u.statusID == 5)
                         {
-                            u.status = "Accepted";
                             //Completed
                             u.color = ConvertColor("#E8F4D9");
                             u.TextColor = ConvertColor("#91C84F");
@@ -87,9 +117,36 @@ namespace ideaForge.ViewModels
                             u.IsVisibleButton = Visibility.Hidden;
                             u.ViewButtonVisible = Visibility.Visible;
                         }
+                        if (u.statusID == 6)
+                        {
+                            //Cancel
+                            u.color = ConvertColor("#FFF2F2");
+                            u.TextColor = ConvertColor("#D42424");
+                            u.StatusImage = "/Images/cancelledIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
+                            u.ViewButtonVisible = Visibility.Hidden;
+                        }
+                        if (u.statusID == 7)
+                        {
+                            //EndFlight
+                            u.color = ConvertColor("#FFDCEF");
+                            u.TextColor = ConvertColor("#C84F90");
+                            u.StatusImage = "/Images/endedIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
+                            u.ViewButtonVisible = Visibility.Hidden;
+                        }
+                        if (u.statusID == 8)
+                        {
+                            //EndFlight
+                            u.color = ConvertColor("#FFDCEF");
+                            u.TextColor = ConvertColor("#C84F90");
+                            u.StatusImage = "/Images/endedIcon.png";
+                            u.IsVisibleButton = Visibility.Hidden;
+                            u.ViewButtonVisible = Visibility.Hidden;
+                        }
 
                     });
-                   
+
                     RidesAcceptedByUsers = new ObservableCollection<RequestData>(requests.userData);
                 }
             }
@@ -110,8 +167,8 @@ namespace ideaForge.ViewModels
                         if (dashboard != null)
                         {
                             var context = (DashboardViewModel)dashboard.DataContext;
-                            dashboard.backButton.Visibility = Visibility.Visible;
-                            dashboard.btnExcel.Visibility = Visibility.Visible;
+                            context.BackButtonVisibility = Visibility.Visible;
+                            context.btnExcel = Visibility.Visible;
                             context.PageName = $"Booking Id: {selectedRecord.id}";
                             context.CurrentPage.Content = new ReportCompletedPage(rideDetails.userData);
                         }

@@ -54,7 +54,7 @@ namespace IdeaForge.Data
                 //{
 
                 //}
-                var response =await httpClient.GetAsync(new Uri(url));
+                var response = await httpClient.GetAsync(new Uri(url));
 
                 //response.EnsureSuccessStatusCode();
                 await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompleteRideModel.cs" />
     <Compile Include="GoogleDirection.cs" />
     <Compile Include="GooglePlace.cs" />
     <Compile Include="GooglePlaceAutoCompletePrediction.cs" />
@@ -62,9 +63,11 @@
     <Compile Include="PilotOTP.cs" />
     <Compile Include="PilotRequest.cs" />
     <Compile Include="FlightStatus.cs" />
+    <Compile Include="PilotRideUpdate.cs" />
     <Compile Include="ProfileModel.cs" />
     <Compile Include="PropertyValidateModel.cs" />
     <Compile Include="Reasons.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="Ride.cs" />
     <Compile Include="RideByPilot.cs" />
     <Compile Include="RideStatus.cs" />

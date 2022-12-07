@@ -9,7 +9,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:vm="clr-namespace:ideaForge.ViewModels"
             xmlns:pg="clr-namespace:ideaForge.Pages.DashboardPages"          
-                                   xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+             xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
 
         mc:Ignorable="d"
                 
@@ -18,11 +18,13 @@
       x:Name="loginWindow"
        Height="620" Width="1000">
     <Controls:MetroWindow.DataContext>
-           <vm:DashboardViewModel/>
+        <vm:DashboardViewModel/>
     </Controls:MetroWindow.DataContext>
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
+            <local:BitmapImageConverter x:Key="BitmapImageConverter"></local:BitmapImageConverter>
+
             <Style TargetType="{x:Type TextBox}">
 
                 <Style.Setters>
@@ -49,7 +51,9 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+              
                 </Style.Setters>
+               
             </Style>
             <!--  This is the template for all menu items. In this sample we use the glyph items.  -->
             <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
@@ -129,6 +133,7 @@
                             PaneBackground="White"
                             Foreground="#000000"
                         ItemsSource="{Binding MenuItems}"
+                            Loaded="HamburgerMenuControl_Loaded"
                           ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                           ItemTemplate="{StaticResource HamburgerMenuItem}"
                           OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}">
@@ -206,31 +211,8 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0"
-                                        x:Name="searchBarPanel"
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                   Visibility="{Binding Path=DataContext.IsSearchBarVisible,Mode=TwoWay,FallbackValue=Hidden}"
-                                        >
-                                <Border BorderThickness="1" 
-                                    BorderBrush="#A9ABB1" 
-                                    CornerRadius="5" 
-                                    Padding="2"
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    Width="400"
-                                    Height="30"
-                                    >
+                          
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image  Source="/Images/SearchIcon.png" Height="15" Margin="5,0,0,0"></Image>
-                                        <TextBox  TextChanged="UpdateDataSearch"
-                                            Tag="Search" BorderThickness="0" Width="370"/>
-                                    </StackPanel>
-                                    <!--<TextBox Text="Hello ! " BorderThickness="0"/>-->
-                                </Border>
-                            </StackPanel>
-                            
                             <!--<Border BorderThickness="1" 
                                     BorderBrush="#A9ABB1" 
                                     CornerRadius="5" 
@@ -244,41 +226,278 @@
                                     <Image  Source="/Images/SearchIcon.png" Height="25" Margin="0"></Image>
                                     <TextBox Text="Hello ! " BorderThickness="0" />
                                 </StackPanel>
-                                --><!--<TextBox Text="Hello ! " BorderThickness="0"/>--><!--
+                                -->
+                            <!--<TextBox Text="Hello ! " BorderThickness="0"/>-->
+                            <!--
                             </Border>-->
-
-                            <Grid Grid.Column="1" Margin="20,-15 ,25,0" HorizontalAlignment="Right">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                               
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
+                            <Grid>
+                                <Grid x:Name="headerBar"  Visibility="{Binding Path=DataContext.headerBar,FallbackValue=Hidden}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button 
+                            Padding="5"
+                            Grid.Column="0"
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Width="30" Height="30" 
+                                Background="Transparent" 
+                                BorderBrush="Transparent" 
+                                Visibility="{Binding Path=DataContext.BackButtonVisibility}"
+                               Click="backButton_Click"
                                 
-                            </Grid.RowDefinitions>
-                            <Image  Source="/Images/bell.png" Height="25" Margin="0,10,10,10" Grid.Column="0" ></Image>
+                                x:Name="backButton">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/backArrow.png" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
 
-
+                                    <Label 
                          
-                            <Grid Grid.Column="1" Grid.Row="0" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseEnter="TextBlock_MouseEnter" HorizontalAlignment="Right" >
-                                
+                            Grid.Column="1" x:Name="Header"
+                               Padding="5,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="Black"
+                       FontWeight="Medium"
+                              FontFamily="Segoe UI"     
+                       Content="{Binding PageName,Mode=TwoWay}" />
+                                    <Border
+                            Grid.Column="2"
+                          
+                            Visibility="{Binding Path=DataContext.statusBorder, FallbackValue=Hidden}"
+                            x:Name="statusBorder"
+                                        CornerRadius="{Binding Path=DataContext.statusBorderCornerRadius}"
+                                        BorderThickness="{Binding Path=DataContext.statusBorderBorderThickness}"
+                                        BorderBrush="{Binding Path=DataContext.statusBorderBorderBrush}"
+                           Background="{Binding Path=DataContext.statusBorderBackground}"
+                            HorizontalAlignment ="Left"
+                            VerticalAlignment="Center"
+                            >
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image
+                                    x:Name="statusImage"
+                                    Source="{Binding StatusLogo}"
+                                    Grid.Column="0" Height="10" Margin="5"/>
+                                            <Label 
+                                    x:Name="statusLabel" Grid.Column="1" Content="{Binding Path=DataContext.statusLabel}"/>
+                                        </Grid>
+
+                                    </Border>
+                                    <StackPanel
+                            x:Name="DashBoardDataStackPanel"
+                            Visibility="{Binding Path=DataContext.DashBoardDataStackPanel, FallbackValue=Hidden}"
+                           Margin="0,0,45,0"
+                            Grid.Column="3"
+                              VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            >
+                                        <Button Margin="10,0,0,0" x:Name="btnExcel" BorderThickness="0" BorderBrush="Transparent" Click="btnExcel_Click"  Height="40" Visibility="{Binding Path=DataContext.btnExcel, FallbackValue=Hidden}">
+                                            <Button.Content>
+                                                <Image Source="/Images/iconExcel.png"/>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Image 
+                          Margin="0,10"
+                                Height="18"
+                            Source="{Binding Path=MarkerIcon}"/>
+                                        <Label 
+                                Margin="0,0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       Foreground="Black"
+                       FontWeight="Normal"
+                             HorizontalContentAlignment="Right"      
+                       Content="{Binding PageLocation}" />
+                                    </StackPanel>
+
+                                    <Grid Grid.Column="3" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0"
+                                        x:Name="searchBarPanel"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                   Visibility="{Binding Path=IsSearchBarVisible,Mode=TwoWay,FallbackValue=Hidden}"
+                                        >
+                                            <Border BorderThickness="1" 
+                                    BorderBrush="#A9ABB1" 
+                                    CornerRadius="5" 
+                                    Padding="2"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Width="auto"
+                                    Height="30"
+                                    >
+
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image  Source="/Images/SearchIcon.png" Height="15" Margin="5,0,0,0"></Image>
+                                                    <TextBox  TextChanged="UpdateDataSearch"
+                                            Tag="Search" BorderThickness="0" Width="370"/>
+                                                </StackPanel>
+                                                <!--<TextBox Text="Hello ! " BorderThickness="0"/>-->
+                                            </Border>
+                                        </Grid>
+                                        <Border 
+                            Width="180"
+                            Visibility="{Binding Path=DataContext.CityComboBox, FallbackValue=Hidden}"
+                            x:Name="CityComboBox"
+                            Margin="10,0,10,0"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#A9ABB1" BorderThickness="2" CornerRadius="3"
+                            Padding="2"
+                            >
+                                            <Grid>
+                                                <dotNetKitControls:AutoCompleteComboBox Height="auto" Width="auto"
+                                                                                BorderBrush="Transparent"
+                                                                                BorderThickness="0"
+                                SelectedValuePath="city_Name"
+                                DisplayMemberPath="city_Name"
+                                TextSearch.TextPath="city_Name"
+                                ItemsSource="{Binding CityList}"
+                                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
+                                SelectionChanged="cityComboBox_SelectionChanged"
+                                x:Name="cityComboBox"
+                                TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
+                                                <TextBlock Margin="5"
+                                       Foreground="#A9ABB1"
+                                       x:Name="cityWaterMark"
+                                       IsHitTestVisible="False"
+                                                           Visibility="{Binding Path=DataContext.cityWaterMark, FallbackValue=Hidden}"
+                                       Text="Select City" />
+                                            </Grid>
+
+                                        </Border>
+                                    </Grid>
+
+                                </Grid>
+
+                                <Grid x:Name="headerBarReport" Margin="50,0,0,0" Visibility="{Binding Path=DataContext.headerBarReport, FallbackValue=Hidden, Mode=TwoWay}">
+                                    <StackPanel Margin="-40,0,0,0" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2">
+                                        <Border Background="#E71E1E" CornerRadius="3" Height="15" Width="15"/>
+                                        <Label Content="Drone Request Rejected" Foreground="#000000" FontWeight="SemiBold"/>
+                                        <Border Margin="10,0,0,0" Background="#7FB83B" CornerRadius="3" Height="15" Width="15"/>
+                                        <Label Content="Drone Request Serviced" Foreground="#000000" FontWeight="SemiBold"/>
+                                        <Border Margin="10,0,0,0" Background="#B9BDC9" CornerRadius="3" Height="15" Width="15"/>
+                                        <Label Content="IF DOCK down" Foreground="#000000" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                    <Border 
+                            Visibility="Visible"
+                            x:Name="CityComboBoxx"
+                            Margin="0,0,220,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#A9ABB1" BorderThickness="1" CornerRadius="5"
+                            >
+                                        <Grid>
+                                            <dotNetKitControls:AutoCompleteComboBox Height="auto" Width="150"
+                                SelectedValuePath="city_Name"
+                                DisplayMemberPath="city_Name"
+                                TextSearch.TextPath="city_Name"
+                                ItemsSource="{Binding CityList}"
+                                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
+                                SelectionChanged="cityComboBox_SelectionChangedReport"
+                                x:Name="cityComboBoxx"
+                                TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
+                                            <TextBlock Margin="5"
+                                       Foreground="#A9ABB1"
+                                       x:Name="cityWaterMarkk"
+                                        Visibility="{Binding Path=DataContext.cityWaterMarkk, FallbackValue=Hidden}"
+                                       IsHitTestVisible="False"
+                                       Text="Select City" />
+                                        </Grid>
+
+                                    </Border>
+                                    <Border 
+                            Visibility="{Binding Path=DataContext.datePicker, FallbackValue=Hidden}"
+                            x:Name="datePicker"
+                            Margin="0,0,45,0"
+                            Grid.Column="3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#A9ABB1" BorderThickness="1" CornerRadius="5"
+                            >
+                                        <DatePicker SelectedDateChanged="DatePicker_SelectedDateChanged" SelectedDate="{Binding date_selected}"
+                                            Height="5" BorderBrush="Transparent"  Grid.Column="3"  Width="150">
+                                            <DatePicker.Resources>
+                                                <Style TargetType="DatePickerTextBox">
+                                                    <Setter Property="Control.Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate>
+                                                                <TextBox IsEnabled="False" Text="{Binding Path=SelectedDate, StringFormat='MMM yyyy', RelativeSource={RelativeSource AncestorType=DatePicker}}" />
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </DatePicker.Resources>
+                                        </DatePicker>
+                                    </Border>
+
+                                    <Button Height="40"   Width="40" HorizontalAlignment="Right" Visibility="{Binding Path=DataContext.btnExcell, FallbackValue=Hidden}" x:Name="btnExcell" BorderThickness="0" BorderBrush="Transparent" Click="btnExcel_Click"  Background="Red">
+                                        <Button.Content>
+                                            <Image 
+                          
+                             
+                            Source="/Images/excelicon.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Column="1" Margin="20,-15 ,25,0" HorizontalAlignment="Right">
                                 <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+
                                 </Grid.ColumnDefinitions>
-                             <Border Grid.Column="0" 
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+
+                                </Grid.RowDefinitions>
+                                <Image  Source="/Images/bell.png" Height="25" Margin="0,10,10,10" Grid.Column="0" ></Image>
+
+
+
+                                <Grid Grid.Column="1" Grid.Row="0" x:Name="gridprofile"   HorizontalAlignment="Right" >
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0"  Panel.ZIndex="1"
+                                            x:Name="bdroutline"
                                     Background="#FFFFFF" 
-                                    BorderBrush="Black" CornerRadius="20" 
+                                    BorderBrush="Black" CornerRadius="30" 
                                     Width="30" Height="30" 
                                     BorderThickness="1">
-                                 
-                                    <Image Source="{Binding Path=DataContext.ProfileImage}"></Image>
-                                    
-                                </Border>
-                            
-                            <Label 
+                                        <Ellipse 
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding Path=DataContext.ProfileImage,Converter={StaticResource BitmapImageConverter}}" x:Name="imguser"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Border>
+
+                                    <Label 
                                 VerticalAlignment="Center" 
                                 Content="{Binding Path=DataContext.UserName}" 
                                 Margin="5"
@@ -286,12 +505,12 @@
                                 FontSize="15"
                                 Grid.Column="1"></Label>
 
-                                <Image  Source="/Images/down-arrow.png"
+                                    <Image  MouseLeftButtonUp="Grid_MouseLeftButtonUp" Source="/Images/down-arrow.png"
                                    Height="20" Grid.Column="2" />
 
+                                </Grid>
+
                             </Grid>
-                           
-                        </Grid>
 
                         </Grid>
 
@@ -346,7 +565,7 @@
                         </Border.Effect>
                     </Border>
 
-                   
+
                     <Controls:TransitioningContentControl Grid.Row="1"
                                                 Content="{Binding}"
                                                 RestartTransitionOnContentChange="True"
@@ -382,21 +601,21 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-               
-                <Border 
+
+                <!--<Border 
                     MouseEnter="Border_MouseEnter"
                     Grid.Row="0"
                     Margin="15,15,15,15"
                   Background="#FFFFFF" Grid.ColumnSpan="3">
-
-                    <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.3*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="4*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button 
+                    <Grid>
+                        <Grid x:Name="headerBar" Visibility="Visible">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button 
                             Padding="5"
                             Grid.Column="0"
                                 HorizontalAlignment="Left" 
@@ -408,14 +627,14 @@
                                Click="backButton_Click"
                                 x:FieldModifier="public"
                                 x:Name="backButton">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="/Images/backArrow.png" 
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/backArrow.png" 
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        
-                        <Label 
+                                </StackPanel>
+                            </Button>
+
+                            <Label 
                          
                             Grid.Column="1" x:Name="Header"
                                Padding="5,0,0,0"
@@ -426,7 +645,7 @@
                        FontWeight="Medium"
                               FontFamily="Segoe UI"     
                        Content="{Binding PageName,Mode=TwoWay}" />
-                        <Border
+                            <Border
                             Grid.Column="2"
                           
                             Visibility="Visible"
@@ -436,25 +655,25 @@
                             HorizontalAlignment ="Left"
                             VerticalAlignment="Center"
                             >
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                </Grid.ColumnDefinitions>
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Image
+                                    <Image
                                     x:Name="statusImage"
                                     x:FieldModifier="public" 
                                     Source="{Binding StatusLogo}"
                                     Grid.Column="0" Height="10" Margin="5"/>
-                                <Label 
+                                    <Label 
                                     x:FieldModifier="public"
                                     x:Name="statusLabel" Grid.Column="1"/>
 
-                            </Grid>
+                                </Grid>
 
-                        </Border>
-                        <StackPanel
+                            </Border>
+                            <StackPanel
                             x:FieldModifier="public"
                             x:Name="DashBoardDataStackPanel"
                             Visibility="Visible"
@@ -464,20 +683,20 @@
                             HorizontalAlignment="Right"
                             Orientation="Horizontal"
                             >
-                            <Button Margin="10,0,0,0" x:Name="btnExcel" BorderThickness="0" BorderBrush="Transparent" Click="btnExcel_Click"  Height="40" Background="White">
-                                <Button.Content>
-                                    <Image 
+                                <Button Margin="10,0,0,0" x:Name="btnExcel" BorderThickness="0" BorderBrush="Transparent" Click="btnExcel_Click"  Height="40" Background="White">
+                                    <Button.Content>
+                                        <Image 
                           
                              
                             Source="/Images/iconExcel.png"/>
-                                </Button.Content>
-                            </Button>
-                            
-                            <Image 
+                                    </Button.Content>
+                                </Button>
+
+                                <Image 
                           Margin="0,10"
                                 Height="18"
-                            Source="/Images/markerIcon.png"/>
-                            <Label 
+                            Source="{Binding Path=MarkerIcon}"/>
+                                <Label 
                                 Margin="0,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
@@ -486,55 +705,157 @@
                        FontWeight="Normal"
                              HorizontalContentAlignment="Right"      
                        Content="{Binding PageLocation}" />
-                        </StackPanel>
+                            </StackPanel>
 
-                        <Border 
-                            Width="200"
+                            <Grid Grid.Column="3" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0"
+                                        x:Name="searchBarPanel"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                   Visibility="{Binding Path=IsSearchBarVisible,Mode=TwoWay,FallbackValue=Hidden}"
+                                        >
+                                    <Border BorderThickness="1" 
+                                    BorderBrush="#A9ABB1" 
+                                    CornerRadius="5" 
+                                    Padding="2"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Width="auto"
+                                    Height="30"
+                                    >
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image  Source="/Images/SearchIcon.png" Height="15" Margin="5,0,0,0"></Image>
+                                            <TextBox  TextChanged="UpdateDataSearch"
+                                            Tag="Search" BorderThickness="0" Width="370"/>
+                                        </StackPanel>
+                                        --><!--<TextBox Text="Hello ! " BorderThickness="0"/>--><!--
+                                    </Border>
+                                </Grid>
+                                <Border 
+                            Width="180"
                             Visibility="Hidden"
                             x:FieldModifier="public"
                             x:Name="CityComboBox"
-                            Margin="0,0,45,0"
-                            Grid.Column="3"
+                            Margin="10,0,10,0"
+                            Grid.Column="2"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             BorderBrush="#A9ABB1" BorderThickness="2" CornerRadius="3"
                             Padding="2"
                             >
-                            <Grid>
-                                <dotNetKitControls:AutoCompleteComboBox 
-                                    Height="auto" Width="180"
-                                    BorderThickness="0"                                
-                                    SelectedValuePath="city_Name"
-                                    DisplayMemberPath="city_Name"
-                                    TextSearch.TextPath="city_Name"
-                                    ItemsSource="{Binding CityList}"
-                                    SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
-                                    SelectionChanged="cityComboBox_SelectionChanged"
-                                    x:Name="cityComboBox"
-                                    TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
-                                    <TextBlock Margin="2"
-                                               Foreground="#A9ABB1"
-                                               x:Name="cityWaterMark"
-                                               IsHitTestVisible="False"
-                                               Text="Select City" />
+                                    <Grid>
+                                        <dotNetKitControls:AutoCompleteComboBox Height="auto" Width="auto"
+                                                                                BorderBrush="Transparent"
+                                                                                BorderThickness="0"
+                                SelectedValuePath="city_Name"
+                                DisplayMemberPath="city_Name"
+                                TextSearch.TextPath="city_Name"
+                                ItemsSource="{Binding CityList}"
+                                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
+                                SelectionChanged="cityComboBox_SelectionChanged"
+                                x:Name="cityComboBox"
+                                TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
+                                        <TextBlock Margin="5"
+                                       Foreground="#A9ABB1"
+                                       x:Name="cityWaterMark"
+                                       IsHitTestVisible="False"
+                                       Text="Select City" />
+                                    </Grid>
+
+                                </Border>
                             </Grid>
 
-                        </Border>
+                        </Grid>
 
+                        <Grid x:Name="headerBarReport" Margin="50,0,0,0" Visibility="Hidden">
+                            <StackPanel Margin="-40,0,0,0" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2">
+                                <Border Background="#E71E1E" CornerRadius="3" Height="15" Width="15"/>
+                                <Label Content="Drone Request Rejected" Foreground="#000000" FontWeight="SemiBold"/>
+                                <Border Margin="10,0,0,0" Background="#7FB83B" CornerRadius="3" Height="15" Width="15"/>
+                                <Label Content="Drone Request Serviced" Foreground="#000000" FontWeight="SemiBold"/>
+                                <Border Margin="10,0,0,0" Background="#B9BDC9" CornerRadius="3" Height="15" Width="15"/>
+                                <Label Content="IF DOCK down" Foreground="#000000" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <Border 
+                            Visibility="Visible"
+                            x:FieldModifier="public"
+                            x:Name="CityComboBoxx"
+                            Margin="0,0,220,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#A9ABB1" BorderThickness="1" CornerRadius="5"
+                            >
+                                <Grid>
+                                    <dotNetKitControls:AutoCompleteComboBox Height="auto" Width="150"
+                                SelectedValuePath="city_Name"
+                                DisplayMemberPath="city_Name"
+                                TextSearch.TextPath="city_Name"
+                                ItemsSource="{Binding CityList}"
+                                SelectedItem="{Binding SelectedCity,Mode=TwoWay}"
+                                SelectionChanged="cityComboBox_SelectionChangedReport"
+                                x:Name="cityComboBoxx"
+                                TextBoxBase.TextChanged="CityComboBox_TextChanged"/>
+                                    <TextBlock Margin="5"
+                                       Foreground="#A9ABB1"
+                                       x:Name="cityWaterMarkk"
+                                       IsHitTestVisible="False"
+                                       Text="Select City" />
+                                </Grid>
+
+                            </Border>
+                            <Border 
+                            Visibility="Visible"
+                            x:FieldModifier="public"
+                            x:Name="datePicker"
+                            Margin="0,0,45,0"
+                            Grid.Column="3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            BorderBrush="#A9ABB1" BorderThickness="1" CornerRadius="5"
+                            >
+                                <DatePicker SelectedDateChanged="DatePicker_SelectedDateChanged" SelectedDate="{Binding date_selected}"
+                                            Height="5" BorderBrush="Transparent"  Grid.Column="3"  Width="150">
+                                    <DatePicker.Resources>
+                                        <Style TargetType="DatePickerTextBox">
+                                            <Setter Property="Control.Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <TextBox IsEnabled="False" Text="{Binding Path=SelectedDate, StringFormat='MMM yyyy', RelativeSource={RelativeSource AncestorType=DatePicker}}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                            </Border>
+
+                            <Button Height="40"  Width="40" HorizontalAlignment="Right"  x:Name="btnExcell" BorderThickness="0" BorderBrush="Transparent" Click="btnExcel_Click"  Background="White">
+                                <Button.Content>
+                                    <Image 
+                          
+                             
+                            Source="/Images/excelicon.png"/>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
                     </Grid>
-
                     <Border.Effect>
                         <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
                     </Border.Effect>
 
-                </Border>
+                </Border>-->
 
 
                 <ContentControl
                     x:Name="currentPg"
                     x:FieldModifier="public"
-                    Margin="15,0,15,15"
-                    Grid.Row="1" 
+                    Margin="15,10,15,15"
+                    Grid.RowSpan="2" 
                                 Background="White"
                         HorizontalContentAlignment="Center" 
                         VerticalContentAlignment="Center"
@@ -566,7 +887,7 @@
                         <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
                     </Border.Effect>
                     <Grid>
-                       
+
                         <Label
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
@@ -588,9 +909,9 @@
                               
                         />
                         </StackPanel>
-                       
+
                     </Grid>
-               
+
 
                 </Border >
             </Grid>

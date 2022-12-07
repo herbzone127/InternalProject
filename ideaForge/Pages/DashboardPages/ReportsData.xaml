@@ -14,10 +14,14 @@
     </UserControl.DataContext>
 
     <Grid Background="#FFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid FontSize="14" Foreground="Black"
+        <DataGrid FontSize="14" Foreground="Black" Grid.Row="1"
                             HorizontalScrollBarVisibility="Visible"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                         ItemsSource="{Binding RidesAcceptedByUsers}"
@@ -50,7 +54,7 @@
                             <StackPanel Orientation="Vertical" >
                                 <Label Content="{Binding userName}" FontWeight="SemiBold">
                                 </Label>
-                                <Label Content="{Binding contactNo}">
+                                <Label Content="{Binding contactNo}" Foreground="Gray">
 
 
                                 </Label>
@@ -69,15 +73,13 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
-                                <Label FontWeight="SemiBold" Content="{Binding  startDate,StringFormat={}{0:dd/MM/yyyy}}">
-
-                                </Label>
+                                <TextBlock FontWeight="SemiBold" Text="{Binding  startDate,StringFormat={}{0:dd-MMMM-yyyy}}"/>
                                 <Label>
                                     <Label.Content>
                                         <TextBlock>
-                                                        <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                                        <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm tt}'}"/>
                                              <Run Text=" - "/>
-                                             <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm:ss tt}'}"/>
+                                             <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm tt}'}"/>
                                         </TextBlock>
                                     </Label.Content>
                                 </Label>
@@ -94,8 +96,8 @@
                                                 BorderThickness="1"
                                                 Background="{Binding color}" Padding="5,1"
                                                 Height="30"
-                                                Width="90">
-                                <Grid >
+                                                Width="120">
+                                <Grid HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="3*"/>
@@ -147,9 +149,173 @@
         </DataGrid>
 
         <mah:ProgressRing
-                    IsActive="{Binding IsBusy}" 
-                    Foreground="#91C84F" HorizontalAlignment="Left" Margin="502,0,0,0" 
+                    IsActive="{Binding IsBusy}" Grid.Row="1"
+                    Foreground="#91C84F" HorizontalAlignment="Center"
+            VerticalAlignment="Center"
                     />
+        <Frame Background="#F0F3F8"/>
+        <Border Height="35" Width="30" HorizontalAlignment="Right" MouseLeftButtonDown="moreoption_MouseLeftButtonDown" 
+                x:Name="moreoption" BorderBrush="LightGray" Cursor="Hand"  Margin="0,0,0,10" CornerRadius="5" 
+                BorderThickness="1" Background="White" VerticalAlignment="Top">
+            <Image Source="/Images/more.png" Margin="5,10"/>
+        </Border>
+        <Grid  x:Name="MoreselectOption" Visibility="Collapsed"
+               x:FieldModifier="public"  Margin="20,35,0,0" Grid.RowSpan="2">
+            <Border Background="White" 
+                Width="100"
+                BorderBrush="LightGray"
+                BorderThickness="1"
+                Margin="0,7,0,0"
+                VerticalAlignment="Top"
+                CornerRadius="5"
+                HorizontalAlignment="Right" >
+                <Border.Effect>
+                    <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
+                </Border.Effect>
+                <Grid Margin="5">
+                    <Grid.Resources>
+                        <Style x:Key="myradiobutton" TargetType="{x:Type RadioButton}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                                        <Grid>
+                                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsChecked, Mode=TwoWay}"
+                                                  IsHitTestVisible="False" Content="{TemplateBinding Content}"/>
+                                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsChecked, Mode=TwoWay}"
+                                                  Content="{TemplateBinding Content}" Opacity="0"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Show up to" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
+                    <RadioButton Grid.Row="1" Content="5 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="5" Unchecked="RadioButton_Unchecked"/>
+                    <RadioButton Grid.Row="2" Content="10 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="10" Unchecked="RadioButton_Unchecked"/>
+                    <RadioButton Grid.Row="3" Content="25 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="25" Unchecked="RadioButton_Unchecked"/>
+                    <RadioButton Grid.Row="4" Content="50 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="50" Unchecked="RadioButton_Unchecked"/>
+                    <RadioButton Grid.Row="5" Content="75 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="75" Unchecked="RadioButton_Unchecked"/>
+
+                </Grid>
+
+
+            </Border >
+            <Path Stroke="Gray" StrokeThickness=".2" Data="M 4, 8 L 12, 0 L 20,8 L 4,8" Fill="White" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+
+        </Grid>
+
+
+        <Border Height="35" Width="140" BorderBrush="LightGray" Cursor="Hand" BorderThickness="1" Margin="0,0,40,15" CornerRadius="5" HorizontalAlignment="Right" Background="White" VerticalAlignment="Top" MouseLeftButtonDown="open_filter">
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <Image Source="/Images/downloadicon.png" Margin="0,9"/>
+                <Label FontWeight="Bold" Content="Download Report" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <Grid  x:Name="downloadoptions" Visibility="Hidden"
+               x:FieldModifier="public"  Margin="20,35,50,0" Grid.RowSpan="2">
+            <Border Background="White" 
+                Width="100"
+                BorderBrush="LightGray"
+                BorderThickness="1"
+                Margin="0,7,0,0"
+                VerticalAlignment="Top"
+                CornerRadius="5"
+                HorizontalAlignment="Right" >
+                <Border.Effect>
+                    <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
+                </Border.Effect>
+                <StackPanel Margin="5">
+                    <StackPanel Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="pdf_Download">
+                        <!--<Image Source="/Images/pdficon.png" Height="20" Width="20"/>-->
+                        <Label Content="PDF" FontWeight="SemiBold"/>
+                    </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseLeftButtonDown="csv_download">
+                    <!--<Image Source="/Images/csvicon.png" Height="20" Width="20"/>-->
+                    <Label Content="CSV" FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="excel_Download">
+                    <Image Source="/Images/excelicon.png" Height="20" Width="20"/>
+                    <Label Content="Excel" FontWeight="SemiBold"/>
+                </StackPanel>
+                </StackPanel>
+            </Border>
+            <Path Stroke="Gray" StrokeThickness=".2" Data="M 4, 8 L 12, 0 L 20,8 L 4,8" Fill="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,70,0"/>
+
+        </Grid>
+
+        <Border Visibility="Visible" Height="35" x:Name="searchborder" Width="30" Margin="0,0,190,15" MouseMove="mousemove_search" BorderBrush="LightGray" CornerRadius="5" Cursor="Hand"  HorizontalAlignment="Right" Background="White" VerticalAlignment="Top">
+            <Image Source="/Images/search.png" Margin="5,10" x:Name="imgsearch"/>
+            <Border.Style>
+                <Style>
+                    <Setter Property="Border.Background" Value="Blue"/>
+                    <Style.Triggers>
+                        <Trigger Property="Border.IsMouseOver" Value="True">
+                            <Setter Property="Border.Background" Value="Green"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+
+        <Border Height="35" Width="220" Margin="0,-5,190,10" Visibility="Hidden" x:Name="bordersearhbox" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Cursor="Hand"  HorizontalAlignment="Right" Background="White" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBox MaxLength="30" Grid.Column="0"                    
+                 Background="White"  
+                         x:Name="tbsearch" LostFocus="tbsearch_LostFocus" TextChanged="tbsearch_TextChanged"
+                 VerticalContentAlignment="Center"
+                 Tag="Search...">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Setters>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Grid>
+                                                <Border Background="White" />
+                                                <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                                <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                                                    Visibility="Collapsed" Foreground="#A9ABB1" FontWeight="SemiBold" FontSize="14" />
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Foreground" Value="#A9ABB1"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style.Setters>
+                            <Style.Resources>
+
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Image Source="/Images/cancel.png" Grid.Column="1" MouseDown="Image_MouseDown" Margin="8"/>
+            </Grid>
+        </Border>
 
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using CommonServiceLocator;
+using GalaSoft.MvvmLight.Command;
 using ideaForge.Pages.DashboardPages;
 using ideaForge.Popups;
 using IdeaForge.Core.Utilities;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -45,6 +47,15 @@ namespace ideaForge.ViewModels
             get { return _isBusy; }
             set { _isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set { _errorMessage = value; 
+            OnPropertyChanged(nameof(ErrorMessage));
             }
         }
 
@@ -135,6 +146,8 @@ namespace ideaForge.ViewModels
                 OnPropertyChanged(nameof(PilotCheck));
             }
         }
+        Ping ping = new Ping();
+        PingReply reply;
         /// <summary>
         /// Properties with getter and setter
         /// </summary>
@@ -272,35 +285,33 @@ namespace ideaForge.ViewModels
         #region Constructor
         public LoginPageViewModel()
         {
+            PilotCheck = true;
             _errorsViewModel = new PropertyValidateModel();
             _errorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
            // Barrel.Current.EmptyAll();
-            ImageUrl = "/Images/LoginImage.png";
+            ImageUrl = "/Images/signin1.png";
             BackButtonVisiblity = Visibility.Hidden;
             if (!Barrel.Current.IsExpired(UrlHelper.pilotOTPURl))
             {
-
-
-
                 var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
                 if (user != null && user?.id != 0 && user.roleID == 2)
                 {
-
                     Global.loginUserId = user.id;
                     Global.email_PhoneNo = user.email;
                     Global.Token = user.token;
                     Global.contactNo = user.contactNo;
                     Global.RoleID = user.roleID;
+                    Global.inactive = user.isActive;
                     ShowDashboard();
                 }
                 else if (user != null && user?.id != 0 && user.roleID == 3)
                 {
-
                     Global.loginUserId = user.id;
                     Global.email_PhoneNo = user.email;
                     Global.Token = user.token;
                     Global.contactNo = user.contactNo;
                     Global.RoleID = user.roleID;
+                    Global.inactive = user.isActive;
                     var dashboard = new Dashboard();
                     dashboard.Show();
                 }
@@ -308,7 +319,6 @@ namespace ideaForge.ViewModels
                 {
                     AuthenticationPage = new MainWindow();
                 }
-
             }
             else
             {
@@ -343,6 +353,12 @@ namespace ideaForge.ViewModels
         }
         public async void RegisterNewUserCanExecute(object obj)
         {
+
+            if (!InternetAvailability.IsInternetAvailable())
+            {
+                MessageBox.ShowError("No internet connection.");
+                return;
+            }
             if (PilotCheck == true)
             {
                 IsBusy = true;
@@ -350,7 +366,10 @@ namespace ideaForge.ViewModels
                 if (!RegisterModel.HasErrors)
                 {
                     BackButtonVisiblity = Visibility.Visible;
+                    RegisterModel.LanguageID= RegisterModel.LanguageID == null ? "1" : RegisterModel.LanguageID;
+                    RegisterModel.departmentName= RegisterModel.departmentName == null ? "" : RegisterModel.departmentName;
                     var result = await _registerService.Register(RegisterModel);
+                  
                     if (result.status)
                     {
                         //MessageBox.ShowSuccess(result.message,"");
@@ -394,11 +413,16 @@ namespace ideaForge.ViewModels
 
         private void SignupBackButtonCanExecute(object obj)
         {
+            if (!InternetAvailability.IsInternetAvailable())
+            {
+                MessageBox.ShowError("No internet connection.");
+                return;
+            }
             IsBusy = true;
-            ImageUrl = "/Images/LoginImage.png";
+            ImageUrl = "/Images/signin1.png";
             PageName = "";
             adminCheck = false;
-            PilotCheck = false;
+            PilotCheck = true;
             AuthenticationPage = new MainWindow();
             RegisterModel = new Register();
             OTP1 = "";
@@ -415,17 +439,29 @@ namespace ideaForge.ViewModels
 
         private void SignupCanExecute(object obj)
         {
+            if (!InternetAvailability.IsInternetAvailable())
+            {
+                MessageBox.ShowError("No internet connection.");
+                return;
+            }
             IsBusy = true;
-            ImageUrl = "/Images/signupFrame.png";
+            ImageUrl = "/Images/signin1.png";
+            BackButtonVisiblity = Visibility.Hidden;
             PageName = "";
             AuthenticationPage = new Signup();
-            BackButtonVisiblity = Visibility.Visible;
             IsBusy = false;
             email_PhoneNo = "";
         }
 
-        private async void LoginCanExecute(object obj)
+        public async void LoginCanExecute(object obj)
         {
+
+            if (!InternetAvailability.IsInternetAvailable())
+            {
+                MessageBox.ShowError("No internet connection.");
+                return;
+            }
+               
             if (adminCheck == false)
             {
 
@@ -448,9 +484,9 @@ namespace ideaForge.ViewModels
                         {
                             BackButtonVisiblity = Visibility.Visible;
                             PageName = "";
-                            ImageUrl = "/Images/optFrame.png";
+                            ImageUrl = "/Images/otpimg.png";
                             Global.email_PhoneNo = Email_PhoneNo;
-                            AuthenticationPage = new OtpVerification();
+                            AuthenticationPage = new OtpVerification(Email_PhoneNo, false);
                             IsBusy = false;
                             Email_PhoneNo = "";
                         }
@@ -468,13 +504,13 @@ namespace ideaForge.ViewModels
                         if (result.status)
                         {
                             BackButtonVisiblity = Visibility.Visible;
-                            ImageUrl = "/Images/optFrame.png";
+                            ImageUrl = "/Images/otpimg.png";
                             Global.email_PhoneNo = Email_PhoneNo;
 
                             // var otp = (OtpVerification)AuthenticationPage;
 
 
-                            AuthenticationPage.Content = new OtpVerification();
+                            AuthenticationPage.Content = new OtpVerification(Email_PhoneNo, true);
                             OTP1 = "";
                             OTP2 = "";
                             OTP3 = "";
@@ -495,12 +531,12 @@ namespace ideaForge.ViewModels
                     else
                     {
                         IsBusy = false;
-                        MessageBox.Show("Please enter a valid Contact Number/Email", CMessageTitle.Error, CMessageButton.Ok, "");
+                        MessageBox.Show("Please enter valid credentials.", CMessageTitle.Error, CMessageButton.Ok, "");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
+                    MessageBox.Show("Please enter valid credentials.", CMessageTitle.Error, CMessageButton.Ok, "");
                 }
                 IsBusy = false;
             }
@@ -525,9 +561,9 @@ namespace ideaForge.ViewModels
                         {
                             BackButtonVisiblity = Visibility.Visible;
                             PageName = "";
-                            ImageUrl = "/Images/optFrame.png";
+                            ImageUrl = "/Images/otpimg.png";
                             Global.email_PhoneNo = Email_PhoneNo;
-                            AuthenticationPage = new OtpVerification();
+                            AuthenticationPage = new OtpVerification(Email_PhoneNo, false);
                             IsBusy = false;
                             Email_PhoneNo = "";
                         }
@@ -545,13 +581,13 @@ namespace ideaForge.ViewModels
                         if (result.status)
                         {
                             BackButtonVisiblity = Visibility.Visible;
-                            ImageUrl = "/Images/optFrame.png";
+                            ImageUrl = "/Images/otpimg.png";
                             Global.email_PhoneNo = Email_PhoneNo;
 
                             // var otp = (OtpVerification)AuthenticationPage;
 
 
-                            AuthenticationPage.Content = new OtpVerification();
+                            AuthenticationPage.Content = new OtpVerification(Email_PhoneNo, true);
                             OTP1 = "";
                             OTP2 = "";
                             OTP3 = "";
@@ -572,12 +608,12 @@ namespace ideaForge.ViewModels
                     else
                     {
                         IsBusy = false;
-                        MessageBox.Show("Please enter a valid Contact Number/Email", CMessageTitle.Error, CMessageButton.Ok, "");
+                        MessageBox.Show("Please enter valid credentials.", CMessageTitle.Error, CMessageButton.Ok, "");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid Contact Number/Email.", CMessageTitle.Error, CMessageButton.Ok, "");
+                    MessageBox.Show("Please enter valid credentials.", CMessageTitle.Error, CMessageButton.Ok, "");
                 }
                 IsBusy = false;
             }
@@ -653,7 +689,8 @@ namespace ideaForge.ViewModels
                         else
                         {
                             Barrel.Current.EmptyAll();
-                            MessageBox.ShowError("Please enter a valid OTP Number");
+                            ErrorMessage = "Please enter a valid OTP Number";
+                            //MessageBox.ShowError("Please enter a valid OTP Number");
                         }
                     }
 
@@ -712,7 +749,8 @@ namespace ideaForge.ViewModels
                         else
                         {
                             Barrel.Current.EmptyAll();
-                            MessageBox.ShowError("Please enter a valid OTP Number");
+                            ErrorMessage = "Please enter a valid OTP Number";
+                            //MessageBox.ShowError("Please enter a valid OTP Number");
                         }
                     }
 
@@ -746,6 +784,12 @@ namespace ideaForge.ViewModels
         {
             try
             {
+
+                if (!InternetAvailability.IsInternetAvailable())
+                {
+                    MessageBox.ShowError("No internet connection.");
+                    return;
+                }
                 var userDatumCities = await _registerService.GetCityList();
                 if (userDatumCities != null)
                 {
@@ -763,7 +807,19 @@ namespace ideaForge.ViewModels
         }
         public void ShowDashboard()
         {
-            var dialogYes = DockAreaPopup.Show();
+            if (Global.inactive)
+            {
+                AuthenticationPage = new DockAreaPopup();
+                ImageUrl = "/Images/ifdockimg.png";
+                BackButtonVisiblity = Visibility.Hidden;
+                //var dialogYes = DockAreaPopup.Show();
+            }
+            else
+            {
+                var a = new Dashboard();
+                a.Show();
+            }
+            
             //if (dialogYes == System.Windows.Forms.DialogResult.Yes)
             //{
 

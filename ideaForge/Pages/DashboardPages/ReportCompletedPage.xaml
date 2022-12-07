@@ -22,7 +22,9 @@
             <Label Content="Navi Mumbai, Maharashtra" Foreground="Black" FontSize="16" />
         </StackPanel>
         <StackPanel Grid.Row="1" Background="White" Margin="0" IsEnabled="False" >
-            <Grid>
+                    <TextBlock Grid.Column="1" Background="Transparent" FontWeight="Bold" Margin="10,5"
+                Foreground="Black" Text="Flight Information" />
+                    <Grid>
                 <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10,10,19,10" Height="209">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -120,7 +122,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="On" Height="35"  Foreground="Black" Margin="15,0,0,0" Background="#F5F5F5">
+                                    <TextBox BorderBrush="#A9ABB1" Text="{Binding PushNotification}" Height="35"  Foreground="Black" Margin="15,0,0,0" Background="#F5F5F5">
                             </TextBox>
                         </StackPanel>
 
@@ -136,7 +138,7 @@
                                     </ControlTemplate>
                                 </Label.Template>
                             </Label>
-                                    <TextBox BorderBrush="#A9ABB1" Text="Yes" Height="35"  Foreground="Black" Margin="15,0,10,0" Background="#F5F5F5">
+                                    <TextBox BorderBrush="#A9ABB1" Text="{Binding LiveVideoStream}" Height="35"  Foreground="Black" Margin="15,0,10,0" Background="#F5F5F5">
                             </TextBox>
                         </StackPanel>
 
@@ -173,28 +175,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Grid Margin="0,0,0,204">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="VerticalAlignment" Value="Top" />
-                            <Setter Property="BorderThickness" Value="0,5,0,0" />
-                            <Setter Property="BorderBrush" Value="white" />
-                            <Setter Property="Margin" Value="0,-2,0,0" />
-                        </Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="10,-2,10,0" />
-                            <Setter Property="FontSize" Value="20" />
-                        </Style>
-                    </Grid.Resources>
-                    <Border Grid.Column="0"  />
-                    <TextBlock Grid.Column="1" Background="White" Foreground="Black" Text="FLIGHT INFORMATION" />
-                    <Border Grid.Column="2" />
-                </Grid>
+                
             </Grid>
             <Grid Height="120">
                 <Border BorderBrush="#DFDFDF" Grid.Row="0" BorderThickness="1" Margin="10">
@@ -541,7 +522,7 @@
                 </Grid>
             </Grid>
             <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                        <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  Content="CANCEL" Command="{Binding CancelChanges_Command}"
+                        <Button  BorderThickness="1"  Margin="0,0,10,0" Height="35" Width="130"  Content="Cancel" Command="{Binding CancelChanges_Command}"
                                   BorderBrush="Transparent"
                 
             Foreground="Black" 
@@ -550,10 +531,16 @@
                                  >
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
+                            <Setter Property="Visibility" Value="Visible"/>
                             <Style.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="5" />
-                                </Style>
+                                            <Setter Property="CornerRadius" Value="5" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding StatusForUser}" Value="Completed">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
                             </Style.Resources>
                         </Style>
                     </Button.Resources>

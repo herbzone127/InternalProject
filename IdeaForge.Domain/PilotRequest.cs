@@ -45,6 +45,8 @@ namespace IdeaForge.Domain
         public string destionLatitude { get; set; }
         public string destionLongitude { get; set; }
         public Visibility IsVisibleButton { get; set; }
+        public Visibility IsAcceptButton { get; set; }
+        public Visibility IsCancelButton { get; set; }
         public Visibility ViewButtonVisible { get; set; }
         public string city { get; set; }
         public int TotalAcceptedRidesByUser { get; set; }
@@ -52,5 +54,47 @@ namespace IdeaForge.Domain
         public int TotalServiceByUser { get; set; }
         public int TotalRequestedByUser { get; set; }
         public string pilotName { get; set; }
+        public int SR { get; set; }
+    }
+    public class Repotresponse
+    {
+        public string message { get; set; }
+        public bool status { get; set; }
+        public List<RideReport> userData { get; set; }
+    }
+    public class RideReport
+    {
+        public int ID { get; set; }
+        public int RequestID { get; set; }
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+        public string Location { get; set; }
+        public string originLatitude { get; set; }
+        public string originLongitude { get; set; }
+        public string destionLatitude { get; set; }
+        public string destionLongitude { get; set; }
+        public DateTime RequestOn { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string VideoLink { get; set; }
+        public bool IsActive { get; set; }
+        public string AddedBy { get; set; }
+        public DateTime AddedOn { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime UpdateOn { get; set; }
+        public string ContactNo { get; set; }
+        public int Rating { get; set; }
+        public string Comments { get; set; }
+        public string UserName { get; set; }
+        public string city { get; set; }
+        public string pilotName { get; set; }
+        public bool pilotActive { get; set; }
+        public string FeedBackComments { get; set; }
+        public Visibility IsVisibleButton { get; set; }
+        public Visibility ViewButtonVisible { get; set; }
+        public int TotalAcceptedRidesByUser { get; set; }
+        public int TotalRejectedRidesByUser { get; set; }
+        public int TotalServiceByUser { get; set; }
+        public int TotalRequestedByUser { get; set; }
     }
 }
