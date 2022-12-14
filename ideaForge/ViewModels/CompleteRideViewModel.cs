@@ -78,8 +78,7 @@ namespace ideaForge.ViewModels
         private readonly DelegateCommand _SaveChanges_Comand;
         public ICommand SaveChanges_Comand => _SaveChanges_Comand;
         
-        private readonly DelegateCommand _CancelChanges_Comand;
-        public ICommand CancelChanges_Comand => _CancelChanges_Comand;
+       
 
         private readonly DelegateCommand _Image_Rating5_Comand;
         public ICommand Image_Rating5_Comand => _Image_Rating5_Comand;
@@ -111,7 +110,7 @@ namespace ideaForge.ViewModels
             _TextCopyCONTROL_KEY_Comand = new DelegateCommand(TextCopyCONTROL_KEY_ComandExecut);
             _TextCopySECRET_KEY_Comand = new DelegateCommand(TextCopySECRET_KEY_ComandExecut);
             _SaveChanges_Comand = new DelegateCommand(SaveChanges_ComandExecut);
-            _CancelChanges_Comand = new DelegateCommand(CancelChanges_ComandExecut);
+       
             _Image_Rating1_Comand = new DelegateCommand(Image_Rating1_ComandExecut);
             _Image_Rating2_Comand = new DelegateCommand(Image_Rating2_ComandExecut);
             _Image_Rating3_Comand = new DelegateCommand(Image_Rating3_ComandExecut);
@@ -331,10 +330,7 @@ namespace ideaForge.ViewModels
         {
             CanExecuteSaveChanges(obj);
         }
-        public void CancelChanges_ComandExecut(object obj)
-        {
-
-        }
+    
         public void Image_Rating1_ComandExecut(object obj)
         {
             Image_Rating1 = "/Images/FeedBackYellowStar.png";

@@ -94,6 +94,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -326,6 +329,7 @@
     <Compile Include="BindingProxy.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Converters\BitmapImageConverter.cs" />
+    <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\HeadingToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToUnsetValueConverter.cs" />
     <Compile Include="Converters\NullToVisiblityConverter.cs" />
@@ -628,6 +632,8 @@
     <Resource Include="Images\otpimg.png" />
     <Resource Include="Images\ifdockimg.png" />
     <Resource Include="Images\graypng.png" />
+    <Resource Include="Images\UpDownArrow.png" />
+    <Resource Include="Images\ArrowUpDown.png" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

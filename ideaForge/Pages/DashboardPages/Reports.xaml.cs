@@ -243,5 +243,12 @@ namespace ideaForge.Pages.DashboardPages
 
             dpstart.IsDropDownOpen = true;
         }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var tbl = tbl_Reports;
+            var Pilot_Name = tbl.Columns[1];
+            pt_Icon.Visibility = Visibility.Hidden;
+        }
     }
 }

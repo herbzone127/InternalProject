@@ -47,7 +47,7 @@ namespace ideaForge
             date = vModel.date_selected;
             this.WindowState = Global.LoginState;
                var login = Application.Current.Windows.OfType<Login>().FirstOrDefault();
-            vModel.headerBar = Visibility.Hidden;
+            vModel.headerBar = Visibility.Visible;
             if (login != null)
             {
                 login.Close();

@@ -420,6 +420,22 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
+                                <Button  BorderThickness="1" Height="35" Width="130"   Content="Cancel" Margin="0 0 10 0"
+                            BorderBrush="#D9DBE1"
+               
+            Foreground="Black" 
+            Background="White"
+                         Command="{Binding CancelChanges_Command}">
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Style.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="5" />
+                                                </Style>
+                                            </Style.Resources>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
                                 <Button  BorderThickness="1" Height="35" Width="130"   Content="Save Changes"
                             BorderBrush="Transparent"
                

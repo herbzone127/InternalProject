@@ -33,11 +33,10 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="#A9ABB1" CornerRadius="4,4,0,0" Margin="2,0">
+                                <Border Name="Border" CornerRadius="4,4,0,0" Margin="2,0">
                                     <ContentPresenter x:Name="ContentSite"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                                          
                                         ContentSource="Header"
                                         Height="28"
                                         Width="150"
@@ -48,9 +47,8 @@
                                         <Setter TargetName="Border" Property="Background" Value="#91C84F" />
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="#A9ABB1" />
+                                        <Setter TargetName="Border" Property="Background" Value="#ffffff" />
                                     </Trigger>
-
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
@@ -59,67 +57,82 @@
             </TabControl.Resources>
             <TabItem  Header="Today's Requests" Background="#A9ABB1" 
                       FontSize="18"
-                      Foreground="White"
-                      >
+                      Foreground="#545864"
+                      FontWeight="SemiBold"
+                      FontFamily="Segoe UI">
                 <Grid Background="#FFF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid FontSize="14" Foreground="Black"
+                              FontFamily="Segoe UI,Regular"
                             HorizontalScrollBarVisibility="Visible"
+                              x:Name="tbl_TodayRequest"
                              CanUserSortColumns="True"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
                    MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding TodayRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                        ItemsSource="{Binding TodaysRequests,Mode=TwoWay}" 
-                        
+                        ItemsSource="{Binding TodaysRequests,Mode=TwoWay}"
                         AutoGenerateColumns="False"
-                        
                         Grid.ColumnSpan="2">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
+                                <Setter Property="BorderBrush" Value="#DFE7F2"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                                <Setter Property="Opacity" Value="1"/>
+                                <Setter Property="FontFamily" Value="Segoe UI"/>
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                         Value="True">
-                                        <Setter Property="Background"
-                            Value="#E8F4D9" />
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E8F4D9" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGrid.RowStyle>
-                        
                         <DataGrid.Columns>
-
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*" SortMemberPath="id" CanUserSort="True">
+                            <DataGridTemplateColumn SortMemberPath="id" CanUserSort="True" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                                        <Label Content="Booking ID" Style="{StaticResource headerLabel}"/>
+                                        <Image x:Name ="BookingIcon" Source="/Images/ArrowUpDown.png" Margin="90 0 0 0" Width="20" Height="20"/>
+                                    </Grid>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="{Binding id}"/>
+                                        <Label Content="{Binding id}" FontFamily="Segoe UI"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="User Name &amp; Contact" Style="{StaticResource headerLabel}"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding userName}" FontWeight="SemiBold">
-                                              </Label>
-                                            <Label Content="{Binding contactNo}" Foreground="Gray"/>
-
-
-
+                                            <Label Content="{Binding userName}" FontWeight="SemiBold" FontFamily="Segoe UI"/>
+                                            <Label Content="{Binding contactNo}" Foreground="#545864" FontFamily="Segoe UI"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="iF Dock" Style="{StaticResource headerLabel}"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="startDate" Header="Date &amp; Time Slot" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="startDate" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_1">
+                                        <Label Content="Date &amp; Time Slot" Width="auto" Style="{StaticResource headerLabel}"/>
+                                        <Image x:Name="dtIcon" Source="/Images/ArrowUpDown.png" Margin="130,0,0,0" Width="20" Height="20"/>
+                                    </Grid>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -134,12 +147,13 @@
                                                 </Label.Content>
                                             </Label>
                                         </StackPanel>
-
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="Status" SortMemberPath="status" Width="*">
-
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="status" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="Status" Style="{StaticResource headerLabel}"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border CornerRadius="4" Opacity="1"
@@ -147,12 +161,11 @@
                                                 Background="{Binding color}" Padding="5,1"
                                                 Height="30"
                                                 Width="120">
-                                            <Grid >
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="1*"/>
                                                     <ColumnDefinition Width="3*"/>
                                                 </Grid.ColumnDefinitions>
-
                                                 <Image Source="{Binding StatusImage}" 
                                                        Grid.Column="0" Height="10" Margin="5,0"/>
                                                 <Label Content="{Binding status}" 
@@ -160,15 +173,15 @@
                                                        Margin="0,0"
                                                        FontSize="10"
                                                        Grid.Column="1"/>
-
                                             </Grid>
-
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="False" Header="Action" Width="*">
+                            <DataGridTemplateColumn CanUserSort="False" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="Action" Style="{StaticResource headerLabel}"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal"  >
@@ -228,108 +241,113 @@
                                                         <Setter Property="Foreground" Value="Red" />
                                                     </DataTrigger>
                                                 </Style.Triggers>-->
-                                               
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
-
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
             <TabItem Header="All Requests" 
-                     Foreground="White"
-                     Background="#A9ABB1" 
+                    Foreground="#545864"
+                     Background="#ffffff" 
                      FontSize="18"
-                     
-                     >
-                <Grid Background="#FFF">
+                     FontWeight="SemiBold">
+                <Grid Background="#FFFFFF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="33*"/>
                         <ColumnDefinition Width="67*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid FontSize="14" Foreground="Black"  
+                    <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
-                              
+                              x:Name="tbl_AllRequest"
                          CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
-                   MouseDoubleClick="DataGrid_MouseDoubleClick"
+                         MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding SelectedAllRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding AllRequests,Mode=TwoWay}" 
                         CanUserSortColumns="True"
                         AutoGenerateColumns="False"
-                        
                         Grid.ColumnSpan="2">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
+                                <Setter Property="BorderBrush" Value="#DFE7F2"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                                <Setter Property="Opacity" Value="1"/>
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                         Value="True">
-                                        <Setter Property="Background"
-                            Value="#E8F4D9" />
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E8F4D9" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGrid.RowStyle>
 
                         <DataGrid.Columns>
-
-                            <DataGridTemplateColumn  Header="Booking Id" Width="*" SortMemberPath="id" SortDirection="Ascending" CanUserSort="True">
+                            <DataGridTemplateColumn SortMemberPath="id" CanUserSort="True" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_2">
+                                        <Label Content="Booking ID" Width="auto" Style="{StaticResource headerLabel}"/>
+                                        <Image x:Name="BookingIcon1" Source="/Images/ArrowUpDown.png" Margin="90 0 0 0" Width="20" Height="20"/>
+                                    </Grid>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn  Header="UserName &amp; Contact" Width="*">
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="UserName &amp; Contact" Style="{StaticResource headerLabel}"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding userName}" FontWeight="SemiBold">
-
-                                            </Label>
-                                            <Label Content="{Binding contactNo}" Foreground="Gray"/>
-
-
-
-
+                                            <Label Content="{Binding userName}" FontWeight="SemiBold"/>
+                                            <Label Content="{Binding contactNo}" Foreground="#545864"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Header="IF Dock" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="iF Dock" Foreground="#545864"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="startDate" SortDirection="Ascending" Header="Date &amp; Time Slot" Width="*">
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="startDate" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_3">
+                                        <Label Content="Date &amp; Time Slot" Width="auto" Style="{StaticResource headerLabel}"/>
+                                        <Image x:Name="dtIcon1" Source="/Images/ArrowUpDown.png" Margin="130 0 0 0" Width="20" Height="20"/>
+                                    </Grid>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <TextBlock  FontWeight="SemiBold" Text="{Binding  startDate,StringFormat={}{0:dd-MMMM-yyyy}}"/>
+                                            <TextBlock Text="{Binding  startDate,StringFormat={}{0:dd-MMMM-yyyy}}" />
                                             <Label>
                                                 <Label.Content>
                                                     <TextBlock>
-                                                          <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm tt}'}" Foreground="Gray"/>
-                                             <Run Text=" - " Foreground="Gray"/>
-                                             <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm tt}'}" Foreground="Gray"/>
+                                                          <Run Text="{Binding  startDate,StringFormat='{}{0:hh:mm tt}'}" Foreground="#545864"/>
+                                             <Run Text=" - " Foreground="#545864"/>
+                                             <Run Text="{Binding  endDate,StringFormat='{}{0:hh:mm tt}'}" Foreground="#545864"/>
                                                     </TextBlock>
                                                 </Label.Content>
-                                               
-                                           
                                             </Label>
                                         </StackPanel>
-
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="status" Header="Status" Width="*">
-
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="status" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="Status" Foreground="#545864"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border CornerRadius="4" Opacity="1"
@@ -358,7 +376,10 @@
                                 </DataGridTemplateColumn.CellTemplate>
 
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="False" Header="Action" Width="*">
+                            <DataGridTemplateColumn CanUserSort="False" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <Label Content="Action" Style="{StaticResource headerLabel}"/>
+                                </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal"  >

@@ -166,6 +166,34 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+                    <Style TargetType="Label" x:Key="headerLabel">
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Foreground" Value="#545864"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontWeight" Value="Regular"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                    <Style TargetType="Label" x:Key="contentData">
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Foreground" Value="#000000"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="Regular"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                    <Style TargetType="Label" x:Key="Phn_DateTime">
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Foreground" Value="#545864"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="Regular"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                    <Style TargetType="Button" x:Key="btnButtons">
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Foreground" Value="#545864"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
                   
                 </ResourceDictionary>
                 <!--MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive!--> 

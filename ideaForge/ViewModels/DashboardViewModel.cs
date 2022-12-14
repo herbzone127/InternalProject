@@ -578,6 +578,7 @@ namespace ideaForge.ViewModels
         {
             if (Global.RoleID == 2)
             {
+                headerBar = Visibility.Visible;
                 if (Global.inactive)
                 {
                     var dashboard = App.Current.Windows.OfType<Dashboard>().FirstOrDefault();

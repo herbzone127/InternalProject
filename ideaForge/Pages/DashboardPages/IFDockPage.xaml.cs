@@ -215,6 +215,7 @@ namespace ideaForge.Pages.DashboardPages
                         statusPanel2.IsEnabled = false;
                         var vModel = DataContext as IFDockViewModel;
                         vModel.ReasonId = null;
+                        vModel.Comments = null;
 
 
                         drp_Desp.Text = "";

@@ -31,16 +31,16 @@
             </Grid.RowDefinitions>
             <Label 
                 Grid.Row="0" 
-                FontSize="18" 
+                FontSize="24" 
                 FontWeight="SemiBold" 
                 FontFamily="Segoe UI" 
                 Content="iF Docks Area" 
                 Margin="0,0,0,0" />
             <TextBlock VerticalAlignment="Bottom"
                 Grid.Row="1" 
-                FontSize="11" FontWeight="Bold"
+                FontSize="16" FontWeight="Regular"
                 FontFamily="Segoe UI" 
-                   Foreground="Black"
+                   Foreground="#040404"
                 Text="Please select iF Docks location" 
                 Margin="0,0,0,10" />
             <StackPanel Orientation="Vertical" Grid.Row="2">
@@ -84,7 +84,7 @@
                 Click="btnContinue_Click"
                 >
                     <Button.Content>
-                        <TextBlock Text="Continue" FontWeight="SemiBold"/>
+                        <TextBlock Text="Continue" FontWeight="SemiBold" FontSize="16"/>
                     </Button.Content>
                 </Button>
             </Border>

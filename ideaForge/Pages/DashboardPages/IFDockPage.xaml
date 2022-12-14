@@ -110,7 +110,7 @@
     <UserControl.DataContext>
         <vm:IFDockViewModel />
     </UserControl.DataContext>
-   
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -167,35 +167,35 @@
                 <tools:MapLayersMenuButton x:Name="mapLayersMenuButton" Visibility="Hidden"
                 Margin="2" ToolTip="Map Layers and Overlays"
                 Map="{Binding ElementName=map}">
-                  
-                        <tools:MapLayerItem  Text="OpenStreetMap" Layer="{StaticResource OpenStreetMap}"/>
-                        <!--<tools:MapLayerItem Text="OpenStreetMap German" Layer="{StaticResource OpenStreetMapGerman}"/>
+
+                    <tools:MapLayerItem  Text="OpenStreetMap" Layer="{StaticResource OpenStreetMap}"/>
+                    <!--<tools:MapLayerItem Text="OpenStreetMap German" Layer="{StaticResource OpenStreetMapGerman}"/>
                         <tools:MapLayerItem Text="OpenStreetMap French" Layer="{StaticResource OpenStreetMapFrench}"/>
                         <tools:MapLayerItem Text="OpenTopoMap" Layer="{StaticResource OpenTopoMap}"/>
                         <tools:MapLayerItem Text="TopPlusOpen WMTS" Layer="{StaticResource TopPlusOpenWMTS}"/>
                         <tools:MapLayerItem Text="TopPlusOpen WMS" Layer="{StaticResource TopPlusOpenWMS}"/>
                         <tools:MapLayerItem Text="OpenStreetMap WMS" Layer="{StaticResource OpenStreetMapWMS}"/>-->
-                        <tools:MapLayersMenuButton.MapOverlays>
-                            <tools:MapLayerItem Text="Sample Image">
+                    <tools:MapLayersMenuButton.MapOverlays>
+                        <tools:MapLayerItem Text="Sample Image">
                             <tools:MapLayerItem.Layer>
                                 <Image Source="/Images/10_535_330.jpg" map:MapPanel.BoundingBox="53.54031,8.08594,53.74871,8.43750"/>
                             </tools:MapLayerItem.Layer>
-                               
-                            </tools:MapLayerItem>
-                            <tools:MapLayerItem Text="Seamarks" Layer="{StaticResource Seamarks}"/>
-                            <tools:MapLayerItem Text="Graticule">
+
+                        </tools:MapLayerItem>
+                        <tools:MapLayerItem Text="Seamarks" Layer="{StaticResource Seamarks}"/>
+                        <tools:MapLayerItem Text="Graticule">
                             <tools:MapLayerItem.Layer>
                                 <map:MapGraticule Opacity="0.7"/>
                             </tools:MapLayerItem.Layer>
-                            </tools:MapLayerItem>
-                            <tools:MapLayerItem Text="Scale">
+                        </tools:MapLayerItem>
+                        <tools:MapLayerItem Text="Scale">
                             <tools:MapLayerItem.Layer>
                                 <map:MapScale HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </tools:MapLayerItem.Layer>
-                            </tools:MapLayerItem>
-                        </tools:MapLayersMenuButton.MapOverlays>
-                  
-                
+                        </tools:MapLayerItem>
+                    </tools:MapLayersMenuButton.MapOverlays>
+
+
                 </tools:MapLayersMenuButton>
 
                 <tools:MapProjectionsMenuButton x:Name="mapProjectionsMenuButton"
@@ -242,7 +242,7 @@
                     <RowDefinition Height="65"/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-<!-- creating rows in row 0-->
+                <!-- creating rows in row 0-->
                 <Grid Grid.Row="0" >
 
                     <Grid.RowDefinitions>
@@ -261,6 +261,7 @@
                     Grid.Row="0" Grid.Column="0"
                     Content="Serviceable Area" 
                     Margin="10,1,0,0"
+                    FontSize="12"
                         />
                     <Border 
                         Grid.Row="1" 
@@ -274,7 +275,7 @@
                        BorderBrush="Transparent"
                        BorderThickness="0"
                         />-->
-                        
+
                         <!--<dotNetKitControls:AutoCompleteComboBox
                 Grid.Row="2"
            BorderThickness="0"
@@ -289,14 +290,15 @@
                        SelectionChanged="AutoCompleteComboBox_SelectionChanged"
                 VerticalAlignment="Center"
    />-->
-                        <TextBox Margin="2" BorderBrush="Transparent" BorderThickness="0" Text="{Binding CityName}" IsEnabled="False"/>
+                        <TextBox  Margin="2" BorderBrush="Transparent" BorderThickness="0" Text="{Binding CityName}" IsEnabled="False"/>
                     </Border>
                     <!-- working 2 on the Row 0 and Row 1 for the Column 1-->
                     <Label 
                     FontFamily="Segoe UI"
                     FontWeight="SemiBold"
-                    Grid.Row="0" Grid.Column="1"
-                    Content="Status" />
+                    Grid.Row="0"
+                    Content="Status"
+                        FontSize="12" Grid.ColumnSpan="2" Height="25" Margin="262,0,0,0" VerticalAlignment="Top"/>
                     <mah:ToggleSwitch
                         Grid.Row="1" Grid.Column="1"
                         Toggled="ToggleSwitch_Toggled"
@@ -307,12 +309,13 @@
                 <!-- Row 0 Completed-->
 
                 <!-- Row 1 Started-->
-                <StackPanel  Grid.Row="1" Orientation="Vertical" x:Name="statusPanel1" IsEnabled="False">
+                <StackPanel  Grid.Row="1" Orientation="Vertical" x:Name="statusPanel1" IsEnabled="{Binding IsActive}">
                     <Label
                             HorizontalAlignment="Left"
-                            Margin="15,20,0,5"
+                            Margin="15,15,0,10"
                              FontFamily="Segoe UI" 
-                            FontWeight="SemiBold">
+                            FontWeight="SemiBold"
+                            FontSize="12">
                         <Label.Template>
                             <ControlTemplate>
                                 <TextBlock>
@@ -336,7 +339,7 @@
                             PreviewKeyDown="AutoCompleteComboBox_PreviewKeyDown"
                             x:Name="drp_Desp"
                             SelectedItem="{Binding ReasonId}" Height="22"/>
-                        
+
                     </Border>
 
                 </StackPanel>
@@ -344,8 +347,8 @@
                 <!-- Row 1 Completed-->
 
                 <!-- Row 2 Started-->
-                <Grid Grid.Row="2" x:Name="statusPanel2" IsEnabled="False" >
-                    <Grid>
+                <Grid ShowGridLines="True" Grid.Row="2" x:Name="statusPanel2" IsEnabled="False" >
+                    <Grid ShowGridLines="True">
                         <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,0" BorderThickness="1" CornerRadius="5">
                             <TextBox 
                        
@@ -356,7 +359,7 @@
                             />
                         </Border>
                     </Grid>
-                    
+
                 </Grid>
                 <!--<Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>-->
                 <!-- Row 2 Completed-->
@@ -373,11 +376,13 @@
             x:Name="Send" 
             BorderThickness="1" Margin="10,10,15,10"
             BorderBrush="Transparent"
-                Content="Save Changes" 
+                Content="Save Changes"
+                        FontWeight="SemiBold"
+                        FontSize="14"
             Foreground="White" 
                         Command="{Binding SaveChangesCommand}"
             Background="#91c84f">
-                      
+
 
 
                         <Button.Style>
@@ -385,11 +390,11 @@
                                 <Style.Resources>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="CornerRadius" Value="5" />
-                                       
+
                                         <Setter Property="BorderBrush" Value="Transparent" />
                                     </Style>
                                 </Style.Resources>
-                         
+
                             </Style>
                         </Button.Style>
                     </Button>
@@ -398,11 +403,13 @@
                 x:Name="CancelBtn"
             
             BorderThickness="1" Margin="15,10,10,10"
-            BorderBrush="Transparent"
+            BorderBrush="#D9DBE1"
                 Content="Cancel" 
             Foreground="Black" 
                        Command="{Binding CancelCommand}"
-            Background="#E9E9E9">
+            Background="White"
+                        FontWeight="SemiBold"
+                        FontSize="14">
 
 
 
@@ -418,7 +425,7 @@
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
-                                  
+
                                 </Style.Resources>
                             </Style>
                         </Button.Resources>
@@ -426,7 +433,7 @@
                     <!-- Row 3 Completed-->
                 </Grid>
             </Grid>
-            
+
             <Border.Effect>
                 <DropShadowEffect Color="#00000017" BlurRadius="8" Opacity=".1"/>
             </Border.Effect>
