@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ideaForge.Pages.DashboardPages"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+    xmlns:popup="clr-namespace:ideaForge.Popups"
     x:Class="ideaForge.Pages.DashboardPages.Requests"
     MouseMove="UserControl_MouseMove"
              mc:Ignorable="d" 
@@ -15,15 +16,15 @@
     </UserControl.DataContext>
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            
-              
-                    <Style.Triggers>
-                        <Trigger Property ="IsMouseOver" Value="False">
-                            <Setter Property= "Foreground" Value="Black"/>
-                        </Trigger>
-                    </Style.Triggers>
-    
-           
+
+
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="False">
+                    <Setter Property= "Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+
+
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -257,8 +258,9 @@
                      FontWeight="SemiBold">
                 <Grid Background="#FFFFFF">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="67*"/>
+                        <ColumnDefinition Width="262*"/>
+                        <ColumnDefinition Width="23*"/>
+                        <ColumnDefinition Width="509*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
@@ -269,7 +271,23 @@
                         ItemsSource="{Binding AllRequests,Mode=TwoWay}" 
                         CanUserSortColumns="True"
                         AutoGenerateColumns="False"
-                        Grid.ColumnSpan="2">
+                        Grid.ColumnSpan="3">
+                        <DataGrid.Resources>
+                            <DataTemplate x:Key="HeaderTemplate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <ContentControl Content="{Binding}" VerticalAlignment="Center"/>
+                                    <ToggleButton Name="FilterButton" Grid.Column="1" Content="▼" Margin="20, 1, 1, 1" Padding="1, 0"/>
+                                    <Popup IsOpen="{Binding ElementName=FilterButton, Path=IsChecked}" PlacementTarget="{Binding ElementName=FilterButton}" StaysOpen="False">
+                                        <popup:SortPopup/>
+                                    </Popup>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGrid.Resources>
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="BorderBrush" Value="#DFE7F2"/>
@@ -284,12 +302,15 @@
                         </DataGrid.RowStyle>
 
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn SortMemberPath="id" CanUserSort="True" Width="*">
+                            <DataGridTemplateColumn SortMemberPath="id"  HeaderTemplate="{StaticResource HeaderTemplate}"  Width="*">
                                 <DataGridTemplateColumn.Header>
-                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_2">
+                                    <Label Content="Booking Id" Foreground="#545864"/>
+                                    <!--<Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_2">
                                         <Label Content="Booking ID" Width="auto" Style="{StaticResource headerLabel}"/>
-                                        <Image x:Name="BookingIcon1" Source="/Images/ArrowUpDown.png" Margin="90 0 0 0" Width="20" Height="20"/>
-                                    </Grid>
+                                        <Image x:Name="BookingIcon1" Source="/Images/ArrowUpDown.png" Margin="90 0 0 0" Width="20" Height="20" MouseLeftButtonDown="BookingIcon1_MouseLeftButtonDown"/>
+                                      
+                                   
+                                    </Grid>-->
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -447,7 +468,7 @@
             </TabItem>
         </TabControl>
         <Border Height="35" Width="30" HorizontalAlignment="Right" MouseLeftButtonDown="moreoption_MouseLeftButtonDown" x:Name="moreoption" BorderBrush="LightGray" Cursor="Hand"  Margin="0,-5,0,10" CornerRadius="5" BorderThickness="1" Background="White" VerticalAlignment="Top">
-            <Image Source="/Images/more.png" Margin="5,10"/>            
+            <Image Source="/Images/more.png" Margin="5,10"/>
         </Border>
         <Grid  x:Name="MoreselectOption" Visibility="Hidden"
                x:FieldModifier="public"  Margin="20,28,0,0">
@@ -576,63 +597,63 @@
         </Border>
 
         <Border Width='370' BorderBrush="LightGray" Visibility="Hidden" x:Name="filteroptions" BorderThickness="1" HorizontalAlignment="Right" Background="White" Margin="0,-15,0,-15">
-        <StackPanel >
-            <Grid Margin="10,5" VerticalAlignment="Top" >
-                <Label Content="Filter" FontSize="15" FontWeight="Bold"/>
-                <Image Source="/Images/cancel.png" HorizontalAlignment="Right" Height="15" Width="15" Margin="8" MouseLeftButtonDown="Close_Filter"/>
-            </Grid>
+            <StackPanel >
+                <Grid Margin="10,5" VerticalAlignment="Top" >
+                    <Label Content="Filter" FontSize="15" FontWeight="Bold"/>
+                    <Image Source="/Images/cancel.png" HorizontalAlignment="Right" Height="15" Width="15" Margin="8" MouseLeftButtonDown="Close_Filter"/>
+                </Grid>
 
-            <Label Content="Search Location" FontWeight="Bold" Margin="10,5,10,0" FontSize="14"/>
-            <Border Height="35" HorizontalAlignment="Stretch" Margin="15,0,15,0" Visibility="Visible" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Cursor="Hand" Background="White" VerticalAlignment="Top">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="30"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox MaxLength="30" Grid.Column="0"                    
+                <Label Content="Search Location" FontWeight="Bold" Margin="10,5,10,0" FontSize="14"/>
+                <Border Height="35" HorizontalAlignment="Stretch" Margin="15,0,15,0" Visibility="Visible" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Cursor="Hand" Background="White" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox MaxLength="30" Grid.Column="0"                    
                  Background="White" TextChanged="searchLocation_TextChange"  
                  VerticalContentAlignment="Center"
                              x:Name="tbsearchLocation"
                  Tag="Search Location...">
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type TextBox}">
-                                <Style.Setters>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type TextBox}">
-                                                <Grid>
-                                                    <Border Background="White" />
-                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
-                                                    <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Style.Setters>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                                    <Grid>
+                                                        <Border Background="White" />
+                                                        <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                                        <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
                                                     Visibility="Collapsed" Foreground="#A9ABB1" FontWeight="SemiBold" FontSize="14" />
-                                                </Grid>
-                                                <ControlTemplate.Triggers>
-                                                    <MultiTrigger>
-                                                        <MultiTrigger.Conditions>
-                                                            <Condition Property="Text" Value=""/>
-                                                        </MultiTrigger.Conditions>
-                                                        <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
-                                                    </MultiTrigger>
-                                                    <Trigger Property="IsEnabled" Value="False">
-                                                        <Setter Property="Foreground" Value="#A9ABB1"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style.Setters>
-                                <Style.Resources>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="Text" Value=""/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                                        </MultiTrigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Foreground" Value="#A9ABB1"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style.Setters>
+                                    <Style.Resources>
 
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="5" />
-                                    </Style>
-                                </Style.Resources>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
-                    <Image Source="/Images/search_gray.png" Grid.Column="1" Margin="8"/>
-                </Grid>
-            </Border>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="5" />
+                                        </Style>
+                                    </Style.Resources>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <Image Source="/Images/search_gray.png" Grid.Column="1" Margin="8"/>
+                    </Grid>
+                </Border>
 
                 <Label Content="Status" FontWeight="Bold" Margin="10,20,10,0" FontSize="14"/>
                 <Grid Margin="10,0">
@@ -913,23 +934,23 @@
                             x:Name="btnApplyFilter"
          Command="{Binding ApplyFilter}"
                >
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="5" />
-                                    <Setter Property="BorderBrush" Value="Transparent" />
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#5D9115"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#5D9115"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
 
-                            </Style.Resources>
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </Grid>
             </StackPanel>
         </Border>

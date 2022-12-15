@@ -309,7 +309,7 @@
                 <!-- Row 0 Completed-->
 
                 <!-- Row 1 Started-->
-                <StackPanel  Grid.Row="1" Orientation="Vertical" x:Name="statusPanel1" IsEnabled="{Binding IsActive}">
+                <StackPanel  Grid.Row="1" Orientation="Vertical" x:Name="statusPanel1" IsEnabled="{Binding IsActive}" HorizontalAlignment="Right" Width="350">
                     <Label
                             HorizontalAlignment="Left"
                             Margin="15,15,0,10"

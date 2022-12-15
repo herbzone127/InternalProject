@@ -538,7 +538,7 @@ namespace ideaForge.Pages.DashboardPages
         {
             var tbl = tbl_AllRequest;
             var booking_Id = tbl.Columns[0];
-            BookingIcon1.Visibility = Visibility.Hidden;
+            //BookingIcon1.Visibility = Visibility.Hidden;
             dtIcon1.Visibility = Visibility.Visible;
         }
 
@@ -547,7 +547,12 @@ namespace ideaForge.Pages.DashboardPages
             var tbl = tbl_TodayRequest;
             var dateTime = tbl.Columns[3];
             dtIcon1.Visibility = Visibility.Hidden;
-            BookingIcon1.Visibility = Visibility.Visible;
+            //BookingIcon1.Visibility = Visibility.Visible;
+        }
+
+        private void BookingIcon1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
 
 

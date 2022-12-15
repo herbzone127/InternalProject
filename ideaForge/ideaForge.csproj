@@ -417,6 +417,9 @@
     <Compile Include="Popups\rejectPopupPage.xaml.cs">
       <DependentUpon>rejectPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Popups\SortPopup.xaml.cs">
+      <DependentUpon>SortPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Usercontrols\CustomTexBox.xaml.cs">
       <DependentUpon>CustomTexBox.xaml</DependentUpon>
     </Compile>
@@ -566,6 +569,10 @@
     <Page Include="Popups\rejectPopupPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Popups\SortPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Usercontrols\CustomTexBox.xaml">
       <SubType>Designer</SubType>
