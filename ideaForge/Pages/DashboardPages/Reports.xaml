@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ideaForge.Pages.DashboardPages"
              xmlns:vm="clr-namespace:ideaForge.ViewModels"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+             xmlns:popup="clr-namespace:ideaForge.Popups"
              mc:Ignorable="d" MouseMove="UserControl_MouseMove"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -27,6 +28,23 @@
                         ItemsSource="{Binding RidesAcceptedByUsers}" SelectedItem="{Binding SelectedRideByPilot}"
                         AutoGenerateColumns="False"
                         CanUserSortColumns="True">
+            <DataGrid.Resources>
+                <DataTemplate x:Key="HeaderTemplate">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="{Binding}" VerticalAlignment="Center"/>
+                        <ToggleButton Name="FilterButton" Grid.Column="1" Margin="25, 1, 1, 1" Padding="1, 0">
+                            <Image Source="/Images/UpDownArrow.png" Height="20" Width="20"/>
+                        </ToggleButton>
+                        <Popup IsOpen="{Binding ElementName=FilterButton, Path=IsChecked}" PlacementTarget="{Binding ElementName=FilterButton}" StaysOpen="False">
+                            <popup:SortPopup GetGrid="{x:Reference Name=tbl_Reports}"/>
+                        </Popup>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.Resources>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="BorderBrush" Value="#DFE7F2"/>
@@ -50,13 +68,13 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="pilotName" Width="*">
-                    <DataGridTemplateColumn.Header>
+                <DataGridTemplateColumn Header="Pilot Name" SortMemberPath="pilotName" HeaderTemplate="{StaticResource HeaderTemplate}"  Width="*">
+                    <!--<DataGridTemplateColumn.Header>
                         <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                             <Label Content="Pilot Name" Style="{StaticResource headerLabel}"/>
                             <Image x:Name="pt_Icon" Source="/Images/ArrowUpDown.png" Margin="85,0,0,0" Width="20" Height="20"/>
                         </Grid>
-                    </DataGridTemplateColumn.Header>
+                    </DataGridTemplateColumn.Header>-->
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >

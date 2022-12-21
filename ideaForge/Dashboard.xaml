@@ -141,7 +141,7 @@
         <!--  Header  -->
         <Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
             <DataTemplate>
-                <Image Source="/Images/flightLogo.png" Height="80" Width="80"/>
+                <Image Source="/Images/flightLogo.png" Margin="30 0 0 18" HorizontalAlignment="Left" Height="80" Width="80"/>
                 <!--<TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="16"
@@ -243,7 +243,7 @@
                             Grid.Column="0"
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Center" 
-                                Width="30" Height="30" 
+                                Width="30" Height="30"
                                 Background="Transparent" 
                                 BorderBrush="Transparent" 
                                 Visibility="{Binding Path=DataContext.BackButtonVisibility}"

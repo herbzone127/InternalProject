@@ -423,6 +423,9 @@
     <Compile Include="Usercontrols\CustomTexBox.xaml.cs">
       <DependentUpon>CustomTexBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Usercontrols\DpControl.xaml.cs">
+      <DependentUpon>DpControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AdminIFDockViewModel.cs" />
     <Compile Include="ViewModels\AdminLocationViewModel.cs" />
     <Compile Include="ViewModels\AdminReportViewModel.cs" />
@@ -578,6 +581,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Usercontrols\DpControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\LoginPages\OtpVerification.xaml.cs">
@@ -641,6 +648,11 @@
     <Resource Include="Images\graypng.png" />
     <Resource Include="Images\UpDownArrow.png" />
     <Resource Include="Images\ArrowUpDown.png" />
+    <Resource Include="Images\loginImg.png" />
+    <Resource Include="Images\ifDock.png" />
+    <Resource Include="Images\requestIcon.png" />
+    <Resource Include="Images\ProfileIcon.png" />
+    <Resource Include="Images\reportIcon.png" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

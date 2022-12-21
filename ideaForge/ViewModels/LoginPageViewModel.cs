@@ -810,7 +810,7 @@ namespace ideaForge.ViewModels
             if (Global.inactive)
             {
                 AuthenticationPage = new DockAreaPopup();
-                ImageUrl = "/Images/ifdockimg.png";
+                ImageUrl = "/Images/loginImg.png";
                 BackButtonVisiblity = Visibility.Hidden;
                 //var dialogYes = DockAreaPopup.Show();
             }

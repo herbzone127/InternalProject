@@ -10,6 +10,7 @@
     MouseMove="UserControl_MouseMove"
              mc:Ignorable="d" 
     xmlns:vm="clr-namespace:ideaForge.ViewModels"
+   
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <vm:RequestViewModel/>
@@ -77,6 +78,23 @@
                         ItemsSource="{Binding TodaysRequests,Mode=TwoWay}"
                         AutoGenerateColumns="False"
                         Grid.ColumnSpan="2">
+                        <DataGrid.Resources>
+                            <DataTemplate x:Key="HeaderTemplate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ContentControl Content="{Binding}" VerticalAlignment="Center"/>
+                                    <ToggleButton Name="FilterButton" Grid.Column="1" Margin="25, 1, 1, 1" Padding="1, 0">
+                                        <Image Source="/Images/UpDownArrow.png" Height="20" Width="20"/>
+                                    </ToggleButton>
+                                    <Popup IsOpen="{Binding ElementName=FilterButton, Path=IsChecked}" PlacementTarget="{Binding ElementName=FilterButton}" StaysOpen="False">
+                                        <popup:SortPopup GetGrid="{x:Reference Name=tbl_TodayRequest}"/>
+                                    </Popup>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGrid.Resources>
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="BorderBrush" Value="#DFE7F2"/>
@@ -91,13 +109,7 @@
                             </Style>
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn SortMemberPath="id" CanUserSort="True" Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-                                        <Label Content="Booking ID" Style="{StaticResource headerLabel}"/>
-                                        <Image x:Name ="BookingIcon" Source="/Images/ArrowUpDown.png" Margin="90 0 0 0" Width="20" Height="20"/>
-                                    </Grid>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn SortMemberPath="id" Header="Booking ID" HeaderTemplate="{StaticResource HeaderTemplate}" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}" FontFamily="Segoe UI"/>
@@ -127,13 +139,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="startDate" Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_1">
-                                        <Label Content="Date &amp; Time Slot" Width="auto" Style="{StaticResource headerLabel}"/>
-                                        <Image x:Name="dtIcon" Source="/Images/ArrowUpDown.png" Margin="130,0,0,0" Width="20" Height="20"/>
-                                    </Grid>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn Header="Date &amp; Time Slot" HeaderTemplate="{StaticResource HeaderTemplate}" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -265,25 +271,28 @@
                     <DataGrid FontSize="14" Foreground="Black"
                             HorizontalScrollBarVisibility="Visible"
                               x:Name="tbl_AllRequest"
-                         CanUserDeleteRows="False" CanUserAddRows="False" SelectionMode="Single"
+                         CanUserDeleteRows="False"                            
+                              CanUserAddRows="False" 
+                              SelectionMode="Single"
                          MouseDoubleClick="DataGrid_MouseDoubleClick"
                         SelectedItem="{Binding SelectedAllRequest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding AllRequests,Mode=TwoWay}" 
                         CanUserSortColumns="True"
-                        AutoGenerateColumns="False"
+                        AutoGenerateColumns="False"    
                         Grid.ColumnSpan="3">
                         <DataGrid.Resources>
-                            <DataTemplate x:Key="HeaderTemplate">
+                            <DataTemplate x:Key="HeaderTemplate" >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-
                                     <ContentControl Content="{Binding}" VerticalAlignment="Center"/>
-                                    <ToggleButton Name="FilterButton" Grid.Column="1" Content="▼" Margin="20, 1, 1, 1" Padding="1, 0"/>
+                                    <ToggleButton Name="FilterButton" Grid.Column="1" Margin="25, 1, 1, 1" Padding="1, 0">
+                                        <Image Source="/Images/UpDownArrow.png" Height="20" Width="20"/>
+                                    </ToggleButton>
                                     <Popup IsOpen="{Binding ElementName=FilterButton, Path=IsChecked}" PlacementTarget="{Binding ElementName=FilterButton}" StaysOpen="False">
-                                        <popup:SortPopup/>
+                                        <popup:SortPopup GetGrid="{x:Reference Name=tbl_AllRequest}"  />
                                     </Popup>
                                 </Grid>
                             </DataTemplate>
@@ -300,28 +309,15 @@
                                 </Style.Triggers>
                             </Style>
                         </DataGrid.RowStyle>
-
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn SortMemberPath="id"  HeaderTemplate="{StaticResource HeaderTemplate}"  Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Label Content="Booking Id" Foreground="#545864"/>
-                                    <!--<Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_2">
-                                        <Label Content="Booking ID" Width="auto" Style="{StaticResource headerLabel}"/>
-                                        <Image x:Name="BookingIcon1" Source="/Images/ArrowUpDown.png" Margin="90 0 0 0" Width="20" Height="20" MouseLeftButtonDown="BookingIcon1_MouseLeftButtonDown"/>
-                                      
-                                   
-                                    </Grid>-->
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn Header="Booking ID" SortMemberPath="id" HeaderTemplate="{StaticResource HeaderTemplate}" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Label Content="UserName &amp; Contact" Style="{StaticResource headerLabel}"/>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn Header="UserName &amp; Contact" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
@@ -331,23 +327,14 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Label Content="iF Dock" Foreground="#545864"/>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn Header="iF Dock" CanUserSort="True" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding location}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="startDate" Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Grid HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown_3">
-                                        <Label Content="Date &amp; Time Slot" Width="auto" Style="{StaticResource headerLabel}"/>
-                                        <Image x:Name="dtIcon1" Source="/Images/ArrowUpDown.png" Margin="130 0 0 0" Width="20" Height="20"/>
-                                    </Grid>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn SortMemberPath="startDate" Header="Date &amp; Time Slot" HeaderTemplate="{StaticResource HeaderTemplate}" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
@@ -365,10 +352,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="status" Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Label Content="Status" Foreground="#545864"/>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn Header="Status" CanUserSort="False" SortMemberPath="status" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border CornerRadius="4" Opacity="1"
@@ -391,16 +375,11 @@
                                                        Grid.Column="1"/>
 
                                             </Grid>
-
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn CanUserSort="False" Width="*">
-                                <DataGridTemplateColumn.Header>
-                                    <Label Content="Action" Style="{StaticResource headerLabel}"/>
-                                </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn Header="Action" CanUserSort="False" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal"  >
@@ -460,8 +439,6 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
-
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -514,23 +491,16 @@
                     <RadioButton Grid.Row="3" Content="25 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="25" Unchecked="RadioButton_Unchecked"/>
                     <RadioButton Grid.Row="4" Content="50 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="50" Unchecked="RadioButton_Unchecked"/>
                     <RadioButton Grid.Row="5" Content="75 Items" Style="{StaticResource myradiobutton}" Checked="RadioButton_Checked" Tag="75" Unchecked="RadioButton_Unchecked"/>
-
                 </Grid>
-
-
             </Border >
             <Path Stroke="Gray" StrokeThickness=".2" Data="M 4, 8 L 12, 0 L 20,8 L 4,8" Fill="White" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-
         </Grid>
-
-
         <Border Height="35" Width="80" BorderBrush="LightGray" Cursor="Hand" BorderThickness="1" Margin="0,-5,40,15" CornerRadius="5" HorizontalAlignment="Right" Background="White" VerticalAlignment="Top" MouseLeftButtonDown="open_filter">
             <StackPanel Orientation="Horizontal" Margin="10,0">
                 <Image Source="/Images/filter.png" Margin="0,9"/>
                 <Label FontWeight="Bold" Content="Filter" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
-
         <Border Height="35" x:Name="searchborder" Width="30" Margin="0,-5,130,15" MouseMove="mousemove_search" BorderBrush="LightGray" CornerRadius="5" Cursor="Hand"  HorizontalAlignment="Right" Background="White" VerticalAlignment="Top">
             <Image Source="/Images/search.png" Margin="5,10" x:Name="imgsearch"/>
             <Border.Style>
@@ -544,7 +514,6 @@
                 </Style>
             </Border.Style>
         </Border>
-
         <Border Height="35" Width="220" Margin="0,-5,130,10" Visibility="Hidden" x:Name="bordersearhbox" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Cursor="Hand"  HorizontalAlignment="Right" Background="White" VerticalAlignment="Top">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -584,7 +553,6 @@
                                 </Setter>
                             </Style.Setters>
                             <Style.Resources>
-
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
@@ -595,14 +563,12 @@
                 <Image Source="/Images/cancel.png" Grid.Column="1" MouseDown="Image_MouseDown" Margin="8"/>
             </Grid>
         </Border>
-
         <Border Width='370' BorderBrush="LightGray" Visibility="Hidden" x:Name="filteroptions" BorderThickness="1" HorizontalAlignment="Right" Background="White" Margin="0,-15,0,-15">
             <StackPanel >
                 <Grid Margin="10,5" VerticalAlignment="Top" >
                     <Label Content="Filter" FontSize="15" FontWeight="Bold"/>
                     <Image Source="/Images/cancel.png" HorizontalAlignment="Right" Height="15" Width="15" Margin="8" MouseLeftButtonDown="Close_Filter"/>
                 </Grid>
-
                 <Label Content="Search Location" FontWeight="Bold" Margin="10,5,10,0" FontSize="14"/>
                 <Border Height="35" HorizontalAlignment="Stretch" Margin="15,0,15,0" Visibility="Visible" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Cursor="Hand" Background="White" VerticalAlignment="Top">
                     <Grid>
@@ -643,7 +609,6 @@
                                         </Setter>
                                     </Style.Setters>
                                     <Style.Resources>
-
                                         <Style TargetType="{x:Type Border}">
                                             <Setter Property="CornerRadius" Value="5" />
                                         </Style>
@@ -654,7 +619,6 @@
                         <Image Source="/Images/search_gray.png" Grid.Column="1" Margin="8"/>
                     </Grid>
                 </Border>
-
                 <Label Content="Status" FontWeight="Bold" Margin="10,20,10,0" FontSize="14"/>
                 <Grid Margin="10,0">
                     <Grid.Resources>
@@ -698,9 +662,7 @@
                                                        Grid.Column="1"/>
 
                         </Grid>
-
                     </Border>-->
-
                     <Border Style="{StaticResource styleoptionsborder}" Cursor="Hand" x:Name="borderstatus1" Tag="1" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -714,9 +676,7 @@
                                    FontSize="12" Grid.Column="1"/>
 
                         </Grid>
-
                     </Border>
-
                     <Border Grid.Column="1" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus2" Tag="2" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -731,7 +691,6 @@
                                    FontSize="12" Grid.Column="1"/>
 
                         </Grid>
-
                     </Border>
                     <Border Grid.Column="2" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus3" Tag="3" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
@@ -748,9 +707,6 @@
                         </Grid>
 
                     </Border>
-
-
-
                     <Border Grid.Row="1" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus4" Tag="4" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -763,9 +719,7 @@
                                    Foreground="Gray" Margin="0,0" x:Name="textstatus4"
                                    FontSize="12" Grid.Column="1"/>
                         </Grid>
-
                     </Border>
-
                     <Border Grid.Row="1" Cursor="Hand" Grid.Column="1" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus5" Tag="5" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -778,7 +732,6 @@
                                    Foreground="Gray" Margin="0,0" x:Name="textstatus5"
                                    FontSize="12" Grid.Column="1"/>
                         </Grid>
-
                     </Border>
                     <Border Grid.Row="1" Cursor="Hand" Grid.Column="2" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus6" Tag="6" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
@@ -793,10 +746,7 @@
                                    FontSize="12" Grid.Column="1"/>
 
                         </Grid>
-
                     </Border>
-
-
                     <Border Grid.Row="2" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus7" Tag="7" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -810,9 +760,7 @@
                                    FontSize="12" Grid.Column="1"/>
 
                         </Grid>
-
                     </Border>
-
                     <Border Grid.Row="2" Grid.Column="1" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus8" Tag="8" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid Margin="-2,0">
                             <Grid.ColumnDefinitions>
@@ -824,9 +772,7 @@
                             <Label Content="Auto Cancelled" Padding="2"
                                    Foreground="Gray" Margin="0,0" x:Name="textstatus8"
                                    FontSize="10.5" Grid.Column="1"/>
-
                         </Grid>
-
                     </Border>
                     <Border Grid.Row="2" Grid.Column="2" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus9" Tag="9" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
                         <Grid >
@@ -842,7 +788,6 @@
                         </Grid>
                     </Border>
                 </Grid>
-
                 <Label Content="Date" FontWeight="Bold" FontSize="14" Margin="10,10,10,0"/>
                 <Grid Margin="15,0">
                     <Grid.ColumnDefinitions>
@@ -869,7 +814,6 @@
                                    FontSize="12" Grid.Column="1"/>
                         </Grid>-->
                         <DatePicker x:Name="dpstart" BorderBrush="Transparent" SelectedDateChanged="dpstart_SelectedDateChanged"/>
-
                     </Border>
                     <Label Content="To" Grid.Column="1" FontSize="14" FontWeight="SemiBold"/>
                     <Border CornerRadius="4" Opacity="1" BorderThickness="1" Grid.Column="2"

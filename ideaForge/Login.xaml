@@ -18,7 +18,7 @@
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Background="#f8f8f9">
@@ -33,7 +33,7 @@
             <StackPanel Grid.Row="0" Orientation="Horizontal" Visibility="{Binding BackButtonVisiblity,Mode=TwoWay}" MouseMove="StackPanel_MouseMove">
                 
                 <Button Background="Transparent" x:Name="btnBack" BorderThickness="0" Height="20" Command="{Binding Path=SignupBackButtonCommand}" VerticalAlignment="Center">
-                    <Image Source="/Images/graypng.png" x:Name="btnBackImage"/>
+                    <Image Source="/Images/loginImg.png" x:Name="btnBackImage"/>
                 </Button>
                 <TextBlock Text="Back" VerticalAlignment="Center" Foreground="DarkGray" x:Name="tbback"/>
                 <Label Content="{Binding PageName,Mode=TwoWay}" Margin="146,0,146,0" FontSize="34" FontFamily="Segoe UI" FontWeight="SemiBold"/>

@@ -406,7 +406,7 @@ namespace ideaForge.ViewModels
 
             //  CloseAllWindows();
             //ApplicationId = Barrel.ApplicationId;
-            PageName = "IF Dock";
+            PageName = "iF Dock";
             var user = Barrel.Current.Get<UserOTP>(UrlHelper.pilotOTPURl);
             if (user != null)
             {
@@ -426,26 +426,26 @@ namespace ideaForge.ViewModels
                         MenuItems.Add(new HamburgerMenuGlyphItem
                         {
                             Command = new DelegateCommand(CanExecuteIFDockMenu),
-                            Glyph = "/Images/anchor.png",
-                            Label = "IF Dock"
+                            Glyph = "/Images/ifDock.png",
+                            Label = "iF Dock"
                         });
                         MenuItems.Add(new HamburgerMenuGlyphItem
                         {
                             Command = new DelegateCommand(CanExecuteRequestPage),
-                            Glyph = "/Images/request.png",
+                            Glyph = "/Images/requestIcon.png",
                             Label = "Requests"
                         });
 
                         MenuItems.Add(new HamburgerMenuGlyphItem
                         {
                             Command = new DelegateCommand(CanExecuteReportsPage),
-                            Glyph = "/Images/nounReport.png",
+                            Glyph = "/Images/reportIcon.png",
                             Label = "Report"
                         });
                         MenuItems.Add(new HamburgerMenuGlyphItem
                         {
                             Command = new DelegateCommand(CanExecuteIFProfilePage),
-                            Glyph = "/Images/nounProfile.png",
+                            Glyph = "/Images/ProfileIcon.png",
                             Label = "Profile"
                         });
                         #endregion
@@ -517,12 +517,12 @@ namespace ideaForge.ViewModels
                 
                 if (Global.RoleID == 2)
                 {
-                    PageName = "IF Dock";
+                    PageName = "iF Dock";
                     CurrentPage.Content = new Requests();
                 }
                 if (Global.RoleID == 3)
                 {
-                    PageName = "Admin IF Dock";
+                    PageName = "Admin iF Dock";
                     CurrentPage.Content = new AdminIFDockPage();
                 }
                 _IFDockMenuCommand = new DelegateCommand(CanExecuteIFDockMenu);
@@ -540,7 +540,7 @@ namespace ideaForge.ViewModels
             }
             else
             {
-                PageName = "IF Dock";
+                PageName = "iF Dock";
                 CurrentPage.Content = new InactivePage();
                 _ProfileMenuCommand = new DelegateCommand(CanExecuteIFProfilePage);
             }
@@ -589,7 +589,7 @@ namespace ideaForge.ViewModels
                         vm.DashBoardDataStackPanel = System.Windows.Visibility.Visible;
                         vm.CityComboBox = System.Windows.Visibility.Hidden;
                     }
-                    PageName = "IF Dock";
+                    PageName = "iF Dock";
                     CurrentPage.Content = new IFDockPage();
                     IsBusy = false;
                 }
@@ -603,7 +603,7 @@ namespace ideaForge.ViewModels
                         vm.DashBoardDataStackPanel = System.Windows.Visibility.Visible;
                         vm.CityComboBox = System.Windows.Visibility.Hidden;
                     }
-                    PageName = "IF Dock";
+                    PageName = "iF Dock";
                     CurrentPage.Content = new InactivePage();
                     IsBusy = false;
                 }
@@ -622,7 +622,7 @@ namespace ideaForge.ViewModels
                     vm.headerBar = System.Windows.Visibility.Visible;
                     vm.headerBarReport = System.Windows.Visibility.Hidden;
                 }
-                PageName = "Admin IF Dock";
+                PageName = "Admin iF Dock";
                 CurrentPage.Content = new AdminIFDockPage();
                 IsBusy = false;
             }
@@ -632,7 +632,7 @@ namespace ideaForge.ViewModels
             if(Global.RoleID == 2)
             {
                 IsBusy = true;
-                PageName = "Request";
+                PageName = "Requests";
                 CurrentPage.Content = new Requests();
                 IsBusy = false;
             }
@@ -696,7 +696,7 @@ namespace ideaForge.ViewModels
             if (Global.RoleID == 2)
             {
                 IsBusy = true;
-                PageName = "Reports";
+                PageName = "Report";
                 CurrentPage.Content = new Reports();
                 IsBusy = false;
             }

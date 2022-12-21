@@ -325,7 +325,6 @@
                             </ControlTemplate>
                         </Label.Template>
                     </Label>
-
                     <Border BorderBrush="#A9ABB1" Margin="15,0,15,15" BorderThickness="1" CornerRadius="5" >
                         <dotNetKitControls:AutoCompleteComboBox
                            BorderThickness="0"
@@ -338,9 +337,10 @@
                             ItemsSource="{Binding Reasons}"
                             PreviewKeyDown="AutoCompleteComboBox_PreviewKeyDown"
                             x:Name="drp_Desp"
+                            
                             SelectedItem="{Binding ReasonId}" Height="22"/>
-
                     </Border>
+
 
                 </StackPanel>
                 <!--<Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGray" Opacity=".5" Margin="14,0"></Grid>-->
@@ -348,11 +348,11 @@
 
                 <!-- Row 2 Started-->
                 <Grid ShowGridLines="True" Grid.Row="2" x:Name="statusPanel2" IsEnabled="False" >
-                    <Grid ShowGridLines="True">
+                    <Grid>
                         <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,0" BorderThickness="1" CornerRadius="5">
                             <TextBox 
-                       
                              BorderThickness="0"
+                                
                             BorderBrush="Transparent"
                                 PreviewKeyDown="TextBox_PreviewKeyDown"
                             Text="{Binding Comments}"
@@ -457,17 +457,24 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn  Header="SR No" Width="*">
+                    <DataGridTemplateColumn  Header="Sr" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding SRNO}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn  Header="IF Dock" Width="*">
+                    <DataGridTemplateColumn  Header="iF Dock" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding city_Name}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="Status" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding StringStatus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -479,13 +486,6 @@
                                     <Run Text=" - "/>
                                     <Run Text="{Binding comments}"/>
                                 </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn  Header="Status" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding StringStatus}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

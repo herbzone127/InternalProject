@@ -235,12 +235,12 @@
                 </Border.Effect>
                 <StackPanel Margin="5">
                     <StackPanel Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="pdf_Download">
-                        <!--<Image Source="/Images/pdficon.png" Height="20" Width="20"/>-->
+                        <Image Source="/Images/pdficon.png" Height="20" Width="20"/>
                         <Label Content="PDF" FontWeight="SemiBold"/>
                     </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseLeftButtonDown="csv_download">
-                    <!--<Image Source="/Images/csvicon.png" Height="20" Width="20"/>-->
-                    <Label Content="CSV" FontWeight="SemiBold"/>
+                        <Image Source="/Images/csvicon.png" Height="20" Width="20"/>
+                        <Label Content="CSV" FontWeight="SemiBold"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="excel_Download">
                     <Image Source="/Images/excelicon.png" Height="20" Width="20"/>
