@@ -203,6 +203,14 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+                    <Style TargetType="Button" x:Key="imagebtn1">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Blue"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
 
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontFamily" Value="Segoe UI"/>

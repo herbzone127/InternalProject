@@ -54,7 +54,7 @@ namespace ideaForge.ViewModels
 
 
         #region Navbar Properties
-        private Visibility _backvisible = Visibility.Hidden, _btnexcelvisibility = Visibility.Hidden, _cityWaterMark = Visibility.Hidden, _cityWaterMarkk = Visibility.Hidden, _statusBorder = Visibility.Hidden, _DashBoardDataStackPanel = Visibility.Hidden, 
+        private Visibility _backvisible = Visibility.Hidden,_btnexcelvisibility = Visibility.Hidden, _cityWaterMark = Visibility.Hidden, _cityWaterMarkk = Visibility.Hidden, _statusBorder = Visibility.Hidden, _DashBoardDataStackPanel = Visibility.Hidden, 
                            _headerBarReport = Visibility.Hidden, _headerBar = Visibility.Visible, _datePicker = Visibility.Hidden, _btnExcell = Visibility.Hidden, _btnExcel = Visibility.Hidden, _CityComboBox = Visibility.Hidden;
         private string _cityComboBoxText, _statusLabel;
         public Visibility BackButtonVisibility

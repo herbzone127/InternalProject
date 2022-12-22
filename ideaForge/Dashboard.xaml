@@ -246,20 +246,24 @@
                                 Width="30" Height="30"
                                 Background="Transparent" 
                                 BorderBrush="Transparent" 
-                                Visibility="{Binding Path=DataContext.BackButtonVisibility}"
+                                Visibility="{Binding Path=DataContext.BackButtonVisibility}"      
                                Click="backButton_Click"
                                 
                                 x:Name="backButton">
+
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/backArrow.png" 
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
+                                            
+
                                         </StackPanel>
                                     </Button>
 
                                     <Label 
                          
                             Grid.Column="1" x:Name="Header"
+                                        
                                Padding="5,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -268,8 +272,8 @@
                        FontWeight="Medium"
                               FontFamily="Segoe UI"     
                        Content="{Binding Path=DataContext.PageName,Mode=TwoWay}" />
-                                    <Border
-                            Grid.Column="2"
+                                    <Border               
+                         Grid.Column="2"
                           
                             Visibility="{Binding Path=DataContext.statusBorder, FallbackValue=Hidden}"
                             x:Name="statusBorder"
@@ -278,20 +282,31 @@
                                         BorderBrush="{Binding Path=DataContext.statusBorderBorderBrush}"
                            Background="{Binding Path=DataContext.statusBorderBackground}"
                             HorizontalAlignment ="Left"
-                            VerticalAlignment="Center"
-                            >
-                                        <Grid >
+                            VerticalAlignment="Center">
+                                        
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
+                                                
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="3*"/>
                                             </Grid.ColumnDefinitions>
-
+                                            <!--<Label 
+                         
+                            Grid.Column="0" x:Name="Header"
+                               Padding="5,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       Foreground="Black"
+                       FontWeight="Medium"
+                              FontFamily="Segoe UI"     
+                       Content="{Binding Path=DataContext.PageName,Mode=TwoWay}" />-->
                                             <Image
                                     x:Name="statusImage"
                                     Source="{Binding StatusLogo}"
                                     Grid.Column="0" Height="10" Margin="5"/>
                                             <Label 
-                                    x:Name="statusLabel" Grid.Column="1" Content="{Binding Path=DataContext.statusLabel}"/>
+                                    x:Name="statusLabel" Grid.Column="2" Content="{Binding Path=DataContext.statusLabel}"/>
                                         </Grid>
 
                                     </Border>
@@ -299,7 +314,7 @@
                             x:Name="DashBoardDataStackPanel"
                             Visibility="{Binding Path=DataContext.DashBoardDataStackPanel, FallbackValue=Hidden}"
                            Margin="0,0,45,0"
-                            Grid.Column="3"
+                            Grid.Column="1"
                               VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal"

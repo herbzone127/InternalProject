@@ -550,10 +550,22 @@ namespace ideaForge.Pages.DashboardPages
            //BookingIcon1.Visibility = Visibility.Visible;
         }
 
-        private void BookingIcon1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+
+                    int selectedview = 7;
+                    viewmodel.ShowCount = selectedview;
+                    viewmodel.FilterShowAllRequest();
+                    viewmodel.FilterShowTodayRequest();
+            }
+            catch (Exception ex)
+            {
+            }
         }
+
+
 
 
         //private ImageSource ConvertImageSource(string source)
