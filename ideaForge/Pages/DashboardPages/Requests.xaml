@@ -670,7 +670,7 @@
                         </Grid>
                     </Border>-->
                     <Border Style="{StaticResource styleoptionsborder}" Cursor="Hand" x:Name="borderstatus1" Tag="1" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
-                        <Grid >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="3*"/>
@@ -684,7 +684,7 @@
                         </Grid>
                     </Border>
                     <Border Grid.Column="1" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus2" Tag="2" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
-                        <Grid >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="3*"/>
@@ -699,7 +699,7 @@
                         </Grid>
                     </Border>
                     <Border Grid.Column="2" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus3" Tag="3" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
-                        <Grid >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="3*"/>
@@ -714,7 +714,7 @@
 
                     </Border>
                     <Border Grid.Row="1" Cursor="Hand" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus4" Tag="4" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
-                        <Grid >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="3*"/>
@@ -727,7 +727,7 @@
                         </Grid>
                     </Border>
                     <Border Grid.Row="1" Cursor="Hand" Grid.Column="1" Style="{StaticResource styleoptionsborder}" x:Name="borderstatus5" Tag="5" MouseLeftButtonDown="borderongoing_MouseLeftButtonDown">
-                        <Grid >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="3*"/>
@@ -908,92 +908,5 @@
                     IsActive="{Binding IsBusy}" 
                     Foreground="#91C84F" 
                     />
-        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
-            <Button Content="&lt;" Height="30" Width="30">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="1" Height="30" Width="30" Click="Button_Click">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="2" Height="30" Width="30">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="3" Height="30" Width="30">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="4" Height="30" Width="30">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="5" Height="30" Width="30">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content=">" Height="30" Width="30">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#91C84F"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-
-        </StackPanel>
     </Grid>
 </UserControl>

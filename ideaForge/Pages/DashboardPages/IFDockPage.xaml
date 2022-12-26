@@ -337,8 +337,8 @@
                             ItemsSource="{Binding Reasons}"
                             PreviewKeyDown="AutoCompleteComboBox_PreviewKeyDown"
                             x:Name="drp_Desp"
-                            
                             SelectedItem="{Binding ReasonId}" Height="22"/>
+                        
                     </Border>
 
 
@@ -347,7 +347,7 @@
                 <!-- Row 1 Completed-->
 
                 <!-- Row 2 Started-->
-                <Grid ShowGridLines="True" Grid.Row="2" x:Name="statusPanel2" IsEnabled="False" >
+                <Grid  Grid.Row="2" x:Name="statusPanel2" IsEnabled="False" >
                     <Grid>
                         <Border Height="55" BorderBrush="#A9ABB1" Margin="15,0,15,0" BorderThickness="1" CornerRadius="5">
                             <TextBox 
