@@ -239,7 +239,7 @@ namespace ideaForge.ViewModels
                                 context.statusLabelForeground = ConvertColor("#3398D8");
                                 context.statusBorderBorderThickness = ConvertBorderThickness("1");
                                 context.statusBorderBorderBrush = ConvertColor("#3398D8");
-                                context.PageName = $"Booking ID:{selectedRecord.id}";
+                                context.PageName = $"Booking ID : {selectedRecord.id}";
                                 context.CurrentPage.Content = new PendingRidePage(rideDetails.userData);
                                 context.BackButtonVisibility = Visibility.Visible;
                             }
@@ -275,7 +275,7 @@ namespace ideaForge.ViewModels
                                 context.statusLabelForeground = ConvertColor("#91C84F");
                                 context.statusBorderBorderThickness = ConvertBorderThickness("1");
                                 context.statusBorderBorderBrush = ConvertColor("#E8F4D9");
-                                context.PageName = $"Booking ID:{selectedRecord.id}";
+                                context.PageName = $"Booking ID : {selectedRecord.id}";
 
                                 context.CurrentPage.Content = new CompletedRidePage(rideDetails.userData);
                                 context.BackButtonVisibility = Visibility.Visible;

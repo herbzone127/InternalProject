@@ -286,7 +286,7 @@
                     <!--FeedBack Grid-->
                     <TextBlock Grid.Column="1" Background="Transparent" Margin="10"
                                FontWeight="Bold"
-                               Foreground="Black" Text="Feedback" />
+                               Foreground="Black" Text="User and Pilot Feedback" />
 
                 <Grid Height="280" Background="White">
                     <Grid>

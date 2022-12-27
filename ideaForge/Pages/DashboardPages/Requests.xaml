@@ -443,7 +443,6 @@
                     </DataGrid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
                 </Grid>

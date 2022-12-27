@@ -69,6 +69,7 @@
                     <TextBlock x:Name="TextPart"
                                VerticalAlignment="Center"
                                FontSize="16"
+                               FontFamily="Segoe UI"
                                Text="{Binding Label}" />
                 </DockPanel>
                 <DataTemplate.Triggers>
