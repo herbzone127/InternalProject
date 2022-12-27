@@ -818,7 +818,9 @@
                                    Foreground="Gray" Margin="0,0"
                                    FontSize="12" Grid.Column="1"/>
                         </Grid>-->
-                        <DatePicker x:Name="dpstart" BorderBrush="Transparent" SelectedDateChanged="dpstart_SelectedDateChanged"/>
+                        <DatePicker x:Name="dpstart"   BorderBrush="Transparent" SelectedDateChanged="dpstart_SelectedDateChanged">
+                          
+                        </DatePicker>
                     </Border>
                     <Label Content="To" Grid.Column="1" FontSize="14" FontWeight="SemiBold"/>
                     <Border CornerRadius="4" Opacity="1" BorderThickness="1" Grid.Column="2"

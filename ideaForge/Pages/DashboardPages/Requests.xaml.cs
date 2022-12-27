@@ -5,6 +5,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -464,6 +465,7 @@ namespace ideaForge.Pages.DashboardPages
 
         private void dpstart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             if (dpstart != null )
                 if (dpstart.SelectedDate != null)
                 {
